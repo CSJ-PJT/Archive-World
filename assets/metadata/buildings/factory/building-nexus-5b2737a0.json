@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-nexus-5b2737a0",
+  "originalName": "Archive Nexus 창고.glb",
+  "originalRelativePath": "Archive Nexus/Archive Nexus 창고.glb",
+  "category": "buildings",
+  "subcategory": "factory",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "5b2737a0ac1701b2aeac3e2b256a206ddfc9a455a090b6af6a74b71b41aea99f",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.899478018283844,
+    0.9880140125751495,
+    0.808445006608963
+  ],
+  "bounds": {
+    "min": [
+      -0.9507279992103577,
+      -0.4951710104942322,
+      -0.4052329957485199
+    ],
+    "max": [
+      0.9487500190734863,
+      0.49284300208091736,
+      0.4032120108604431
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 1399967,
+  "triangles": 1782696,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod0.glb",
+      "triangles": 1782696,
+      "vertices": 2842526,
+      "reductionRatio": 1,
+      "bytes": 41247108,
+      "sha256": "a97fea49613e95198f156eb7fef7e931ac61ff1760353063833d0fd1d6278886",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod1.glb",
+      "triangles": 891347,
+      "vertices": 1832254,
+      "reductionRatio": 0.499999439051863,
+      "bytes": 39952932,
+      "sha256": "d8cfbef6b1a82014ec1cb62c0161c8e5016ee944d9567d45f45f5940e98d1ed5",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod2.glb",
+      "triangles": 356539,
+      "vertices": 852020,
+      "reductionRatio": 0.19999988781037262,
+      "bytes": 37657060,
+      "sha256": "3ecf005a0be8660ca1c578e6371c89aa8ad67636053610b174a2e3cbf2122daa",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/factory/Archive Nexus 창고.glb",
+  "masterFile": "assets/optimized/master/buildings/factory/building-nexus-5b2737a0.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod0.glb",
+    "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod1.glb",
+    "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/factory/building-nexus-5b2737a0.png",
+  "thumbnail": "assets/thumbnails/buildings/factory/building-nexus-5b2737a0.webp",
+  "fileSizes": {
+    "source": 100985084,
+    "master": 101451468,
+    "web": 118857100
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T01:02:13.201Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "5b2737a0ac1701b2aeac3e2b256a206ddfc9a455a090b6af6a74b71b41aea99f",
+    "sourceChecksumAfter": "5b2737a0ac1701b2aeac3e2b256a206ddfc9a455a090b6af6a74b71b41aea99f",
+    "masterChecksum": "9c3d69adb96cfa515cb1da5a943b3b317cfa71f9579c9b6dd162fa779b0802ec",
+    "durationMs": 335654,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

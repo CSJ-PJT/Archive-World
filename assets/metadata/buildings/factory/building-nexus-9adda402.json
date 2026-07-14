@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-nexus-9adda402",
+  "originalName": "Archive Nexus.glb",
+  "originalRelativePath": "Archive Nexus/Archive Nexus.glb",
+  "category": "buildings",
+  "subcategory": "factory",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "9adda40249f04431257a19a15de362441cead691c7de95b662b07f395d3ad09d",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8996849656105042,
+    0.588333010673523,
+    0.8488479852676392
+  ],
+  "bounds": {
+    "min": [
+      -0.9508529901504517,
+      -0.2937310039997101,
+      -0.42628198862075806
+    ],
+    "max": [
+      0.9488319754600525,
+      0.29460200667381287,
+      0.4225659966468811
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 218460,
+  "triangles": 394628,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod0.glb",
+      "triangles": 394628,
+      "vertices": 450888,
+      "reductionRatio": 1,
+      "bytes": 32099688,
+      "sha256": "8f325eed0a796890b53b0724cabdd1b564e6bbbb684c0eeacd40ef7be0f3c569",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod1.glb",
+      "triangles": 197314,
+      "vertices": 251500,
+      "reductionRatio": 0.5,
+      "bytes": 31623032,
+      "sha256": "144509caad6b67cb525229091540efa33ceaed9249e2cfddc66f0a451078271d",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod2.glb",
+      "triangles": 78925,
+      "vertices": 127336,
+      "reductionRatio": 0.19999847958076974,
+      "bytes": 31267128,
+      "sha256": "6af7bb6b4f598ed6e611549b14cffe5491a33c6a4160dffd3a5f298b5504c08e",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/factory/Archive Nexus.glb",
+  "masterFile": "assets/optimized/master/buildings/factory/building-nexus-9adda402.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod0.glb",
+    "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod1.glb",
+    "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/factory/building-nexus-9adda402.png",
+  "thumbnail": "assets/thumbnails/buildings/factory/building-nexus-9adda402.webp",
+  "fileSizes": {
+    "source": 42583588,
+    "master": 42779352,
+    "web": 94989848
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T01:03:33.382Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "9adda40249f04431257a19a15de362441cead691c7de95b662b07f395d3ad09d",
+    "sourceChecksumAfter": "9adda40249f04431257a19a15de362441cead691c7de95b662b07f395d3ad09d",
+    "masterChecksum": "b1e3cffffc001f48cc924721afa81d5c6ec669cb842677e563e9ccf92bad37b5",
+    "durationMs": 79227,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

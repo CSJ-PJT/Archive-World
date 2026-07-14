@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "road-asset-7b6c3ac5",
+  "originalName": "공장 진입로.glb",
+  "originalRelativePath": "공장 진입 입구/공장 진입로.glb",
+  "category": "roads",
+  "subcategory": "straight",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "7b6c3ac5be9632bd47ff02ec256e1d39f44cead1e8784b9e9f59efb7a853f038",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8996259570121765,
+    0.7187419831752777,
+    1.8987049460411072
+  ],
+  "bounds": {
+    "min": [
+      -0.9507619738578796,
+      -0.3608959913253784,
+      -0.9499899744987488
+    ],
+    "max": [
+      0.9488639831542969,
+      0.3578459918498993,
+      0.9487149715423584
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 768076,
+  "triangles": 1272926,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod0.glb",
+      "triangles": 1272926,
+      "vertices": 1537844,
+      "reductionRatio": 1,
+      "bytes": 15505576,
+      "sha256": "d7d786153968ae3be0c7eb230e8a5cb231c2e0cd415279f4d3f8b49f10c910ea",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod1.glb",
+      "triangles": 636462,
+      "vertices": 888552,
+      "reductionRatio": 0.4999992144083788,
+      "bytes": 14078676,
+      "sha256": "6a7b5880eb7dbdec99ec8196bdbf63767be0d63ca840e46f8fe14cfec97214af",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod2.glb",
+      "triangles": 254584,
+      "vertices": 445476,
+      "reductionRatio": 0.19999905729005457,
+      "bytes": 12873216,
+      "sha256": "de6ee7e46432c2ed688aa0c13eba6bea0bdfd86b78c7fe77412820f1985f85cd",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/roads/straight/공장 진입로.glb",
+  "masterFile": "assets/optimized/master/roads/straight/road-asset-7b6c3ac5.glb",
+  "webFiles": [
+    "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod0.glb",
+    "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod1.glb",
+    "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod2.glb"
+  ],
+  "preview": "assets/previews/roads/straight/road-asset-7b6c3ac5.png",
+  "thumbnail": "assets/thumbnails/roads/straight/road-asset-7b6c3ac5.webp",
+  "fileSizes": {
+    "source": 51178944,
+    "master": 51199732,
+    "web": 42457468
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-13T14:14:43.095Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "7b6c3ac5be9632bd47ff02ec256e1d39f44cead1e8784b9e9f59efb7a853f038",
+    "sourceChecksumAfter": "7b6c3ac5be9632bd47ff02ec256e1d39f44cead1e8784b9e9f59efb7a853f038",
+    "masterChecksum": "7614728c5f9f0a0a2c7b767297dcc1f60948985e72d6864f412bbba2672b78da",
+    "durationMs": 1797,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

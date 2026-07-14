@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-archiveos2-a614889b",
+  "originalName": "Archive OS2.glb",
+  "originalRelativePath": "Archive OS/Archive OS2.glb",
+  "category": "buildings",
+  "subcategory": "archiveos",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "a614889bbd42d2b3a7789f726397c3c8e89be4f7354d40125c63dea2d2b60cf1",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    0.6140519976615906,
+    1.8970109820365906,
+    0.6125680208206177
+  ],
+  "bounds": {
+    "min": [
+      -0.30822598934173584,
+      -0.9495069980621338,
+      -0.3071550130844116
+    ],
+    "max": [
+      0.30582600831985474,
+      0.9475039839744568,
+      0.30541300773620605
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 173623,
+  "triangles": 326374,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod0.glb",
+      "triangles": 326374,
+      "vertices": 347390,
+      "reductionRatio": 1,
+      "bytes": 32684096,
+      "sha256": "80b150f0f04298d1f29df5e2e96a7bf8980047a333435d800d1ec3c2676b64be",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod1.glb",
+      "triangles": 163187,
+      "vertices": 183460,
+      "reductionRatio": 0.5,
+      "bytes": 32241888,
+      "sha256": "00bdf940b6c9825a79253014f5e082244f32ecd71a47feb16b382686e9efa2f5",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod2.glb",
+      "triangles": 65273,
+      "vertices": 82932,
+      "reductionRatio": 0.19999448485479848,
+      "bytes": 31945104,
+      "sha256": "f7baab9b3eb1518ce87eb8407b0861bd5a248f75d34e8e0b84c0f9705b713f8f",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/archiveos/Archive OS2.glb",
+  "masterFile": "assets/optimized/master/buildings/archiveos/building-archiveos2-a614889b.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod0.glb",
+    "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod1.glb",
+    "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/archiveos/building-archiveos2-a614889b.png",
+  "thumbnail": "assets/thumbnails/buildings/archiveos/building-archiveos2-a614889b.webp",
+  "fileSizes": {
+    "source": 41126280,
+    "master": 41127720,
+    "web": 96871088
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T01:42:15.552Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "a614889bbd42d2b3a7789f726397c3c8e89be4f7354d40125c63dea2d2b60cf1",
+    "sourceChecksumAfter": "a614889bbd42d2b3a7789f726397c3c8e89be4f7354d40125c63dea2d2b60cf1",
+    "masterChecksum": "6f76b58d9f0e4bdf8dbbf70c8978d9777391829f1332468bb4dc01529586e2cd",
+    "durationMs": 75939,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schema": "archive-world.category-manifest/v1",
+  "category": "roads",
+  "generatedAt": "2026-07-14T02:11:39.113Z",
+  "assets": [
+    {
+      "assetId": "road-asset-7b6c3ac5",
+      "category": "roads",
+      "subcategory": "straight",
+      "sourceChecksum": "7b6c3ac5be9632bd47ff02ec256e1d39f44cead1e8784b9e9f59efb7a853f038",
+      "sourceFile": "assets/source/meshy/roads/straight/공장 진입로.glb",
+      "master": "assets/optimized/master/roads/straight/road-asset-7b6c3ac5.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod0.glb",
+          "bytes": 15505576,
+          "sha256": "d7d786153968ae3be0c7eb230e8a5cb231c2e0cd415279f4d3f8b49f10c910ea"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod1.glb",
+          "bytes": 14078676,
+          "sha256": "6a7b5880eb7dbdec99ec8196bdbf63767be0d63ca840e46f8fe14cfec97214af"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod2.glb",
+          "bytes": 12873216,
+          "sha256": "de6ee7e46432c2ed688aa0c13eba6bea0bdfd86b78c7fe77412820f1985f85cd"
+        }
+      ],
+      "preview": "assets/previews/roads/straight/road-asset-7b6c3ac5.png",
+      "thumbnail": "assets/thumbnails/roads/straight/road-asset-7b6c3ac5.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093526-texture-b5202be0",
+      "category": "roads",
+      "subcategory": "straight",
+      "sourceChecksum": "b5202be0b1a5443262adf8045c2b4b08bd4941ce0b94ccc1333253cc5f8ece88",
+      "sourceFile": "assets/source/meshy/roads/straight/Meshy_AI_Divided_Highway_0713093526_texture.glb",
+      "master": "assets/optimized/master/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod0.glb",
+          "bytes": 8023684,
+          "sha256": "f4bb18d9fe69d20552b3583af96019e3673741b338aef930221ae529e17f3505"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod1.glb",
+          "bytes": 7558760,
+          "sha256": "513ea56a0ad6be7ec388b7a9bcd5e4fdf19923de0274adbfcc2605c70766e745"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod2.glb",
+          "bytes": 7174360,
+          "sha256": "83b3b3999bbf59b783cb268f93a33512d7028bd4b87694648481215e95e86e4c"
+        }
+      ],
+      "preview": "assets/previews/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.png",
+      "thumbnail": "assets/thumbnails/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093537-texture-bf450ac3",
+      "category": "roads",
+      "subcategory": "straight",
+      "sourceChecksum": "bf450ac3beb877bcc3bbc515e3608fdff2ecd9c73148df5e1606f387e2c6e32d",
+      "sourceFile": "assets/source/meshy/roads/straight/Meshy_AI_Divided_Highway_0713093537_texture.glb",
+      "master": "assets/optimized/master/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod0.glb",
+          "bytes": 6067176,
+          "sha256": "abe3646fa23a99211113331d951084f526e6225ce28e9a797bfdfafbce5eda03"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod1.glb",
+          "bytes": 5924064,
+          "sha256": "1db60cbdecacac8ecbb071979ccbf4e8f03dd1de84f7bc3dc7131106d19719c7"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod2.glb",
+          "bytes": 5781496,
+          "sha256": "3b8e6426f72d1f462fa00851e0f131056b9a75f5027483224c0829b0d5c25b55"
+        }
+      ],
+      "preview": "assets/previews/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.png",
+      "thumbnail": "assets/thumbnails/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "road-meshy-ai-four-way-intersection-0713093554-texture-5239da66",
+      "category": "roads",
+      "subcategory": "intersections",
+      "sourceChecksum": "5239da66fa7d160a4d53f2ef1377db0e095198e92cb7ff6b7ac4c60952f07db8",
+      "sourceFile": "assets/source/meshy/roads/intersections/Meshy_AI_Four_way_intersection_0713093554_texture.glb",
+      "master": "assets/optimized/master/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod0.glb",
+          "bytes": 8766020,
+          "sha256": "9dd5661c432521b566ad9e60f146f9232273a503066a2ea18c91a32c020f04da"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod1.glb",
+          "bytes": 8581524,
+          "sha256": "02fe3b604b06de19fdc54fe3ce0c5bfdd2df62236b2dc24ad1832ff579f876bf"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod2.glb",
+          "bytes": 8436816,
+          "sha256": "dfdb0beb3137fa4e8d59a86e4dcc5d0a7f636f482e2518753d6dcc91ae5e2ad2"
+        }
+      ],
+      "preview": "assets/previews/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.png",
+      "thumbnail": "assets/thumbnails/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    }
+  ]
+}

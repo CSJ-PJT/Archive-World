@@ -1,0 +1,603 @@
+{
+  "version": "2.0.0",
+  "assets": [
+    {
+      "assetId": "building-archiveos-2e8c32fa",
+      "category": "control-center",
+      "sourcePath": "assets/optimized/web/buildings/archiveos/building-archiveos-2e8c32fa/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archiveos-2e8c32fa.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "48a941840b80e15a1c799ea89a309e316ee450eac775192c26563bfb75b7593f",
+      "bytes": 33514816,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-15186c21",
+      "category": "control-center",
+      "sourcePath": "assets/optimized/web/buildings/archiveos/building-archive-15186c21/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-15186c21.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "4dcd87759d573e4e6b668b0379f90005a1ab76719e762d9f00a372c5863e3994",
+      "bytes": 9511644,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archiveos2-a614889b",
+      "category": "control-center",
+      "sourcePath": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archiveos2-a614889b.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "f7baab9b3eb1518ce87eb8407b0861bd5a248f75d34e8e0b84c0f9705b713f8f",
+      "bytes": 31945104,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-market-9badf3fa",
+      "category": "commercial",
+      "sourcePath": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-market-9badf3fa.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "f92165e41161642860187126d8612b6946f5afe704e569615717397fc3e58ae8",
+      "bytes": 9640728,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-market-181c8568",
+      "category": "commercial",
+      "sourcePath": "assets/optimized/web/buildings/market/building-market-181c8568/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-market-181c8568.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "7a6994466c4970dd40961e0c59aaa32085ce46beaeafe1f468fdb62eeff088e1",
+      "bytes": 30123784,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-nexus-5b2737a0",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-nexus-5b2737a0.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3ecf005a0be8660ca1c578e6371c89aa8ad67636053610b174a2e3cbf2122daa",
+      "bytes": 37657060,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-nexus-9adda402",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-nexus-9adda402.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "6af7bb6b4f598ed6e611549b14cffe5491a33c6a4160dffd3a5f298b5504c08e",
+      "bytes": 31267128,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-a-2-0e6498d0",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-a-2-0e6498d0/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-a-2-0e6498d0.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "d18d432c35ffd19bc16c79c5ceeea1e6f5123371abc056fd94f9d5ded2544ab3",
+      "bytes": 11820028,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-b-0da0b3c5",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-b-0da0b3c5.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "5f26bcbd0c6d0de2f51b2afd297bbf43459f0cc70cf34725dfcbbafe59df1343",
+      "bytes": 37633656,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-c-f2297019",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-c-f2297019/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-c-f2297019.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "1209ff8d415a131256d13362367bdafde6e705cfa4f49233d44121378b3c4d1e",
+      "bytes": 34552492,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-logistics-4cd90681",
+      "category": "warehouse",
+      "sourcePath": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-logistics-4cd90681.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "2567d6732424e3e18e486c6b937a69a7d5cb042dc36984297c567aa1c7a9750e",
+      "bytes": 12650440,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-1-ea52880d",
+      "category": "warehouse",
+      "sourcePath": "assets/optimized/web/buildings/logistics/building-archive-1-ea52880d/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-1-ea52880d.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3e727858b8bca942e148b3d037f1ae1f954b7f634d8e05342b9ba110f2e5c3d7",
+      "bytes": 11436232,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-2-2fe57f23",
+      "category": "warehouse",
+      "sourcePath": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-2-2fe57f23.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3192679d212aee6fa0cc234e465d9ae69463645caacb3d29c7365764ffbb3ea4",
+      "bytes": 32440432,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-ledger-181c8568",
+      "category": "bank",
+      "sourcePath": "assets/optimized/web/buildings/ledger/building-ledger-181c8568/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-ledger-181c8568.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "7a6994466c4970dd40961e0c59aaa32085ce46beaeafe1f468fdb62eeff088e1",
+      "bytes": 30123784,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-ledger2-ea294a50",
+      "category": "bank",
+      "sourcePath": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-ledger2-ea294a50.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "092ea5b2d54611f3883694aedbe8350c440d390fa24827eaafa0d64652b4a1e8",
+      "bytes": 11069720,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-1-d57f1be7",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-1-d57f1be7/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-1-d57f1be7.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ca6a90bfb71423b845e205cb44bb278927ba0216f23bd246405ac21302455eda",
+      "bytes": 35105344,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-2-cfee9093",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-2-cfee9093.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "b1ab5f1bd2887f766c975ce9009395096c6b38c85a069b7501e69a9efed08e0f",
+      "bytes": 11862136,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-3-3d248d87",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-3-3d248d87/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-3-3d248d87.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "311d1ddec32b886e1eaef8ee78c23266d580c5703f6e63f66db483e18b6a7dc7",
+      "bytes": 34785412,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-4-874697a4",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-4-874697a4/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-4-874697a4.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "e98c2c64b9a34b672c1f1da2543b30776ca0c707d6fad1e6f829f271398ccc8e",
+      "bytes": 11698092,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-5-8ec67334",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-5-8ec67334/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-5-8ec67334.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "8b2b94b748df91c84e46c7f58b32b1b0766ab677c0a0c2984eb88a687066c2ab",
+      "bytes": 33565056,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-6-c55667d3",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-6-c55667d3/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-6-c55667d3.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "95e4e9563ac51588488ff0973db700576f86a27d784a7d6bc5d50f7e32a01d9a",
+      "bytes": 11227552,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-7-d09a344b",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-7-d09a344b/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-7-d09a344b.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "236adc2f4bcd5350dfb8bb9b0517b7101d31559b0f39759f61ec8e91435cd7ad",
+      "bytes": 11965728,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-8-9034e896",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-8-9034e896/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-8-9034e896.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "5d70ff9763f3874c463b5f68531eba309070ee177973cb80882e2bbb02b8d2f2",
+      "bytes": 35893788,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-1-a74d9cb9",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-1-a74d9cb9/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-1-a74d9cb9.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ccfdb6598d1f3c88eb3082f966fa8e5a7e621fb76fbe8ed578046fbbcc8fc54e",
+      "bytes": 8750284,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-2-49e64913",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-2-49e64913.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "d63af5e36c8a62a9b96fb8cf38bcaa130c2abc3f6b50b6a1d48ebad97b9031d5",
+      "bytes": 8509160,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-1-d7e1871c",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-1-d7e1871c/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-1-d7e1871c.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "d98e2a468cbf9c6bd273b21c423126ec78812252dfc3731d5737ee7d22b21892",
+      "bytes": 25317292,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-2-c600d4bd",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-2-c600d4bd/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-2-c600d4bd.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ad57aa9a36f65429fb585bd6187d4f585203301f8a6921419075e89ae5aed89f",
+      "bytes": 27017540,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-asset-535bcba9",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/unknown/vehicle-asset-535bcba9/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-asset-535bcba9.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "9db66ef98f56cc30c8ecee713270aba39f8ed39e5a5f7778c0dcb10b3ad2ef2a",
+      "bytes": 6784048,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-3-234d82b4",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/unknown/vehicle-3-234d82b4/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-3-234d82b4.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ca750fa89eba0ecd759affc4660d83b80b607b0f5654dca184f7d5cfb447ed58",
+      "bytes": 6562420,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-asset-7b6c3ac5",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-asset-7b6c3ac5.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "de6ee7e46432c2ed688aa0c13eba6bea0bdfd86b78c7fe77412820f1985f85cd",
+      "bytes": 12873216,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093526-texture-b5202be0",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "83b3b3999bbf59b783cb268f93a33512d7028bd4b87694648481215e95e86e4c",
+      "bytes": 7174360,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093537-texture-bf450ac3",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3b8e6426f72d1f462fa00851e0f131056b9a75f5027483224c0829b0d5c25b55",
+      "bytes": 5781496,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-meshy-ai-four-way-intersection-0713093554-texture-5239da66",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "dfdb0beb3137fa4e8d59a86e4dcc5d0a7f636f482e2518753d6dcc91ae5e2ad2",
+      "bytes": 8436816,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-curved-modular-90-v2",
+      "category": "road",
+      "sourcePath": "incoming/road-curved-modular-90-v2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-curved-modular-90-v2.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "5401f7ace1ccdc884b1ac909b98ef977a3a9c143c71b6b06440f489ed1818bff",
+      "bytes": 511140,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "road-elevated-ramp-straight-v1",
+      "category": "road",
+      "sourcePath": "incoming/road-elevated-ramp-straight-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/road-elevated-ramp-straight-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "a5f3463e9f2860a46eacd2f88b043d5bb801e4f8c6c03ad4b7acc97fc203d140",
+      "bytes": 3948,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "streetlight-traffic-signal-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/streetlight-traffic-signal-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/streetlight-traffic-signal-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "a8b1dd335a2e9d7d001b8091e6dc5e92ede2e6e4c99ceafcf9d5565ba080684c",
+      "bytes": 94268,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "roadside-safety-barrier-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/roadside-safety-barrier-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/roadside-safety-barrier-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "9920d184d765112b6507049e85486c66549df3223b0b8fbf83c201d4e62a55ec",
+      "bytes": 51592,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "security-gate-road-lane-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/security-gate-road-lane-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/security-gate-road-lane-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "b1503c387815299e8d0adc0ddd67895ba7293efa5b1e373d046ef1e4e6317581",
+      "bytes": 41576,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "truck-yard-parking-module-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/truck-yard-parking-module-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/truck-yard-parking-module-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "bd112360f0c320dfd7181342fdf1bfed2149ea6c9f9d486b8e6731da687609f1",
+      "bytes": 35376,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "power-substation-compact-v1",
+      "category": "environment",
+      "sourcePath": "incoming/power-substation-compact-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/power-substation-compact-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "9e68a0ee41b47b66880ac4f8ce9bfcf56a8b5da50b3d8c25c82e541c01a717cf",
+      "bytes": 52520,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "communications-tower-compact-v1",
+      "category": "environment",
+      "sourcePath": "incoming/communications-tower-compact-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/communications-tower-compact-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "0434449391c08c7986d1e9c5bcf742f9bf9e157150aa80a10febab3b2fae8fdd",
+      "bytes": 60172,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "container-yard-modular-v1",
+      "category": "environment",
+      "sourcePath": "incoming/container-yard-modular-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/container-yard-modular-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "5b6f2c3516900bec5e6cd648a305b9ecc2b0474fd4dcb246cda8bda1b38a33f7",
+      "bytes": 101464,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "cold-storage-loading-dock-v1",
+      "category": "environment",
+      "sourcePath": "incoming/cold-storage-loading-dock-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/cold-storage-loading-dock-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "961e5da3ae814580a4e9be815256f4d222298526eae2dbee9d293ac3a8455efb",
+      "bytes": 71452,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "vehicle-forklift-industrial-v1",
+      "category": "vehicle",
+      "sourcePath": "incoming/vehicle-forklift-industrial-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-forklift-industrial-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "de62ef1309a5fe010abab80aa825a7a50a6e250b1007dd53a5556252621c8acc",
+      "bytes": 79340,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "vehicle-agv-platform-v1",
+      "category": "vehicle",
+      "sourcePath": "incoming/vehicle-agv-platform-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-agv-platform-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "c73b4f0a9879595a977aec068659859aeaaaabc1cf9f9ef2fa7710d696989888",
+      "bytes": 44212,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "vehicle-inspection-drone-v1",
+      "category": "vehicle",
+      "sourcePath": "incoming/vehicle-inspection-drone-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-inspection-drone-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "8da73239133d28a251e83743b2675b6ab67cac2e00a66c3b5e75a24dcdfe1763",
+      "bytes": 114872,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-market-9badf3fa",
+  "originalName": "Archive Market 랜드마크.glb",
+  "originalRelativePath": "Archive Market/Archive Market 랜드마크.glb",
+  "category": "buildings",
+  "subcategory": "market",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "9badf3fa549d9fda1371ebb5fed47e4f24cf041fe97e62b32beb26b70bf94665",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    0.5592360198497772,
+    1.8982080221176147,
+    0.5588569939136505
+  ],
+  "bounds": {
+    "min": [
+      -0.2805750072002411,
+      -0.9499080181121826,
+      -0.280036985874176
+    ],
+    "max": [
+      0.27866101264953613,
+      0.9483000040054321,
+      0.2788200080394745
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 168387,
+  "triangles": 323080,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod0.glb",
+      "triangles": 323080,
+      "vertices": 337394,
+      "reductionRatio": 1,
+      "bytes": 10376980,
+      "sha256": "46f6c7b6c3935709191abf7187544ed80f2b1fd93ad41d6e67d03200fb552be1",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod1.glb",
+      "triangles": 161539,
+      "vertices": 175270,
+      "reductionRatio": 0.4999969047913829,
+      "bytes": 9939408,
+      "sha256": "b94f29371eeaf2e089179d19cc55e89f58bf5c115f6623cbe120ae2f4cec34b2",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod2.glb",
+      "triangles": 64616,
+      "vertices": 76792,
+      "reductionRatio": 0.2,
+      "bytes": 9640728,
+      "sha256": "f92165e41161642860187126d8612b6946f5afe704e569615717397fc3e58ae8",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/market/Archive Market 랜드마크.glb",
+  "masterFile": "assets/optimized/master/buildings/market/building-market-9badf3fa.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/market/building-market-9badf3fa/lod0.glb",
+    "assets/optimized/web/buildings/market/building-market-9badf3fa/lod1.glb",
+    "assets/optimized/web/buildings/market/building-market-9badf3fa/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/market/building-market-9badf3fa.png",
+  "thumbnail": "assets/thumbnails/buildings/market/building-market-9badf3fa.webp",
+  "fileSizes": {
+    "source": 18641180,
+    "master": 18649060,
+    "web": 29957116
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:48:23.582Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "9badf3fa549d9fda1371ebb5fed47e4f24cf041fe97e62b32beb26b70bf94665",
+    "sourceChecksumAfter": "9badf3fa549d9fda1371ebb5fed47e4f24cf041fe97e62b32beb26b70bf94665",
+    "masterChecksum": "ee17f05e5c772b70ea04dc4b3a9ea276fdd862609744342b7541c0fca9d52239",
+    "durationMs": 83912,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

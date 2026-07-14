@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "road-meshy-ai-divided-highway-0713093526-texture-b5202be0",
+  "originalName": "Meshy_AI_Divided_Highway_0713093526_texture.glb",
+  "originalRelativePath": "도로/Meshy_AI_Divided_Highway_0713093526_texture.glb",
+  "category": "roads",
+  "subcategory": "straight",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "b5202be0b1a5443262adf8045c2b4b08bd4941ce0b94ccc1333253cc5f8ece88",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.7013869881629944,
+    1.8997430205345154,
+    0.2274320051074028
+  ],
+  "bounds": {
+    "min": [
+      -0.8516079783439636,
+      -0.9508309960365295,
+      -0.11563800275325775
+    ],
+    "max": [
+      0.8497790098190308,
+      0.9489120244979858,
+      0.11179400235414505
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 226464,
+  "triangles": 419436,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod0.glb",
+      "triangles": 419436,
+      "vertices": 492726,
+      "reductionRatio": 1,
+      "bytes": 8023684,
+      "sha256": "f4bb18d9fe69d20552b3583af96019e3673741b338aef930221ae529e17f3505",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod1.glb",
+      "triangles": 209718,
+      "vertices": 279784,
+      "reductionRatio": 0.5,
+      "bytes": 7558760,
+      "sha256": "513ea56a0ad6be7ec388b7a9bcd5e4fdf19923de0274adbfcc2605c70766e745",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod2.glb",
+      "triangles": 83886,
+      "vertices": 150170,
+      "reductionRatio": 0.19999713901524904,
+      "bytes": 7174360,
+      "sha256": "83b3b3999bbf59b783cb268f93a33512d7028bd4b87694648481215e95e86e4c",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/roads/straight/Meshy_AI_Divided_Highway_0713093526_texture.glb",
+  "masterFile": "assets/optimized/master/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.glb",
+  "webFiles": [
+    "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod0.glb",
+    "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod1.glb",
+    "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod2.glb"
+  ],
+  "preview": "assets/previews/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.png",
+  "thumbnail": "assets/thumbnails/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.webp",
+  "fileSizes": {
+    "source": 19031708,
+    "master": 19571692,
+    "web": 22756804
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T02:04:08.426Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "b5202be0b1a5443262adf8045c2b4b08bd4941ce0b94ccc1333253cc5f8ece88",
+    "sourceChecksumAfter": "b5202be0b1a5443262adf8045c2b4b08bd4941ce0b94ccc1333253cc5f8ece88",
+    "masterChecksum": "07551781f148d5e68a48b4654912acecd3ae8c307de83cdb951730b116a0cdec",
+    "durationMs": 85629,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

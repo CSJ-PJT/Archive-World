@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-b-0da0b3c5",
+  "originalName": "공장B 메가센터.glb",
+  "originalRelativePath": "Archive Nexus/공장B 메가센터.glb",
+  "category": "buildings",
+  "subcategory": "factory",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "0da0b3c59ce9fd3b0fc184793cde598ec5f1d4825908de63065af786c955ab0b",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8996180295944214,
+    0.22805999964475632,
+    0.48705099523067474
+  ],
+  "bounds": {
+    "min": [
+      -0.950764000415802,
+      -0.11524800211191177,
+      -0.2440740019083023
+    ],
+    "max": [
+      0.9488540291786194,
+      0.11281199753284454,
+      0.24297699332237244
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 330339,
+  "triangles": 538142,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod0.glb",
+      "triangles": 538142,
+      "vertices": 660808,
+      "reductionRatio": 1,
+      "bytes": 38831984,
+      "sha256": "7ed10ab74f9484f39d5f43acea5117ba748be2dd47eba347a157e57a05da2355",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod1.glb",
+      "triangles": 269070,
+      "vertices": 385184,
+      "reductionRatio": 0.4999981417544068,
+      "bytes": 38144228,
+      "sha256": "6153c72ef0bd06f3277f07889a2a06da4846ddc835da8d3860185af7ddf2be81",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod2.glb",
+      "triangles": 107628,
+      "vertices": 193192,
+      "reductionRatio": 0.19999925670176275,
+      "bytes": 37633656,
+      "sha256": "5f26bcbd0c6d0de2f51b2afd297bbf43459f0cc70cf34725dfcbbafe59df1343",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/factory/공장B 메가센터.glb",
+  "masterFile": "assets/optimized/master/buildings/factory/building-b-0da0b3c5.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod0.glb",
+    "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod1.glb",
+    "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/factory/building-b-0da0b3c5.png",
+  "thumbnail": "assets/thumbnails/buildings/factory/building-b-0da0b3c5.webp",
+  "fileSizes": {
+    "source": 53984440,
+    "master": 53985484,
+    "web": 114609868
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T01:10:40.775Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "0da0b3c59ce9fd3b0fc184793cde598ec5f1d4825908de63065af786c955ab0b",
+    "sourceChecksumAfter": "0da0b3c59ce9fd3b0fc184793cde598ec5f1d4825908de63065af786c955ab0b",
+    "masterChecksum": "d950352c7baf71cdca4adf0cf6270e2e3839ba2a9e6a32c93a3a28ed65321c0b",
+    "durationMs": 96049,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

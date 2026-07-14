@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "unknown-asset-5669e53a",
+  "originalName": "산책로.glb",
+  "originalRelativePath": "산책로/산책로.glb",
+  "category": "unknown",
+  "subcategory": null,
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "5669e53aa1bce6f43a99abe30a154f43860d659cd1024f6fac9c5fbb94d1bec7",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8999760150909424,
+    1.0204389691352844,
+    1.90031099319458
+  ],
+  "bounds": {
+    "min": [
+      -0.950967013835907,
+      -0.5129269957542419,
+      -0.9511799812316895
+    ],
+    "max": [
+      0.9490090012550354,
+      0.5075119733810425,
+      0.9491310119628906
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 1505208,
+  "triangles": 1007770,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/unknown/unknown/unknown-asset-5669e53a/lod0.glb",
+      "triangles": 1007770,
+      "vertices": 3030952,
+      "reductionRatio": 1,
+      "bytes": 18177728,
+      "sha256": "6886c7551a5466ce4d28af7aff4c4d090d46c1646f03c23d0c4cf06323d40840",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/unknown/unknown/unknown-asset-5669e53a/lod1.glb",
+      "triangles": 503885,
+      "vertices": 1772766,
+      "reductionRatio": 0.5,
+      "bytes": 16734316,
+      "sha256": "6b5d7f3dff901bdf37c29577a01b9dc063b334035b7c7c9a6a85f72973b5a86d",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/unknown/unknown/unknown-asset-5669e53a/lod2.glb",
+      "triangles": 201554,
+      "vertices": 657944,
+      "reductionRatio": 0.2,
+      "bytes": 13550404,
+      "sha256": "e5fa03ee7ed12ecb211e20c685851a78a10a549a14afe5c862b82b8d539f3d46",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/unknown/산책로.glb",
+  "masterFile": "assets/optimized/master/unknown/unknown/unknown-asset-5669e53a.glb",
+  "webFiles": [
+    "assets/optimized/web/unknown/unknown/unknown-asset-5669e53a/lod0.glb",
+    "assets/optimized/web/unknown/unknown/unknown-asset-5669e53a/lod1.glb",
+    "assets/optimized/web/unknown/unknown/unknown-asset-5669e53a/lod2.glb"
+  ],
+  "preview": "assets/previews/unknown/unknown/unknown-asset-5669e53a.png",
+  "thumbnail": "assets/thumbnails/unknown/unknown/unknown-asset-5669e53a.webp",
+  "fileSizes": {
+    "source": 71303056,
+    "master": 71420068,
+    "web": 48462448
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T02:09:03.010Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "5669e53aa1bce6f43a99abe30a154f43860d659cd1024f6fac9c5fbb94d1bec7",
+    "sourceChecksumAfter": "5669e53aa1bce6f43a99abe30a154f43860d659cd1024f6fac9c5fbb94d1bec7",
+    "masterChecksum": "cb4cd9059670f217b351e092a01f527647fc42cf1f41cc1eb341fdba33114053",
+    "durationMs": 191508,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

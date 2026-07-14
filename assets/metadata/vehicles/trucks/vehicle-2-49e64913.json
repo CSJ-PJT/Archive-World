@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "vehicle-2-49e64913",
+  "originalName": "냉동 탑차2.glb",
+  "originalRelativePath": "Archive Logistis/물류 트럭/냉동 탑차2.glb",
+  "category": "vehicles",
+  "subcategory": "trucks",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "49e64913986b2797b1d284df2fd147707c357b2d1457de901314b2b03cf9ad20",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8980910181999207,
+    0.9383489787578583,
+    0.8427410125732422
+  ],
+  "bounds": {
+    "min": [
+      -0.9497010111808777,
+      -0.4700149893760681,
+      -0.42239999771118164
+    ],
+    "max": [
+      0.948390007019043,
+      0.46833398938179016,
+      0.42034101486206055
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 487252,
+  "triangles": 896796,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod0.glb",
+      "triangles": 896796,
+      "vertices": 1005494,
+      "reductionRatio": 1,
+      "bytes": 10348648,
+      "sha256": "50dfd16dd680d6069098a0174322841e4ebcb71c4167cf9be8a9bffc30902204",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod1.glb",
+      "triangles": 448398,
+      "vertices": 553888,
+      "reductionRatio": 0.5,
+      "bytes": 9294388,
+      "sha256": "867286ab627ce7a6fa209f6a6f30cafa01b462aa3a4e29bbd4293c5c0eae24ab",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod2.glb",
+      "triangles": 179359,
+      "vertices": 276216,
+      "reductionRatio": 0.19999977698384025,
+      "bytes": 8509160,
+      "sha256": "d63af5e36c8a62a9b96fb8cf38bcaa130c2abc3f6b50b6a1d48ebad97b9031d5",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/vehicles/trucks/냉동 탑차2.glb",
+  "masterFile": "assets/optimized/master/vehicles/trucks/vehicle-2-49e64913.glb",
+  "webFiles": [
+    "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod0.glb",
+    "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod1.glb",
+    "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod2.glb"
+  ],
+  "preview": "assets/previews/vehicles/trucks/vehicle-2-49e64913.png",
+  "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-2-49e64913.webp",
+  "fileSizes": {
+    "source": 33994656,
+    "master": 34423024,
+    "web": 28152196
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:31:50.360Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "49e64913986b2797b1d284df2fd147707c357b2d1457de901314b2b03cf9ad20",
+    "sourceChecksumAfter": "49e64913986b2797b1d284df2fd147707c357b2d1457de901314b2b03cf9ad20",
+    "masterChecksum": "527999e1b06b0e8a3cce8e076f4f99c4d20f1ec322780bc2fa5124f544856e7f",
+    "durationMs": 141433,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "road-meshy-ai-divided-highway-0713093537-texture-bf450ac3",
+  "originalName": "Meshy_AI_Divided_Highway_0713093537_texture.glb",
+  "originalRelativePath": "도로/Meshy_AI_Divided_Highway_0713093537_texture.glb",
+  "category": "roads",
+  "subcategory": "straight",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "bf450ac3beb877bcc3bbc515e3608fdff2ecd9c73148df5e1606f387e2c6e32d",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8370620012283325,
+    1.8998219966888428,
+    0.049428001046180725
+  ],
+  "bounds": {
+    "min": [
+      -0.9194980263710022,
+      -0.9508879780769348,
+      -0.023320000618696213
+    ],
+    "max": [
+      0.9175639748573303,
+      0.948934018611908,
+      0.026108000427484512
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 77201,
+  "triangles": 144734,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod0.glb",
+      "triangles": 144734,
+      "vertices": 204594,
+      "reductionRatio": 1,
+      "bytes": 6067176,
+      "sha256": "abe3646fa23a99211113331d951084f526e6225ce28e9a797bfdfafbce5eda03",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod1.glb",
+      "triangles": 72366,
+      "vertices": 131344,
+      "reductionRatio": 0.4999930907734188,
+      "bytes": 5924064,
+      "sha256": "1db60cbdecacac8ecbb071979ccbf4e8f03dd1de84f7bc3dc7131106d19719c7",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod2.glb",
+      "triangles": 28946,
+      "vertices": 87080,
+      "reductionRatio": 0.19999447261873507,
+      "bytes": 5781496,
+      "sha256": "3b8e6426f72d1f462fa00851e0f131056b9a75f5027483224c0829b0d5c25b55",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/roads/straight/Meshy_AI_Divided_Highway_0713093537_texture.glb",
+  "masterFile": "assets/optimized/master/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.glb",
+  "webFiles": [
+    "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod0.glb",
+    "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod1.glb",
+    "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod2.glb"
+  ],
+  "preview": "assets/previews/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.png",
+  "thumbnail": "assets/thumbnails/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.webp",
+  "fileSizes": {
+    "source": 9845976,
+    "master": 10549216,
+    "web": 17772736
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T02:05:02.321Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "bf450ac3beb877bcc3bbc515e3608fdff2ecd9c73148df5e1606f387e2c6e32d",
+    "sourceChecksumAfter": "bf450ac3beb877bcc3bbc515e3608fdff2ecd9c73148df5e1606f387e2c6e32d",
+    "masterChecksum": "652366f470b8203d02c5cb05557794f37cffb47176e3f83c9c8a40283450d476",
+    "durationMs": 53435,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

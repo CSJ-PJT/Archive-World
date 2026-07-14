@@ -1,0 +1,26 @@
+{
+  "name": "archive-world",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Digital Twin 3D asset pipeline for ArchiveOS",
+  "type": "module",
+  "engines": { "node": ">=20.0.0" },
+  "scripts": {
+    "world": "node src/cli.mjs",
+    "init": "node src/cli.mjs init",
+    "validate": "node src/cli.mjs validate",
+    "build": "node src/cli.mjs build",
+    "manifest": "node src/cli.mjs manifest",
+    "bulk:inventory": "node src/bulk.mjs inventory",
+    "bulk:ingest": "node src/bulk.mjs ingest",
+    "bulk:verify": "node src/bulk.mjs verify",
+    "bulk:readiness": "node src/bulk.mjs readiness",
+    "incoming:inventory": "node src/incoming.mjs inventory",
+    "catalog": "node src/generate-catalog.mjs",
+    "world:validate": "node src/validate-world.mjs",
+    "bulk:process": "node src/bulk-process.mjs --resume",
+    "canary": "node src/canary.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": { "@gltf-transform/cli": "^4.2.1" }
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "road-meshy-ai-four-way-intersection-0713093554-texture-5239da66",
+  "originalName": "Meshy_AI_Four_way_intersection_0713093554_texture.glb",
+  "originalRelativePath": "도로/Meshy_AI_Four_way_intersection_0713093554_texture.glb",
+  "category": "roads",
+  "subcategory": "intersections",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "5239da66fa7d160a4d53f2ef1377db0e095198e92cb7ff6b7ac4c60952f07db8",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8997099995613098,
+    0.058993998914957047,
+    1.899653971195221
+  ],
+  "bounds": {
+    "min": [
+      -0.9508280158042908,
+      -0.03617599979043007,
+      -0.9507449865341187
+    ],
+    "max": [
+      0.948881983757019,
+      0.022817999124526978,
+      0.9489089846611023
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 80955,
+  "triangles": 148824,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod0.glb",
+      "triangles": 148824,
+      "vertices": 169840,
+      "reductionRatio": 1,
+      "bytes": 8766020,
+      "sha256": "9dd5661c432521b566ad9e60f146f9232273a503066a2ea18c91a32c020f04da",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod1.glb",
+      "triangles": 74411,
+      "vertices": 94564,
+      "reductionRatio": 0.499993280653658,
+      "bytes": 8581524,
+      "sha256": "02fe3b604b06de19fdc54fe3ce0c5bfdd2df62236b2dc24ad1832ff579f876bf",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod2.glb",
+      "triangles": 29763,
+      "vertices": 48740,
+      "reductionRatio": 0.19998790517658444,
+      "bytes": 8436816,
+      "sha256": "dfdb0beb3137fa4e8d59a86e4dcc5d0a7f636f482e2518753d6dcc91ae5e2ad2",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/roads/intersections/Meshy_AI_Four_way_intersection_0713093554_texture.glb",
+  "masterFile": "assets/optimized/master/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.glb",
+  "webFiles": [
+    "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod0.glb",
+    "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod1.glb",
+    "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod2.glb"
+  ],
+  "preview": "assets/previews/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.png",
+  "thumbnail": "assets/thumbnails/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.webp",
+  "fileSizes": {
+    "source": 12654480,
+    "master": 12763492,
+    "web": 25784360
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T02:05:51.394Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "5239da66fa7d160a4d53f2ef1377db0e095198e92cb7ff6b7ac4c60952f07db8",
+    "sourceChecksumAfter": "5239da66fa7d160a4d53f2ef1377db0e095198e92cb7ff6b7ac4c60952f07db8",
+    "masterChecksum": "eea8644e6d0c0bcf17d25f9482c3869fe3539e1690f820c8cc181a160f1d0362",
+    "durationMs": 48829,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "districts": [
+    {
+      "id": "archiveos",
+      "runtimePath": "assets/runtime/v2/archiveos.glb",
+      "previewPath": "assets/previews/v2/archiveos-overview.png",
+      "blendPath": "scenes/v2/archiveos.blend"
+    },
+    {
+      "id": "market",
+      "runtimePath": "assets/runtime/v2/market.glb",
+      "previewPath": "assets/previews/v2/market-overview.png",
+      "blendPath": "scenes/v2/market.blend"
+    },
+    {
+      "id": "nexus",
+      "runtimePath": "assets/runtime/v2/nexus.glb",
+      "previewPath": "assets/previews/v2/nexus-overview.png",
+      "blendPath": "scenes/v2/nexus.blend"
+    },
+    {
+      "id": "logistics",
+      "runtimePath": "assets/runtime/v2/logistics.glb",
+      "previewPath": "assets/previews/v2/logistics-overview.png",
+      "blendPath": "scenes/v2/logistics.blend"
+    },
+    {
+      "id": "ledger",
+      "runtimePath": "assets/runtime/v2/ledger.glb",
+      "previewPath": "assets/previews/v2/ledger-overview.png",
+      "blendPath": "scenes/v2/ledger.blend"
+    },
+    {
+      "id": "residential",
+      "runtimePath": "assets/runtime/v2/residential.glb",
+      "previewPath": "assets/previews/v2/residential-overview.png",
+      "blendPath": "scenes/v2/residential.blend"
+    },
+    {
+      "id": "infrastructure",
+      "runtimePath": "assets/runtime/v2/infrastructure.glb",
+      "previewPath": "assets/previews/v2/infrastructure-overview.png",
+      "blendPath": "scenes/v2/infrastructure.blend"
+    }
+  ],
+  "masterBlend": "scenes/archive-city-v2.blend",
+  "layout": "assets/world/archive-city-v2-layout.json"
+}

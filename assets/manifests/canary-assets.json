@@ -1,0 +1,17 @@
+{
+  "schema": "archive-world.local-manifest/v1",
+  "assets": [
+    {
+      "assetId": "building-asset-891d0bfc",
+      "status": "COMPLETED_WITH_WARNINGS",
+      "defaultLod": 0,
+      "lodUrls": [
+        "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod0.glb",
+        "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod1.glb",
+        "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod2.glb"
+      ],
+      "previewUrl": "assets/previews/buildings/infrastructure/building-asset-891d0bfc.png",
+      "thumbnailUrl": "assets/thumbnails/buildings/infrastructure/building-asset-891d0bfc.webp"
+    }
+  ]
+}

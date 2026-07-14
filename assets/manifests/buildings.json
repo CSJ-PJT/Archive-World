@@ -1,0 +1,959 @@
+{
+  "schema": "archive-world.category-manifest/v1",
+  "category": "buildings",
+  "generatedAt": "2026-07-14T02:11:39.107Z",
+  "assets": [
+    {
+      "assetId": "building-archiveos-2e8c32fa",
+      "category": "buildings",
+      "subcategory": "archiveos",
+      "sourceChecksum": "2e8c32fa10c112eb58cf0139aa3047ed4684a891b7807c3e200d22dafbb0a481",
+      "sourceFile": "assets/source/meshy/buildings/archiveos/Archive OS.glb",
+      "master": "assets/optimized/master/buildings/archiveos/building-archiveos-2e8c32fa.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/archiveos/building-archiveos-2e8c32fa/lod0.glb",
+          "bytes": 34252836,
+          "sha256": "f0ef34afafeb0cb6cfc55af0982f8a513b51a66431c09a1dfa7ebd047fb3b651"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/archiveos/building-archiveos-2e8c32fa/lod1.glb",
+          "bytes": 33811864,
+          "sha256": "f7e02c43c431d082db235cc493c49cc353dfe66c8bfc623fc6912bf2ec9ff7c0"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/archiveos/building-archiveos-2e8c32fa/lod2.glb",
+          "bytes": 33514816,
+          "sha256": "48a941840b80e15a1c799ea89a309e316ee450eac775192c26563bfb75b7593f"
+        }
+      ],
+      "preview": "assets/previews/buildings/archiveos/building-archiveos-2e8c32fa.png",
+      "thumbnail": "assets/thumbnails/buildings/archiveos/building-archiveos-2e8c32fa.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-ledger-181c8568",
+      "category": "buildings",
+      "subcategory": "ledger",
+      "sourceChecksum": "181c85683732d37c5d7525fa1e9de479b4a3838c7ebaecd2e1070afdac3e8eb4",
+      "sourceFile": "assets/source/meshy/buildings/ledger/Archive Ledger.glb",
+      "master": "assets/optimized/master/buildings/ledger/building-ledger-181c8568.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/ledger/building-ledger-181c8568/lod0.glb",
+          "bytes": 32840632,
+          "sha256": "19d98b053210eb707ebf30dbc51a0d0fa2a63734b82c3231e40fc6284fa45745"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/ledger/building-ledger-181c8568/lod1.glb",
+          "bytes": 31258028,
+          "sha256": "f9ae4728c814c1f22931a6e9c4058388f4f070985a59a2f231645790c74c1bf8"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/ledger/building-ledger-181c8568/lod2.glb",
+          "bytes": 30123784,
+          "sha256": "7a6994466c4970dd40961e0c59aaa32085ce46beaeafe1f468fdb62eeff088e1"
+        }
+      ],
+      "preview": "assets/previews/buildings/ledger/building-ledger-181c8568.png",
+      "thumbnail": "assets/thumbnails/buildings/ledger/building-ledger-181c8568.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-ledger2-ea294a50",
+      "category": "buildings",
+      "subcategory": "ledger",
+      "sourceChecksum": "ea294a505d695307aeeeed7eb205df59b7e6b86d652ef4f7eea7a2f9b3bdc5c1",
+      "sourceFile": "assets/source/meshy/buildings/ledger/Archive Ledger2.glb",
+      "master": "assets/optimized/master/buildings/ledger/building-ledger2-ea294a50.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod0.glb",
+          "bytes": 11924016,
+          "sha256": "3512da44caee338274ab7e54d837ef8236e9a1c0b07cc9f4c05b48774e519341"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod1.glb",
+          "bytes": 11426596,
+          "sha256": "96505e94ba44601db8a63f6d4c1f7d6676e9d3519b5408e5489aca8f1906d013"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod2.glb",
+          "bytes": 11069720,
+          "sha256": "092ea5b2d54611f3883694aedbe8350c440d390fa24827eaafa0d64652b4a1e8"
+        }
+      ],
+      "preview": "assets/previews/buildings/ledger/building-ledger2-ea294a50.png",
+      "thumbnail": "assets/thumbnails/buildings/ledger/building-ledger2-ea294a50.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-archive-1-ea52880d",
+      "category": "buildings",
+      "subcategory": "logistics",
+      "sourceChecksum": "ea52880d893b174124178b9126f77a88a62d337fd349813848bf425871fce2e2",
+      "sourceFile": "assets/source/meshy/buildings/logistics/Archive 물류센터1.glb",
+      "master": "assets/optimized/master/buildings/logistics/building-archive-1-ea52880d.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-1-ea52880d/lod0.glb",
+          "bytes": 14488436,
+          "sha256": "c10b13dbe66ed5057b2b65d71dd8c518e8e85952cd9e2c6188ab630930eda6d3"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-1-ea52880d/lod1.glb",
+          "bytes": 12761640,
+          "sha256": "40718a3f989699ce45b38a15a9e8015a3edd8f613882bf4910546bead0a0bea7"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-1-ea52880d/lod2.glb",
+          "bytes": 11436232,
+          "sha256": "3e727858b8bca942e148b3d037f1ae1f954b7f634d8e05342b9ba110f2e5c3d7"
+        }
+      ],
+      "preview": "assets/previews/buildings/logistics/building-archive-1-ea52880d.png",
+      "thumbnail": "assets/thumbnails/buildings/logistics/building-archive-1-ea52880d.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-archive-2-2fe57f23",
+      "category": "buildings",
+      "subcategory": "logistics",
+      "sourceChecksum": "2fe57f2303f13f4ed47ea6d6cec081a43603aa58d251d994fda70c86aef1b973",
+      "sourceFile": "assets/source/meshy/buildings/logistics/Archive 물류센터2.glb",
+      "master": "assets/optimized/master/buildings/logistics/building-archive-2-2fe57f23.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod0.glb",
+          "bytes": 35180492,
+          "sha256": "ec8f9ef8942ec0f8cd581d21d7584e2fdd54a25477ceb8b1595cb2b8617ef987"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod1.glb",
+          "bytes": 34470868,
+          "sha256": "091b1e0ed80bc29eb2eed53620f94d43affaa43cb61293746daed20a05b3b270"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod2.glb",
+          "bytes": 32440432,
+          "sha256": "3192679d212aee6fa0cc234e465d9ae69463645caacb3d29c7365764ffbb3ea4"
+        }
+      ],
+      "preview": "assets/previews/buildings/logistics/building-archive-2-2fe57f23.png",
+      "thumbnail": "assets/thumbnails/buildings/logistics/building-archive-2-2fe57f23.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-archive-logistics-4cd90681",
+      "category": "buildings",
+      "subcategory": "logistics",
+      "sourceChecksum": "4cd9068114a1b401a77f8edab20a087da54a31f4ebb37fe5f68380894dc048be",
+      "sourceFile": "assets/source/meshy/buildings/logistics/Archive_Logistics.glb",
+      "master": "assets/optimized/master/buildings/logistics/building-archive-logistics-4cd90681.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod0.glb",
+          "bytes": 16766508,
+          "sha256": "7c6a1155ba4d32829327e5bb05cdab7064062d8b7a7dbae4d08eeba37a3d6e38"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod1.glb",
+          "bytes": 14830724,
+          "sha256": "9d088552efb1d59e38f7429837039b44cdcb800bd5c1558b8325f8bdc1d56eda"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod2.glb",
+          "bytes": 12650440,
+          "sha256": "2567d6732424e3e18e486c6b937a69a7d5cb042dc36984297c567aa1c7a9750e"
+        }
+      ],
+      "preview": "assets/previews/buildings/logistics/building-archive-logistics-4cd90681.png",
+      "thumbnail": "assets/thumbnails/buildings/logistics/building-archive-logistics-4cd90681.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-market-9badf3fa",
+      "category": "buildings",
+      "subcategory": "market",
+      "sourceChecksum": "9badf3fa549d9fda1371ebb5fed47e4f24cf041fe97e62b32beb26b70bf94665",
+      "sourceFile": "assets/source/meshy/buildings/market/Archive Market 랜드마크.glb",
+      "master": "assets/optimized/master/buildings/market/building-market-9badf3fa.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod0.glb",
+          "bytes": 10376980,
+          "sha256": "46f6c7b6c3935709191abf7187544ed80f2b1fd93ad41d6e67d03200fb552be1"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod1.glb",
+          "bytes": 9939408,
+          "sha256": "b94f29371eeaf2e089179d19cc55e89f58bf5c115f6623cbe120ae2f4cec34b2"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod2.glb",
+          "bytes": 9640728,
+          "sha256": "f92165e41161642860187126d8612b6946f5afe704e569615717397fc3e58ae8"
+        }
+      ],
+      "preview": "assets/previews/buildings/market/building-market-9badf3fa.png",
+      "thumbnail": "assets/thumbnails/buildings/market/building-market-9badf3fa.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-market-181c8568",
+      "category": "buildings",
+      "subcategory": "market",
+      "sourceChecksum": "181c85683732d37c5d7525fa1e9de479b4a3838c7ebaecd2e1070afdac3e8eb4",
+      "sourceFile": "assets/source/meshy/buildings/market/Archive Market.glb",
+      "master": "assets/optimized/master/buildings/market/building-market-181c8568.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/market/building-market-181c8568/lod0.glb",
+          "bytes": 32840632,
+          "sha256": "19d98b053210eb707ebf30dbc51a0d0fa2a63734b82c3231e40fc6284fa45745"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/market/building-market-181c8568/lod1.glb",
+          "bytes": 31258028,
+          "sha256": "f9ae4728c814c1f22931a6e9c4058388f4f070985a59a2f231645790c74c1bf8"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/market/building-market-181c8568/lod2.glb",
+          "bytes": 30123784,
+          "sha256": "7a6994466c4970dd40961e0c59aaa32085ce46beaeafe1f468fdb62eeff088e1"
+        }
+      ],
+      "preview": "assets/previews/buildings/market/building-market-181c8568.png",
+      "thumbnail": "assets/thumbnails/buildings/market/building-market-181c8568.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-nexus-5b2737a0",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "5b2737a0ac1701b2aeac3e2b256a206ddfc9a455a090b6af6a74b71b41aea99f",
+      "sourceFile": "assets/source/meshy/buildings/factory/Archive Nexus 창고.glb",
+      "master": "assets/optimized/master/buildings/factory/building-nexus-5b2737a0.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod0.glb",
+          "bytes": 41247108,
+          "sha256": "a97fea49613e95198f156eb7fef7e931ac61ff1760353063833d0fd1d6278886"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod1.glb",
+          "bytes": 39952932,
+          "sha256": "d8cfbef6b1a82014ec1cb62c0161c8e5016ee944d9567d45f45f5940e98d1ed5"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod2.glb",
+          "bytes": 37657060,
+          "sha256": "3ecf005a0be8660ca1c578e6371c89aa8ad67636053610b174a2e3cbf2122daa"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-nexus-5b2737a0.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-nexus-5b2737a0.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-nexus-9adda402",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "9adda40249f04431257a19a15de362441cead691c7de95b662b07f395d3ad09d",
+      "sourceFile": "assets/source/meshy/buildings/factory/Archive Nexus.glb",
+      "master": "assets/optimized/master/buildings/factory/building-nexus-9adda402.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod0.glb",
+          "bytes": 32099688,
+          "sha256": "8f325eed0a796890b53b0724cabdd1b564e6bbbb684c0eeacd40ef7be0f3c569"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod1.glb",
+          "bytes": 31623032,
+          "sha256": "144509caad6b67cb525229091540efa33ceaed9249e2cfddc66f0a451078271d"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod2.glb",
+          "bytes": 31267128,
+          "sha256": "6af7bb6b4f598ed6e611549b14cffe5491a33c6a4160dffd3a5f298b5504c08e"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-nexus-9adda402.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-nexus-9adda402.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-a-2-0e6498d0",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "0e6498d0bd3478512b789f180a8a25add384bc9b0fdd1d07087c472d4e66f98e",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장A-2.glb",
+      "master": "assets/optimized/master/buildings/factory/building-a-2-0e6498d0.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-a-2-0e6498d0/lod0.glb",
+          "bytes": 13476636,
+          "sha256": "d8f3f793180174bfd565f9bf62017fe0d50077883f81448bd5db88ce49c1744b"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-a-2-0e6498d0/lod1.glb",
+          "bytes": 12509636,
+          "sha256": "f08f6bad62d12cfceb2556c77a24b7fd8cf8c92d47043cdabd6850137f734ff6"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-a-2-0e6498d0/lod2.glb",
+          "bytes": 11820028,
+          "sha256": "d18d432c35ffd19bc16c79c5ceeea1e6f5123371abc056fd94f9d5ded2544ab3"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-a-2-0e6498d0.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-a-2-0e6498d0.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-a-f288a17e",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "f288a17e2b2ef5c2584f9f4d61bc0e764ee10991a2dfe56e13e118ca26a13ad3",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장A.glb",
+      "master": "assets/optimized/master/buildings/factory/building-a-f288a17e.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-a-f288a17e/lod0.glb",
+          "bytes": 19543380,
+          "sha256": "21af1ebddbc80236b0b08f5a33d3243c9a1a1d0f3351e17ad852deb10735a277"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-a-f288a17e/lod1.glb",
+          "bytes": 18009592,
+          "sha256": "6fdc767b194d4da7d017f211c38c592d82c0a5de0772c614c8da50213a44324b"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-a-f288a17e/lod2.glb",
+          "bytes": 14799472,
+          "sha256": "4dcc4c72d68b34839a093b8464e4ac1950b0beee6e1102024d63698f88f64e5f"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-a-f288a17e.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-a-f288a17e.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-b-0da0b3c5",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "0da0b3c59ce9fd3b0fc184793cde598ec5f1d4825908de63065af786c955ab0b",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장B 메가센터.glb",
+      "master": "assets/optimized/master/buildings/factory/building-b-0da0b3c5.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod0.glb",
+          "bytes": 38831984,
+          "sha256": "7ed10ab74f9484f39d5f43acea5117ba748be2dd47eba347a157e57a05da2355"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod1.glb",
+          "bytes": 38144228,
+          "sha256": "6153c72ef0bd06f3277f07889a2a06da4846ddc835da8d3860185af7ddf2be81"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod2.glb",
+          "bytes": 37633656,
+          "sha256": "5f26bcbd0c6d0de2f51b2afd297bbf43459f0cc70cf34725dfcbbafe59df1343"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-b-0da0b3c5.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-b-0da0b3c5.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-b-2-17568922",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "175689227c146c6404cde0ab034722a2d5f70116d4f373527bb8678eadf109fa",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장B-2.glb",
+      "master": "assets/optimized/master/buildings/factory/building-b-2-17568922.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-b-2-17568922/lod0.glb",
+          "bytes": 19049612,
+          "sha256": "1dfcde0ef58858cad42602f56647210371855f1451ecf9041d2fadcea160ea36"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-b-2-17568922/lod1.glb",
+          "bytes": 17492136,
+          "sha256": "bc65ac49e6158354fbe183247daabdbeda3e6a6202cc4144400bcbdc5416cde1"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-b-2-17568922/lod2.glb",
+          "bytes": 14321760,
+          "sha256": "bffbfc05d5c4116a1c654d394b788085167b6a8d970b020876798102409bc7d2"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-b-2-17568922.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-b-2-17568922.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-b-858ba1f5",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "858ba1f57a4b01eb5d101aff413919fce19ad3c8786079d13cac4f8f5d3525f7",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장B.glb",
+      "master": "assets/optimized/master/buildings/factory/building-b-858ba1f5.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-b-858ba1f5/lod0.glb",
+          "bytes": 13751952,
+          "sha256": "5090c640ac2631528f6c4933b79ed8fb032448f2a52aae8790d7dafc16592306"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-b-858ba1f5/lod1.glb",
+          "bytes": 12787992,
+          "sha256": "89d8f28bf4605c746e1004a2bc14b90177d44ad62605cfa838ea9bf46bdf037f"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-b-858ba1f5/lod2.glb",
+          "bytes": 12097840,
+          "sha256": "a570406aa799fdcdf1b213a17960a6678732caf755f332d8ca632b480215ec35"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-b-858ba1f5.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-b-858ba1f5.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-c-2-fb36faf1",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "fb36faf1cf22b62690e294bc46652adead5e7379289cc353ed0e51e9ae828c75",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장C-2.glb",
+      "master": "assets/optimized/master/buildings/factory/building-c-2-fb36faf1.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-c-2-fb36faf1/lod0.glb",
+          "bytes": 38865008,
+          "sha256": "0429ad7fb23d873a12178f76428bce269c7ff6c0520b935579c855760829fcc1"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-c-2-fb36faf1/lod1.glb",
+          "bytes": 36876784,
+          "sha256": "bb854cb9001dd6abb6fc5d0288116b812773fa05d4f6c118a11d1f792e5c984f"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-c-2-fb36faf1/lod2.glb",
+          "bytes": 35379572,
+          "sha256": "1f2e1224baac1c6f2ba3d2f653bb360b3cc5cb4d12a82c329a200925b44495a0"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-c-2-fb36faf1.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-c-2-fb36faf1.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-c-f2297019",
+      "category": "buildings",
+      "subcategory": "factory",
+      "sourceChecksum": "f2297019bb7f814b220f15815988304ba6704ee8f5a05451966f595e38291f45",
+      "sourceFile": "assets/source/meshy/buildings/factory/공장C.glb",
+      "master": "assets/optimized/master/buildings/factory/building-c-f2297019.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/factory/building-c-f2297019/lod0.glb",
+          "bytes": 38036872,
+          "sha256": "19e594a03d9def7924f0f275edec3bd26cb1768ff5538287004accdd2c9ef808"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/factory/building-c-f2297019/lod1.glb",
+          "bytes": 36049488,
+          "sha256": "6a6fe404af92ecb21c3d67339770f2951838d80172305082ddaf29bcd6ef3565"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/factory/building-c-f2297019/lod2.glb",
+          "bytes": 34552492,
+          "sha256": "1209ff8d415a131256d13362367bdafde6e705cfa4f49233d44121378b3c4d1e"
+        }
+      ],
+      "preview": "assets/previews/buildings/factory/building-c-f2297019.png",
+      "thumbnail": "assets/thumbnails/buildings/factory/building-c-f2297019.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-archiveos2-a614889b",
+      "category": "buildings",
+      "subcategory": "archiveos",
+      "sourceChecksum": "a614889bbd42d2b3a7789f726397c3c8e89be4f7354d40125c63dea2d2b60cf1",
+      "sourceFile": "assets/source/meshy/buildings/archiveos/Archive OS2.glb",
+      "master": "assets/optimized/master/buildings/archiveos/building-archiveos2-a614889b.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod0.glb",
+          "bytes": 32684096,
+          "sha256": "80b150f0f04298d1f29df5e2e96a7bf8980047a333435d800d1ec3c2676b64be"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod1.glb",
+          "bytes": 32241888,
+          "sha256": "00bdf940b6c9825a79253014f5e082244f32ecd71a47feb16b382686e9efa2f5"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod2.glb",
+          "bytes": 31945104,
+          "sha256": "f7baab9b3eb1518ce87eb8407b0861bd5a248f75d34e8e0b84c0f9705b713f8f"
+        }
+      ],
+      "preview": "assets/previews/buildings/archiveos/building-archiveos2-a614889b.png",
+      "thumbnail": "assets/thumbnails/buildings/archiveos/building-archiveos2-a614889b.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-archive-15186c21",
+      "category": "buildings",
+      "subcategory": "archiveos",
+      "sourceChecksum": "15186c21b16789d9f44dd91b49fa2b3bfc8bdec1afde4d1670d7f74814ccd459",
+      "sourceFile": "assets/source/meshy/buildings/archiveos/Archive 데이터 센터.glb",
+      "master": "assets/optimized/master/buildings/archiveos/building-archive-15186c21.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/archiveos/building-archive-15186c21/lod0.glb",
+          "bytes": 10502516,
+          "sha256": "c6d7c364c8a77d440e6e688deee2c62e73aff0d008444bb9617ad663cc8edc1d"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/archiveos/building-archive-15186c21/lod1.glb",
+          "bytes": 10033032,
+          "sha256": "feb93e740ddf787f5d016547048dc9a1c8ca6409fc22420f55154fef2d9e6455"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/archiveos/building-archive-15186c21/lod2.glb",
+          "bytes": 9511644,
+          "sha256": "4dcd87759d573e4e6b668b0379f90005a1ab76719e762d9f00a372c5863e3994"
+        }
+      ],
+      "preview": "assets/previews/buildings/archiveos/building-archive-15186c21.png",
+      "thumbnail": "assets/thumbnails/buildings/archiveos/building-archive-15186c21.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-1-d57f1be7",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "d57f1be7e64cabb5808e4b9fcd4d27bd2f7be1c1e74800231d34024a84c9dbda",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩1.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-1-d57f1be7.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-1-d57f1be7/lod0.glb",
+          "bytes": 36428880,
+          "sha256": "8bce46c8e7889f867743dbedc5183b3eda660d606b21eaf19765e2785f261792"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-1-d57f1be7/lod1.glb",
+          "bytes": 35664804,
+          "sha256": "5aca8c687fe7bf53a935744f79518189ec1e62a2c2ee5dfc667e0246f2d64adc"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-1-d57f1be7/lod2.glb",
+          "bytes": 35105344,
+          "sha256": "ca6a90bfb71423b845e205cb44bb278927ba0216f23bd246405ac21302455eda"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-1-d57f1be7.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-1-d57f1be7.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-2-cfee9093",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "cfee9093ecc8bd07579610d4319814917e95b0e1845a88c0e9c7218691c44030",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩2.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-2-cfee9093.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod0.glb",
+          "bytes": 13630832,
+          "sha256": "d8438f089d5d4a49fd0b4acaa85ddf6f0bfcc97fd1d5127f2edd95340c6ed9dd"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod1.glb",
+          "bytes": 12589916,
+          "sha256": "8ba25343bbfa0857134cf0d668f0743509b5194bc93c38bcf634ab9ba3ce624b"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod2.glb",
+          "bytes": 11862136,
+          "sha256": "b1ab5f1bd2887f766c975ce9009395096c6b38c85a069b7501e69a9efed08e0f"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-2-cfee9093.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-2-cfee9093.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-3-3d248d87",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "3d248d87a63000a3a6fdcba27c12ef6402976a2de44ff48e17a08007a79c6fce",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩3.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-3-3d248d87.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-3-3d248d87/lod0.glb",
+          "bytes": 36135588,
+          "sha256": "53c8f5340a7fcaac073a04772c38875fa2a4fe8ea2b810857a9139c5f2476bd0"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-3-3d248d87/lod1.glb",
+          "bytes": 35342152,
+          "sha256": "b8b2c055e83e0fdf921a7245a638e3e322b1d0222ad9430f363fc132a5d8f50f"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-3-3d248d87/lod2.glb",
+          "bytes": 34785412,
+          "sha256": "311d1ddec32b886e1eaef8ee78c23266d580c5703f6e63f66db483e18b6a7dc7"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-3-3d248d87.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-3-3d248d87.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-4-874697a4",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "874697a40934a3a8d09ad9c44a3045d5958116745c69f8caf27a40dd924823f2",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩4.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-4-874697a4.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-4-874697a4/lod0.glb",
+          "bytes": 13469568,
+          "sha256": "a726bb7bdc10bf145f7d74112f963669f6014283c6a9f451b015b16d84c86caf"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-4-874697a4/lod1.glb",
+          "bytes": 12427852,
+          "sha256": "5d4db1a5a42a942e57c8ce52532155f792290624948f075c0efa260dc57ab9c5"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-4-874697a4/lod2.glb",
+          "bytes": 11698092,
+          "sha256": "e98c2c64b9a34b672c1f1da2543b30776ca0c707d6fad1e6f829f271398ccc8e"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-4-874697a4.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-4-874697a4.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-5-8ec67334",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "8ec67334dba5b53814329653ccdcb1bc9aed5bc9bc2ba6f63b0c157f4b8153c2",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩5.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-5-8ec67334.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-5-8ec67334/lod0.glb",
+          "bytes": 34918192,
+          "sha256": "8a76fc3c376f9a88bc653a1a8b0fa77a2bd82569bb8a57e3748cfb3cec0df607"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-5-8ec67334/lod1.glb",
+          "bytes": 34121616,
+          "sha256": "dca4bac7bc3ffab9f3b91586bd70e58daa34b1c946b9399bd586b8d9b45d86fe"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-5-8ec67334/lod2.glb",
+          "bytes": 33565056,
+          "sha256": "8b2b94b748df91c84e46c7f58b32b1b0766ab677c0a0c2984eb88a687066c2ab"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-5-8ec67334.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-5-8ec67334.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-6-c55667d3",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "c55667d3a548ba216d2c4846861dc1d79ae0df8995cea0386e35cf48b13b9dc5",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩6.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-6-c55667d3.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-6-c55667d3/lod0.glb",
+          "bytes": 12681800,
+          "sha256": "2e911a70e949bde454734957085ba5a6bd216298758905db0b5ef9e26c926efd"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-6-c55667d3/lod1.glb",
+          "bytes": 11829348,
+          "sha256": "01c4fa616e996c069fe3a0be9dbbe74d16738d2d264440b8fde572a163f9685c"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-6-c55667d3/lod2.glb",
+          "bytes": 11227552,
+          "sha256": "95e4e9563ac51588488ff0973db700576f86a27d784a7d6bc5d50f7e32a01d9a"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-6-c55667d3.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-6-c55667d3.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-7-d09a344b",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "d09a344b1248787f6a1bda928189fd680490b2adb227cec89540b4229e6d0833",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩7.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-7-d09a344b.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-7-d09a344b/lod0.glb",
+          "bytes": 13422196,
+          "sha256": "e779afe24abaa08eafdde282fb2f5f9b2cc15ba050035ece4be09fc1fd550f1e"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-7-d09a344b/lod1.glb",
+          "bytes": 12567248,
+          "sha256": "00c423f63b2c9e74597d8f84d5b0d8f556050327a7ef541205bd31355af3b5d6"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-7-d09a344b/lod2.glb",
+          "bytes": 11965728,
+          "sha256": "236adc2f4bcd5350dfb8bb9b0517b7101d31559b0f39759f61ec8e91435cd7ad"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-7-d09a344b.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-7-d09a344b.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-8-9034e896",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "9034e896bcbd09a0469017170e3633c090d83531dc110b058d1f964e2c1f3252",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩8.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-8-9034e896.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-8-9034e896/lod0.glb",
+          "bytes": 37247104,
+          "sha256": "30f54a08da374cffc6e97abeb5c2053535c9ed45043ca8425c59173c93746e9b"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-8-9034e896/lod1.glb",
+          "bytes": 36450292,
+          "sha256": "a66e6c6089bfc4fb8e422b9891ab7560b31035e7fa2d895d916a7ffd996224f9"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-8-9034e896/lod2.glb",
+          "bytes": 35893788,
+          "sha256": "5d70ff9763f3874c463b5f68531eba309070ee177973cb80882e2bbb02b8d2f2"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-8-9034e896.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-8-9034e896.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "building-asset-891d0bfc",
+      "category": "buildings",
+      "subcategory": "infrastructure",
+      "sourceChecksum": "891d0bfcf3a6d366152a47974c30d2ec312a2b4cc11934ab8dcc6daf028021ba",
+      "sourceFile": "assets/source/meshy/buildings/infrastructure/주유소.glb",
+      "master": "assets/optimized/master/buildings/infrastructure/building-asset-891d0bfc.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod0.glb",
+          "bytes": 11983460,
+          "sha256": "32a8ae9cc59f8422402119204e617560d258943fc15d94f4109df0afce244c07"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod1.glb",
+          "bytes": 10923444,
+          "sha256": "9e0140697e422ae0ffdc061a0d114b9029b62027acab436f4f90c15727ca4176"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod2.glb",
+          "bytes": 10104940,
+          "sha256": "893532ae312ffd2293ada1e36e78d14b75882ee5341f1b074d6ddd1bdc2fc11a"
+        }
+      ],
+      "preview": "assets/previews/buildings/infrastructure/building-asset-891d0bfc.png",
+      "thumbnail": "assets/thumbnails/buildings/infrastructure/building-asset-891d0bfc.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    }
+  ]
+}

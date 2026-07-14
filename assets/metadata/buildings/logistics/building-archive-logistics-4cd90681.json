@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-archive-logistics-4cd90681",
+  "originalName": "Archive_Logistics.glb",
+  "originalRelativePath": "Archive Logistis/Archive_Logistics.glb",
+  "category": "buildings",
+  "subcategory": "logistics",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "4cd9068114a1b401a77f8edab20a087da54a31f4ebb37fe5f68380894dc048be",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8966079950332642,
+    1.1038339734077454,
+    1.9001449942588806
+  ],
+  "bounds": {
+    "min": [
+      -0.9498479962348938,
+      -0.553542971611023,
+      -0.9515309929847717
+    ],
+    "max": [
+      0.9467599987983704,
+      0.5502910017967224,
+      0.9486140012741089
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 1461779,
+  "triangles": 1892422,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod0.glb",
+      "triangles": 1892422,
+      "vertices": 2949484,
+      "reductionRatio": 1,
+      "bytes": 16766508,
+      "sha256": "7c6a1155ba4d32829327e5bb05cdab7064062d8b7a7dbae4d08eeba37a3d6e38",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod1.glb",
+      "triangles": 946210,
+      "vertices": 1883806,
+      "reductionRatio": 0.49999947157663566,
+      "bytes": 14830724,
+      "sha256": "9d088552efb1d59e38f7429837039b44cdcb800bd5c1558b8325f8bdc1d56eda",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod2.glb",
+      "triangles": 378484,
+      "vertices": 910092,
+      "reductionRatio": 0.19999978863065426,
+      "bytes": 12650440,
+      "sha256": "2567d6732424e3e18e486c6b937a69a7d5cb042dc36984297c567aa1c7a9750e",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/logistics/Archive_Logistics.glb",
+  "masterFile": "assets/optimized/master/buildings/logistics/building-archive-logistics-4cd90681.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod0.glb",
+    "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod1.glb",
+    "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/logistics/building-archive-logistics-4cd90681.png",
+  "thumbnail": "assets/thumbnails/buildings/logistics/building-archive-logistics-4cd90681.webp",
+  "fileSizes": {
+    "source": 79118416,
+    "master": 79362852,
+    "web": 44247672
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:29:28.258Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "4cd9068114a1b401a77f8edab20a087da54a31f4ebb37fe5f68380894dc048be",
+    "sourceChecksumAfter": "4cd9068114a1b401a77f8edab20a087da54a31f4ebb37fe5f68380894dc048be",
+    "masterChecksum": "67876b96e36e61f3b2976042693004ee9d9731d308642bb9ee907de046d62b0b",
+    "durationMs": 314383,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

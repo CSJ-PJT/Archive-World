@@ -1,0 +1,955 @@
+{
+  "version": "2.0.0",
+  "districts": [
+    "archiveos",
+    "market",
+    "nexus",
+    "logistics",
+    "ledger",
+    "residential",
+    "infrastructure"
+  ],
+  "instances": [
+    {
+      "instanceId": "control-tower",
+      "assetId": "building-archiveos-2e8c32fa",
+      "district": "archiveos",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-archiveos-2e8c32fa.glb",
+      "state": "hub"
+    },
+    {
+      "instanceId": "ai-center",
+      "assetId": "building-archive-15186c21",
+      "district": "archiveos",
+      "position": [
+        28,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0.2,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-archive-15186c21.glb",
+      "state": "hub"
+    },
+    {
+      "instanceId": "security-center",
+      "assetId": "building-archiveos2-a614889b",
+      "district": "archiveos",
+      "position": [
+        -28,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        -0.3,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-archiveos2-a614889b.glb",
+      "state": "hub"
+    },
+    {
+      "instanceId": "commerce-hub",
+      "assetId": "building-market-9badf3fa",
+      "district": "market",
+      "position": [
+        -128,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-market-9badf3fa.glb",
+      "state": "commercial"
+    },
+    {
+      "instanceId": "order-center",
+      "assetId": "building-market-181c8568",
+      "district": "market",
+      "position": [
+        -102,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0.3,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-market-181c8568.glb",
+      "state": "commercial"
+    },
+    {
+      "instanceId": "retail-tower",
+      "assetId": "building-1-d57f1be7",
+      "district": "market",
+      "position": [
+        -145,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-1-d57f1be7.glb",
+      "state": "commercial"
+    },
+    {
+      "instanceId": "delivery-van",
+      "assetId": "vehicle-asset-535bcba9",
+      "district": "market",
+      "position": [
+        -116,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-asset-535bcba9.glb",
+      "state": "parking"
+    },
+    {
+      "instanceId": "smart-factory",
+      "assetId": "building-nexus-5b2737a0",
+      "district": "nexus",
+      "position": [
+        -25,
+        0,
+        128
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-nexus-5b2737a0.glb",
+      "state": "production"
+    },
+    {
+      "instanceId": "process-a",
+      "assetId": "building-a-2-0e6498d0",
+      "district": "nexus",
+      "position": [
+        -58,
+        0,
+        113
+      ],
+      "rotation": [
+        0,
+        0.2,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-a-2-0e6498d0.glb",
+      "state": "production"
+    },
+    {
+      "instanceId": "process-b",
+      "assetId": "building-b-0da0b3c5",
+      "district": "nexus",
+      "position": [
+        8,
+        0,
+        112
+      ],
+      "rotation": [
+        0,
+        -0.2,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-b-0da0b3c5.glb",
+      "state": "production"
+    },
+    {
+      "instanceId": "maintenance",
+      "assetId": "building-c-f2297019",
+      "district": "nexus",
+      "position": [
+        -10,
+        0,
+        158
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-c-f2297019.glb",
+      "state": "production"
+    },
+    {
+      "instanceId": "agv",
+      "assetId": "vehicle-agv-platform-v1",
+      "district": "nexus",
+      "position": [
+        -45,
+        0,
+        144
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-agv-platform-v1.glb",
+      "state": "loading"
+    },
+    {
+      "instanceId": "distribution",
+      "assetId": "building-archive-logistics-4cd90681",
+      "district": "logistics",
+      "position": [
+        125,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-archive-logistics-4cd90681.glb",
+      "state": "dock"
+    },
+    {
+      "instanceId": "truck-terminal",
+      "assetId": "building-archive-1-ea52880d",
+      "district": "logistics",
+      "position": [
+        155,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0.2,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-archive-1-ea52880d.glb",
+      "state": "dock"
+    },
+    {
+      "instanceId": "cold-storage",
+      "assetId": "building-archive-2-2fe57f23",
+      "district": "logistics",
+      "position": [
+        96,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-archive-2-2fe57f23.glb",
+      "state": "dock"
+    },
+    {
+      "instanceId": "container-yard",
+      "assetId": "container-yard-modular-v1",
+      "district": "logistics",
+      "position": [
+        150,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/container-yard-modular-v1.glb",
+      "state": "yard"
+    },
+    {
+      "instanceId": "dock-module",
+      "assetId": "cold-storage-loading-dock-v1",
+      "district": "logistics",
+      "position": [
+        100,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/cold-storage-loading-dock-v1.glb",
+      "state": "dock"
+    },
+    {
+      "instanceId": "forklift",
+      "assetId": "vehicle-forklift-industrial-v1",
+      "district": "logistics",
+      "position": [
+        128,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-forklift-industrial-v1.glb",
+      "state": "loading"
+    },
+    {
+      "instanceId": "truck-drive",
+      "assetId": "vehicle-1-a74d9cb9",
+      "district": "logistics",
+      "position": [
+        72,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0.4,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-1-a74d9cb9.glb",
+      "state": "driving"
+    },
+    {
+      "instanceId": "truck-dock",
+      "assetId": "vehicle-2-49e64913",
+      "district": "logistics",
+      "position": [
+        116,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-2-49e64913.glb",
+      "state": "dock"
+    },
+    {
+      "instanceId": "settlement",
+      "assetId": "building-ledger-181c8568",
+      "district": "ledger",
+      "position": [
+        12,
+        0,
+        -130
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-ledger-181c8568.glb",
+      "state": "settlement"
+    },
+    {
+      "instanceId": "audit",
+      "assetId": "building-ledger2-ea294a50",
+      "district": "ledger",
+      "position": [
+        -23,
+        0,
+        -148
+      ],
+      "rotation": [
+        0,
+        0.2,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-ledger2-ea294a50.glb",
+      "state": "office"
+    },
+    {
+      "instanceId": "finance-a",
+      "assetId": "building-2-cfee9093",
+      "district": "ledger",
+      "position": [
+        42,
+        0,
+        -145
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-2-cfee9093.glb",
+      "state": "office"
+    },
+    {
+      "instanceId": "finance-b",
+      "assetId": "building-7-d09a344b",
+      "district": "ledger",
+      "position": [
+        60,
+        0,
+        -118
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-7-d09a344b.glb",
+      "state": "office"
+    },
+    {
+      "instanceId": "office-car",
+      "assetId": "vehicle-asset-535bcba9",
+      "district": "ledger",
+      "position": [
+        20,
+        0,
+        -105
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-asset-535bcba9.glb",
+      "state": "parking"
+    },
+    {
+      "instanceId": "apartment-a",
+      "assetId": "building-3-3d248d87",
+      "district": "residential",
+      "position": [
+        -148,
+        0,
+        118
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-3-3d248d87.glb",
+      "state": "residential"
+    },
+    {
+      "instanceId": "apartment-b",
+      "assetId": "building-4-874697a4",
+      "district": "residential",
+      "position": [
+        -120,
+        0,
+        118
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-4-874697a4.glb",
+      "state": "residential"
+    },
+    {
+      "instanceId": "apartment-c",
+      "assetId": "building-5-8ec67334",
+      "district": "residential",
+      "position": [
+        -148,
+        0,
+        148
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-5-8ec67334.glb",
+      "state": "residential"
+    },
+    {
+      "instanceId": "apartment-d",
+      "assetId": "building-6-c55667d3",
+      "district": "residential",
+      "position": [
+        -120,
+        0,
+        148
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-6-c55667d3.glb",
+      "state": "residential"
+    },
+    {
+      "instanceId": "apartment-e",
+      "assetId": "building-3-3d248d87",
+      "district": "residential",
+      "position": [
+        -92,
+        0,
+        118
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-3-3d248d87.glb",
+      "state": "residential"
+    },
+    {
+      "instanceId": "apartment-f",
+      "assetId": "building-5-8ec67334",
+      "district": "residential",
+      "position": [
+        -92,
+        0,
+        148
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/building-5-8ec67334.glb",
+      "state": "residential"
+    },
+    {
+      "instanceId": "resident-car-a",
+      "assetId": "vehicle-asset-535bcba9",
+      "district": "residential",
+      "position": [
+        -132,
+        0,
+        95
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-asset-535bcba9.glb",
+      "state": "parking"
+    },
+    {
+      "instanceId": "resident-car-b",
+      "assetId": "vehicle-3-234d82b4",
+      "district": "residential",
+      "position": [
+        -106,
+        0,
+        95
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/vehicle-3-234d82b4.glb",
+      "state": "parking"
+    },
+    {
+      "instanceId": "power",
+      "assetId": "power-substation-compact-v1",
+      "district": "infrastructure",
+      "position": [
+        45,
+        0,
+        76
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/power-substation-compact-v1.glb",
+      "state": "utility"
+    },
+    {
+      "instanceId": "comms",
+      "assetId": "communications-tower-compact-v1",
+      "district": "infrastructure",
+      "position": [
+        18,
+        0,
+        83
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/communications-tower-compact-v1.glb",
+      "state": "utility"
+    },
+    {
+      "instanceId": "gate",
+      "assetId": "security-gate-road-lane-v1",
+      "district": "infrastructure",
+      "position": [
+        76,
+        0,
+        62
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/security-gate-road-lane-v1.glb",
+      "state": "gate"
+    },
+    {
+      "instanceId": "barrier",
+      "assetId": "roadside-safety-barrier-v1",
+      "district": "infrastructure",
+      "position": [
+        60,
+        0,
+        92
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/roadside-safety-barrier-v1.glb",
+      "state": "safety"
+    },
+    {
+      "instanceId": "streetlight-a",
+      "assetId": "streetlight-traffic-signal-v1",
+      "district": "infrastructure",
+      "position": [
+        -20,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/streetlight-traffic-signal-v1.glb",
+      "state": "street"
+    },
+    {
+      "instanceId": "streetlight-b",
+      "assetId": "streetlight-traffic-signal-v1",
+      "district": "infrastructure",
+      "position": [
+        38,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "runtimePath": "assets/runtime/v2/library/streetlight-traffic-signal-v1.glb",
+      "state": "street"
+    }
+  ],
+  "roadTopology": {
+    "nodes": [
+      {
+        "nodeId": "central",
+        "position": [
+          0,
+          0,
+          40
+        ]
+      },
+      {
+        "nodeId": "market",
+        "position": [
+          -78,
+          0,
+          32
+        ]
+      },
+      {
+        "nodeId": "marketWest",
+        "position": [
+          -140,
+          0,
+          5
+        ]
+      },
+      {
+        "nodeId": "nexus",
+        "position": [
+          -25,
+          0,
+          82
+        ]
+      },
+      {
+        "nodeId": "nexusNorth",
+        "position": [
+          -30,
+          0,
+          145
+        ]
+      },
+      {
+        "nodeId": "logistics",
+        "position": [
+          72,
+          0,
+          35
+        ]
+      },
+      {
+        "nodeId": "logisticsEast",
+        "position": [
+          145,
+          0,
+          36
+        ]
+      },
+      {
+        "nodeId": "ledger",
+        "position": [
+          10,
+          0,
+          -72
+        ]
+      },
+      {
+        "nodeId": "ledgerSouth",
+        "position": [
+          15,
+          0,
+          -142
+        ]
+      },
+      {
+        "nodeId": "residential",
+        "position": [
+          -105,
+          0,
+          80
+        ]
+      },
+      {
+        "nodeId": "residentialNorth",
+        "position": [
+          -120,
+          0,
+          140
+        ]
+      },
+      {
+        "nodeId": "utility",
+        "position": [
+          40,
+          0,
+          75
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "edgeId": "edge-0",
+        "from": "central",
+        "to": "market",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "primary",
+        "district": "archiveos",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-1",
+        "from": "market",
+        "to": "marketWest",
+        "roadType": "service",
+        "laneCount": 2,
+        "direction": "both",
+        "speedClass": "local",
+        "district": "market",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-2",
+        "from": "central",
+        "to": "nexus",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "primary",
+        "district": "archiveos",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-3",
+        "from": "nexus",
+        "to": "nexusNorth",
+        "roadType": "industrial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "freight",
+        "district": "nexus",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-4",
+        "from": "central",
+        "to": "logistics",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "freight",
+        "district": "logistics",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-5",
+        "from": "logistics",
+        "to": "logisticsEast",
+        "roadType": "industrial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "freight",
+        "district": "logistics",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-6",
+        "from": "central",
+        "to": "ledger",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "primary",
+        "district": "ledger",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-7",
+        "from": "ledger",
+        "to": "ledgerSouth",
+        "roadType": "urban",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "urban",
+        "district": "ledger",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-8",
+        "from": "market",
+        "to": "residential",
+        "roadType": "urban",
+        "laneCount": 2,
+        "direction": "both",
+        "speedClass": "local",
+        "district": "residential",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-9",
+        "from": "residential",
+        "to": "residentialNorth",
+        "roadType": "residential",
+        "laneCount": 2,
+        "direction": "both",
+        "speedClass": "slow",
+        "district": "residential",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-10",
+        "from": "nexus",
+        "to": "residentialNorth",
+        "roadType": "service",
+        "laneCount": 2,
+        "direction": "both",
+        "speedClass": "local",
+        "district": "residential",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-11",
+        "from": "nexus",
+        "to": "utility",
+        "roadType": "service",
+        "laneCount": 2,
+        "direction": "both",
+        "speedClass": "industrial",
+        "district": "infrastructure",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-12",
+        "from": "utility",
+        "to": "logistics",
+        "roadType": "service",
+        "laneCount": 2,
+        "direction": "both",
+        "speedClass": "industrial",
+        "district": "infrastructure",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-13",
+        "from": "central",
+        "to": "utility",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "primary",
+        "district": "infrastructure",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-14",
+        "from": "market",
+        "to": "ledger",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "primary",
+        "district": "market",
+        "vehicleAllowed": true
+      },
+      {
+        "edgeId": "edge-15",
+        "from": "logistics",
+        "to": "ledger",
+        "roadType": "arterial",
+        "laneCount": 4,
+        "direction": "both",
+        "speedClass": "primary",
+        "district": "logistics",
+        "vehicleAllowed": true
+      }
+    ]
+  }
+}

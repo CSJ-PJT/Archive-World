@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-ledger2-ea294a50",
+  "originalName": "Archive Ledger2.glb",
+  "originalRelativePath": "Archive Ledger/Archive Ledger2.glb",
+  "category": "buildings",
+  "subcategory": "ledger",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "ea294a505d695307aeeeed7eb205df59b7e6b86d652ef4f7eea7a2f9b3bdc5c1",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.1157580018043518,
+    1.8995909690856934,
+    0.7822569906711578
+  ],
+  "bounds": {
+    "min": [
+      -0.572380006313324,
+      -0.9508299827575684,
+      -0.39348098635673523
+    ],
+    "max": [
+      0.5433779954910278,
+      0.948760986328125,
+      0.3887760043144226
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 208072,
+  "triangles": 389594,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod0.glb",
+      "triangles": 389594,
+      "vertices": 425034,
+      "reductionRatio": 1,
+      "bytes": 11924016,
+      "sha256": "3512da44caee338274ab7e54d837ef8236e9a1c0b07cc9f4c05b48774e519341",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod1.glb",
+      "triangles": 194797,
+      "vertices": 228948,
+      "reductionRatio": 0.5,
+      "bytes": 11426596,
+      "sha256": "96505e94ba44601db8a63f6d4c1f7d6676e9d3519b5408e5489aca8f1906d013",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod2.glb",
+      "triangles": 77917,
+      "vertices": 109174,
+      "reductionRatio": 0.19999537980564383,
+      "bytes": 11069720,
+      "sha256": "092ea5b2d54611f3883694aedbe8350c440d390fa24827eaafa0d64652b4a1e8",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/ledger/Archive Ledger2.glb",
+  "masterFile": "assets/optimized/master/buildings/ledger/building-ledger2-ea294a50.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod0.glb",
+    "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod1.glb",
+    "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/ledger/building-ledger2-ea294a50.png",
+  "thumbnail": "assets/thumbnails/buildings/ledger/building-ledger2-ea294a50.webp",
+  "fileSizes": {
+    "source": 22043744,
+    "master": 22166964,
+    "web": 34420332
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:17:01.140Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "ea294a505d695307aeeeed7eb205df59b7e6b86d652ef4f7eea7a2f9b3bdc5c1",
+    "sourceChecksumAfter": "ea294a505d695307aeeeed7eb205df59b7e6b86d652ef4f7eea7a2f9b3bdc5c1",
+    "masterChecksum": "2198a1eabf77216cf16e233b517f1bc1fe566a7f7503d41b65e89a9aa8164c94",
+    "durationMs": 76775,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

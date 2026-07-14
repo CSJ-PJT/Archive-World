@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-a-f288a17e",
+  "originalName": "공장A.glb",
+  "originalRelativePath": "Archive Nexus/공장A.glb",
+  "category": "buildings",
+  "subcategory": "factory",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "f288a17e2b2ef5c2584f9f4d61bc0e764ee10991a2dfe56e13e118ca26a13ad3",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8989740014076233,
+    1.1451610326766968,
+    1.8993709683418274
+  ],
+  "bounds": {
+    "min": [
+      -0.9504500031471252,
+      -0.5746970176696777,
+      -0.9506499767303467
+    ],
+    "max": [
+      0.948523998260498,
+      0.570464015007019,
+      0.9487209916114807
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 1481961,
+  "triangles": 1142886,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/factory/building-a-f288a17e/lod0.glb",
+      "triangles": 1142886,
+      "vertices": 2992606,
+      "reductionRatio": 1,
+      "bytes": 19543380,
+      "sha256": "21af1ebddbc80236b0b08f5a33d3243c9a1a1d0f3351e17ad852deb10735a277",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/factory/building-a-f288a17e/lod1.glb",
+      "triangles": 571443,
+      "vertices": 1755772,
+      "reductionRatio": 0.5,
+      "bytes": 18009592,
+      "sha256": "6fdc767b194d4da7d017f211c38c592d82c0a5de0772c614c8da50213a44324b",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/factory/building-a-f288a17e/lod2.glb",
+      "triangles": 228577,
+      "vertices": 677374,
+      "reductionRatio": 0.19999982500441865,
+      "bytes": 14799472,
+      "sha256": "4dcc4c72d68b34839a093b8464e4ac1950b0beee6e1102024d63698f88f64e5f",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/factory/공장A.glb",
+  "masterFile": "assets/optimized/master/buildings/factory/building-a-f288a17e.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/factory/building-a-f288a17e/lod0.glb",
+    "assets/optimized/web/buildings/factory/building-a-f288a17e/lod1.glb",
+    "assets/optimized/web/buildings/factory/building-a-f288a17e/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/factory/building-a-f288a17e.png",
+  "thumbnail": "assets/thumbnails/buildings/factory/building-a-f288a17e.webp",
+  "fileSizes": {
+    "source": 73283396,
+    "master": 73423444,
+    "web": 52352444
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T01:09:04.236Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "f288a17e2b2ef5c2584f9f4d61bc0e764ee10991a2dfe56e13e118ca26a13ad3",
+    "sourceChecksumAfter": "f288a17e2b2ef5c2584f9f4d61bc0e764ee10991a2dfe56e13e118ca26a13ad3",
+    "masterChecksum": "7ed3f02c81625dfa83eecebcefc47a4ac583b70b9a630d41c47cc85675e063fa",
+    "durationMs": 206049,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "vehicle-4-c7662c5d",
+  "originalName": "물류 트럭4.glb",
+  "originalRelativePath": "Archive Logistis/물류 트럭/물류 트럭4.glb",
+  "category": "vehicles",
+  "subcategory": "trucks",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "c7662c5d71bb1df7343fb4fe85e3c2f4b1522c71ee6a18cb218deec4dd5737d3",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8982999920845032,
+    0.9780679941177368,
+    0.9468660056591034
+  ],
+  "bounds": {
+    "min": [
+      -0.9506909847259521,
+      -0.48980599641799927,
+      -0.474371999502182
+    ],
+    "max": [
+      0.947609007358551,
+      0.48826199769973755,
+      0.4724940061569214
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 641350,
+  "triangles": 1165370,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod0.glb",
+      "triangles": 1165370,
+      "vertices": 1298838,
+      "reductionRatio": 1,
+      "bytes": 31335276,
+      "sha256": "16aa5848d22d6d5fb750220a2a0d808e858b5c7b8f8a827e1382bb1800edafa0",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod1.glb",
+      "triangles": 582685,
+      "vertices": 711376,
+      "reductionRatio": 0.5,
+      "bytes": 29871664,
+      "sha256": "78cba606ccf588cc27e8ce9ebab30bab38d99c3d7ed9961c6ffc3c178b156c7c",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod2.glb",
+      "triangles": 233074,
+      "vertices": 346934,
+      "reductionRatio": 0.2,
+      "bytes": 28867548,
+      "sha256": "254c588a9f96b57709c27ab7952379b077517184b882711f7cb5dc1a38445fb1",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/vehicles/trucks/물류 트럭4.glb",
+  "masterFile": "assets/optimized/master/vehicles/trucks/vehicle-4-c7662c5d.glb",
+  "webFiles": [
+    "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod0.glb",
+    "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod1.glb",
+    "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod2.glb"
+  ],
+  "preview": "assets/previews/vehicles/trucks/vehicle-4-c7662c5d.png",
+  "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-4-c7662c5d.webp",
+  "fileSizes": {
+    "source": 62237848,
+    "master": 62468264,
+    "web": 90074488
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:46:59.024Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "c7662c5d71bb1df7343fb4fe85e3c2f4b1522c71ee6a18cb218deec4dd5737d3",
+    "sourceChecksumAfter": "c7662c5d71bb1df7343fb4fe85e3c2f4b1522c71ee6a18cb218deec4dd5737d3",
+    "masterChecksum": "c6182929de720ece2e103281f8d614577e25a77fd030af41a3ad405b322ab4d0",
+    "durationMs": 229596,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

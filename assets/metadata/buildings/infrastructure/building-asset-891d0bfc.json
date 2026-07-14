@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-asset-891d0bfc",
+  "originalName": "주유소.glb",
+  "originalRelativePath": "주유소/주유소.glb",
+  "category": "buildings",
+  "subcategory": "infrastructure",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "891d0bfcf3a6d366152a47974c30d2ec312a2b4cc11934ab8dcc6daf028021ba",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.5956019759178162,
+    0.7305540144443512,
+    1.8995530009269714
+  ],
+  "bounds": {
+    "min": [
+      -0.7987549901008606,
+      -0.36551201343536377,
+      -0.9507030248641968
+    ],
+    "max": [
+      0.7968469858169556,
+      0.3650420010089874,
+      0.9488499760627747
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 527940,
+  "triangles": 937778,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod0.glb",
+      "triangles": 937778,
+      "vertices": 1093706,
+      "reductionRatio": 1,
+      "bytes": 11983460,
+      "sha256": "32a8ae9cc59f8422402119204e617560d258943fc15d94f4109df0afce244c07",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod1.glb",
+      "triangles": 468888,
+      "vertices": 619678,
+      "reductionRatio": 0.4999989336495418,
+      "bytes": 10923444,
+      "sha256": "9e0140697e422ae0ffdc061a0d114b9029b62027acab436f4f90c15727ca4176",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod2.glb",
+      "triangles": 187554,
+      "vertices": 320152,
+      "reductionRatio": 0.19999829383926687,
+      "bytes": 10104940,
+      "sha256": "893532ae312ffd2293ada1e36e78d14b75882ee5341f1b074d6ddd1bdc2fc11a",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/infrastructure/주유소.glb",
+  "masterFile": "assets/optimized/master/buildings/infrastructure/building-asset-891d0bfc.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod0.glb",
+    "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod1.glb",
+    "assets/optimized/web/buildings/infrastructure/building-asset-891d0bfc/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/infrastructure/building-asset-891d0bfc.png",
+  "thumbnail": "assets/thumbnails/buildings/infrastructure/building-asset-891d0bfc.webp",
+  "fileSizes": {
+    "source": 37268252,
+    "master": 37802508,
+    "web": 33011844
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T02:11:38.537Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "891d0bfcf3a6d366152a47974c30d2ec312a2b4cc11934ab8dcc6daf028021ba",
+    "sourceChecksumAfter": "891d0bfcf3a6d366152a47974c30d2ec312a2b4cc11934ab8dcc6daf028021ba",
+    "masterChecksum": "c001cb505c98dd603582c26af759cc8e371d8e5d502aec1aa119dd5d48b30b96",
+    "durationMs": 154854,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

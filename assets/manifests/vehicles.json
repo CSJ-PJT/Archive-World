@@ -1,0 +1,449 @@
+{
+  "schema": "archive-world.category-manifest/v1",
+  "category": "vehicles",
+  "generatedAt": "2026-07-14T02:11:39.110Z",
+  "assets": [
+    {
+      "assetId": "vehicle-1-a74d9cb9",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "a74d9cb99068c1d2c17ae1a2e645acfdba51aa960dd468469dcac9054454fb15",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/냉동 탑차1.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-1-a74d9cb9.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-a74d9cb9/lod0.glb",
+          "bytes": 10591752,
+          "sha256": "2dfb61eaaf20681152608efafb3c3062f43e3948c4d06cf1ae03b787b4fbd8a4"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-a74d9cb9/lod1.glb",
+          "bytes": 9536424,
+          "sha256": "40ceb6dd58a5c00b386346721515ed1723cfa9f781fb2431b1cb462533c05223"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-a74d9cb9/lod2.glb",
+          "bytes": 8750284,
+          "sha256": "ccfdb6598d1f3c88eb3082f966fa8e5a7e621fb76fbe8ed578046fbbcc8fc54e"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-1-a74d9cb9.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-1-a74d9cb9.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-2-49e64913",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "49e64913986b2797b1d284df2fd147707c357b2d1457de901314b2b03cf9ad20",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/냉동 탑차2.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-2-49e64913.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod0.glb",
+          "bytes": 10348648,
+          "sha256": "50dfd16dd680d6069098a0174322841e4ebcb71c4167cf9be8a9bffc30902204"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod1.glb",
+          "bytes": 9294388,
+          "sha256": "867286ab627ce7a6fa209f6a6f30cafa01b462aa3a4e29bbd4293c5c0eae24ab"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod2.glb",
+          "bytes": 8509160,
+          "sha256": "d63af5e36c8a62a9b96fb8cf38bcaa130c2abc3f6b50b6a1d48ebad97b9031d5"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-2-49e64913.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-2-49e64913.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-1-d7e1871c",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "d7e1871caa00298b24ac801e87eb23ce907ecfbaa672b0da12d56a0d05e99040",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/물류 트럭1.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-1-d7e1871c.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-d7e1871c/lod0.glb",
+          "bytes": 27774776,
+          "sha256": "c4a65d9d7f0dfb3d18ccc6f6466381d2f5e2fdc3659fa6626a757a06c07e9647"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-d7e1871c/lod1.glb",
+          "bytes": 26355016,
+          "sha256": "e37dc317fb5bb063e87a66063fff3d68fbab3655aa6acee5e0cf327782847255"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-d7e1871c/lod2.glb",
+          "bytes": 25317292,
+          "sha256": "d98e2a468cbf9c6bd273b21c423126ec78812252dfc3731d5737ee7d22b21892"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-1-d7e1871c.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-1-d7e1871c.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-2-c600d4bd",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "c600d4bd3b3b28e876ddf28669be155d8ab1a4dd9de0347d9d19adaa2932b703",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/물류 트럭2.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-2-c600d4bd.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-c600d4bd/lod0.glb",
+          "bytes": 29425596,
+          "sha256": "5617101f0c96fee8b38a406648d38283ed4492b26941780931883afa6e52567e"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-c600d4bd/lod1.glb",
+          "bytes": 28028180,
+          "sha256": "f46f4f0ba77c768bce87f864d1bb1d821e98eba06eb17b437185294170d1af96"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-c600d4bd/lod2.glb",
+          "bytes": 27017540,
+          "sha256": "ad57aa9a36f65429fb585bd6187d4f585203301f8a6921419075e89ae5aed89f"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-2-c600d4bd.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-2-c600d4bd.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-3-bbc70063",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "bbc700637d1d7f0b24b89e84f5121d14115422cdd81f440964859717b3c3ce6f",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/물류 트럭3.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-3-bbc70063.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-3-bbc70063/lod0.glb",
+          "bytes": 30516920,
+          "sha256": "67ad404fbe02b3f53eefb5e9e0fbc6951493a4fd39895c14250eb379ec86d7e9"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-3-bbc70063/lod1.glb",
+          "bytes": 29019772,
+          "sha256": "44c743c333061665e8aa08a4b62b7ec27cfda227301750cff0e946c4c60faf6d"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-3-bbc70063/lod2.glb",
+          "bytes": 27990724,
+          "sha256": "851f4dc925dbf9feefa786faa32239e98752776ec7ccf7672e7f2f0ef08f8bdd"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-3-bbc70063.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-3-bbc70063.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-4-c7662c5d",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "c7662c5d71bb1df7343fb4fe85e3c2f4b1522c71ee6a18cb218deec4dd5737d3",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/물류 트럭4.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-4-c7662c5d.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod0.glb",
+          "bytes": 31335276,
+          "sha256": "16aa5848d22d6d5fb750220a2a0d808e858b5c7b8f8a827e1382bb1800edafa0"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod1.glb",
+          "bytes": 29871664,
+          "sha256": "78cba606ccf588cc27e8ce9ebab30bab38d99c3d7ed9961c6ffc3c178b156c7c"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-4-c7662c5d/lod2.glb",
+          "bytes": 28867548,
+          "sha256": "254c588a9f96b57709c27ab7952379b077517184b882711f7cb5dc1a38445fb1"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-4-c7662c5d.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-4-c7662c5d.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-asset-535bcba9",
+      "category": "vehicles",
+      "subcategory": "unknown",
+      "sourceChecksum": "535bcba99d15b7c42cc564e5f5fb48ba904747e26a9a7fba1fcd1f17ef1a175c",
+      "sourceFile": "assets/source/meshy/vehicles/unknown/통근 버스.glb",
+      "master": "assets/optimized/master/vehicles/unknown/vehicle-asset-535bcba9.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-asset-535bcba9/lod0.glb",
+          "bytes": 7367488,
+          "sha256": "63f262478f18ee726323fba06c64e71307919b629d82d7ec00212a263be484ef"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-asset-535bcba9/lod1.glb",
+          "bytes": 7028980,
+          "sha256": "d57911c0bb165e047850c942e3ce24c9147333eda78f2fd02f69367f8823d325"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-asset-535bcba9/lod2.glb",
+          "bytes": 6784048,
+          "sha256": "9db66ef98f56cc30c8ecee713270aba39f8ed39e5a5f7778c0dcb10b3ad2ef2a"
+        }
+      ],
+      "preview": "assets/previews/vehicles/unknown/vehicle-asset-535bcba9.png",
+      "thumbnail": "assets/thumbnails/vehicles/unknown/vehicle-asset-535bcba9.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-2-0ff0d303",
+      "category": "vehicles",
+      "subcategory": "unknown",
+      "sourceChecksum": "0ff0d303f6e19920be10217738a33127fc41fdf05b4289344942c9f499d98d8b",
+      "sourceFile": "assets/source/meshy/vehicles/unknown/통근 버스2.glb",
+      "master": "assets/optimized/master/vehicles/unknown/vehicle-2-0ff0d303.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod0.glb",
+          "bytes": 7589128,
+          "sha256": "a0da278584ee904da6e0dfd63271d8ef4d802bce4f50c0bd94d5916a217191ec"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod1.glb",
+          "bytes": 7240700,
+          "sha256": "b80b105762d089cc35272e9548a9510556b1c52cae06950c5570dc239df9e1b7"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod2.glb",
+          "bytes": 6996628,
+          "sha256": "db4663844bcb4503daf05871c75dd7d7521cca29af1e7b9b228e279e689c4256"
+        }
+      ],
+      "preview": "assets/previews/vehicles/unknown/vehicle-2-0ff0d303.png",
+      "thumbnail": "assets/thumbnails/vehicles/unknown/vehicle-2-0ff0d303.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-3-234d82b4",
+      "category": "vehicles",
+      "subcategory": "unknown",
+      "sourceChecksum": "234d82b48e517bde9a11dd7a6bc071cf4d403441a58c97e7733d490078db8624",
+      "sourceFile": "assets/source/meshy/vehicles/unknown/통근 버스3.glb",
+      "master": "assets/optimized/master/vehicles/unknown/vehicle-3-234d82b4.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-3-234d82b4/lod0.glb",
+          "bytes": 7156684,
+          "sha256": "e66f5b46b42e9bce4d8b66374e7655763d73fbc1866d349409415e0b42fff589"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-3-234d82b4/lod1.glb",
+          "bytes": 6806644,
+          "sha256": "5d47b1d227e961cf46eb9cf71b71a42d056446160a7bfbd491ec7d49d2ca2852"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/unknown/vehicle-3-234d82b4/lod2.glb",
+          "bytes": 6562420,
+          "sha256": "ca750fa89eba0ecd759affc4660d83b80b607b0f5654dca184f7d5cfb447ed58"
+        }
+      ],
+      "preview": "assets/previews/vehicles/unknown/vehicle-3-234d82b4.png",
+      "thumbnail": "assets/thumbnails/vehicles/unknown/vehicle-3-234d82b4.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-1-1f57b927",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "1f57b927f3ab77fb90c9243ffe6e98d1279dbcfc11211206d55447a6f02a3145",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/화물 트럭1.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-1-1f57b927.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-1f57b927/lod0.glb",
+          "bytes": 28473696,
+          "sha256": "6648b99fc7cd3e9c3b79f7427f3553f3fc9fce19369fe8029473c7c4029c5241"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-1f57b927/lod1.glb",
+          "bytes": 26972280,
+          "sha256": "dad7d5f6999bf7d0f426d7bc54902809af9cab558020f4315eac789add791642"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-1-1f57b927/lod2.glb",
+          "bytes": 25944180,
+          "sha256": "cac0d3d8a79a98f97475077cf93c04db12b1d7d2cdada90370ec12b1c0bd95ff"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-1-1f57b927.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-1-1f57b927.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-2-dc681cdc",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "dc681cdcb554f06d6bc581a40cc786fdf8ddcbc19072be93ae36aa83822e34ca",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/화물 트럭2.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-2-dc681cdc.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-dc681cdc/lod0.glb",
+          "bytes": 28997576,
+          "sha256": "0e097f54530bdb3f0f3f1447d3facea85236951dea4a0830dc0778a005e1098a"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-dc681cdc/lod1.glb",
+          "bytes": 27528444,
+          "sha256": "9f7d96637d38737698bf8f306795886ac0d60d875fd8345c559bac7f40aaf323"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-2-dc681cdc/lod2.glb",
+          "bytes": 26525872,
+          "sha256": "9075b3057e1e7d300a44b2ace6636a5fce4f915eaa858d52ca7e346956a43ac1"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-2-dc681cdc.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-2-dc681cdc.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-3-1f57b927",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "1f57b927f3ab77fb90c9243ffe6e98d1279dbcfc11211206d55447a6f02a3145",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/화물 트럭3.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-3-1f57b927.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-3-1f57b927/lod0.glb",
+          "bytes": 28473696,
+          "sha256": "6648b99fc7cd3e9c3b79f7427f3553f3fc9fce19369fe8029473c7c4029c5241"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-3-1f57b927/lod1.glb",
+          "bytes": 26972280,
+          "sha256": "dad7d5f6999bf7d0f426d7bc54902809af9cab558020f4315eac789add791642"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-3-1f57b927/lod2.glb",
+          "bytes": 25944180,
+          "sha256": "cac0d3d8a79a98f97475077cf93c04db12b1d7d2cdada90370ec12b1c0bd95ff"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-3-1f57b927.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-3-1f57b927.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    },
+    {
+      "assetId": "vehicle-4-dc681cdc",
+      "category": "vehicles",
+      "subcategory": "trucks",
+      "sourceChecksum": "dc681cdcb554f06d6bc581a40cc786fdf8ddcbc19072be93ae36aa83822e34ca",
+      "sourceFile": "assets/source/meshy/vehicles/trucks/화물 트럭4.glb",
+      "master": "assets/optimized/master/vehicles/trucks/vehicle-4-dc681cdc.glb",
+      "lods": [
+        {
+          "level": 0,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-4-dc681cdc/lod0.glb",
+          "bytes": 28997576,
+          "sha256": "0e097f54530bdb3f0f3f1447d3facea85236951dea4a0830dc0778a005e1098a"
+        },
+        {
+          "level": 1,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-4-dc681cdc/lod1.glb",
+          "bytes": 27528444,
+          "sha256": "9f7d96637d38737698bf8f306795886ac0d60d875fd8345c559bac7f40aaf323"
+        },
+        {
+          "level": 2,
+          "path": "assets/optimized/web/vehicles/trucks/vehicle-4-dc681cdc/lod2.glb",
+          "bytes": 26525872,
+          "sha256": "9075b3057e1e7d300a44b2ace6636a5fce4f915eaa858d52ca7e346956a43ac1"
+        }
+      ],
+      "preview": "assets/previews/vehicles/trucks/vehicle-4-dc681cdc.png",
+      "thumbnail": "assets/thumbnails/vehicles/trucks/vehicle-4-dc681cdc.webp",
+      "validationStatus": "COMPLETED_WITH_WARNINGS",
+      "warnings": [
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+      ]
+    }
+  ]
+}

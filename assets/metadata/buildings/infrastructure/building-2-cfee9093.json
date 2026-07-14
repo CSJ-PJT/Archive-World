@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-2-cfee9093",
+  "originalName": "높은 빌딩2.glb",
+  "originalRelativePath": "높은 빌딩/높은 빌딩2.glb",
+  "category": "buildings",
+  "subcategory": "infrastructure",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "cfee9093ecc8bd07579610d4319814917e95b0e1845a88c0e9c7218691c44030",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    0.6489140093326569,
+    1.9002089500427246,
+    0.6387690007686615
+  ],
+  "bounds": {
+    "min": [
+      -0.3253439962863922,
+      -0.9513229727745056,
+      -0.318107008934021
+    ],
+    "max": [
+      0.32357001304626465,
+      0.948885977268219,
+      0.3206619918346405
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 421040,
+  "triangles": 805534,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod0.glb",
+      "triangles": 805534,
+      "vertices": 846144,
+      "reductionRatio": 1,
+      "bytes": 13630832,
+      "sha256": "d8438f089d5d4a49fd0b4acaa85ddf6f0bfcc97fd1d5127f2edd95340c6ed9dd",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod1.glb",
+      "triangles": 402767,
+      "vertices": 441454,
+      "reductionRatio": 0.5,
+      "bytes": 12589916,
+      "sha256": "8ba25343bbfa0857134cf0d668f0743509b5194bc93c38bcf634ab9ba3ce624b",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod2.glb",
+      "triangles": 161106,
+      "vertices": 195712,
+      "reductionRatio": 0.19999900686997693,
+      "bytes": 11862136,
+      "sha256": "b1ab5f1bd2887f766c975ce9009395096c6b38c85a069b7501e69a9efed08e0f",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/infrastructure/높은 빌딩2.glb",
+  "masterFile": "assets/optimized/master/buildings/infrastructure/building-2-cfee9093.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod0.glb",
+    "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod1.glb",
+    "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/infrastructure/building-2-cfee9093.png",
+  "thumbnail": "assets/thumbnails/buildings/infrastructure/building-2-cfee9093.webp",
+  "fileSizes": {
+    "source": 34337956,
+    "master": 34394548,
+    "web": 38082884
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T01:48:13.032Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "cfee9093ecc8bd07579610d4319814917e95b0e1845a88c0e9c7218691c44030",
+    "sourceChecksumAfter": "cfee9093ecc8bd07579610d4319814917e95b0e1845a88c0e9c7218691c44030",
+    "masterChecksum": "06f94b69dd7bed98bdf8944a31666353761ff6307078a7e0750eae977d075a18",
+    "durationMs": 145816,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

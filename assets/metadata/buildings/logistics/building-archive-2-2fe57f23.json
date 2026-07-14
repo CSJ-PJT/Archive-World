@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "building-archive-2-2fe57f23",
+  "originalName": "Archive 물류센터2.glb",
+  "originalRelativePath": "Archive Logistis/Archive 물류센터2.glb",
+  "category": "buildings",
+  "subcategory": "logistics",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "2fe57f2303f13f4ed47ea6d6cec081a43603aa58d251d994fda70c86aef1b973",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.70694100856781,
+    0.5489889979362488,
+    1.8997730016708374
+  ],
+  "bounds": {
+    "min": [
+      -0.8544899821281433,
+      -0.26537200808525085,
+      -0.950797975063324
+    ],
+    "max": [
+      0.8524510264396667,
+      0.2836169898509979,
+      0.9489750266075134
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 965869,
+  "triangles": 1087008,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod0.glb",
+      "triangles": 1087008,
+      "vertices": 1952610,
+      "reductionRatio": 1,
+      "bytes": 35180492,
+      "sha256": "ec8f9ef8942ec0f8cd581d21d7584e2fdd54a25477ceb8b1595cb2b8617ef987",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod1.glb",
+      "triangles": 543504,
+      "vertices": 1293838,
+      "reductionRatio": 0.5,
+      "bytes": 34470868,
+      "sha256": "091b1e0ed80bc29eb2eed53620f94d43affaa43cb61293746daed20a05b3b270",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod2.glb",
+      "triangles": 217401,
+      "vertices": 519826,
+      "reductionRatio": 0.19999944802614147,
+      "bytes": 32440432,
+      "sha256": "3192679d212aee6fa0cc234e465d9ae69463645caacb3d29c7365764ffbb3ea4",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/buildings/logistics/Archive 물류센터2.glb",
+  "masterFile": "assets/optimized/master/buildings/logistics/building-archive-2-2fe57f23.glb",
+  "webFiles": [
+    "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod0.glb",
+    "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod1.glb",
+    "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod2.glb"
+  ],
+  "preview": "assets/previews/buildings/logistics/building-archive-2-2fe57f23.png",
+  "thumbnail": "assets/thumbnails/buildings/logistics/building-archive-2-2fe57f23.webp",
+  "fileSizes": {
+    "source": 74505484,
+    "master": 74719488,
+    "web": 102091792
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:24:13.074Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "2fe57f2303f13f4ed47ea6d6cec081a43603aa58d251d994fda70c86aef1b973",
+    "sourceChecksumAfter": "2fe57f2303f13f4ed47ea6d6cec081a43603aa58d251d994fda70c86aef1b973",
+    "masterChecksum": "262ec7b24c0724a87d02e140363e68275dd323d80c4bf64ae6883873ccd65716",
+    "durationMs": 199525,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}

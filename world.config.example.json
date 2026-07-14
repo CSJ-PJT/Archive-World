@@ -1,0 +1,8 @@
+{
+  "assetRoot": "assets",
+  "blenderPath": "",
+  "lodRatios": [1, 0.5, 0.2],
+  "draco": { "method": "edgebreaker", "quantizePosition": 14, "quantizeNormal": 10, "quantizeTexcoord": 12 },
+  "render": { "previewSize": 1024, "thumbnailSize": 320, "transparent": true },
+  "oci": { "profile": "DEFAULT", "namespace": "", "bucket": "archive-world-assets", "prefix": "digital-twin" }
+}

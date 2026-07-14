@@ -1,0 +1,113 @@
+{
+  "schema": "archive-world.asset-metadata/v1",
+  "assetId": "vehicle-2-0ff0d303",
+  "originalName": "통근 버스2.glb",
+  "originalRelativePath": "Archive Market/통근 버스/통근 버스2.glb",
+  "category": "vehicles",
+  "subcategory": "unknown",
+  "source": "Meshy",
+  "sourceFormat": "glb",
+  "sourceChecksum": "0ff0d303f6e19920be10217738a33127fc41fdf05b4289344942c9f499d98d8b",
+  "version": null,
+  "license": null,
+  "dimensions": [
+    1.8994759917259216,
+    0.6922230124473572,
+    0.5762709975242615
+  ],
+  "bounds": {
+    "min": [
+      -0.950643002986908,
+      -0.34734299778938293,
+      -0.2889769971370697
+    ],
+    "max": [
+      0.9488329887390137,
+      0.34488001465797424,
+      0.2872940003871918
+    ]
+  },
+  "pivotPolicy": null,
+  "meshCount": 1,
+  "nodeCount": 1,
+  "vertices": 147056,
+  "triangles": 274098,
+  "materials": 1,
+  "textures": 4,
+  "skins": 0,
+  "animations": [],
+  "animationReady": false,
+  "rigged": false,
+  "wheelNodes": [],
+  "doorNodes": [],
+  "lods": [
+    {
+      "level": 0,
+      "path": "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod0.glb",
+      "triangles": 274098,
+      "vertices": 299914,
+      "reductionRatio": 1,
+      "bytes": 7589128,
+      "sha256": "a0da278584ee904da6e0dfd63271d8ef4d802bce4f50c0bd94d5916a217191ec",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 1,
+      "path": "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod1.glb",
+      "triangles": 137048,
+      "vertices": 162202,
+      "reductionRatio": 0.4999963516698407,
+      "bytes": 7240700,
+      "sha256": "b80b105762d089cc35272e9548a9510556b1c52cae06950c5570dc239df9e1b7",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    },
+    {
+      "level": 2,
+      "path": "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod2.glb",
+      "triangles": 54818,
+      "vertices": 78232,
+      "reductionRatio": 0.19999416267174513,
+      "bytes": 6996628,
+      "sha256": "db4663844bcb4503daf05871c75dd7d7521cca29af1e7b9b228e279e689c4256",
+      "materialCount": 1,
+      "textureCount": 4,
+      "animationCount": 0
+    }
+  ],
+  "sourceFile": "assets/source/meshy/vehicles/unknown/통근 버스2.glb",
+  "masterFile": "assets/optimized/master/vehicles/unknown/vehicle-2-0ff0d303.glb",
+  "webFiles": [
+    "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod0.glb",
+    "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod1.glb",
+    "assets/optimized/web/vehicles/unknown/vehicle-2-0ff0d303/lod2.glb"
+  ],
+  "preview": "assets/previews/vehicles/unknown/vehicle-2-0ff0d303.png",
+  "thumbnail": "assets/thumbnails/vehicles/unknown/vehicle-2-0ff0d303.webp",
+  "fileSizes": {
+    "source": 14729060,
+    "master": 14807124,
+    "web": 21826456
+  },
+  "pipelineVersion": "0.2.0",
+  "processedAt": "2026-07-14T00:55:29.660Z",
+  "warnings": [
+    "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE"
+  ],
+  "validationStatus": "COMPLETED_WITH_WARNINGS",
+  "blenderVersion": "4.5.10 LTS",
+  "canary": {
+    "importSuccess": true,
+    "exportSuccess": true,
+    "sourceChecksumBefore": "0ff0d303f6e19920be10217738a33127fc41fdf05b4289344942c9f499d98d8b",
+    "sourceChecksumAfter": "0ff0d303f6e19920be10217738a33127fc41fdf05b4289344942c9f499d98d8b",
+    "masterChecksum": "190447d276406b018067665e9fdd7e3153cc207d8acf4cd3247c29d95121800c",
+    "durationMs": 90029,
+    "orientation": "glTF Y-up via Blender exporter",
+    "unit": "meter",
+    "pivot": "source hierarchy preserved; no forced re-centering"
+  }
+}
