@@ -1,0 +1,18 @@
+{
+  "assetId": "port-ground-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/port-ground-v3.glb",
+  "triangleCount": 222,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "6d2c758bb28b199a20e17144f0f9ea3c470eba281ef5db7f54bf4f105dc37584",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "procedural port quay concrete and cargo lanes"
+}

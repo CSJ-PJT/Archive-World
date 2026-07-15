@@ -26,7 +26,7 @@ function finish(error) {
   if (finished) return;
   finished = true;
   const result = option('result', error ? 'FAIL' : 'PASS');
-  const elapsed = `${((Date.now() - started) / 1000).toFixed(1)}s`;
+  const elapsed = option('duration', `${((Date.now() - started) / 1000).toFixed(1)}s`);
   const notifier = resolve(import.meta.dirname, 'archive-task-notify.mjs');
   const tests = option('tests', 'NOT_RUN');
   const build = option('build', 'NOT_RUN');

@@ -1,0 +1,18 @@
+{
+  "assetId": "pipe-rack-v3",
+  "category": "factory",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/pipe-rack-v3.glb",
+  "triangleCount": 78,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "d6395ce67098934f01f7767819e60d7bcc4e5d8de44ec3b7a62e68a4b960ada0",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "modular industrial pipe rack"
+}

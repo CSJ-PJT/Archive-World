@@ -1,0 +1,18 @@
+{
+  "assetId": "port-crane-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/port-crane-v3.glb",
+  "triangleCount": 30,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "cceaaba5cbe3ed72c154e26e9d7abdcb63c7a1ea6d37391440b48c1cdac427ea",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic port gantry crane"
+}

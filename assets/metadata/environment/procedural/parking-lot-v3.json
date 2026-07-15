@@ -1,0 +1,18 @@
+{
+  "assetId": "parking-lot-v3",
+  "category": "street-prop",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/parking-lot-v3.glb",
+  "triangleCount": 78,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "d482cf3c30f1af42eb10a5ab0d4ed7a42cd226140f4a6940d3c3fd75a61f5d61",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic marked parking area"
+}

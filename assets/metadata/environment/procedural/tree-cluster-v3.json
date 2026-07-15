@@ -1,0 +1,18 @@
+{
+  "assetId": "tree-cluster-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/tree-cluster-v3.glb",
+  "triangleCount": 360,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "0297aa0a411d326f47a5cc07b43190d6965caef9ffb0297c20cf074e6596caf3",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "reusable varied tree cluster"
+}

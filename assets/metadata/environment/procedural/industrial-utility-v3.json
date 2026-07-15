@@ -1,0 +1,18 @@
+{
+  "assetId": "industrial-utility-v3",
+  "category": "factory",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/industrial-utility-v3.glb",
+  "triangleCount": 54,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "f8f7301315f54efa79f7492bcf4faba9c8a07ac9057c5ba0520c335768709826",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "utility hall, stacks and service pipe"
+}

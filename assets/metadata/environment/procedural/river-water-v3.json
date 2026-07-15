@@ -1,0 +1,18 @@
+{
+  "assetId": "river-water-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_public_realm_kit.py",
+  "runtimePath": "assets/runtime/v2/library/river-water-v3.glb",
+  "triangleCount": 6,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "e43a1dd411222cb4158fd9dd29ab9dddac5a3d0d9d4648562311d58755a1a2a4",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "50m east-west Archive River water surface"
+}

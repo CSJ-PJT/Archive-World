@@ -1,0 +1,18 @@
+{
+  "assetId": "highway-straight-v3",
+  "category": "road",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_public_realm_kit.py",
+  "runtimePath": "assets/runtime/v2/library/highway-straight-v3.glb",
+  "triangleCount": 162,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "d25cc1aa6a0e41792a0d53ac56e6543a87d5bf179d13c169602c4259143071db",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "20m outer-city highway segment"
+}

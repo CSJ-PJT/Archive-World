@@ -1,0 +1,18 @@
+{
+  "assetId": "container-stack-v3",
+  "category": "warehouse",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/container-stack-v3.glb",
+  "triangleCount": 126,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "0d83324d6c741e6eb4212154a55778b8f73607e8f7f5b29bbdb400e899069243",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "container stack and paved yard"
+}

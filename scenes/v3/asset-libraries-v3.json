@@ -1,0 +1,770 @@
+{
+  "version": "3.1.0",
+  "libraries": [
+    {
+      "assetId": "archiveos-landmark-plaza-v2",
+      "libraryPath": "scenes/v3/libraries/archiveos-landmark-plaza-v2.blend",
+      "texturePaths": [],
+      "bytes": 507373
+    },
+    {
+      "assetId": "building-1-d57f1be7",
+      "libraryPath": "scenes/v3/libraries/building-1-d57f1be7.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-1-d57f1be7-000.jpg",
+        "scenes/v3/libraries/textures/building-1-d57f1be7-001.jpg",
+        "scenes/v3/libraries/textures/building-1-d57f1be7-002.jpg",
+        "scenes/v3/libraries/textures/building-1-d57f1be7-003.jpg"
+      ],
+      "bytes": 11821300
+    },
+    {
+      "assetId": "building-2-cfee9093",
+      "libraryPath": "scenes/v3/libraries/building-2-cfee9093.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-2-cfee9093-000.jpg",
+        "scenes/v3/libraries/textures/building-2-cfee9093-001.jpg",
+        "scenes/v3/libraries/textures/building-2-cfee9093-002.jpg",
+        "scenes/v3/libraries/textures/building-2-cfee9093-003.jpg"
+      ],
+      "bytes": 15297573
+    },
+    {
+      "assetId": "building-3-3d248d87",
+      "libraryPath": "scenes/v3/libraries/building-3-3d248d87.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-3-3d248d87-000.jpg",
+        "scenes/v3/libraries/textures/building-3-3d248d87-001.jpg",
+        "scenes/v3/libraries/textures/building-3-3d248d87-002.jpg",
+        "scenes/v3/libraries/textures/building-3-3d248d87-003.jpg"
+      ],
+      "bytes": 11869877
+    },
+    {
+      "assetId": "building-4-874697a4",
+      "libraryPath": "scenes/v3/libraries/building-4-874697a4.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-4-874697a4-000.jpg",
+        "scenes/v3/libraries/textures/building-4-874697a4-001.jpg",
+        "scenes/v3/libraries/textures/building-4-874697a4-002.jpg",
+        "scenes/v3/libraries/textures/building-4-874697a4-003.jpg"
+      ],
+      "bytes": 15307876
+    },
+    {
+      "assetId": "building-5-8ec67334",
+      "libraryPath": "scenes/v3/libraries/building-5-8ec67334.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-5-8ec67334-000.jpg",
+        "scenes/v3/libraries/textures/building-5-8ec67334-001.jpg",
+        "scenes/v3/libraries/textures/building-5-8ec67334-002.jpg",
+        "scenes/v3/libraries/textures/building-5-8ec67334-003.jpg"
+      ],
+      "bytes": 11877566
+    },
+    {
+      "assetId": "building-6-c55667d3",
+      "libraryPath": "scenes/v3/libraries/building-6-c55667d3.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-6-c55667d3-000.jpg",
+        "scenes/v3/libraries/textures/building-6-c55667d3-001.jpg",
+        "scenes/v3/libraries/textures/building-6-c55667d3-002.jpg",
+        "scenes/v3/libraries/textures/building-6-c55667d3-003.jpg"
+      ],
+      "bytes": 12728453
+    },
+    {
+      "assetId": "building-7-d09a344b",
+      "libraryPath": "scenes/v3/libraries/building-7-d09a344b.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-7-d09a344b-000.jpg",
+        "scenes/v3/libraries/textures/building-7-d09a344b-001.jpg",
+        "scenes/v3/libraries/textures/building-7-d09a344b-002.jpg",
+        "scenes/v3/libraries/textures/building-7-d09a344b-003.jpg"
+      ],
+      "bytes": 12733926
+    },
+    {
+      "assetId": "building-8-9034e896",
+      "libraryPath": "scenes/v3/libraries/building-8-9034e896.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-8-9034e896-000.jpg",
+        "scenes/v3/libraries/textures/building-8-9034e896-001.jpg",
+        "scenes/v3/libraries/textures/building-8-9034e896-002.jpg",
+        "scenes/v3/libraries/textures/building-8-9034e896-003.jpg"
+      ],
+      "bytes": 11879957
+    },
+    {
+      "assetId": "building-a-2-0e6498d0",
+      "libraryPath": "scenes/v3/libraries/building-a-2-0e6498d0.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-a-2-0e6498d0-000.jpg",
+        "scenes/v3/libraries/textures/building-a-2-0e6498d0-001.jpg",
+        "scenes/v3/libraries/textures/building-a-2-0e6498d0-002.jpg",
+        "scenes/v3/libraries/textures/building-a-2-0e6498d0-003.jpg"
+      ],
+      "bytes": 15617754
+    },
+    {
+      "assetId": "building-archive-1-ea52880d",
+      "libraryPath": "scenes/v3/libraries/building-archive-1-ea52880d.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-archive-1-ea52880d-000.jpg",
+        "scenes/v3/libraries/textures/building-archive-1-ea52880d-001.jpg",
+        "scenes/v3/libraries/textures/building-archive-1-ea52880d-002.jpg",
+        "scenes/v3/libraries/textures/building-archive-1-ea52880d-003.jpg"
+      ],
+      "bytes": 29630392
+    },
+    {
+      "assetId": "building-archive-15186c21",
+      "libraryPath": "scenes/v3/libraries/building-archive-15186c21.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-archive-15186c21-000.jpg",
+        "scenes/v3/libraries/textures/building-archive-15186c21-001.jpg",
+        "scenes/v3/libraries/textures/building-archive-15186c21-002.jpg",
+        "scenes/v3/libraries/textures/building-archive-15186c21-003.jpg"
+      ],
+      "bytes": 9686531
+    },
+    {
+      "assetId": "building-archive-2-2fe57f23",
+      "libraryPath": "scenes/v3/libraries/building-archive-2-2fe57f23.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-archive-2-2fe57f23-000.jpg",
+        "scenes/v3/libraries/textures/building-archive-2-2fe57f23-001.jpg",
+        "scenes/v3/libraries/textures/building-archive-2-2fe57f23-002.jpg",
+        "scenes/v3/libraries/textures/building-archive-2-2fe57f23-003.jpg"
+      ],
+      "bytes": 23114358
+    },
+    {
+      "assetId": "building-archive-logistics-4cd90681",
+      "libraryPath": "scenes/v3/libraries/building-archive-logistics-4cd90681.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-archive-logistics-4cd90681-000.jpg",
+        "scenes/v3/libraries/textures/building-archive-logistics-4cd90681-001.jpg",
+        "scenes/v3/libraries/textures/building-archive-logistics-4cd90681-002.jpg",
+        "scenes/v3/libraries/textures/building-archive-logistics-4cd90681-003.jpg"
+      ],
+      "bytes": 39948848
+    },
+    {
+      "assetId": "building-archiveos-2e8c32fa",
+      "libraryPath": "scenes/v3/libraries/building-archiveos-2e8c32fa.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-archiveos-2e8c32fa-000.jpg",
+        "scenes/v3/libraries/textures/building-archiveos-2e8c32fa-001.jpg",
+        "scenes/v3/libraries/textures/building-archiveos-2e8c32fa-002.jpg",
+        "scenes/v3/libraries/textures/building-archiveos-2e8c32fa-003.jpg"
+      ],
+      "bytes": 6491427
+    },
+    {
+      "assetId": "building-archiveos2-a614889b",
+      "libraryPath": "scenes/v3/libraries/building-archiveos2-a614889b.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-archiveos2-a614889b-000.jpg",
+        "scenes/v3/libraries/textures/building-archiveos2-a614889b-001.jpg",
+        "scenes/v3/libraries/textures/building-archiveos2-a614889b-002.jpg",
+        "scenes/v3/libraries/textures/building-archiveos2-a614889b-003.jpg"
+      ],
+      "bytes": 6493881
+    },
+    {
+      "assetId": "building-b-0da0b3c5",
+      "libraryPath": "scenes/v3/libraries/building-b-0da0b3c5.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-b-0da0b3c5-000.jpg",
+        "scenes/v3/libraries/textures/building-b-0da0b3c5-001.jpg",
+        "scenes/v3/libraries/textures/building-b-0da0b3c5-002.jpg",
+        "scenes/v3/libraries/textures/building-b-0da0b3c5-003.jpg"
+      ],
+      "bytes": 11020548
+    },
+    {
+      "assetId": "building-c-f2297019",
+      "libraryPath": "scenes/v3/libraries/building-c-f2297019.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-c-f2297019-000.jpg",
+        "scenes/v3/libraries/textures/building-c-f2297019-001.jpg",
+        "scenes/v3/libraries/textures/building-c-f2297019-002.jpg",
+        "scenes/v3/libraries/textures/building-c-f2297019-003.jpg"
+      ],
+      "bytes": 33762524
+    },
+    {
+      "assetId": "building-ledger-181c8568",
+      "libraryPath": "scenes/v3/libraries/building-ledger-181c8568.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-ledger-181c8568-000.jpg",
+        "scenes/v3/libraries/textures/building-ledger-181c8568-001.jpg",
+        "scenes/v3/libraries/textures/building-ledger-181c8568-002.jpg",
+        "scenes/v3/libraries/textures/building-ledger-181c8568-003.jpg"
+      ],
+      "bytes": 24485481
+    },
+    {
+      "assetId": "building-ledger2-ea294a50",
+      "libraryPath": "scenes/v3/libraries/building-ledger2-ea294a50.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-ledger2-ea294a50-000.jpg",
+        "scenes/v3/libraries/textures/building-ledger2-ea294a50-001.jpg",
+        "scenes/v3/libraries/textures/building-ledger2-ea294a50-002.jpg",
+        "scenes/v3/libraries/textures/building-ledger2-ea294a50-003.jpg"
+      ],
+      "bytes": 7765840
+    },
+    {
+      "assetId": "building-market-181c8568",
+      "libraryPath": "scenes/v3/libraries/building-market-181c8568.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-market-181c8568-000.jpg",
+        "scenes/v3/libraries/textures/building-market-181c8568-001.jpg",
+        "scenes/v3/libraries/textures/building-market-181c8568-002.jpg",
+        "scenes/v3/libraries/textures/building-market-181c8568-003.jpg"
+      ],
+      "bytes": 24485481
+    },
+    {
+      "assetId": "building-market-9badf3fa",
+      "libraryPath": "scenes/v3/libraries/building-market-9badf3fa.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-market-9badf3fa-000.jpg",
+        "scenes/v3/libraries/textures/building-market-9badf3fa-001.jpg",
+        "scenes/v3/libraries/textures/building-market-9badf3fa-002.jpg",
+        "scenes/v3/libraries/textures/building-market-9badf3fa-003.jpg"
+      ],
+      "bytes": 6375233
+    },
+    {
+      "assetId": "building-nexus-5b2737a0",
+      "libraryPath": "scenes/v3/libraries/building-nexus-5b2737a0.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-nexus-5b2737a0-000.jpg",
+        "scenes/v3/libraries/textures/building-nexus-5b2737a0-001.jpg",
+        "scenes/v3/libraries/textures/building-nexus-5b2737a0-002.jpg",
+        "scenes/v3/libraries/textures/building-nexus-5b2737a0-003.jpg"
+      ],
+      "bytes": 37619466
+    },
+    {
+      "assetId": "building-nexus-9adda402",
+      "libraryPath": "scenes/v3/libraries/building-nexus-9adda402.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/building-nexus-9adda402-000.jpg",
+        "scenes/v3/libraries/textures/building-nexus-9adda402-001.jpg",
+        "scenes/v3/libraries/textures/building-nexus-9adda402-002.jpg",
+        "scenes/v3/libraries/textures/building-nexus-9adda402-003.jpg"
+      ],
+      "bytes": 8033893
+    },
+    {
+      "assetId": "cbd-ground-v3",
+      "libraryPath": "scenes/v3/libraries/cbd-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 700514
+    },
+    {
+      "assetId": "cbd-midrise-v3",
+      "libraryPath": "scenes/v3/libraries/cbd-midrise-v3.blend",
+      "texturePaths": [],
+      "bytes": 516917
+    },
+    {
+      "assetId": "cbd-support-v3",
+      "libraryPath": "scenes/v3/libraries/cbd-support-v3.blend",
+      "texturePaths": [],
+      "bytes": 462014
+    },
+    {
+      "assetId": "city-ground-v2",
+      "libraryPath": "scenes/v3/libraries/city-ground-v2.blend",
+      "texturePaths": [],
+      "bytes": 451428
+    },
+    {
+      "assetId": "city-terrain-river-v3",
+      "libraryPath": "scenes/v3/libraries/city-terrain-river-v3.blend",
+      "texturePaths": [],
+      "bytes": 457773
+    },
+    {
+      "assetId": "cold-storage-loading-dock-v1",
+      "libraryPath": "scenes/v3/libraries/cold-storage-loading-dock-v1.blend",
+      "texturePaths": [],
+      "bytes": 625660
+    },
+    {
+      "assetId": "commercial-mall-v3",
+      "libraryPath": "scenes/v3/libraries/commercial-mall-v3.blend",
+      "texturePaths": [],
+      "bytes": 468353
+    },
+    {
+      "assetId": "communications-tower-compact-v1",
+      "libraryPath": "scenes/v3/libraries/communications-tower-compact-v1.blend",
+      "texturePaths": [],
+      "bytes": 623119
+    },
+    {
+      "assetId": "container-stack-v3",
+      "libraryPath": "scenes/v3/libraries/container-stack-v3.blend",
+      "texturePaths": [],
+      "bytes": 575980
+    },
+    {
+      "assetId": "container-yard-modular-v1",
+      "libraryPath": "scenes/v3/libraries/container-yard-modular-v1.blend",
+      "texturePaths": [],
+      "bytes": 696482
+    },
+    {
+      "assetId": "crossdock-v3",
+      "libraryPath": "scenes/v3/libraries/crossdock-v3.blend",
+      "texturePaths": [],
+      "bytes": 544313
+    },
+    {
+      "assetId": "han-river-curved-v3",
+      "libraryPath": "scenes/v3/libraries/han-river-curved-v3.blend",
+      "texturePaths": [],
+      "bytes": 444475
+    },
+    {
+      "assetId": "highway-interchange-v3",
+      "libraryPath": "scenes/v3/libraries/highway-interchange-v3.blend",
+      "texturePaths": [],
+      "bytes": 417840
+    },
+    {
+      "assetId": "highway-straight-v3",
+      "libraryPath": "scenes/v3/libraries/highway-straight-v3.blend",
+      "texturePaths": [],
+      "bytes": 613968
+    },
+    {
+      "assetId": "industrial-shed-v3",
+      "libraryPath": "scenes/v3/libraries/industrial-shed-v3.blend",
+      "texturePaths": [],
+      "bytes": 491551
+    },
+    {
+      "assetId": "industrial-utility-v3",
+      "libraryPath": "scenes/v3/libraries/industrial-utility-v3.blend",
+      "texturePaths": [],
+      "bytes": 461978
+    },
+    {
+      "assetId": "ledger-ground-v3",
+      "libraryPath": "scenes/v3/libraries/ledger-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 700520
+    },
+    {
+      "assetId": "logistics-ground-v3",
+      "libraryPath": "scenes/v3/libraries/logistics-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 700526
+    },
+    {
+      "assetId": "lowpoly-mountain-v3",
+      "libraryPath": "scenes/v3/libraries/lowpoly-mountain-v3.blend",
+      "texturePaths": [],
+      "bytes": 415738
+    },
+    {
+      "assetId": "market-ground-v3",
+      "libraryPath": "scenes/v3/libraries/market-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 700520
+    },
+    {
+      "assetId": "mountain-range-v3",
+      "libraryPath": "scenes/v3/libraries/mountain-range-v3.blend",
+      "texturePaths": [],
+      "bytes": 497539
+    },
+    {
+      "assetId": "mountain-variation-v3",
+      "libraryPath": "scenes/v3/libraries/mountain-variation-v3.blend",
+      "texturePaths": [],
+      "bytes": 521743
+    },
+    {
+      "assetId": "neighborhood-shop-v3",
+      "libraryPath": "scenes/v3/libraries/neighborhood-shop-v3.blend",
+      "texturePaths": [],
+      "bytes": 462026
+    },
+    {
+      "assetId": "nexus-ground-v3",
+      "libraryPath": "scenes/v3/libraries/nexus-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 700518
+    },
+    {
+      "assetId": "parking-lot-v3",
+      "libraryPath": "scenes/v3/libraries/parking-lot-v3.blend",
+      "texturePaths": [],
+      "bytes": 502076
+    },
+    {
+      "assetId": "pipe-rack-v3",
+      "libraryPath": "scenes/v3/libraries/pipe-rack-v3.blend",
+      "texturePaths": [],
+      "bytes": 478824
+    },
+    {
+      "assetId": "port-crane-v3",
+      "libraryPath": "scenes/v3/libraries/port-crane-v3.blend",
+      "texturePaths": [],
+      "bytes": 428178
+    },
+    {
+      "assetId": "port-ground-v3",
+      "libraryPath": "scenes/v3/libraries/port-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 700516
+    },
+    {
+      "assetId": "port-harbor-v3",
+      "libraryPath": "scenes/v3/libraries/port-harbor-v3.blend",
+      "texturePaths": [],
+      "bytes": 644923
+    },
+    {
+      "assetId": "power-substation-compact-v1",
+      "libraryPath": "scenes/v3/libraries/power-substation-compact-v1.blend",
+      "texturePaths": [],
+      "bytes": 577361
+    },
+    {
+      "assetId": "process-tank-v3",
+      "libraryPath": "scenes/v3/libraries/process-tank-v3.blend",
+      "texturePaths": [],
+      "bytes": 500968
+    },
+    {
+      "assetId": "residential-ground-v3",
+      "libraryPath": "scenes/v3/libraries/residential-ground-v3.blend",
+      "texturePaths": [],
+      "bytes": 742771
+    },
+    {
+      "assetId": "residential-midrise-v3",
+      "libraryPath": "scenes/v3/libraries/residential-midrise-v3.blend",
+      "texturePaths": [],
+      "bytes": 464106
+    },
+    {
+      "assetId": "residential-playground-v3",
+      "libraryPath": "scenes/v3/libraries/residential-playground-v3.blend",
+      "texturePaths": [],
+      "bytes": 473635
+    },
+    {
+      "assetId": "residential-school-v3",
+      "libraryPath": "scenes/v3/libraries/residential-school-v3.blend",
+      "texturePaths": [],
+      "bytes": 468359
+    },
+    {
+      "assetId": "residential-slab-v3",
+      "libraryPath": "scenes/v3/libraries/residential-slab-v3.blend",
+      "texturePaths": [],
+      "bytes": 500010
+    },
+    {
+      "assetId": "residential-tower-v3",
+      "libraryPath": "scenes/v3/libraries/residential-tower-v3.blend",
+      "texturePaths": [],
+      "bytes": 519005
+    },
+    {
+      "assetId": "retail-row-v3",
+      "libraryPath": "scenes/v3/libraries/retail-row-v3.blend",
+      "texturePaths": [],
+      "bytes": 518991
+    },
+    {
+      "assetId": "river-bridge-geography-v3",
+      "libraryPath": "scenes/v3/libraries/river-bridge-geography-v3.blend",
+      "texturePaths": [],
+      "bytes": 630897
+    },
+    {
+      "assetId": "river-bridge-v3",
+      "libraryPath": "scenes/v3/libraries/river-bridge-v3.blend",
+      "texturePaths": [],
+      "bytes": 594967
+    },
+    {
+      "assetId": "river-water-v3",
+      "libraryPath": "scenes/v3/libraries/river-water-v3.blend",
+      "texturePaths": [],
+      "bytes": 402856
+    },
+    {
+      "assetId": "riverfront-park-v3",
+      "libraryPath": "scenes/v3/libraries/riverfront-park-v3.blend",
+      "texturePaths": [],
+      "bytes": 635734
+    },
+    {
+      "assetId": "road-asset-7b6c3ac5",
+      "libraryPath": "scenes/v3/libraries/road-asset-7b6c3ac5.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/road-asset-7b6c3ac5-000.jpg",
+        "scenes/v3/libraries/textures/road-asset-7b6c3ac5-001.jpg",
+        "scenes/v3/libraries/textures/road-asset-7b6c3ac5-002.jpg",
+        "scenes/v3/libraries/textures/road-asset-7b6c3ac5-003.jpg"
+      ],
+      "bytes": 25377863
+    },
+    {
+      "assetId": "road-curved-modular-90-v2",
+      "libraryPath": "scenes/v3/libraries/road-curved-modular-90-v2.blend",
+      "texturePaths": [],
+      "bytes": 1616956
+    },
+    {
+      "assetId": "road-elevated-ramp-straight-v1",
+      "libraryPath": "scenes/v3/libraries/road-elevated-ramp-straight-v1.blend",
+      "texturePaths": [],
+      "bytes": 435807
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093526-texture-b5202be0",
+      "libraryPath": "scenes/v3/libraries/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093526-texture-b5202be0-000.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093526-texture-b5202be0-001.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093526-texture-b5202be0-002.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093526-texture-b5202be0-003.jpg"
+      ],
+      "bytes": 8645627
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093537-texture-bf450ac3",
+      "libraryPath": "scenes/v3/libraries/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3-000.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3-001.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3-002.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3-003.jpg"
+      ],
+      "bytes": 3588697
+    },
+    {
+      "assetId": "road-meshy-ai-four-way-intersection-0713093554-texture-5239da66",
+      "libraryPath": "scenes/v3/libraries/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-four-way-intersection-0713093554-texture-5239da6.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-four-way-intersection-0713093554-texture-5239da.jpg",
+        "scenes/v3/libraries/textures/road-meshy-ai-four-way-intersection-0713093554-texture-5239d.jpg"
+      ],
+      "bytes": 3301282
+    },
+    {
+      "assetId": "road-unified-curve90-v2",
+      "libraryPath": "scenes/v3/libraries/road-unified-curve90-v2.blend",
+      "texturePaths": [],
+      "bytes": 483688
+    },
+    {
+      "assetId": "road-unified-intersection-v2",
+      "libraryPath": "scenes/v3/libraries/road-unified-intersection-v2.blend",
+      "texturePaths": [],
+      "bytes": 601324
+    },
+    {
+      "assetId": "road-unified-ramp-v2",
+      "libraryPath": "scenes/v3/libraries/road-unified-ramp-v2.blend",
+      "texturePaths": [],
+      "bytes": 438346
+    },
+    {
+      "assetId": "road-unified-roundabout-v2",
+      "libraryPath": "scenes/v3/libraries/road-unified-roundabout-v2.blend",
+      "texturePaths": [],
+      "bytes": 557830
+    },
+    {
+      "assetId": "road-unified-straight-v2",
+      "libraryPath": "scenes/v3/libraries/road-unified-straight-v2.blend",
+      "texturePaths": [],
+      "bytes": 548592
+    },
+    {
+      "assetId": "roadside-safety-barrier-v1",
+      "libraryPath": "scenes/v3/libraries/roadside-safety-barrier-v1.blend",
+      "texturePaths": [],
+      "bytes": 543129
+    },
+    {
+      "assetId": "security-gate-road-lane-v1",
+      "libraryPath": "scenes/v3/libraries/security-gate-road-lane-v1.blend",
+      "texturePaths": [],
+      "bytes": 537911
+    },
+    {
+      "assetId": "south-plains-v3",
+      "libraryPath": "scenes/v3/libraries/south-plains-v3.blend",
+      "texturePaths": [],
+      "bytes": 588636
+    },
+    {
+      "assetId": "streetlight-traffic-signal-v1",
+      "libraryPath": "scenes/v3/libraries/streetlight-traffic-signal-v1.blend",
+      "texturePaths": [],
+      "bytes": 691211
+    },
+    {
+      "assetId": "terrain-geography-v3",
+      "libraryPath": "scenes/v3/libraries/terrain-geography-v3.blend",
+      "texturePaths": [],
+      "bytes": 455291
+    },
+    {
+      "assetId": "tree-cluster-v3",
+      "libraryPath": "scenes/v3/libraries/tree-cluster-v3.blend",
+      "texturePaths": [],
+      "bytes": 608367
+    },
+    {
+      "assetId": "truck-yard-parking-module-v1",
+      "libraryPath": "scenes/v3/libraries/truck-yard-parking-module-v1.blend",
+      "texturePaths": [],
+      "bytes": 526539
+    },
+    {
+      "assetId": "urban-park-v2",
+      "libraryPath": "scenes/v3/libraries/urban-park-v2.blend",
+      "texturePaths": [],
+      "bytes": 526708
+    },
+    {
+      "assetId": "urban-parking-v2",
+      "libraryPath": "scenes/v3/libraries/urban-parking-v2.blend",
+      "texturePaths": [],
+      "bytes": 506335
+    },
+    {
+      "assetId": "urban-streetlight-v2",
+      "libraryPath": "scenes/v3/libraries/urban-streetlight-v2.blend",
+      "texturePaths": [],
+      "bytes": 452133
+    },
+    {
+      "assetId": "urban-tree-v2",
+      "libraryPath": "scenes/v3/libraries/urban-tree-v2.blend",
+      "texturePaths": [],
+      "bytes": 476103
+    },
+    {
+      "assetId": "vehicle-1-a74d9cb9",
+      "libraryPath": "scenes/v3/libraries/vehicle-1-a74d9cb9.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/vehicle-1-a74d9cb9-000.jpg",
+        "scenes/v3/libraries/textures/vehicle-1-a74d9cb9-001.jpg",
+        "scenes/v3/libraries/textures/vehicle-1-a74d9cb9-002.jpg",
+        "scenes/v3/libraries/textures/vehicle-1-a74d9cb9-003.jpg"
+      ],
+      "bytes": 17567931
+    },
+    {
+      "assetId": "vehicle-1-d7e1871c",
+      "libraryPath": "scenes/v3/libraries/vehicle-1-d7e1871c.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/vehicle-1-d7e1871c-000.jpg",
+        "scenes/v3/libraries/textures/vehicle-1-d7e1871c-001.jpg",
+        "scenes/v3/libraries/textures/vehicle-1-d7e1871c-002.jpg",
+        "scenes/v3/libraries/textures/vehicle-1-d7e1871c-003.jpg"
+      ],
+      "bytes": 23349730
+    },
+    {
+      "assetId": "vehicle-2-49e64913",
+      "libraryPath": "scenes/v3/libraries/vehicle-2-49e64913.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/vehicle-2-49e64913-000.jpg",
+        "scenes/v3/libraries/textures/vehicle-2-49e64913-001.jpg",
+        "scenes/v3/libraries/textures/vehicle-2-49e64913-002.jpg",
+        "scenes/v3/libraries/textures/vehicle-2-49e64913-003.jpg"
+      ],
+      "bytes": 17575679
+    },
+    {
+      "assetId": "vehicle-2-c600d4bd",
+      "libraryPath": "scenes/v3/libraries/vehicle-2-c600d4bd.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/vehicle-2-c600d4bd-000.jpg",
+        "scenes/v3/libraries/textures/vehicle-2-c600d4bd-001.jpg",
+        "scenes/v3/libraries/textures/vehicle-2-c600d4bd-002.jpg",
+        "scenes/v3/libraries/textures/vehicle-2-c600d4bd-003.jpg"
+      ],
+      "bytes": 22520853
+    },
+    {
+      "assetId": "vehicle-3-234d82b4",
+      "libraryPath": "scenes/v3/libraries/vehicle-3-234d82b4.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/vehicle-3-234d82b4-000.jpg",
+        "scenes/v3/libraries/textures/vehicle-3-234d82b4-001.jpg",
+        "scenes/v3/libraries/textures/vehicle-3-234d82b4-002.jpg",
+        "scenes/v3/libraries/textures/vehicle-3-234d82b4-003.jpg"
+      ],
+      "bytes": 5609135
+    },
+    {
+      "assetId": "vehicle-agv-platform-v1",
+      "libraryPath": "scenes/v3/libraries/vehicle-agv-platform-v1.blend",
+      "texturePaths": [],
+      "bytes": 554155
+    },
+    {
+      "assetId": "vehicle-asset-535bcba9",
+      "libraryPath": "scenes/v3/libraries/vehicle-asset-535bcba9.blend",
+      "texturePaths": [
+        "scenes/v3/libraries/textures/vehicle-asset-535bcba9-000.jpg",
+        "scenes/v3/libraries/textures/vehicle-asset-535bcba9-001.jpg",
+        "scenes/v3/libraries/textures/vehicle-asset-535bcba9-002.jpg",
+        "scenes/v3/libraries/textures/vehicle-asset-535bcba9-003.jpg"
+      ],
+      "bytes": 5588116
+    },
+    {
+      "assetId": "vehicle-forklift-industrial-v1",
+      "libraryPath": "scenes/v3/libraries/vehicle-forklift-industrial-v1.blend",
+      "texturePaths": [],
+      "bytes": 631105
+    },
+    {
+      "assetId": "vehicle-inspection-drone-v1",
+      "libraryPath": "scenes/v3/libraries/vehicle-inspection-drone-v1.blend",
+      "texturePaths": [],
+      "bytes": 715282
+    },
+    {
+      "assetId": "village-house-v3",
+      "libraryPath": "scenes/v3/libraries/village-house-v3.blend",
+      "texturePaths": [],
+      "bytes": 432439
+    },
+    {
+      "assetId": "warehouse-shed-v3",
+      "libraryPath": "scenes/v3/libraries/warehouse-shed-v3.blend",
+      "texturePaths": [],
+      "bytes": 487344
+    },
+    {
+      "assetId": "west-sea-port-v3",
+      "libraryPath": "scenes/v3/libraries/west-sea-port-v3.blend",
+      "texturePaths": [],
+      "bytes": 462018
+    }
+  ]
+}

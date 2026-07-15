@@ -1,0 +1,18 @@
+{
+  "assetId": "river-bridge-geography-v3",
+  "category": "road",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/river-bridge-geography-v3.glb",
+  "triangleCount": 156,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "30ffdbab43323b163e34eefd2fb04bd45b0c60ab2cbacc4b7377c79093e5749c",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "12m compatible long river bridge"
+}

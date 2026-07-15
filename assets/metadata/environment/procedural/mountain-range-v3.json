@@ -1,0 +1,18 @@
+{
+  "assetId": "mountain-range-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/mountain-range-v3.glb",
+  "triangleCount": 100,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "cd22a1947eb62a8ddd803bd057a0505e50b9548bd137697249b2c8a41b3175a6",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "reusable north/east low-poly mountain range"
+}

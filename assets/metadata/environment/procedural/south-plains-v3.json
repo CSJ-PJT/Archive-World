@@ -1,0 +1,18 @@
+{
+  "assetId": "south-plains-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/south-plains-v3.glb",
+  "triangleCount": 138,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "54aaeb1d7962fd289a6d99c18565ffe4e7d474e0762a7b783f4097bb70eaaf0e",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "southern plain and field patterns"
+}

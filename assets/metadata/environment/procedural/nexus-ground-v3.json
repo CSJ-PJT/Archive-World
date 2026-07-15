@@ -1,0 +1,18 @@
+{
+  "assetId": "nexus-ground-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/nexus-ground-v3.glb",
+  "triangleCount": 222,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "22d8a3b13a1b98ba1fc9e3af21d2ad2969f8b597e1abef1115019e22e59a9916",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "procedural industrial concrete and service lanes"
+}

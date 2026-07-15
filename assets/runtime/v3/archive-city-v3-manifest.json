@@ -1,0 +1,1006 @@
+{
+  "version": "3.2.0",
+  "preloadPolicy": {
+    "overview": "infrastructure",
+    "districtDetail": "lazy",
+    "lodPolicy": "overview=LOD2; district=LOD0/LOD1 by camera distance"
+  },
+  "districts": [
+    {
+      "id": "archiveos",
+      "runtimePath": "assets/runtime/v3/archiveos.glb",
+      "previewPath": "assets/previews/v3/archiveos-overview.png",
+      "blendPath": "scenes/v3/archiveos.blend",
+      "roadModules": []
+    },
+    {
+      "id": "market",
+      "runtimePath": "assets/runtime/v3/market.glb",
+      "previewPath": "assets/previews/v3/market-overview.png",
+      "blendPath": "scenes/v3/market.blend",
+      "roadModules": []
+    },
+    {
+      "id": "nexus",
+      "runtimePath": "assets/runtime/v3/nexus.glb",
+      "previewPath": "assets/previews/v3/nexus-overview.png",
+      "blendPath": "scenes/v3/nexus.blend",
+      "roadModules": []
+    },
+    {
+      "id": "logistics",
+      "runtimePath": "assets/runtime/v3/logistics.glb",
+      "previewPath": "assets/previews/v3/logistics-overview.png",
+      "blendPath": "scenes/v3/logistics.blend",
+      "roadModules": []
+    },
+    {
+      "id": "ledger",
+      "runtimePath": "assets/runtime/v3/ledger.glb",
+      "previewPath": "assets/previews/v3/ledger-overview.png",
+      "blendPath": "scenes/v3/ledger.blend",
+      "roadModules": []
+    },
+    {
+      "id": "residential",
+      "runtimePath": "assets/runtime/v3/residential.glb",
+      "previewPath": "assets/previews/v3/residential-overview.png",
+      "blendPath": "scenes/v3/residential.blend",
+      "roadModules": []
+    },
+    {
+      "id": "infrastructure",
+      "runtimePath": "assets/runtime/v3/infrastructure.glb",
+      "previewPath": "assets/previews/v3/infrastructure-overview.png",
+      "blendPath": "scenes/v3/infrastructure.blend",
+      "roadModules": [
+        {
+          "moduleId": "junction-archiveos",
+          "assetId": "road-unified-roundabout-v2",
+          "position": [
+            0.0,
+            0,
+            1520.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "archiveos",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-ledger",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            -1680.0,
+            0,
+            1800.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-residential",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            2200.0,
+            0,
+            1900.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-market",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            -1900.0,
+            0,
+            -1500.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-nexus",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            450.0,
+            0,
+            -1900.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-logistics",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            2500.0,
+            0,
+            -1650.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-outerNW",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            -3300.0,
+            0,
+            3300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-outerNE",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            3500.0,
+            0,
+            3300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-outerSE",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            3500.0,
+            0,
+            -3300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-outerSW",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            -3300.0,
+            0,
+            -3300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-southHub",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            600.0,
+            0,
+            -2700.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "junction-coastHub",
+          "assetId": "road-unified-intersection-v2",
+          "position": [
+            -3050.0,
+            0,
+            -500.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-0",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -840.0,
+            0,
+            1660.0
+          ],
+          "rotation": [
+            0,
+            0,
+            1.405648
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-1",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            1100.0,
+            0,
+            1710.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.399757
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-2",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            300.0,
+            0,
+            2060.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -0.507099
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-3",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -1565.0,
+            0,
+            910.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -3.013091
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-4",
+          "assetId": "river-bridge-geography-v3",
+          "position": [
+            -1450.0,
+            0,
+            -320.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -3.141593
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-5",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -1675.0,
+            0,
+            -1080.0
+          ],
+          "rotation": [
+            0,
+            0,
+            2.649783
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-6",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            40.0,
+            0,
+            885.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -3.078684
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-7",
+          "assetId": "river-bridge-geography-v3",
+          "position": [
+            80.0,
+            0,
+            -100.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -3.141593
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-8",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            265.0,
+            0,
+            -1175.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.891752
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-9",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            2075.0,
+            0,
+            1170.0
+          ],
+          "rotation": [
+            0,
+            0,
+            2.972004
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-10",
+          "assetId": "river-bridge-geography-v3",
+          "position": [
+            1950.0,
+            0,
+            135.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -3.141593
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-11",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            2225.0,
+            0,
+            -910.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.785787
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-12",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -725.0,
+            0,
+            -1700.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.739393
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-13",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            1475.0,
+            0,
+            -1775.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.449444
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-14",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -2490.0,
+            0,
+            1100.0
+          ],
+          "rotation": [
+            0,
+            0,
+            2.283475
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-15",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -3175.0,
+            0,
+            -50.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.870646
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-16",
+          "assetId": "highway-straight-v3",
+          "position": [
+            -1225.0,
+            0,
+            -1600.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.113228
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-17",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            1550.0,
+            0,
+            -2175.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.065935
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-18",
+          "assetId": "highway-straight-v3",
+          "position": [
+            -2250.0,
+            0,
+            -2125.0
+          ],
+          "rotation": [
+            0,
+            0,
+            2.631104
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-19",
+          "assetId": "highway-straight-v3",
+          "position": [
+            2675.0,
+            0,
+            -2200.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.83354
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-20",
+          "assetId": "highway-straight-v3",
+          "position": [
+            525.0,
+            0,
+            -2300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.956245
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-21",
+          "assetId": "highway-straight-v3",
+          "position": [
+            100.0,
+            0,
+            3300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.570796
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-22",
+          "assetId": "highway-straight-v3",
+          "position": [
+            3500.0,
+            0,
+            0.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -3.141593
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-23",
+          "assetId": "highway-straight-v3",
+          "position": [
+            100.0,
+            0,
+            -3300.0
+          ],
+          "rotation": [
+            0,
+            0,
+            1.570796
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-24",
+          "assetId": "highway-straight-v3",
+          "position": [
+            -3300.0,
+            0,
+            0.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -0.0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-25",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -2490.0,
+            0,
+            2550.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -2.317752
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-26",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            2850.0,
+            0,
+            2600.0
+          ],
+          "rotation": [
+            0,
+            0,
+            2.393215
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-27",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            -2950.0,
+            0,
+            -3025.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -0.904827
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-28",
+          "assetId": "road-unified-straight-v2",
+          "position": [
+            3175.0,
+            0,
+            -3025.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0.868539
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-29",
+          "assetId": "highway-straight-v3",
+          "position": [
+            -3175.0,
+            0,
+            -1900.0
+          ],
+          "rotation": [
+            0,
+            0,
+            3.052543
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-30",
+          "assetId": "highway-straight-v3",
+          "position": [
+            3400.0,
+            0,
+            1800.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -0.066568
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "road-31",
+          "assetId": "highway-straight-v3",
+          "position": [
+            -1800.0,
+            0,
+            -3250.0
+          ],
+          "rotation": [
+            0,
+            0,
+            1.604117
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "ic-west",
+          "assetId": "highway-interchange-v3",
+          "position": [
+            -2600.0,
+            0,
+            -2750.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "ic-east",
+          "assetId": "highway-interchange-v3",
+          "position": [
+            2850.0,
+            0,
+            -2750.0
+          ],
+          "rotation": [
+            0,
+            0,
+            3.141593
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "ic-west-ramp",
+          "assetId": "road-unified-ramp-v2",
+          "position": [
+            -2460.0,
+            0,
+            -2700.0
+          ],
+          "rotation": [
+            0,
+            0,
+            1.570796
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "ic-east-ramp",
+          "assetId": "road-unified-ramp-v2",
+          "position": [
+            2700.0,
+            0,
+            -2700.0
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.570796
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "archive-roundabout",
+          "assetId": "road-unified-roundabout-v2",
+          "position": [
+            0.0,
+            0,
+            1520.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "archiveos",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve--2300",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            -2300.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve--1900",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            -1900.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve--1500",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            -1500.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve--1100",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            -1100.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve-350",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            350.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve-750",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            750.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve-1150",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            1150.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve-1550",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            1550.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve-2050",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            2050.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        },
+        {
+          "moduleId": "network-curve-2450",
+          "assetId": "road-unified-curve90-v2",
+          "position": [
+            2450.0,
+            0,
+            -1050.0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "district": "infrastructure",
+          "connectionStandard": "ArchiveRoadV2-12m"
+        }
+      ]
+    }
+  ],
+  "masterBlend": "scenes/archive-city-v3.blend",
+  "layout": "assets/world/archive-city-v3-layout.json"
+}

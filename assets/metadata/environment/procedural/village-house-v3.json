@@ -1,0 +1,18 @@
+{
+  "assetId": "village-house-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/village-house-v3.glb",
+  "triangleCount": 12,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "307feb6275cb88b78ac95535c3ab872d0bf197d97fccce718c73d3d0de071f65",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic low-density plains village house"
+}

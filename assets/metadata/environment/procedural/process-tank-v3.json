@@ -1,0 +1,18 @@
+{
+  "assetId": "process-tank-v3",
+  "category": "factory",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/process-tank-v3.glb",
+  "triangleCount": 126,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "38e9216cecd95b56c4245ff7658da00cb7163aed62400ca446bc421b6722942e",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "reusable process tank cluster"
+}

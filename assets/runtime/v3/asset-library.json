@@ -1,0 +1,1600 @@
+{
+  "version": "3.0.0",
+  "assets": [
+    {
+      "assetId": "archiveos-landmark-plaza-v2",
+      "category": "street-prop",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/archiveos-landmark-plaza-v2.glb",
+      "triangleCount": 96,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "ea50ed6148bb22c2375fbb0e3a8670b84c163a4a85c9a0fb173b63c9ce162665",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "ArchiveOS civic landmark plaza without branding"
+    },
+    {
+      "assetId": "building-1-d57f1be7",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-1-d57f1be7/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-1-d57f1be7.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ca6a90bfb71423b845e205cb44bb278927ba0216f23bd246405ac21302455eda",
+      "bytes": 35105344,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-2-cfee9093",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-2-cfee9093/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-2-cfee9093.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "b1ab5f1bd2887f766c975ce9009395096c6b38c85a069b7501e69a9efed08e0f",
+      "bytes": 11862136,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-3-3d248d87",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-3-3d248d87/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-3-3d248d87.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "311d1ddec32b886e1eaef8ee78c23266d580c5703f6e63f66db483e18b6a7dc7",
+      "bytes": 34785412,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-4-874697a4",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-4-874697a4/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-4-874697a4.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "e98c2c64b9a34b672c1f1da2543b30776ca0c707d6fad1e6f829f271398ccc8e",
+      "bytes": 11698092,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-5-8ec67334",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-5-8ec67334/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-5-8ec67334.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "8b2b94b748df91c84e46c7f58b32b1b0766ab677c0a0c2984eb88a687066c2ab",
+      "bytes": 33565056,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-6-c55667d3",
+      "category": "apartment",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-6-c55667d3/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-6-c55667d3.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "95e4e9563ac51588488ff0973db700576f86a27d784a7d6bc5d50f7e32a01d9a",
+      "bytes": 11227552,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-7-d09a344b",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-7-d09a344b/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-7-d09a344b.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "236adc2f4bcd5350dfb8bb9b0517b7101d31559b0f39759f61ec8e91435cd7ad",
+      "bytes": 11965728,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-8-9034e896",
+      "category": "office",
+      "sourcePath": "assets/optimized/web/buildings/infrastructure/building-8-9034e896/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-8-9034e896.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "5d70ff9763f3874c463b5f68531eba309070ee177973cb80882e2bbb02b8d2f2",
+      "bytes": 35893788,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-a-2-0e6498d0",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-a-2-0e6498d0/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-a-2-0e6498d0.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "d18d432c35ffd19bc16c79c5ceeea1e6f5123371abc056fd94f9d5ded2544ab3",
+      "bytes": 11820028,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-1-ea52880d",
+      "category": "warehouse",
+      "sourcePath": "assets/optimized/web/buildings/logistics/building-archive-1-ea52880d/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-1-ea52880d.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3e727858b8bca942e148b3d037f1ae1f954b7f634d8e05342b9ba110f2e5c3d7",
+      "bytes": 11436232,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-15186c21",
+      "category": "control-center",
+      "sourcePath": "assets/optimized/web/buildings/archiveos/building-archive-15186c21/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-15186c21.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "4dcd87759d573e4e6b668b0379f90005a1ab76719e762d9f00a372c5863e3994",
+      "bytes": 9511644,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-2-2fe57f23",
+      "category": "warehouse",
+      "sourcePath": "assets/optimized/web/buildings/logistics/building-archive-2-2fe57f23/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-2-2fe57f23.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3192679d212aee6fa0cc234e465d9ae69463645caacb3d29c7365764ffbb3ea4",
+      "bytes": 32440432,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archive-logistics-4cd90681",
+      "category": "warehouse",
+      "sourcePath": "assets/optimized/web/buildings/logistics/building-archive-logistics-4cd90681/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archive-logistics-4cd90681.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "2567d6732424e3e18e486c6b937a69a7d5cb042dc36984297c567aa1c7a9750e",
+      "bytes": 12650440,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archiveos-2e8c32fa",
+      "category": "control-center",
+      "sourcePath": "assets/optimized/web/buildings/archiveos/building-archiveos-2e8c32fa/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archiveos-2e8c32fa.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "48a941840b80e15a1c799ea89a309e316ee450eac775192c26563bfb75b7593f",
+      "bytes": 33514816,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-archiveos2-a614889b",
+      "category": "control-center",
+      "sourcePath": "assets/optimized/web/buildings/archiveos/building-archiveos2-a614889b/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-archiveos2-a614889b.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "f7baab9b3eb1518ce87eb8407b0861bd5a248f75d34e8e0b84c0f9705b713f8f",
+      "bytes": 31945104,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-b-0da0b3c5",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-b-0da0b3c5/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-b-0da0b3c5.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "5f26bcbd0c6d0de2f51b2afd297bbf43459f0cc70cf34725dfcbbafe59df1343",
+      "bytes": 37633656,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-c-f2297019",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-c-f2297019/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-c-f2297019.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "1209ff8d415a131256d13362367bdafde6e705cfa4f49233d44121378b3c4d1e",
+      "bytes": 34552492,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-ledger-181c8568",
+      "category": "bank",
+      "sourcePath": "assets/optimized/web/buildings/ledger/building-ledger-181c8568/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-ledger-181c8568.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "7a6994466c4970dd40961e0c59aaa32085ce46beaeafe1f468fdb62eeff088e1",
+      "bytes": 30123784,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-ledger2-ea294a50",
+      "category": "bank",
+      "sourcePath": "assets/optimized/web/buildings/ledger/building-ledger2-ea294a50/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-ledger2-ea294a50.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "092ea5b2d54611f3883694aedbe8350c440d390fa24827eaafa0d64652b4a1e8",
+      "bytes": 11069720,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-market-181c8568",
+      "category": "commercial",
+      "sourcePath": "assets/optimized/web/buildings/market/building-market-181c8568/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-market-181c8568.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "7a6994466c4970dd40961e0c59aaa32085ce46beaeafe1f468fdb62eeff088e1",
+      "bytes": 30123784,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-market-9badf3fa",
+      "category": "commercial",
+      "sourcePath": "assets/optimized/web/buildings/market/building-market-9badf3fa/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-market-9badf3fa.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "f92165e41161642860187126d8612b6946f5afe704e569615717397fc3e58ae8",
+      "bytes": 9640728,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-nexus-5b2737a0",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-nexus-5b2737a0/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-nexus-5b2737a0.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3ecf005a0be8660ca1c578e6371c89aa8ad67636053610b174a2e3cbf2122daa",
+      "bytes": 37657060,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "building-nexus-9adda402",
+      "category": "factory",
+      "sourcePath": "assets/optimized/web/buildings/factory/building-nexus-9adda402/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/building-nexus-9adda402.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "6af7bb6b4f598ed6e611549b14cffe5491a33c6a4160dffd3a5f298b5504c08e",
+      "bytes": 31267128,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "cbd-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/cbd-ground-v3.glb",
+      "triangleCount": 222,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "cedc76b74d48d986c30b57d02b944b42cb4ae530db562b13b9427b297cf73b14",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural CBD stone, asphalt and sidewalk ground"
+    },
+    {
+      "assetId": "cbd-midrise-v3",
+      "category": "office",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/cbd-midrise-v3.glb",
+      "triangleCount": 48,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "bfa9713d748e80608426318f26f3f61ed9392f894f3d023ed99636d190620c5c",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic mid-rise office block with roof garden"
+    },
+    {
+      "assetId": "cbd-support-v3",
+      "category": "office",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/cbd-support-v3.glb",
+      "triangleCount": 18,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "9c1334dd92a74fcbb7055f9d4ea47fe123d3701cef60465560beaa8f2ebe1b8b",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic support office and civic wing"
+    },
+    {
+      "assetId": "city-ground-v2",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/city-ground-v2.glb",
+      "triangleCount": 30,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "a6cfffd3c905fe541387b2d4c59d10a544a7c684c630f346515a11f944bca32d",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "city-scale terrain and green buffers"
+    },
+    {
+      "assetId": "city-terrain-river-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/city-terrain-river-v3.glb",
+      "triangleCount": 36,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "0dc1b8b07345f684199c9ab6d514d9779fc66e15612f54b5e5c09c9172e45cfa",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "split north/south terrain with a river corridor"
+    },
+    {
+      "assetId": "cold-storage-loading-dock-v1",
+      "category": "environment",
+      "sourcePath": "incoming/cold-storage-loading-dock-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/cold-storage-loading-dock-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "961e5da3ae814580a4e9be815256f4d222298526eae2dbee9d293ac3a8455efb",
+      "bytes": 71452,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "commercial-mall-v3",
+      "category": "commercial",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/commercial-mall-v3.glb",
+      "triangleCount": 24,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "9dc2335b1a3f531f5393fe3c5747947a586514db3f75a35327c048c95a153eb4",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic mall and covered atrium"
+    },
+    {
+      "assetId": "communications-tower-compact-v1",
+      "category": "environment",
+      "sourcePath": "incoming/communications-tower-compact-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/communications-tower-compact-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "0434449391c08c7986d1e9c5bcf742f9bf9e157150aa80a10febab3b2fae8fdd",
+      "bytes": 60172,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "container-stack-v3",
+      "category": "warehouse",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/container-stack-v3.glb",
+      "triangleCount": 126,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "0d83324d6c741e6eb4212154a55778b8f73607e8f7f5b29bbdb400e899069243",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "container stack and paved yard"
+    },
+    {
+      "assetId": "container-yard-modular-v1",
+      "category": "environment",
+      "sourcePath": "incoming/container-yard-modular-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/container-yard-modular-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "5b6f2c3516900bec5e6cd648a305b9ecc2b0474fd4dcb246cda8bda1b38a33f7",
+      "bytes": 101464,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "crossdock-v3",
+      "category": "warehouse",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/crossdock-v3.glb",
+      "triangleCount": 96,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "728ef0106d297cedce264dad021ea095e8279376ebfe5c2486be96c5d7fdef22",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "cross-dock hall with loading faces"
+    },
+    {
+      "assetId": "han-river-curved-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/han-river-curved-v3.glb",
+      "triangleCount": 98,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "94686976b9d423fec08540c3698e45a59ef98d8cec5dee044da68f4b791c9735",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "curved Han-scale river surface"
+    },
+    {
+      "assetId": "highway-interchange-v3",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/highway-interchange-v3.glb",
+      "triangleCount": 96,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d4338b1b45e17e9f2a00730ee0aa327279c7bbbeb2bc236f23cab4fbeb5fb206",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "outer highway interchange loop"
+    },
+    {
+      "assetId": "highway-straight-v3",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/highway-straight-v3.glb",
+      "triangleCount": 162,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d25cc1aa6a0e41792a0d53ac56e6543a87d5bf179d13c169602c4259143071db",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "20m outer-city highway segment"
+    },
+    {
+      "assetId": "industrial-shed-v3",
+      "category": "factory",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/industrial-shed-v3.glb",
+      "triangleCount": 60,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "c42d24d97da406b6b7dbfb894e87a9b27eba7e90a82d8690332504144349be79",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "low-poly manufacturing hall and stacks"
+    },
+    {
+      "assetId": "industrial-utility-v3",
+      "category": "factory",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/industrial-utility-v3.glb",
+      "triangleCount": 54,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "f8f7301315f54efa79f7492bcf4faba9c8a07ac9057c5ba0520c335768709826",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "utility hall, stacks and service pipe"
+    },
+    {
+      "assetId": "ledger-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/ledger-ground-v3.glb",
+      "triangleCount": 222,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "40bb3c7b0a02660b5344b5ca2b91edb12879423f0ebf5218e5ffee6a357a4e35",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural financial district paving and public realm"
+    },
+    {
+      "assetId": "logistics-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/logistics-ground-v3.glb",
+      "triangleCount": 222,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "914371f3b62ec849d9d3a698a0a37f1146f6864f504081adfcbfa84df8d85a59",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural logistics yard concrete and truck lanes"
+    },
+    {
+      "assetId": "lowpoly-mountain-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/lowpoly-mountain-v3.glb",
+      "triangleCount": 24,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "02d985dbc79cd8e73c12d65ac6a4156226b4fca3179b65b25d71e549e595be3a",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "north perimeter low-poly mountain cluster"
+    },
+    {
+      "assetId": "market-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/market-ground-v3.glb",
+      "triangleCount": 222,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "413310b6c20f1cfea8b8830705bec62a5502e5bb22008d1f19afc4d24c97c027",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural commercial paving and pedestrian bands"
+    },
+    {
+      "assetId": "mountain-range-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/mountain-range-v3.glb",
+      "triangleCount": 100,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "cd22a1947eb62a8ddd803bd057a0505e50b9548bd137697249b2c8a41b3175a6",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "reusable north/east low-poly mountain range"
+    },
+    {
+      "assetId": "mountain-variation-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/mountain-variation-v3.glb",
+      "triangleCount": 104,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "a0a281956678bff558fb6fb3f32f60de734c5fe3eb25f0a1eca1e2b77751624d",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "varied mountain ridge with foothills"
+    },
+    {
+      "assetId": "neighborhood-shop-v3",
+      "category": "commercial",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/neighborhood-shop-v3.glb",
+      "triangleCount": 18,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "c9ce3079a7749489d5cffcc8ae42f7e67675e0de897bdded48a145b2c0b8ac38",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic low-rise neighborhood retail"
+    },
+    {
+      "assetId": "nexus-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/nexus-ground-v3.glb",
+      "triangleCount": 222,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "22d8a3b13a1b98ba1fc9e3af21d2ad2969f8b597e1abef1115019e22e59a9916",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural industrial concrete and service lanes"
+    },
+    {
+      "assetId": "parking-lot-v3",
+      "category": "street-prop",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/parking-lot-v3.glb",
+      "triangleCount": 78,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d482cf3c30f1af42eb10a5ab0d4ed7a42cd226140f4a6940d3c3fd75a61f5d61",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic marked parking area"
+    },
+    {
+      "assetId": "pipe-rack-v3",
+      "category": "factory",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/pipe-rack-v3.glb",
+      "triangleCount": 78,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d6395ce67098934f01f7767819e60d7bcc4e5d8de44ec3b7a62e68a4b960ada0",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "modular industrial pipe rack"
+    },
+    {
+      "assetId": "port-crane-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/port-crane-v3.glb",
+      "triangleCount": 30,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "cceaaba5cbe3ed72c154e26e9d7abdcb63c7a1ea6d37391440b48c1cdac427ea",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic port gantry crane"
+    },
+    {
+      "assetId": "port-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/port-ground-v3.glb",
+      "triangleCount": 222,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "6d2c758bb28b199a20e17144f0f9ea3c470eba281ef5db7f54bf4f105dc37584",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural port quay concrete and cargo lanes"
+    },
+    {
+      "assetId": "port-harbor-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/port-harbor-v3.glb",
+      "triangleCount": 188,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "f0f77009107a8cc09d77aeb02dc00359a6dbc26812f6e226a931444870922885",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "western marine logistics harbor"
+    },
+    {
+      "assetId": "power-substation-compact-v1",
+      "category": "environment",
+      "sourcePath": "incoming/power-substation-compact-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/power-substation-compact-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "9e68a0ee41b47b66880ac4f8ce9bfcf56a8b5da50b3d8c25c82e541c01a717cf",
+      "bytes": 52520,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "process-tank-v3",
+      "category": "factory",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/process-tank-v3.glb",
+      "triangleCount": 126,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "38e9216cecd95b56c4245ff7658da00cb7163aed62400ca446bc421b6722942e",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "reusable process tank cluster"
+    },
+    {
+      "assetId": "residential-ground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/residential-ground-v3.glb",
+      "triangleCount": 240,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "b938dd70ebea13c3b1586d66e66d4c09469b8790e5e47c04f77b068518846738",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "procedural residential paving, grass and internal roads"
+    },
+    {
+      "assetId": "residential-midrise-v3",
+      "category": "apartment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/residential-midrise-v3.glb",
+      "triangleCount": 42,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "e0b4db7c9e20dea401bb2531bda07ad639a36806adf428a9ec518850bb873298",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic mid-rise apartment block"
+    },
+    {
+      "assetId": "residential-playground-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/residential-playground-v3.glb",
+      "triangleCount": 36,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "25332e77245203a2f95bf240f8ce0e3c3b22cd3d7ad7d9a2eab3cef6085ed6c2",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic residential playground"
+    },
+    {
+      "assetId": "residential-school-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/residential-school-v3.glb",
+      "triangleCount": 24,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "9c7001eab812d3781f58bc91a523912855aa2e873207fce5358404247861f44a",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic school, gym and playing field"
+    },
+    {
+      "assetId": "residential-slab-v3",
+      "category": "apartment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/residential-slab-v3.glb",
+      "triangleCount": 54,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d24b789d32afc7715fdd353f2f0a4b27bb346cf2257cce5d51de723164326879",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic Korean metropolitan apartment silhouette"
+    },
+    {
+      "assetId": "residential-tower-v3",
+      "category": "apartment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/residential-tower-v3.glb",
+      "triangleCount": 72,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "96f3dd81150fe9e110508676bdf54243bceb226fec9a02ddd0d0c32787f5d9d7",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic metropolitan residential tower"
+    },
+    {
+      "assetId": "retail-row-v3",
+      "category": "commercial",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/retail-row-v3.glb",
+      "triangleCount": 72,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "9b10d8231279eba97600ebbc52e059e00fa16693a213ce66366d99ab6c594dd1",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic street retail row"
+    },
+    {
+      "assetId": "river-bridge-geography-v3",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/river-bridge-geography-v3.glb",
+      "triangleCount": 156,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "30ffdbab43323b163e34eefd2fb04bd45b0c60ab2cbacc4b7377c79093e5749c",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m compatible long river bridge"
+    },
+    {
+      "assetId": "river-bridge-v3",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/river-bridge-v3.glb",
+      "triangleCount": 144,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d55a2412c983d7ebfe9db06ce8fcf2b041ee98dc3be531c22c2ac78d8b9174b6",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m deck bridge compatible with Archive road standard"
+    },
+    {
+      "assetId": "river-water-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/river-water-v3.glb",
+      "triangleCount": 6,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "e43a1dd411222cb4158fd9dd29ab9dddac5a3d0d9d4648562311d58755a1a2a4",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "50m east-west Archive River water surface"
+    },
+    {
+      "assetId": "riverfront-park-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/riverfront-park-v3.glb",
+      "triangleCount": 226,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "d167913de77371185be631ba7090bd82bdcfd29a5f6f7b761ffd70469764dd60",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "riverfront park, promenade and bicycle lane"
+    },
+    {
+      "assetId": "road-asset-7b6c3ac5",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/straight/road-asset-7b6c3ac5/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-asset-7b6c3ac5.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "de6ee7e46432c2ed688aa0c13eba6bea0bdfd86b78c7fe77412820f1985f85cd",
+      "bytes": 12873216,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-curved-modular-90-v2",
+      "category": "road",
+      "sourcePath": "incoming/road-curved-modular-90-v2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-curved-modular-90-v2.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "5401f7ace1ccdc884b1ac909b98ef977a3a9c143c71b6b06440f489ed1818bff",
+      "bytes": 511140,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "road-elevated-ramp-straight-v1",
+      "category": "road",
+      "sourcePath": "incoming/road-elevated-ramp-straight-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/road-elevated-ramp-straight-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "a5f3463e9f2860a46eacd2f88b043d5bb801e4f8c6c03ad4b7acc97fc203d140",
+      "bytes": 3948,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093526-texture-b5202be0",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093526-texture-b5202be0/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-meshy-ai-divided-highway-0713093526-texture-b5202be0.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "83b3b3999bbf59b783cb268f93a33512d7028bd4b87694648481215e95e86e4c",
+      "bytes": 7174360,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-meshy-ai-divided-highway-0713093537-texture-bf450ac3",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/straight/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-meshy-ai-divided-highway-0713093537-texture-bf450ac3.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "3b8e6426f72d1f462fa00851e0f131056b9a75f5027483224c0829b0d5c25b55",
+      "bytes": 5781496,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-meshy-ai-four-way-intersection-0713093554-texture-5239da66",
+      "category": "road",
+      "sourcePath": "assets/optimized/web/roads/intersections/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/road-meshy-ai-four-way-intersection-0713093554-texture-5239da66.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "dfdb0beb3137fa4e8d59a86e4dcc5d0a7f636f482e2518753d6dcc91ae5e2ad2",
+      "bytes": 8436816,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "road-unified-curve90-v2",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_unified_road_kit.py",
+      "runtimePath": "assets/runtime/v2/library/road-unified-curve90-v2.glb",
+      "triangleCount": 288,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "a9042e9c7eab14494bfe2cbbcbbf06753022b0f3e85676a6e5c0a1a54ef9a152",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m profile 90-degree curve; 24m outside radius",
+      "connectionStandard": {
+        "widthMeters": 12,
+        "surface": "ArchiveRoad_Asphalt_V2",
+        "axis": "Y-forward/Z-up"
+      }
+    },
+    {
+      "assetId": "road-unified-intersection-v2",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_unified_road_kit.py",
+      "runtimePath": "assets/runtime/v2/library/road-unified-intersection-v2.glb",
+      "triangleCount": 150,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "05c0a6daed333b84194ca79e450e1ff47adb260a8eda8d737c3a3a259a160d04",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m profile four-way intersection",
+      "connectionStandard": {
+        "widthMeters": 12,
+        "surface": "ArchiveRoad_Asphalt_V2",
+        "axis": "Y-forward/Z-up"
+      }
+    },
+    {
+      "assetId": "road-unified-ramp-v2",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_unified_road_kit.py",
+      "runtimePath": "assets/runtime/v2/library/road-unified-ramp-v2.glb",
+      "triangleCount": 18,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "6b4c3409ed4bb0223592d957a7db3ac87440bcd69bad3116e81fca1da6316de7",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m profile service ramp; 3m rise over 48m",
+      "connectionStandard": {
+        "widthMeters": 12,
+        "surface": "ArchiveRoad_Asphalt_V2",
+        "axis": "Y-forward/Z-up"
+      }
+    },
+    {
+      "assetId": "road-unified-roundabout-v2",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_unified_road_kit.py",
+      "runtimePath": "assets/runtime/v2/library/road-unified-roundabout-v2.glb",
+      "triangleCount": 582,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "1e0df17a9e9ca88bec09387edc28d06b57f94f541a6f6f745bb2096d0f6bfcf5",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m profile roundabout; 18m outside radius",
+      "connectionStandard": {
+        "widthMeters": 12,
+        "surface": "ArchiveRoad_Asphalt_V2",
+        "axis": "Y-forward/Z-up"
+      }
+    },
+    {
+      "assetId": "road-unified-straight-v2",
+      "category": "road",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_unified_road_kit.py",
+      "runtimePath": "assets/runtime/v2/library/road-unified-straight-v2.glb",
+      "triangleCount": 78,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "7041cca7165c3a111e1eeb59d4dcebcb0173a9a4ff0a61a0cd7a431dd8433c8a",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12m straight module; 12m wide, 24m long",
+      "connectionStandard": {
+        "widthMeters": 12,
+        "surface": "ArchiveRoad_Asphalt_V2",
+        "axis": "Y-forward/Z-up"
+      }
+    },
+    {
+      "assetId": "roadside-safety-barrier-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/roadside-safety-barrier-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/roadside-safety-barrier-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "9920d184d765112b6507049e85486c66549df3223b0b8fbf83c201d4e62a55ec",
+      "bytes": 51592,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "security-gate-road-lane-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/security-gate-road-lane-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/security-gate-road-lane-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "b1503c387815299e8d0adc0ddd67895ba7293efa5b1e373d046ef1e4e6317581",
+      "bytes": 41576,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "south-plains-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/south-plains-v3.glb",
+      "triangleCount": 138,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "54aaeb1d7962fd289a6d99c18565ffe4e7d474e0762a7b783f4097bb70eaaf0e",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "southern plain and field patterns"
+    },
+    {
+      "assetId": "streetlight-traffic-signal-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/streetlight-traffic-signal-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/streetlight-traffic-signal-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "a8b1dd335a2e9d7d001b8091e6dc5e92ede2e6e4c99ceafcf9d5565ba080684c",
+      "bytes": 94268,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "terrain-geography-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/terrain-geography-v3.glb",
+      "triangleCount": 98,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "44344c45e56e0e0d95da76e1ea5423a27a02ce181c13b10c58506ca9f471b334",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "10km curved-river terrain banks"
+    },
+    {
+      "assetId": "tree-cluster-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/tree-cluster-v3.glb",
+      "triangleCount": 360,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "0297aa0a411d326f47a5cc07b43190d6965caef9ffb0297c20cf074e6596caf3",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "reusable varied tree cluster"
+    },
+    {
+      "assetId": "truck-yard-parking-module-v1",
+      "category": "street-prop",
+      "sourcePath": "incoming/truck-yard-parking-module-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/truck-yard-parking-module-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "bd112360f0c320dfd7181342fdf1bfed2149ea6c9f9d486b8e6731da687609f1",
+      "bytes": 35376,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "urban-park-v2",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/urban-park-v2.glb",
+      "triangleCount": 98,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "26df8d8529919dd1deedee127d6dfbe6d9857b8508f67266a94f6196f4358515",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "compact urban park with paths and planters"
+    },
+    {
+      "assetId": "urban-parking-v2",
+      "category": "street-prop",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/urban-parking-v2.glb",
+      "triangleCount": 60,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "c5749a7292018be3d45e2034adcd4f678a1ef92ba62a889a7146dce2953bfb62",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "12-space visual parking module"
+    },
+    {
+      "assetId": "urban-streetlight-v2",
+      "category": "street-prop",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/urban-streetlight-v2.glb",
+      "triangleCount": 40,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "90a35716ae5c026cb95988df92d41efb99aa8c2c796b7178d48b63abc36fbecb",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "teal industrial streetlight"
+    },
+    {
+      "assetId": "urban-tree-v2",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_public_realm_kit.py",
+      "runtimePath": "assets/runtime/v2/library/urban-tree-v2.glb",
+      "triangleCount": 252,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "cf60d33e8c7bc485d8cddf06165de100bd79f47215d9e59208902ddb37bc14a1",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "low-poly compatible street tree"
+    },
+    {
+      "assetId": "vehicle-1-a74d9cb9",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-1-a74d9cb9/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-1-a74d9cb9.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ccfdb6598d1f3c88eb3082f966fa8e5a7e621fb76fbe8ed578046fbbcc8fc54e",
+      "bytes": 8750284,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-1-d7e1871c",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-1-d7e1871c/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-1-d7e1871c.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "d98e2a468cbf9c6bd273b21c423126ec78812252dfc3731d5737ee7d22b21892",
+      "bytes": 25317292,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-2-49e64913",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-2-49e64913/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-2-49e64913.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "d63af5e36c8a62a9b96fb8cf38bcaa130c2abc3f6b50b6a1d48ebad97b9031d5",
+      "bytes": 8509160,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-2-c600d4bd",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/trucks/vehicle-2-c600d4bd/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-2-c600d4bd.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ad57aa9a36f65429fb585bd6187d4f585203301f8a6921419075e89ae5aed89f",
+      "bytes": 27017540,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-3-234d82b4",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/unknown/vehicle-3-234d82b4/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-3-234d82b4.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "ca750fa89eba0ecd759affc4660d83b80b607b0f5654dca184f7d5cfb447ed58",
+      "bytes": 6562420,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-agv-platform-v1",
+      "category": "vehicle",
+      "sourcePath": "incoming/vehicle-agv-platform-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-agv-platform-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "c73b4f0a9879595a977aec068659859aeaaaabc1cf9f9ef2fa7710d696989888",
+      "bytes": 44212,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "vehicle-asset-535bcba9",
+      "category": "vehicle",
+      "sourcePath": "assets/optimized/web/vehicles/unknown/vehicle-asset-535bcba9/lod2.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-asset-535bcba9.glb",
+      "lodLevels": [
+        2
+      ],
+      "checksum": "9db66ef98f56cc30c8ecee713270aba39f8ed39e5a5f7778c0dcb10b3ad2ef2a",
+      "bytes": 6784048,
+      "license": null,
+      "sourceNote": "Meshy source via validated optimized LOD2"
+    },
+    {
+      "assetId": "vehicle-forklift-industrial-v1",
+      "category": "vehicle",
+      "sourcePath": "incoming/vehicle-forklift-industrial-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-forklift-industrial-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "de62ef1309a5fe010abab80aa825a7a50a6e250b1007dd53a5556252621c8acc",
+      "bytes": 79340,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "vehicle-inspection-drone-v1",
+      "category": "vehicle",
+      "sourcePath": "incoming/vehicle-inspection-drone-v1.glb",
+      "runtimePath": "assets/runtime/v2/library/vehicle-inspection-drone-v1.glb",
+      "lodLevels": [
+        0
+      ],
+      "checksum": "8da73239133d28a251e83743b2675b6ab67cac2e00a66c3b5e75a24dcdfe1763",
+      "bytes": 114872,
+      "license": null,
+      "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
+    },
+    {
+      "assetId": "village-house-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/village-house-v3.glb",
+      "triangleCount": 12,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "307feb6275cb88b78ac95535c3ab872d0bf197d97fccce718c73d3d0de071f65",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "generic low-density plains village house"
+    },
+    {
+      "assetId": "warehouse-shed-v3",
+      "category": "warehouse",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/warehouse-shed-v3.glb",
+      "triangleCount": 42,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "8cb8d4899d7ab857da17f2988bcc45e90b639d053f45f12c3107610feb80e54a",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "low-poly warehouse and loading bays"
+    },
+    {
+      "assetId": "west-sea-port-v3",
+      "category": "environment",
+      "source": "procedural",
+      "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+      "runtimePath": "assets/runtime/v3/library/west-sea-port-v3.glb",
+      "triangleCount": 18,
+      "textureCount": 0,
+      "textureBytes": 0,
+      "bounds": null,
+      "checksum": "21c211bee9b2359767b806f9974aca05135f252afc5507340355986b418c4a31",
+      "district": "infrastructure",
+      "lodLevels": [
+        0
+      ],
+      "license": null,
+      "sourceNote": "western sea and coastal buffer"
+    }
+  ]
+}

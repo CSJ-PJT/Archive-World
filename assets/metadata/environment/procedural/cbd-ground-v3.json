@@ -1,0 +1,18 @@
+{
+  "assetId": "cbd-ground-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/cbd-ground-v3.glb",
+  "triangleCount": 222,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "cedc76b74d48d986c30b57d02b944b42cb4ae530db562b13b9427b297cf73b14",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "procedural CBD stone, asphalt and sidewalk ground"
+}

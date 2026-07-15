@@ -1,0 +1,18 @@
+{
+  "assetId": "warehouse-shed-v3",
+  "category": "warehouse",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/warehouse-shed-v3.glb",
+  "triangleCount": 42,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "8cb8d4899d7ab857da17f2988bcc45e90b639d053f45f12c3107610feb80e54a",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "low-poly warehouse and loading bays"
+}

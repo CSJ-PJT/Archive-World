@@ -1,0 +1,18 @@
+{
+  "assetId": "residential-tower-v3",
+  "category": "apartment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/residential-tower-v3.glb",
+  "triangleCount": 72,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "96f3dd81150fe9e110508676bdf54243bceb226fec9a02ddd0d0c32787f5d9d7",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic metropolitan residential tower"
+}

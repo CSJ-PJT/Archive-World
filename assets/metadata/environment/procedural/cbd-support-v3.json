@@ -1,0 +1,18 @@
+{
+  "assetId": "cbd-support-v3",
+  "category": "office",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/cbd-support-v3.glb",
+  "triangleCount": 18,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "9c1334dd92a74fcbb7055f9d4ea47fe123d3701cef60465560beaa8f2ebe1b8b",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic support office and civic wing"
+}

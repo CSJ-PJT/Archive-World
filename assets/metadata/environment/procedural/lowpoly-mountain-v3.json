@@ -1,0 +1,18 @@
+{
+  "assetId": "lowpoly-mountain-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_public_realm_kit.py",
+  "runtimePath": "assets/runtime/v2/library/lowpoly-mountain-v3.glb",
+  "triangleCount": 24,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "02d985dbc79cd8e73c12d65ac6a4156226b4fca3179b65b25d71e549e595be3a",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "north perimeter low-poly mountain cluster"
+}

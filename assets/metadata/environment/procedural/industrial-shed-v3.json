@@ -1,0 +1,18 @@
+{
+  "assetId": "industrial-shed-v3",
+  "category": "factory",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/industrial-shed-v3.glb",
+  "triangleCount": 60,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "c42d24d97da406b6b7dbfb894e87a9b27eba7e90a82d8690332504144349be79",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "low-poly manufacturing hall and stacks"
+}

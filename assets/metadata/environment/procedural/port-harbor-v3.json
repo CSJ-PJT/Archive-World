@@ -1,0 +1,18 @@
+{
+  "assetId": "port-harbor-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/port-harbor-v3.glb",
+  "triangleCount": 188,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "f0f77009107a8cc09d77aeb02dc00359a6dbc26812f6e226a931444870922885",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "western marine logistics harbor"
+}

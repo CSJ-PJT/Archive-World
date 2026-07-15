@@ -1,0 +1,18 @@
+{
+  "assetId": "residential-school-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/residential-school-v3.glb",
+  "triangleCount": 24,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "9c7001eab812d3781f58bc91a523912855aa2e873207fce5358404247861f44a",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic school, gym and playing field"
+}

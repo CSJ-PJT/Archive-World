@@ -1,0 +1,18 @@
+{
+  "assetId": "riverfront-park-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/riverfront-park-v3.glb",
+  "triangleCount": 226,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "d167913de77371185be631ba7090bd82bdcfd29a5f6f7b761ffd70469764dd60",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "riverfront park, promenade and bicycle lane"
+}

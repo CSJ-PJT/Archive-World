@@ -1,0 +1,18 @@
+{
+  "assetId": "cbd-midrise-v3",
+  "category": "office",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/cbd-midrise-v3.glb",
+  "triangleCount": 48,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "bfa9713d748e80608426318f26f3f61ed9392f894f3d023ed99636d190620c5c",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "generic mid-rise office block with roof garden"
+}

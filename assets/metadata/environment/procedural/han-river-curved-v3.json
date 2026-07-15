@@ -1,0 +1,18 @@
+{
+  "assetId": "han-river-curved-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/han-river-curved-v3.glb",
+  "triangleCount": 98,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "94686976b9d423fec08540c3698e45a59ef98d8cec5dee044da68f4b791c9735",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "curved Han-scale river surface"
+}

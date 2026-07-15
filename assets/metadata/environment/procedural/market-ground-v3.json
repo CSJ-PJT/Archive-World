@@ -1,0 +1,18 @@
+{
+  "assetId": "market-ground-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_geography_v3_kit.py",
+  "runtimePath": "assets/runtime/v3/library/market-ground-v3.glb",
+  "triangleCount": 222,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "413310b6c20f1cfea8b8830705bec62a5502e5bb22008d1f19afc4d24c97c027",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "procedural commercial paving and pedestrian bands"
+}

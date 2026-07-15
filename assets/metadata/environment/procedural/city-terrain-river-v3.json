@@ -1,0 +1,18 @@
+{
+  "assetId": "city-terrain-river-v3",
+  "category": "environment",
+  "source": "procedural",
+  "sourcePath": "scripts/blender/create_public_realm_kit.py",
+  "runtimePath": "assets/runtime/v2/library/city-terrain-river-v3.glb",
+  "triangleCount": 36,
+  "textureCount": 0,
+  "textureBytes": 0,
+  "bounds": null,
+  "checksum": "0dc1b8b07345f684199c9ab6d514d9779fc66e15612f54b5e5c09c9172e45cfa",
+  "district": "infrastructure",
+  "lodLevels": [
+    0
+  ],
+  "license": null,
+  "sourceNote": "split north/south terrain with a river corridor"
+}
