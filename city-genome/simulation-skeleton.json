@@ -1,0 +1,7 @@
+{
+  "status": "DESIGN_ONLY", "runtimeIntegration": false,
+  "layers": ["population", "traffic", "parking", "delivery", "economy", "education", "healthcare", "energy", "water", "weather", "disaster", "construction", "festival", "nightLighting"],
+  "inputContracts": ["district DNA", "urban genome", "street graph", "land-use roles", "time slice"],
+  "outputContracts": ["planning metrics", "demand heatmaps", "route intent", "lighting intent"],
+  "guardrails": ["no live runtime connection", "no personal data", "no claim of simulation accuracy", "approval required before city application"]
+}

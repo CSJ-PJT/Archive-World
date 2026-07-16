@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0", "status": "DESIGN_ONLY", "notGeneratedAssets": true,
+  "street": {"targetFamilies": 150, "systems": {"road/intersection": 20, "sidewalk/cycle": 16, "transit/taxi": 12, "safety/lighting": 20, "furniture/public-realm": 18, "parking/service": 14, "water/drainage": 8, "utility/fire": 7, "planting/park": 35}},
+  "landscape": {"targetFamilies": 100, "systems": ["street trees", "shrubs/groundcover", "parks", "river edge", "wetland", "slope/retaining", "forest", "mountain"]},
+  "vehicle": {"targetFamilies": 80, "systems": ["transit", "taxi", "private", "freight", "emergency", "construction", "service"]},
+  "human": {"targetFamilies": 100, "systems": ["resident", "student", "office", "visitor", "delivery", "public safety", "construction"], "timeSlices": ["morning", "day", "evening", "night"]},
+  "rules": {"assetStatusUntilApproval": "PROTOTYPE", "sameFamilyPerCameraMax": 2, "generatedAssetsCommit": false}
+}

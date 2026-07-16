@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Archive City Planning Metrics",
+  "type": "object",
+  "required": ["scope", "status", "metrics", "disclaimer"],
+  "properties": {"scope": {"enum": ["planning-proxy"]}, "status": {"enum": ["PLAN_ONLY"]}, "metrics": {"type": "object", "required": ["density", "walkability", "greenRatio", "roadRatio", "skyline", "landUseMix", "streetActivation", "pedestrianContinuity"]}, "disclaimer": {"type": "string"}}
+}

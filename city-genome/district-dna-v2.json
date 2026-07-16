@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "2.0", "status": "PLAN_ONLY",
+  "districts": {
+    "archiveos": {"identity": ["financial CBD", "public plaza", "river axis"], "landUse": ["office", "operations", "retail"], "mobility": ["pedestrian priority", "rear service", "taxi/transit"], "skyline": "landmark to Ledger transition"},
+    "ledger": {"identity": ["financial/administrative", "formal civic frontage"], "landUse": ["office", "legal", "public"], "mobility": ["plaza connections", "walkable blocks"], "skyline": "mid-to-high CBD transition"},
+    "market": {"identity": ["fine-grain commerce", "night economy"], "landUse": ["retail", "food", "hotel"], "mobility": ["walking street", "loading windows"], "skyline": "low-rise with focal markers"},
+    "nexus": {"identity": ["research/manufacturing campus", "utility legibility"], "landUse": ["R&D", "production", "utility"], "mobility": ["separated service", "campus walk"], "skyline": "horizontal campus clusters"},
+    "logistics": {"identity": ["cross dock", "truck court", "container yard"], "landUse": ["warehouse", "terminal", "service"], "mobility": ["freight priority", "highway connection"], "skyline": "large low industrial volumes"},
+    "residential": {"identity": ["apartment community", "school/park network"], "landUse": ["housing", "community", "neighborhood retail"], "mobility": ["safe school walk", "fire/service separation"], "skyline": "inner high-rise, perimeter mid-rise"},
+    "infrastructure": {"identity": ["bridge/rail/water/port"], "landUse": ["mobility", "utility", "public edge"], "mobility": ["network continuity"], "skyline": "terrain and corridor-led"}
+  }
+}

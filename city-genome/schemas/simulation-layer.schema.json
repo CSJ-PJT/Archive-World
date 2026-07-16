@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Archive City Simulation Layer Contract",
+  "type": "object",
+  "required": ["status", "layers", "inputContracts", "outputContracts"],
+  "properties": {"status": {"const": "DESIGN_ONLY"}, "layers": {"type": "array", "minItems": 1, "items": {"type": "string"}}, "inputContracts": {"type": "array", "items": {"type": "string"}}, "outputContracts": {"type": "array", "items": {"type": "string"}}}
+}

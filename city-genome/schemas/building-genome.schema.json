@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Archive Building Genome",
+  "type": "object",
+  "required": ["genomeId", "status", "sourceGrammarIds", "modules", "originalityContract", "provenance"],
+  "properties": {
+    "genomeId": {"type": "string"},
+    "status": {"enum": ["REFERENCE_ONLY", "PLAN_ONLY", "CANDIDATE", "APPROVED"]},
+    "sourceGrammarIds": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "modules": {"type": "object", "required": ["footprint", "tower", "podium", "facade", "core", "roof", "entrance", "material", "lod"]},
+    "originalityContract": {"type": "object", "required": ["minimumChangedDimensions", "prohibited", "directMeshCopy"]},
+    "provenance": {"type": "object", "required": ["referenceOnly", "generationSeed", "licenseStatus"]}
+  }
+}

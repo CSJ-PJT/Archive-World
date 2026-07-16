@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Archive Urban Genome",
+  "type": "object",
+  "required": ["genomeId", "scope", "districtCompatibility", "rules", "status"],
+  "properties": {
+    "genomeId": {"type": "string"},
+    "scope": {"enum": ["block", "street", "district", "city"]},
+    "districtCompatibility": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "rules": {"type": "object", "required": ["landUse", "mobility", "publicRealm", "density", "skyline", "ecology"]},
+    "status": {"enum": ["PLAN_ONLY", "REVIEWED", "APPROVED"]}
+  }
+}

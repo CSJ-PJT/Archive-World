@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0",
+  "purpose": "Reference-only intelligence index. It contains no meshes, textures, or canonical asset approvals.",
+  "sourceGrammarCatalog": "architecture-grammar/catalog.json",
+  "referenceCount": 43,
+  "analysisDimensions": ["skyline", "facade", "footprint", "massing", "podium", "roof", "materialLanguage", "entrance", "urbanRole", "density", "perceivedAge", "style", "usage", "visualDNA"],
+  "policy": {"directMeshReuse": false, "canonicalPromotion": false, "layoutApplication": false, "generatedOutputInGit": false},
+  "flow": ["incoming reference", "architecture grammar", "building DNA", "building genome", "urban genome", "plan-only review gate"]
+}

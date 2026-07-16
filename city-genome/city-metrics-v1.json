@@ -1,0 +1,13 @@
+{
+  "status": "PLAN_ONLY", "scope": "planning-proxy", "disclaimer": "Metrics are planning proxies, not engineering, traffic, legal, or environmental certification.",
+  "metrics": {
+    "density": {"inputs": ["coverage", "floorAreaProxy", "heightDistribution"]},
+    "walkability": {"inputs": ["pedestrianConnectivity", "crossingAccess", "shade", "activeFrontage"]},
+    "greenRatio": {"inputs": ["permeableArea", "treeCanopyProxy", "parkAccess"]},
+    "roadRatio": {"inputs": ["roadArea", "serviceAccess", "emergencyAccess"]},
+    "skyline": {"inputs": ["heightTransition", "viewCorridor", "landmarkDominance"]},
+    "landUseMix": {"inputs": ["roles", "dailyNeeds", "jobsHousingBalance"]},
+    "streetActivation": {"inputs": ["frontage", "seating", "transit", "nightSafety"]},
+    "pedestrianContinuity": {"inputs": ["disconnectedRoutes", "barrierCrossings", "publicRealmLinks"]}
+  }
+}
