@@ -1,0 +1,63 @@
+{
+  "grammarId": "grammar-43-residential-korean-apartment-b",
+  "sourceReferenceId": "reference-43",
+  "referenceRole": "reference-only; no mesh, vertices, textures, dimensions, or source geometry are stored",
+  "architectureGrammar": {
+    "massing": {
+      "footprintRule": "slab, point, courtyard, or multi-wing; choose a different derivative footprint",
+      "towerComposition": "single or multi-tower composition; derivative tower count must change",
+      "podiumRule": "piloti or neighborhood-retail base",
+      "densityClass": "high"
+    },
+    "facade": {
+      "floorRhythm": "derive a new floor cadence; do not reproduce source cadence",
+      "facadeRhythm": "recessed balcony bays with alternating vertical window modules",
+      "balconyPattern": "three-dimensional balconies or recessed loggias with a new cadence",
+      "windowRatio": "choose a new solid-to-glass ratio within district policy",
+      "verticalSegmentation": "base / body / mechanical or crown",
+      "horizontalSegmentation": "podium / typical floors / roof"
+    },
+    "core": "offset or paired core selected independently for the derivative",
+    "roof": {
+      "rule": "offset machine room and non-iconic crown",
+      "crown": "non-iconic and distinct from reference silhouette"
+    },
+    "sideTreatment": "front, side, and rear façades must differ in depth, openings, and service treatment",
+    "materialLanguage": [
+      "PBR concrete",
+      "PBR glass",
+      "PBR metal panel"
+    ],
+    "functionalSuitability": [
+      "Residential"
+    ]
+  },
+  "originalityContract": {
+    "minimumChangedAttributes": 7,
+    "attributes": [
+      "footprint",
+      "height",
+      "floorCount",
+      "podium",
+      "facade",
+      "balcony",
+      "roof",
+      "core",
+      "materialComposition",
+      "entrance",
+      "windowGrid",
+      "silhouette"
+    ],
+    "prohibited": [
+      "reference mesh reuse",
+      "simple scale change",
+      "simple texture change",
+      "simple color change"
+    ]
+  },
+  "canonicalPolicy": {
+    "incomingOnly": true,
+    "canonicalRegistration": "requires user approval",
+    "layoutRegistration": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Archive World architectureGrammar",
+  "type": "object",
+  "required": ["grammarId", "massing", "facade", "baseAndRoof", "materialLanguage", "functionalSuitability"],
+  "properties": {
+    "grammarId": {"type": "string"},
+    "massing": {"type": "object"},
+    "facade": {"type": "object"},
+    "baseAndRoof": {"type": "object"},
+    "materialLanguage": {"type": "object"},
+    "functionalSuitability": {"type": "array", "items": {"type": "string"}}
+  }
+}

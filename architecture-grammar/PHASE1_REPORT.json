@@ -1,0 +1,19 @@
+{
+  "phase": "ARCHITECTURE FACTORY V2 / PHASE 1",
+  "referenceCount": 43,
+  "grammarFileCount": 43,
+  "referenceMeshUse": false,
+  "canonicalRegistration": false,
+  "layoutRegistration": false,
+  "generatedOutputPolicy": "external-only",
+  "factoryOutputContract": "C:\\ArchiveData\\World\\Generated\\Factory\\Buildings\\<family>\\{LOD,Metadata,Preview,Textures}",
+  "pilotFamilies": [
+    "residential-courtyard-piloti",
+    "cbd-asymmetric-twin-atrium",
+    "commercial-terraced-market-atrium",
+    "industrial-sawtooth-utility-campus",
+    "logistics-crossdock-solar-hub",
+    "civic-courtyard-learning-forum"
+  ],
+  "approvalGate": "The six generated candidates are not canonical until user visual approval."
+}
