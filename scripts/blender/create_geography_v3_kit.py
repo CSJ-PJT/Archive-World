@@ -3,14 +3,18 @@
 This script never changes v2 assets. It writes only runtime/v3 and records the
 new procedural modules alongside read-only references to the v2 canonical GLBs.
 """
-import bpy, hashlib, json, math, sys
+import bpy, hashlib, json, math, shutil, sys
 from pathlib import Path
+SCRIPT_DIR=Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path: sys.path.append(str(SCRIPT_DIR))
+from world_output import resolve_output_root
 
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
 repo=Path(args[args.index('--repo')+1]).resolve() if '--repo' in args else Path.cwd()
-v2_library=json.loads((repo/'assets/runtime/v2/asset-library.json').read_text(encoding='utf8'))['assets']
-runtime=repo/'assets/runtime/v3/library'; runtime.mkdir(parents=True,exist_ok=True)
-metadata=repo/'assets/metadata/environment/procedural'; metadata.mkdir(parents=True,exist_ok=True)
+output=resolve_output_root(args)
+v2_source_library=json.loads((repo/'assets/runtime/v2/asset-library.json').read_text(encoding='utf8'))['assets']
+runtime=output.v3_runtime/'library'; runtime.mkdir(parents=True,exist_ok=True)
+metadata=output.v3_metadata/'procedural'; metadata.mkdir(parents=True,exist_ok=True)
 
 def clean():
     bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
@@ -277,12 +281,23 @@ def export(asset_id,builder,category,note):
     for obj in bpy.context.scene.objects: obj.select_set(True)
     target=runtime/f'{asset_id}.glb'
     bpy.ops.export_scene.gltf(filepath=str(target),export_format='GLB',use_selection=True,export_apply=True)
-    payload={'assetId':asset_id,'category':category,'source':'procedural','sourcePath':'scripts/blender/create_geography_v3_kit.py','runtimePath':f'assets/runtime/v3/library/{asset_id}.glb','triangleCount':sum(len(o.data.polygons) for o in bpy.context.scene.objects if o.type=='MESH'),'textureCount':0,'textureBytes':0,'bounds':None,'checksum':hashlib.sha256(target.read_bytes()).hexdigest(),'district':'infrastructure','lodLevels':[0],'license':None,'sourceNote':note}
+    payload={'assetId':asset_id,'category':category,'source':'procedural','sourcePath':'scripts/blender/create_geography_v3_kit.py','runtimePath':output.logical(target),'triangleCount':sum(len(o.data.polygons) for o in bpy.context.scene.objects if o.type=='MESH'),'textureCount':0,'textureBytes':0,'bounds':None,'checksum':hashlib.sha256(target.read_bytes()).hexdigest(),'district':'infrastructure','lodLevels':[0],'license':None,'sourceNote':note}
     (metadata/f'{asset_id}.json').write_text(json.dumps(payload,indent=2)+'\n',encoding='utf8'); return payload
 
+generated_v2=[]
+for source in v2_source_library:
+    original=repo/source['runtimePath']
+    target=output.v2_runtime/'library'/original.name
+    target.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copy2(original,target)
+    item=dict(source)
+    item['sourceRuntimePath']=source['runtimePath']
+    item['runtimePath']=output.logical(target)
+    generated_v2.append(item)
+
 created=[export(asset,*spec) for asset,spec in BUILDERS.items()]
-assets={item['assetId']:item for item in v2_library}
+assets={item['assetId']:item for item in generated_v2}
 assets.update({item['assetId']:item for item in created})
-(repo/'assets/runtime/v3/asset-library.json').parent.mkdir(parents=True,exist_ok=True)
-(repo/'assets/runtime/v3/asset-library.json').write_text(json.dumps({'version':'3.0.0','assets':sorted(assets.values(),key=lambda item:item['assetId'])},indent=2)+'\n',encoding='utf8')
-print(json.dumps({'geographyV3':'PASS','created':[item['assetId'] for item in created]}))
+(output.v2_metadata/'asset-library.json').write_text(json.dumps({'version':'2.0.0','assets':generated_v2},indent=2)+'\n',encoding='utf8')
+(output.v3_metadata/'asset-library.json').write_text(json.dumps({'version':'3.0.0','assets':sorted(assets.values(),key=lambda item:item['assetId'])},indent=2)+'\n',encoding='utf8')
+print(json.dumps({'geographyV3':'PASS','outputRoot':str(output.root),'v2RuntimeAssets':len(generated_v2),'created':[item['assetId'] for item in created]}))

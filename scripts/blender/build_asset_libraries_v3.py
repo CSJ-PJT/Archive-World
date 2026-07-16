@@ -7,11 +7,15 @@ The script is deterministic and does not write to v2 or Meshy source paths.
 import bpy, json, re, sys
 from pathlib import Path
 from mathutils import Vector
+SCRIPT_DIR=Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path: sys.path.append(str(SCRIPT_DIR))
+from world_output import resolve_output_root
 
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
 repo=Path(args[args.index('--repo')+1]).resolve() if '--repo' in args else Path.cwd()
-assets=json.loads((repo/'assets/runtime/v3/asset-library.json').read_text(encoding='utf8'))['assets']
-library_root=repo/'scenes/v3/libraries'; texture_root=repo/'assets/runtime/v3/textures'
+output=resolve_output_root(args)
+assets=json.loads((output.v3_metadata/'asset-library.json').read_text(encoding='utf8'))['assets']
+library_root=output.v3_scenes/'libraries'; texture_root=output.v3_runtime/'textures'
 library_root.mkdir(parents=True,exist_ok=True); texture_root.mkdir(parents=True,exist_ok=True)
 
 def reset():
@@ -24,7 +28,7 @@ def move_imported_to_collection(asset_id):
     collection=bpy.data.collections.new('ASSET_'+asset_id)
     bpy.context.scene.collection.children.link(collection)
     before=set(bpy.data.objects)
-    bpy.ops.import_scene.gltf(filepath=str(repo/asset['runtimePath']))
+    bpy.ops.import_scene.gltf(filepath=str(output.root/asset['runtimePath']))
     imported=[obj for obj in bpy.data.objects if obj not in before]
     for obj in imported:
         for old in list(obj.users_collection): old.objects.unlink(obj)
@@ -64,7 +68,7 @@ def extract_textures(asset_id):
                 candidates=sorted(external_root.glob(f'{safe(image.name)}.*'))
                 actual=candidates[-1] if candidates else file
                 image.filepath=bpy.path.relpath(str(actual))
-                exported.append(str(actual.relative_to(repo)).replace('\\','/'))
+                exported.append(output.logical(actual))
                 continue
             if not image.has_data: continue
             image.filepath=bpy.path.relpath(str(file))
@@ -73,7 +77,7 @@ def extract_textures(asset_id):
             image.file_format='PNG'
             image.save()
             image.filepath=bpy.path.relpath(str(file))
-            exported.append(str(file.relative_to(repo)).replace('\\','/'))
+            exported.append(output.logical(file))
         except RuntimeError as error:
             # Procedural or already external images may not expose pixels. Keep
             # their source link rather than packing a duplicate into the Blend.
@@ -83,20 +87,20 @@ def extract_textures(asset_id):
 
 written=[]
 for asset in assets:
-    asset_id=asset['assetId']; source=repo/asset['runtimePath']; output=library_root/f'{asset_id}.blend'
+    asset_id=asset['assetId']; source=output.root/asset['runtimePath']; library_file=library_root/f'{asset_id}.blend'
     if not source.exists(): raise RuntimeError(f'missing asset runtime: {source}')
     reset()
     collection=move_imported_to_collection(asset_id)
     bpy.context.scene['assetId']=asset_id
     bpy.context.scene['sourceRuntimePath']=asset['runtimePath']
     bpy.context.preferences.filepaths.use_relative_paths=True
-    bpy.ops.wm.save_as_mainfile(filepath=str(output),check_existing=False)
+    bpy.ops.wm.save_as_mainfile(filepath=str(library_file),check_existing=False)
     # Blender can only reliably clear GLB packed image data after the target
     # Blend has a filepath. Save once, materialize images, then save again.
     textures=extract_textures(asset_id)
     bpy.context.scene['texturePaths']=json.dumps(textures)
-    bpy.ops.wm.save_as_mainfile(filepath=str(output),check_existing=False)
-    written.append({'assetId':asset_id,'libraryPath':str(output.relative_to(repo)).replace('\\','/'),'texturePaths':textures,'bytes':output.stat().st_size})
+    bpy.ops.wm.save_as_mainfile(filepath=str(library_file),check_existing=False)
+    written.append({'assetId':asset_id,'libraryPath':output.logical(library_file),'texturePaths':textures,'bytes':library_file.stat().st_size})
 
-(repo/'scenes/v3/asset-libraries-v3.json').write_text(json.dumps({'version':'3.1.0','libraries':written},indent=2)+'\n',encoding='utf8')
-print(json.dumps({'assetLibraries':'PASS','count':len(written),'maxBytes':max((item['bytes'] for item in written),default=0)}))
+(output.v3_metadata/'asset-libraries-v3.json').write_text(json.dumps({'version':'3.1.0','libraries':written},indent=2)+'\n',encoding='utf8')
+print(json.dumps({'assetLibraries':'PASS','outputRoot':str(output.root),'count':len(written),'maxBytes':max((item['bytes'] for item in written),default=0)}))

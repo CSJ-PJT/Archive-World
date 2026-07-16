@@ -2,10 +2,14 @@
 import bpy, sys
 from pathlib import Path
 from mathutils import Vector
+SCRIPT_DIR=Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path: sys.path.append(str(SCRIPT_DIR))
+from world_output import resolve_output_root
 
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
 repo=Path(args[args.index('--repo')+1]).resolve() if '--repo' in args else Path.cwd()
-output=repo/'assets/previews/v3'; output.mkdir(parents=True,exist_ok=True)
+output_root=resolve_output_root(args)
+output=output_root.v3_previews; output.mkdir(parents=True,exist_ok=True)
 
 def realtime_render_engine(scene):
     engine_property=scene.render.bl_rna.properties['engine']

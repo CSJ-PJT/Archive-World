@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { generatedRoot, repositoryRoot, usingGeneratedOutput, worldPath } from './world-output.mjs';
 
-const root=resolve(import.meta.dirname,'..');
-const layout=JSON.parse(readFileSync(resolve(root,'assets/world/archive-city-v3-layout.json'),'utf8'));
-const runtime=JSON.parse(readFileSync(resolve(root,'assets/runtime/v3/archive-city-v3-manifest.json'),'utf8'));
+const root=repositoryRoot;
+const layout=JSON.parse(readFileSync(worldPath('v3/metadata/archive-city-v3-layout.json','assets/world/archive-city-v3-layout.json'),'utf8'));
+const runtime=JSON.parse(readFileSync(worldPath('v3/metadata/archive-city-v3-manifest.json','assets/runtime/v3/archive-city-v3-manifest.json'),'utf8'));
+const generatedPath=(value)=>usingGeneratedOutput?resolve(generatedRoot,value):resolve(root,value);
 const fail=[];
 const ids=new Set();
 for(const item of layout.instances){
   if(ids.has(item.instanceId)) fail.push(`duplicate:${item.instanceId}`); ids.add(item.instanceId);
-  if(!existsSync(resolve(root,item.runtimePath))) fail.push(`asset-path:${item.instanceId}`);
+  if(!existsSync(generatedPath(item.runtimePath))) fail.push(`asset-path:${item.instanceId}`);
 }
 if(new Set(layout.districts).size!==7) fail.push('district-count');
 const bounds=layout.geography?.worldBounds;
@@ -24,7 +26,7 @@ const nodes=new Set(layout.roadTopology.nodes.map((node)=>node.nodeId));
 for(const edge of layout.roadTopology.edges){
   if(!nodes.has(edge.from)||!nodes.has(edge.to)||edge.from===edge.to) fail.push(`edge:${edge.edgeId}`);
   if(edge.connectionStandard!=='ArchiveRoadV2-12m'||!edge.assetId) fail.push(`road-contract:${edge.edgeId}`);
-  else if(!existsSync(resolve(root,'assets/runtime/v3/library',`${edge.assetId}.glb`)) && !existsSync(resolve(root,'assets/runtime/v2/library',`${edge.assetId}.glb`))) fail.push(`road-path:${edge.assetId}`);
+  else if(!existsSync(generatedPath(usingGeneratedOutput?`v3/runtime/library/${edge.assetId}.glb`:`assets/runtime/v3/library/${edge.assetId}.glb`)) && !existsSync(generatedPath(usingGeneratedOutput?`v2/runtime/library/${edge.assetId}.glb`:`assets/runtime/v2/library/${edge.assetId}.glb`))) fail.push(`road-path:${edge.assetId}`);
 }
 const adjacency=new Map([...nodes].map((id)=>[id,new Set()]));
 for(const edge of layout.roadTopology.edges){adjacency.get(edge.from)?.add(edge.to);adjacency.get(edge.to)?.add(edge.from);}
@@ -43,9 +45,9 @@ for(const [a,b,min] of [['archiveos','residential',500],['archiveos','market',70
 }
 if(distance(centers.residential,centers.nexus)<1500) fail.push('district-buffer:residential-nexus');
 for(const district of runtime.districts){
-  for(const file of [district.runtimePath,district.previewPath,district.blendPath]) if(!existsSync(resolve(root,file))) fail.push(`district-output:${district.id}:${file}`);
-  if(existsSync(resolve(root,district.runtimePath)) && statSync(resolve(root,district.runtimePath)).size>=2*1024**3) fail.push(`district-size:${district.id}`);
+  for(const file of [district.runtimePath,district.previewPath,district.blendPath]) if(!existsSync(generatedPath(file))) fail.push(`district-output:${district.id}:${file}`);
+  if(existsSync(generatedPath(district.runtimePath)) && statSync(generatedPath(district.runtimePath)).size>=2*1024**3) fail.push(`district-size:${district.id}`);
 }
-for(const file of ['city-overview.png','birds-eye-view.png','topography-overview.png']) if(!existsSync(resolve(root,'assets/previews/v3',file))) fail.push(`preview:${file}`);
+for(const file of ['city-overview.png','birds-eye-view.png','topography-overview.png']) if(!existsSync(worldPath(`v3/previews/${file}`,`assets/previews/v3/${file}`))) fail.push(`preview:${file}`);
 console.log(JSON.stringify({layout:fail.length?'FAIL':'PASS',instances:layout.instances.length,nodes:nodes.size,edges:layout.roadTopology.edges.length,statistics:stats,failures:fail}));
 process.exitCode=fail.length?1:0;

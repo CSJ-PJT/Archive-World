@@ -7,13 +7,17 @@ rewritten or packed into the v3 master.
 import bpy, json, math, sys
 from pathlib import Path
 from mathutils import Matrix, Vector
+SCRIPT_DIR=Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path: sys.path.append(str(SCRIPT_DIR))
+from world_output import resolve_output_root
 
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
 repo=Path(args[args.index('--repo')+1]).resolve() if '--repo' in args else Path.cwd()
-library=json.loads((repo/'assets/runtime/v3/asset-library.json').read_text(encoding='utf8'))['assets']
-paths={item['assetId']:repo/item['runtimePath'] for item in library}
-asset_libraries=json.loads((repo/'scenes/v3/asset-libraries-v3.json').read_text(encoding='utf8'))['libraries']
-library_paths={item['assetId']:repo/item['libraryPath'] for item in asset_libraries}
+output=resolve_output_root(args)
+library=json.loads((output.v3_metadata/'asset-library.json').read_text(encoding='utf8'))['assets']
+paths={item['assetId']:output.root/item['runtimePath'] for item in library}
+asset_libraries=json.loads((output.v3_metadata/'asset-libraries-v3.json').read_text(encoding='utf8'))['libraries']
+library_paths={item['assetId']:output.root/item['libraryPath'] for item in asset_libraries}
 districts=['archiveos','market','nexus','logistics','ledger','residential','infrastructure']
 P=[]
 def add(district,iid,asset,x,z,foot,rot=0,state='building'):
@@ -388,18 +392,21 @@ def build_district(name):
             if asset not in sources:sources[asset]=source_collection(asset)
             low,high=collection_bounds(sources[asset]); module('road-'+str(idx),asset,center,math.atan2(-delta.x,delta.y),(1,visible/max(high.y-low.y,.01),1),'infrastructure')
         for mid,asset,x,z,rot,scale,owner in ROAD_FEATURES: module(mid,asset,Vector((x,z,0)),rot,(1,scale,1),owner)
-    preview=repo/'assets/previews/v3'/f'{name}-overview.png'; preview.parent.mkdir(parents=True,exist_ok=True); camera_and_render(district,name,preview)
-    scene_file=repo/'scenes/v3'/f'{name}.blend'; scene_file.parent.mkdir(parents=True,exist_ok=True)
-    bpy.ops.wm.save_as_mainfile(filepath=str(scene_file)); bpy.ops.export_scene.gltf(filepath=str(repo/'assets/runtime/v3'/f'{name}.glb'),export_format='GLB',use_selection=False,export_apply=True)
-    return {'id':name,'runtimePath':f'assets/runtime/v3/{name}.glb','previewPath':f'assets/previews/v3/{name}-overview.png','blendPath':f'scenes/v3/{name}.blend','roadModules':road_modules}
+    preview=output.v3_previews/f'{name}-overview.png'; preview.parent.mkdir(parents=True,exist_ok=True); camera_and_render(district,name,preview)
+    scene_file=output.v3_scenes/f'{name}.blend'; scene_file.parent.mkdir(parents=True,exist_ok=True)
+    runtime_file=output.v3_runtime/f'{name}.glb'
+    bpy.context.preferences.filepaths.use_relative_paths=True
+    bpy.ops.wm.save_as_mainfile(filepath=str(scene_file)); bpy.ops.export_scene.gltf(filepath=str(runtime_file),export_format='GLB',use_selection=False,export_apply=True)
+    return {'id':name,'runtimePath':output.logical(runtime_file),'previewPath':output.logical(preview),'blendPath':output.logical(scene_file),'roadModules':road_modules}
 
 results=[build_district(name) for name in districts]
 bpy.ops.wm.read_factory_settings(use_empty=True); master=bpy.data.collections.new('ARCHIVE_CITY_V3_LINKED'); bpy.context.scene.collection.children.link(master)
 for name in districts:
-    with bpy.data.libraries.load(str(repo/'scenes/v3'/f'{name}.blend'),link=True) as (source,target): target.collections=['DISTRICT_'+name]
+    with bpy.data.libraries.load(str(output.v3_scenes/f'{name}.blend'),link=True) as (source,target): target.collections=['DISTRICT_'+name]
     linked=target.collections[0]; obj=bpy.data.objects.new('LinkedDistrict_'+name,None); master.objects.link(obj); obj.instance_type='COLLECTION'; obj.instance_collection=linked
-camera_and_render(master,'city',repo/'assets/previews/v3/city-overview.png')
-bpy.ops.wm.save_as_mainfile(filepath=str(repo/'scenes/archive-city-v3.blend'))
+camera_and_render(master,'city',output.v3_previews/'city-overview.png')
+bpy.context.preferences.filepaths.use_relative_paths=True
+bpy.ops.wm.save_as_mainfile(filepath=str(output.v3_scenes/'archive-city-v3.blend'))
 infra=next(item['roadModules'] for item in results if item['id']=='infrastructure')
 building_assets={item[2] for item in P if item[7] in ('building','landmark')}; vehicle_count=sum(1 for item in P if item[7]=='vehicle'); prop_count=sum(1 for item in P if item[7] in ('tree','light','park','plaza','port','prop'))
 district_statistics={}
@@ -413,7 +420,9 @@ for district in districts:
         'total':len(entries),
     }
 district_centers={'archiveos':[0,1520],'market':[-2050,-1650],'nexus':[420,-2050],'logistics':[2500,-1900],'ledger':[-1850,1850],'residential':[2200,1950],'port':[-3350,420]}
-layout={'version':'3.2.0','districts':districts,'roadConnectionStandard':{'id':'ArchiveRoadV2-12m','widthMeters':12,'surface':'ArchiveRoad_Asphalt_V2','elevationMeters':0},'instances':[{'instanceId':item[1],'assetId':item[2],'district':item[0],'position':[item[3],0,item[4]],'rotation':[0,item[6],0],'footprintMeters':item[5],'runtimePath':str(paths[item[2]].relative_to(repo)).replace('\\','/'),'state':item[7]} for item in P],'roadModules':infra,'roadTopology':{'nodes':[{'nodeId':name,'position':[x,0,z]} for name,x,z in N],'edges':[{'edgeId':'edge-'+str(idx),'from':a,'to':b,'roadType':road_type,'laneCount':lanes,'direction':direction,'speedClass':speed,'district':district,'vehicleAllowed':True,'assetId':ROAD_BRIDGE if road_type=='bridge' else (ROAD_HIGHWAY if road_type=='highway-link' else ROAD_STRAIGHT),'connectionStandard':'ArchiveRoadV2-12m'} for idx,(a,b,road_type,lanes,direction,speed,district) in enumerate(E)]},'geography':{'worldBounds':{'min':[-5000,-5000],'max':[5000,-5000+10000]},'districtCenters':district_centers,'river':{'assetId':'han-river-curved-v3','shape':'curved','orientation':'west-sea-to-east','centerline':[[x,0,round(-100+230*math.sin(x/1300)+55*math.sin((x+480)/520),2)] for x in range(-3800,3801,400)]},'bridges':['road-4','road-7','road-10'],'northMountains':5,'eastMountains':4,'westSea':'west-sea-port-v3','southPlains':'south-plains-v3','outerHighwayModules':['edge-19','edge-20','edge-21','edge-22'],'interchanges':['ic-west','ic-east']},'statistics':{'buildingInstances':sum(1 for item in P if item[7] in ('building','landmark')),'vehicleInstances':vehicle_count,'roadModules':len(infra),'propsAndTrees':prop_count,'totalInstances':len(P),'districts':district_statistics}}
-(repo/'assets/world/archive-city-v3-layout.json').write_text(json.dumps(layout,indent=2)+'\n',encoding='utf8')
-(repo/'assets/runtime/v3/archive-city-v3-manifest.json').write_text(json.dumps({'version':'3.2.0','preloadPolicy':{'overview':'infrastructure','districtDetail':'lazy','lodPolicy':'overview=LOD2; district=LOD0/LOD1 by camera distance'},'districts':results,'masterBlend':'scenes/archive-city-v3.blend','layout':'assets/world/archive-city-v3-layout.json'},indent=2)+'\n',encoding='utf8')
-print('ARCHIVE_CITY_V3='+json.dumps({'districts':len(results),'instances':len(P),'roads':len(E),'buildings':layout['statistics']['buildingInstances'],'vehicles':vehicle_count,'roadModules':len(infra),'props':prop_count,'districtStatistics':district_statistics}))
+layout={'version':'3.2.0','districts':districts,'roadConnectionStandard':{'id':'ArchiveRoadV2-12m','widthMeters':12,'surface':'ArchiveRoad_Asphalt_V2','elevationMeters':0},'instances':[{'instanceId':item[1],'assetId':item[2],'district':item[0],'position':[item[3],0,item[4]],'rotation':[0,item[6],0],'footprintMeters':item[5],'runtimePath':output.logical(paths[item[2]]),'state':item[7]} for item in P],'roadModules':infra,'roadTopology':{'nodes':[{'nodeId':name,'position':[x,0,z]} for name,x,z in N],'edges':[{'edgeId':'edge-'+str(idx),'from':a,'to':b,'roadType':road_type,'laneCount':lanes,'direction':direction,'speedClass':speed,'district':district,'vehicleAllowed':True,'assetId':ROAD_BRIDGE if road_type=='bridge' else (ROAD_HIGHWAY if road_type=='highway-link' else ROAD_STRAIGHT),'connectionStandard':'ArchiveRoadV2-12m'} for idx,(a,b,road_type,lanes,direction,speed,district) in enumerate(E)]},'geography':{'worldBounds':{'min':[-5000,-5000],'max':[5000,-5000+10000]},'districtCenters':district_centers,'river':{'assetId':'han-river-curved-v3','shape':'curved','orientation':'west-sea-to-east','centerline':[[x,0,round(-100+230*math.sin(x/1300)+55*math.sin((x+480)/520),2)] for x in range(-3800,3801,400)]},'bridges':['road-4','road-7','road-10'],'northMountains':5,'eastMountains':4,'westSea':'west-sea-port-v3','southPlains':'south-plains-v3','outerHighwayModules':['edge-19','edge-20','edge-21','edge-22'],'interchanges':['ic-west','ic-east']},'statistics':{'buildingInstances':sum(1 for item in P if item[7] in ('building','landmark')),'vehicleInstances':vehicle_count,'roadModules':len(infra),'propsAndTrees':prop_count,'totalInstances':len(P),'districts':district_statistics}}
+layout_file=output.v3_metadata/'archive-city-v3-layout.json'
+manifest_file=output.v3_metadata/'archive-city-v3-manifest.json'
+layout_file.write_text(json.dumps(layout,indent=2)+'\n',encoding='utf8')
+manifest_file.write_text(json.dumps({'version':'3.2.0','preloadPolicy':{'overview':'infrastructure','districtDetail':'lazy','lodPolicy':'overview=LOD2; district=LOD0/LOD1 by camera distance'},'districts':results,'masterBlend':output.logical(output.v3_scenes/'archive-city-v3.blend'),'layout':output.logical(layout_file)},indent=2)+'\n',encoding='utf8')
+print('ARCHIVE_CITY_V3='+json.dumps({'outputRoot':str(output.root),'districts':len(results),'instances':len(P),'roads':len(E),'buildings':layout['statistics']['buildingInstances'],'vehicles':vehicle_count,'roadModules':len(infra),'props':prop_count,'districtStatistics':district_statistics}))

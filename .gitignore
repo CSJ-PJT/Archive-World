@@ -9,6 +9,8 @@ world.config.json
 *.autosave
 *.tmp
 *.log
+__pycache__/
+*.py[cod]
 Image_*.jpg
 textures/
 scenes/archive-city-v1.blend
@@ -32,6 +34,8 @@ reports/*.md
 reports/contact-sheets/
 .pipeline/
 deliverables/
+generated/
+world-generated/
 assets/reference-kit/
 assets/reference-kit-v2/
 Archive-World-*-reference-kit*.zip

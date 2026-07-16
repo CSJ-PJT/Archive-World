@@ -1,8 +1,7 @@
 import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { worldPath } from './world-output.mjs';
 
-const root=resolve(import.meta.dirname,'..');
-const layout=JSON.parse(readFileSync(resolve(root,'assets/world/archive-city-v3-layout.json'),'utf8'));
+const layout=JSON.parse(readFileSync(worldPath('v3/metadata/archive-city-v3-layout.json','assets/world/archive-city-v3-layout.json'),'utf8'));
 const fail=[];
 const [minX,minZ]=layout.geography.worldBounds.min;
 const [maxX,maxZ]=layout.geography.worldBounds.max;
