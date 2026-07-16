@@ -598,6 +598,337 @@
       "bytes": 114872,
       "license": null,
       "sourceNote": "Incoming generated infrastructure; canonical copy retained unchanged"
-    }
+    },
+      {
+        "assetId": "archiveos-landmark-plaza-v2",
+        "category": "street-prop",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/archiveos-landmark-plaza-v2.glb",
+        "triangleCount": 96,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "ea50ed6148bb22c2375fbb0e3a8670b84c163a4a85c9a0fb173b63c9ce162665",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "ArchiveOS civic landmark plaza without branding"
+      },
+      {
+        "assetId": "city-ground-v2",
+        "category": "environment",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/city-ground-v2.glb",
+        "triangleCount": 30,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "a6cfffd3c905fe541387b2d4c59d10a544a7c684c630f346515a11f944bca32d",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "city-scale terrain and green buffers"
+      },
+      {
+        "assetId": "city-terrain-river-v3",
+        "category": "environment",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/city-terrain-river-v3.glb",
+        "triangleCount": 36,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "0dc1b8b07345f684199c9ab6d514d9779fc66e15612f54b5e5c09c9172e45cfa",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "split north/south terrain with a river corridor"
+      },
+      {
+        "assetId": "highway-interchange-v3",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/highway-interchange-v3.glb",
+        "triangleCount": 96,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "d4338b1b45e17e9f2a00730ee0aa327279c7bbbeb2bc236f23cab4fbeb5fb206",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "outer highway interchange loop"
+      },
+      {
+        "assetId": "highway-straight-v3",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/highway-straight-v3.glb",
+        "triangleCount": 162,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "d25cc1aa6a0e41792a0d53ac56e6543a87d5bf179d13c169602c4259143071db",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "20m outer-city highway segment"
+      },
+      {
+        "assetId": "lowpoly-mountain-v3",
+        "category": "environment",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/lowpoly-mountain-v3.glb",
+        "triangleCount": 24,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "02d985dbc79cd8e73c12d65ac6a4156226b4fca3179b65b25d71e549e595be3a",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "north perimeter low-poly mountain cluster"
+      },
+      {
+        "assetId": "river-bridge-v3",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/river-bridge-v3.glb",
+        "triangleCount": 144,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "d55a2412c983d7ebfe9db06ce8fcf2b041ee98dc3be531c22c2ac78d8b9174b6",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12m deck bridge compatible with Archive road standard"
+      },
+      {
+        "assetId": "river-water-v3",
+        "category": "environment",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/river-water-v3.glb",
+        "triangleCount": 6,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "e43a1dd411222cb4158fd9dd29ab9dddac5a3d0d9d4648562311d58755a1a2a4",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "50m east-west Archive River water surface"
+      },
+      {
+        "assetId": "road-unified-curve90-v2",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_unified_road_kit.py",
+        "runtimePath": "assets/runtime/v2/library/road-unified-curve90-v2.glb",
+        "triangleCount": 288,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "a9042e9c7eab14494bfe2cbbcbbf06753022b0f3e85676a6e5c0a1a54ef9a152",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12m profile 90-degree curve; 24m outside radius",
+        "connectionStandard": {
+          "widthMeters": 12,
+          "surface": "ArchiveRoad_Asphalt_V2",
+          "axis": "Y-forward/Z-up"
+        }
+      },
+      {
+        "assetId": "road-unified-intersection-v2",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_unified_road_kit.py",
+        "runtimePath": "assets/runtime/v2/library/road-unified-intersection-v2.glb",
+        "triangleCount": 150,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "05c0a6daed333b84194ca79e450e1ff47adb260a8eda8d737c3a3a259a160d04",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12m profile four-way intersection",
+        "connectionStandard": {
+          "widthMeters": 12,
+          "surface": "ArchiveRoad_Asphalt_V2",
+          "axis": "Y-forward/Z-up"
+        }
+      },
+      {
+        "assetId": "road-unified-ramp-v2",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_unified_road_kit.py",
+        "runtimePath": "assets/runtime/v2/library/road-unified-ramp-v2.glb",
+        "triangleCount": 18,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "6b4c3409ed4bb0223592d957a7db3ac87440bcd69bad3116e81fca1da6316de7",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12m profile service ramp; 3m rise over 48m",
+        "connectionStandard": {
+          "widthMeters": 12,
+          "surface": "ArchiveRoad_Asphalt_V2",
+          "axis": "Y-forward/Z-up"
+        }
+      },
+      {
+        "assetId": "road-unified-roundabout-v2",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_unified_road_kit.py",
+        "runtimePath": "assets/runtime/v2/library/road-unified-roundabout-v2.glb",
+        "triangleCount": 582,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "1e0df17a9e9ca88bec09387edc28d06b57f94f541a6f6f745bb2096d0f6bfcf5",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12m profile roundabout; 18m outside radius",
+        "connectionStandard": {
+          "widthMeters": 12,
+          "surface": "ArchiveRoad_Asphalt_V2",
+          "axis": "Y-forward/Z-up"
+        }
+      },
+      {
+        "assetId": "road-unified-straight-v2",
+        "category": "road",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_unified_road_kit.py",
+        "runtimePath": "assets/runtime/v2/library/road-unified-straight-v2.glb",
+        "triangleCount": 78,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "7041cca7165c3a111e1eeb59d4dcebcb0173a9a4ff0a61a0cd7a431dd8433c8a",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12m straight module; 12m wide, 24m long",
+        "connectionStandard": {
+          "widthMeters": 12,
+          "surface": "ArchiveRoad_Asphalt_V2",
+          "axis": "Y-forward/Z-up"
+        }
+      },
+      {
+        "assetId": "urban-park-v2",
+        "category": "environment",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/urban-park-v2.glb",
+        "triangleCount": 98,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "26df8d8529919dd1deedee127d6dfbe6d9857b8508f67266a94f6196f4358515",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "compact urban park with paths and planters"
+      },
+      {
+        "assetId": "urban-parking-v2",
+        "category": "street-prop",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/urban-parking-v2.glb",
+        "triangleCount": 60,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "c5749a7292018be3d45e2034adcd4f678a1ef92ba62a889a7146dce2953bfb62",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "12-space visual parking module"
+      },
+      {
+        "assetId": "urban-streetlight-v2",
+        "category": "street-prop",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/urban-streetlight-v2.glb",
+        "triangleCount": 40,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "90a35716ae5c026cb95988df92d41efb99aa8c2c796b7178d48b63abc36fbecb",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "teal industrial streetlight"
+      },
+      {
+        "assetId": "urban-tree-v2",
+        "category": "environment",
+        "source": "procedural",
+        "sourcePath": "scripts/blender/create_public_realm_kit.py",
+        "runtimePath": "assets/runtime/v2/library/urban-tree-v2.glb",
+        "triangleCount": 252,
+        "textureCount": 0,
+        "textureBytes": 0,
+        "bounds": null,
+        "checksum": "cf60d33e8c7bc485d8cddf06165de100bd79f47215d9e59208902ddb37bc14a1",
+        "district": "infrastructure",
+        "lodLevels": [
+          0
+        ],
+        "license": null,
+        "sourceNote": "low-poly compatible street tree"
+      }
   ]
 }
