@@ -1,0 +1,29 @@
+{
+  "schema": "archive-world.residential-candidates/v1",
+  "batch": "residential-batch-1",
+  "candidateOnly": true,
+  "canonicalStatus": "not-approved",
+  "license": "procedural-original; non-identifying metropolitan housing forms",
+  "candidates": [
+    {"assetId":"res-tower-courtyard","family":"high-rise apartment","form":"courtyard","floors":36,"footprint":[72,58],"seed":101,"role":"residential centre"},
+    {"assetId":"res-tower-slab-a","family":"high-rise apartment","form":"slab_a","floors":32,"footprint":[48,36],"seed":102,"role":"residential edge"},
+    {"assetId":"res-tower-slab-b","family":"high-rise apartment","form":"slab_b","floors":30,"footprint":[68,42],"seed":103,"role":"residential edge"},
+    {"assetId":"res-tower-point-a","family":"high-rise apartment","form":"point_a","floors":38,"footprint":[54,54],"seed":104,"role":"residential landmark"},
+    {"assetId":"res-tower-point-b","family":"high-rise apartment","form":"point_b","floors":34,"footprint":[56,50],"seed":105,"role":"residential landmark"},
+    {"assetId":"res-tower-stepped","family":"high-rise apartment","form":"stepped","floors":31,"footprint":[64,46],"seed":106,"role":"river transition"},
+    {"assetId":"res-tower-pair","family":"high-rise apartment","form":"pair","floors":35,"footprint":[76,48],"seed":107,"role":"transit frontage"},
+    {"assetId":"res-tower-arc","family":"high-rise apartment","form":"arc","floors":28,"footprint":[70,54],"seed":108,"role":"park frontage"},
+    {"assetId":"res-tower-bridge","family":"high-rise apartment","form":"bridge","floors":33,"footprint":[74,46],"seed":109,"role":"mixed-use node"},
+    {"assetId":"res-tower-terrace","family":"high-rise apartment","form":"terrace","floors":29,"footprint":[62,52],"seed":110,"role":"hillside edge"},
+    {"assetId":"res-mid-courtyard","family":"mid-rise housing","form":"mid_courtyard","floors":10,"footprint":[72,60],"seed":111,"role":"neighbourhood block"},
+    {"assetId":"res-mid-bar","family":"mid-rise housing","form":"mid_bar","floors":12,"footprint":[70,28],"seed":112,"role":"neighbourhood block"},
+    {"assetId":"res-mid-zigzag","family":"mid-rise housing","form":"mid_zigzag","floors":11,"footprint":[74,38],"seed":113,"role":"neighbourhood block"},
+    {"assetId":"res-mid-l","family":"mid-rise housing","form":"mid_l","floors":9,"footprint":[62,54],"seed":114,"role":"school edge"},
+    {"assetId":"res-mid-shopbase","family":"mixed-use housing","form":"mid_shopbase","floors":14,"footprint":[66,38],"seed":115,"role":"main street"},
+    {"assetId":"res-low-villa-a","family":"villa / rowhouse","form":"villa_a","floors":3,"footprint":[58,42],"seed":116,"role":"low-rise buffer"},
+    {"assetId":"res-low-villa-b","family":"villa / rowhouse","form":"villa_b","floors":4,"footprint":[56,48],"seed":117,"role":"low-rise buffer"},
+    {"assetId":"res-townhouse-row","family":"townhouse","form":"town_row","floors":3,"footprint":[78,28],"seed":118,"role":"southern plain edge"},
+    {"assetId":"res-townhouse-corner","family":"townhouse","form":"town_corner","floors":3,"footprint":[54,50],"seed":119,"role":"low-rise intersection"},
+    {"assetId":"res-civic-living","family":"housing support","form":"civic_living","floors":8,"footprint":[74,56],"seed":120,"role":"civic transition"}
+  ]
+}

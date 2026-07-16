@@ -1,8 +1,9 @@
 # Residential Batch 1 — 20 procedural candidates
 
-This is a design-and-acceptance candidate list only. No Batch 1 GLB is created
-or added to a manifest until the baseline report and this list are reviewed.
-Each candidate is a non-identifying generic metropolitan housing form.
+This is a candidate-only design and acceptance list. The matching Batch 1 GLBs
+are generated under the external Generated root for review, but are not added
+to a V2/V3 canonical manifest or layout. Each candidate is a non-identifying
+generic metropolitan housing form.
 
 |ID|Family|Distinct geometry contract|Planned district role|
 |---|---|---|---|
