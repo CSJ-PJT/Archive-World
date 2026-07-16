@@ -1,0 +1,40 @@
+{
+  "districtId": "logistics",
+  "urbanRole": "freight logistics",
+  "block": {
+    "parcelScale": "large",
+    "setbackRule": "street and open-space hierarchy",
+    "buildingSpacing": "daylight, fire access, and public realm first"
+  },
+  "street": {
+    "identity": "truck courts, docks, container service streets",
+    "pedestrianPriority": false,
+    "mobility": "service and transit access defined before family placement"
+  },
+  "density": {
+    "coverage": "district-specific target",
+    "floorAreaRatio": "district-specific target",
+    "cameraRepetitionCap": 2
+  },
+  "skyline": {
+    "identity": "large horizontal parcels",
+    "transition": "height flows to adjacent districts; never random"
+  },
+  "publicRealm": {
+    "plaza": false,
+    "greenNetwork": true,
+    "transitOrService": "required"
+  },
+  "review": {
+    "gates": [
+      "Building",
+      "Family",
+      "Block",
+      "Street",
+      "District",
+      "City"
+    ],
+    "streetReadsDistrict": true,
+    "canonicalMutation": false
+  }
+}

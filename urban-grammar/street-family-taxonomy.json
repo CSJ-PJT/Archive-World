@@ -1,0 +1,1 @@
+{"minimumFamilyCount":150,"categories":{"road_and_intersection":20,"sidewalk_and_cycle":16,"transit_and_taxi":12,"signals_lighting_and_safety":20,"trees_planting_and_park":28,"furniture_and_public_realm":18,"parking_and_service":14,"water_and_drainage":8,"utility_and_fire":7,"vehicles":45,"humans":60},"rule":"Counts are future family targets, not generated assets in V1."}

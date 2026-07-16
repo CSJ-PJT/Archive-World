@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"Archive Urban Grammar","type":"object","required":["districtId","block","street","density","skyline","review"],"properties":{"districtId":{"type":"string"},"block":{"type":"object"},"street":{"type":"object"},"density":{"type":"object"},"skyline":{"type":"object"},"review":{"type":"object"}}}
