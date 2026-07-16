@@ -7,6 +7,14 @@ args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
 repo=Path(args[args.index('--repo')+1]).resolve() if '--repo' in args else Path.cwd()
 output=repo/'assets/previews/v3'; output.mkdir(parents=True,exist_ok=True)
 
+def realtime_render_engine(scene):
+    engine_property=scene.render.bl_rna.properties['engine']
+    supported={item.identifier for item in engine_property.enum_items}
+    for engine in ('BLENDER_EEVEE_NEXT','BLENDER_EEVEE'):
+        if engine in supported:
+            return engine
+    raise RuntimeError('No supported EEVEE render engine is available: '+', '.join(sorted(supported)))
+
 def render(name, target, location, lens=48):
     data=bpy.data.cameras.get('MetropolitanCamera') or bpy.data.cameras.new('MetropolitanCamera')
     camera=bpy.data.objects.get('MetropolitanCamera') or bpy.data.objects.new('MetropolitanCamera',data)
@@ -18,7 +26,7 @@ def render(name, target, location, lens=48):
     bpy.context.scene.render.filepath=str(output/name)
     bpy.ops.render.render(write_still=True)
 
-bpy.context.scene.render.engine='BLENDER_EEVEE_NEXT'
+bpy.context.scene.render.engine=realtime_render_engine(bpy.context.scene)
 bpy.context.scene.render.resolution_x=1600
 bpy.context.scene.render.resolution_y=1000
 bpy.context.scene.render.resolution_percentage=100

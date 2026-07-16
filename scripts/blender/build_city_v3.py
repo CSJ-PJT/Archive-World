@@ -338,6 +338,14 @@ def add_instance(district,sources,item):
     obj.rotation_euler[2]=rot
     obj['instanceId']=iid; obj['assetId']=asset; obj['district']=district['district']; obj['state']=state; obj['footprintMeters']=foot; obj['instanceMode']='COLLECTION_INSTANCE'
 
+def realtime_render_engine(scene):
+    engine_property=scene.render.bl_rna.properties['engine']
+    supported={item.identifier for item in engine_property.enum_items}
+    for engine in ('BLENDER_EEVEE_NEXT','BLENDER_EEVEE'):
+        if engine in supported:
+            return engine
+    raise RuntimeError('No supported EEVEE render engine is available: '+', '.join(sorted(supported)))
+
 def camera_and_render(collection,name,output):
     # A district holds collection instances.  Bounds gathered from the linked
     # source collections are local to those libraries and therefore cannot
@@ -356,7 +364,7 @@ def camera_and_render(collection,name,output):
     else: cam.location=center+Vector((span*1.18,-span*1.18,span*.85)); cam_data.lens=42
     cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler(); cam_data.clip_start=.1; cam_data.clip_end=max(span*10,30000); bpy.context.scene.camera=cam
     sun_data=bpy.data.lights.new('Sun_'+name,'SUN'); sun_data.energy=3.1; sun=bpy.data.objects.new('Sun_'+name,sun_data); bpy.context.scene.collection.objects.link(sun); sun.rotation_euler=(.55,-.32,.64)
-    bpy.context.scene.render.engine='BLENDER_EEVEE_NEXT'; bpy.context.scene.render.resolution_x=1600; bpy.context.scene.render.resolution_y=1000; bpy.context.scene.render.resolution_percentage=100
+    bpy.context.scene.render.engine=realtime_render_engine(bpy.context.scene); bpy.context.scene.render.resolution_x=1600; bpy.context.scene.render.resolution_y=1000; bpy.context.scene.render.resolution_percentage=100
     if bpy.context.scene.world is None:bpy.context.scene.world=bpy.data.worlds.new('ArchiveCityV3World')
     bpy.context.scene.world.color=(.055,.09,.11); bpy.context.scene.render.filepath=str(output); bpy.ops.render.render(write_still=True)
 
