@@ -1,0 +1,22 @@
+export type PlanningPlan={districtId:string;status:string;blockMeters:[number,number];buildings:{id:string;xy:[number,number];height:number;status:string}[];streetGraph:{nodes:{id:string;xy:[number,number];kind:string}[];edges:{from:string;to:string;mode:string;public:boolean}[]};publicSpace:{id:string;status:string}[]};
+type Toggle={id:string;label:string;value:boolean};
+const TOGGLES:Toggle[]=[
+ {id:'building',label:'Building',value:true},{id:'street',label:'Street',value:true},{id:'publicRealm',label:'Public Realm',value:true},
+ {id:'pedestrianRoute',label:'Pedestrian route',value:true},{id:'vehicleRoute',label:'Vehicle route',value:true},{id:'fireRoute',label:'Fire route',value:true}];
+
+export async function createPlanningMode(app:HTMLDivElement,base:string){
+ const host=document.createElement('main');host.className='planning-shell';app.replaceChildren(host);
+ host.innerHTML=`<aside class="planning-controls"><div class="brand"><span>ARCHIVE</span><strong>PLAN ONLY</strong></div><p class="eyebrow">URBAN GRAMMAR V1.1 · GENERATED ONLY</p><label>Planning block<select id="planning-block"><option value="residential">Residential Block</option><option value="archiveos">ArchiveOS Block</option></select></label><div id="planning-toggles"></div><hr/><p class="hint">모든 massing은 PLACEHOLDER / GENERATED_PLAN_ONLY입니다. V3 production runtime과 canonical asset에는 영향을 주지 않습니다.</p><dl id="planning-summary"></dl></aside><section class="planning-viewport"><canvas id="planning-canvas" width="1200" height="800"></canvas><div class="planning-hud">PLAN_ONLY · GENERATED MANIFEST</div></section>`;
+ const canvas=host.querySelector<HTMLCanvasElement>('#planning-canvas')!, ctx=canvas.getContext('2d')!, summary=host.querySelector<HTMLElement>('#planning-summary')!, toggles=new Map(TOGGLES.map(x=>[x.id,x.value]));
+ const toggleHost=host.querySelector<HTMLElement>('#planning-toggles')!;let plan:PlanningPlan;
+ for(const option of TOGGLES){const label=document.createElement('label');label.className='filter';label.innerHTML=`<input type="checkbox" checked/> ${option.label}`;const box=label.querySelector<HTMLInputElement>('input')!;box.onchange=()=>{toggles.set(option.id,box.checked);draw();};toggleHost.append(label);}
+ const position=(xy:[number,number])=>[canvas.width/2+xy[0]*2.35,canvas.height/2-xy[1]*2.35] as const;
+ function draw(){if(!plan)return;ctx.fillStyle='#d7dcdb';ctx.fillRect(0,0,canvas.width,canvas.height);const [w,h]=plan.blockMeters;const [x,y]=position([-w/2,-h/2]);ctx.fillStyle='#76818a';ctx.fillRect(x,y,w*2.35,h*2.35);
+  if(toggles.get('street')){ctx.strokeStyle='#39434a';ctx.lineWidth=24;ctx.strokeRect(x+12,y+12,w*2.35-24,h*2.35-24);}
+  const byId=new Map(plan.streetGraph.nodes.map(n=>[n.id,n]));for(const e of plan.streetGraph.edges){const visible=(e.mode==='pedestrian'&&toggles.get('pedestrianRoute'))||(e.mode==='vehicle'&&toggles.get('vehicleRoute'))||((e.mode==='fire'||e.mode==='service')&&toggles.get('fireRoute'));if(!visible)continue;const a=byId.get(e.from)!,b=byId.get(e.to)!;const [ax,ay]=position(a.xy),[bx,by]=position(b.xy);ctx.strokeStyle=e.mode==='pedestrian'?'#f0cc62':e.mode==='vehicle'?'#5ba8dd':'#d56b5e';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();}
+  if(toggles.get('publicRealm')){ctx.fillStyle='#80a879';ctx.fillRect(canvas.width*.39,canvas.height*.40,canvas.width*.22,canvas.height*.18);}
+  if(toggles.get('building'))for(const b of plan.buildings){const [bx,by]=position(b.xy);const height=Math.max(20,Math.min(110,b.height*.55));ctx.fillStyle=b.height>100?'#486c8c':'#a87c57';ctx.fillRect(bx-20,by-height/2,40,height);ctx.fillStyle='#fff';ctx.font='11px sans-serif';ctx.fillText(b.id,bx-20,by-height/2-5);}
+ }
+ async function load(id:string){const response=await fetch(`${base}/${id}-block/plan/block-plan.json`);if(!response.ok)throw new Error(`Planning manifest unavailable: ${response.status}`);plan=await response.json() as PlanningPlan;summary.innerHTML=`<dt>District</dt><dd>${plan.districtId}</dd><dt>Status</dt><dd>${plan.status}</dd><dt>Buildings</dt><dd>${plan.buildings.length} PLACEHOLDER</dd><dt>Graph</dt><dd>${plan.streetGraph.nodes.length} nodes / ${plan.streetGraph.edges.length} edges</dd>`;draw();}
+ const select=host.querySelector<HTMLSelectElement>('#planning-block')!;select.onchange=()=>{void load(select.value).catch(error=>{summary.textContent=String(error);});};await load(select.value);
+}

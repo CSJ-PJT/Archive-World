@@ -7,3 +7,12 @@ The planner proves the Urban Grammar data path: District DNA + Building Family r
 The default V3 Viewer is unchanged. A future PLAN_ONLY viewer adapter may consume the generated `block-plan.json` files without loading them as V3 runtime manifests.
 
 Current review gates are proxy scores, not architectural approvals. Building/Family must be improved before any block can advance to a canonical or city-layout review.
+# Completion gate additions
+
+`?mode=planning` enables a separate, generated-only planning viewer. It requires
+`VITE_ARCHIVE_WORLD_PLANNING_BASE_URL` to point to the external output root. The
+default V3 viewer has no planning manifest dependency and its initial loading mode
+is unchanged. The planning viewer exposes the two approved review blocks and layer
+toggles for Building, Street, Public Realm, pedestrian, vehicle/service, and fire
+routes. Planning gate scores describe block-planning adequacy only; they are not a
+visual-quality or canonical-asset approval.

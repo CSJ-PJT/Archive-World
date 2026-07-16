@@ -10,9 +10,26 @@ def box(name,loc,dims,color):
 def plan(kind):
  if kind=='residential':
   b=[('tower-a',(-75,-45),78),('tower-b',(-20,-25),92),('tower-c',(40,-35),84),('tower-d',(85,30),72),('midrise-a',(-95,55),42),('midrise-b',(0,72),38),('retail',(95,-85),15),('community',(-5,-92),14),('security',(-142,-110),7)]
-  return {'districtId':'residential','status':'GENERATED_PLAN_ONLY','blockMeters':[350,280],'buildings':[{'id':i,'xy':xy,'height':h,'status':'PLACEHOLDER'} for i,xy,h in b],'metrics':{'blockAreaM2':98000,'buildingCoverageRatio':0.27,'openSpaceRatio':0.46,'pedestrianPathM':1840,'vehiclePathM':1120,'treeCount':128,'publicFrontageRatio':0.28,'uniqueBuildingCount':9,'maxSameAssetPerCamera':2},'routes':{'pedestrian':['school-link','park-loop','courtyard-axis'],'vehicle':['perimeter-road','parking-ramp','fire-access']},'publicSpace':['courtyard','pocket-park','playground','small-plaza','bus-stop']}
+  return block_data('residential',[350,280],b,{'blockAreaM2':98000,'buildingCoverageRatio':0.27,'openSpaceRatio':0.46,'pedestrianPathM':1840,'vehiclePathM':1120,'treeCount':128,'publicFrontageRatio':0.28,'uniqueBuildingCount':9,'maxSameAssetPerCamera':2},['courtyard','pocket-park','playground','small-plaza','bus-stop'])
  b=[('landmark-twin-a',(-55,15),190),('landmark-twin-b',(28,28),156),('office-a',(-125,-75),68),('office-b',(120,-60),60),('office-c',(125,80),54),('office-d',(-125,95),50),('operations-annex',(0,105),28),('retail-podium-a',(-42,-80),18),('retail-podium-b',(58,-82),18),('service-building',(155,110),14)]
- return {'districtId':'archiveos','status':'GENERATED_PLAN_ONLY','blockMeters':[420,320],'buildings':[{'id':i,'xy':xy,'height':h,'status':'PLACEHOLDER'} for i,xy,h in b],'metrics':{'blockAreaM2':134400,'buildingCoverageRatio':0.31,'plazaRatio':0.19,'activeFrontageRatio':0.33,'pedestrianPathM':2210,'serviceRouteM':740,'treeCount':146,'seatingCount':72,'lightingCount':58,'uniqueBuildingCount':10,'maxSameAssetPerCamera':2,'skylineHeightDistribution':[190,156,68,60,54,50,28,18,18,14]},'routes':{'pedestrian':['river-axis','central-plaza','CBD-link'],'vehicle':['drop-off','rear-service','parking-entry']},'publicSpace':['central-plaza','water-feature','shaded-walk','retail-frontage','taxi-stand']}
+ return block_data('archiveos',[420,320],b,{'blockAreaM2':134400,'buildingCoverageRatio':0.31,'plazaRatio':0.19,'activeFrontageRatio':0.33,'pedestrianPathM':2210,'serviceRouteM':740,'treeCount':146,'seatingCount':72,'lightingCount':58,'uniqueBuildingCount':10,'maxSameAssetPerCamera':2,'skylineHeightDistribution':[190,156,68,60,54,50,28,18,18,14]},['central-plaza','water-feature','shaded-walk','retail-frontage','taxi-stand'])
+
+def block_data(district,meters,buildings,metrics,spaces):
+ """A graph is explicit so route continuity is independently testable."""
+ w,h=meters
+ nodes=[
+  {'id':'north-gate','xy':[0,h/2-12],'kind':'gate'}, {'id':'south-gate','xy':[0,-h/2+12],'kind':'gate'},
+  {'id':'west-gate','xy':[-w/2+12,0],'kind':'gate'}, {'id':'east-gate','xy':[w/2-12,0],'kind':'gate'},
+  {'id':'center','xy':[0,0],'kind':'plaza'}, {'id':'service','xy':[w*.34,h*.30],'kind':'service'},
+  {'id':'fire','xy':[-w*.32,-h*.26],'kind':'fire-access'}]
+ def edge(a,b,mode,public=True): return {'from':a,'to':b,'mode':mode,'public':public}
+ edges=[edge('north-gate','center','pedestrian'),edge('south-gate','center','pedestrian'),edge('west-gate','center','pedestrian'),edge('east-gate','center','pedestrian'),edge('north-gate','east-gate','vehicle'),edge('east-gate','south-gate','vehicle'),edge('south-gate','west-gate','vehicle'),edge('west-gate','north-gate','vehicle'),edge('service','east-gate','service',False),edge('fire','south-gate','fire',False)]
+ return {'schemaVersion':'1.1','districtId':district,'status':'GENERATED_PLAN_ONLY','blockMeters':meters,
+  'buildings':[{'id':i,'xy':xy,'height':h,'status':'PLACEHOLDER','layer':'building'} for i,xy,h in buildings],
+  'metrics':metrics,'streetGraph':{'nodes':nodes,'edges':edges},
+  'layers':{'building':True,'street':True,'publicRealm':True,'pedestrianRoute':True,'vehicleRoute':True,'fireRoute':True},
+  'routes':{'pedestrian':['north-gate','center','south-gate'],'vehicle':['north-gate','east-gate','south-gate','west-gate'],'fire':['fire','south-gate'],'service':['service','east-gate']},
+  'publicSpace':[{'id':s,'status':'PROTOTYPE','layer':'publicRealm'} for s in spaces]}
 def scene(data,root):
  bpy.ops.wm.read_factory_settings(use_empty=True);w,h=data['blockMeters'];box('ground',(0,0,-.5),(w,h,1),(.45,.48,.43));box('perimeter-road',(0,-h/2+12,.05),(w,24,.2),(.12,.13,.14));box('plaza',(0,0,.08),(w*.30,h*.26,.2),(.72,.68,.57))
  for b in data['buildings']:

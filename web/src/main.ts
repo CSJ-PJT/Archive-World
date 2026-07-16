@@ -2,10 +2,15 @@ import './style.css';
 import type { District } from './types';
 
 const generatedMode=import.meta.env.VITE_ARCHIVE_WORLD_RUNTIME_MODE==='generated';
+const planningMode=new URLSearchParams(window.location.search).get('mode')==='planning';
 const generatedBase=(import.meta.env.VITE_ARCHIVE_WORLD_GENERATED_BASE_URL ?? '').replace(/\/$/,'');
 const runtimeBase=generatedMode?generatedBase:(import.meta.env.VITE_ARCHIVE_WORLD_ASSET_BASE_URL ?? '').replace(/\/$/,'');
 const modeLabel=generatedMode?'GENERATED MODE':'SOURCE MODE';
 const app=document.querySelector<HTMLDivElement>('#app')!;
+if(planningMode){
+  const planningBase=(import.meta.env.VITE_ARCHIVE_WORLD_PLANNING_BASE_URL ?? '').replace(/\/$/,'');
+  if(!planningBase){app.innerHTML='<main class="planning-error">PLAN_ONLY 모드는 <code>VITE_ARCHIVE_WORLD_PLANNING_BASE_URL</code>가 필요합니다. Generated planning output만 지정하십시오.</main>';}else{void import('./planning-mode').then(({createPlanningMode})=>createPlanningMode(app,planningBase));}
+}else{
 const districts=['city','archiveos','market','nexus','logistics','ledger','residential','infrastructure'] as const;
 const label:Record<string,string>={city:'City',archiveos:'ArchiveOS',market:'Market',nexus:'Nexus',logistics:'Logistics',ledger:'Ledger',residential:'Residential',infrastructure:'Infrastructure'};
 const preview=(name:string)=>generatedMode?`${generatedBase}/v3/previews/${name}-overview.png`:`v3/${name}-overview.png`;
@@ -29,3 +34,4 @@ for(const id of districts){const button=document.createElement('button');button.
 document.querySelector<HTMLButtonElement>('#open-viewer')!.onclick=()=>{void activate('city');};
 const filterHost=document.querySelector<HTMLElement>('#filters')!;
 for(const id of districts.slice(1) as readonly District[]){const item=document.createElement('label');item.className='filter';item.innerHTML=`<input type="checkbox" checked/> ${label[id]}`;const checkbox=item.querySelector<HTMLInputElement>('input')!;checkbox.onchange=()=>viewer?.setDistrict(id,checkbox.checked);filterHost.append(item);}
+}
