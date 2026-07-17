@@ -39,3 +39,5 @@ world-generated/
 assets/reference-kit/
 assets/reference-kit-v2/
 Archive-World-*-reference-kit*.zip
+tools/gltf-validator/node_modules/
+.archive-tools/

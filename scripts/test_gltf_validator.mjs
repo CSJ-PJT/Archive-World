@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+const dir=await fs.mkdtemp(path.join(os.tmpdir(),'archive-gltf-'));
+const glb=path.join(dir,'valid.glb'),bad=path.join(dir,'bad.glb'),report=path.join(dir,'report.json');
+const raw=JSON.stringify({asset:{version:'2.0'}});const json=Buffer.from(raw.padEnd(raw.length+(4-raw.length%4)%4,' '));const h=Buffer.alloc(12);h.write('glTF');h.writeUInt32LE(2,4);h.writeUInt32LE(12+8+json.length,8);const ch=Buffer.alloc(8);ch.writeUInt32LE(json.length,0);ch.writeUInt32LE(0x4e4f534a,4);await fs.writeFile(glb,Buffer.concat([h,ch,json]));await fs.writeFile(bad,Buffer.from('not-a-glb'));
+const env={...process.env,ARCHIVE_GLTF_VALIDATOR_DIR:path.resolve('tools/gltf-validator')};
+let r=spawnSync(process.execPath,['scripts/validate_gltf.mjs','--report',report,glb],{env,encoding:'utf8'});assert.equal(r.status,0,r.stderr);assert.equal(JSON.parse(await fs.readFile(report)).results[0].errors,0);
+r=spawnSync(process.execPath,['scripts/validate_gltf.mjs',bad],{env,encoding:'utf8'});assert.notEqual(r.status,0);console.log('gltf validator fixture PASS');

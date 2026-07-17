@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-const { validateBytes }=createRequire(import.meta.url)('gltf-validator');
+const require=createRequire(import.meta.url);
+const validatorRoot=process.env.ARCHIVE_GLTF_VALIDATOR_DIR;
+const { validateBytes }=validatorRoot?require(path.join(validatorRoot,'node_modules','gltf-validator')):require('gltf-validator');
 const args=process.argv.slice(2);const reportIndex=args.indexOf('--report');const report=reportIndex>=0?args.splice(reportIndex,2)[1]:null;
 async function expand(items){const out=[];for(const item of items){const s=await fs.stat(item);if(s.isDirectory()){for(const e of await fs.readdir(item,{recursive:true}))if(e.endsWith('.glb'))out.push(path.join(item,e));}else out.push(item);}return out;}
 const files = await expand(args);
