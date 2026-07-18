@@ -132,7 +132,10 @@ def start_resume(config: dict[str, Any], state: dict[str, Any], now: float) -> t
         f"branch={state['branch']}; head={state['head']}; checkpoint={checkpoint}; track={track}; "
         f"completed={','.join(state.get('completedTracks', []))}; blocked={','.join(state.get('blockedTracks', []))}. "
         "Do not change canonical/layout/runtime/main. No main merge, git add -A, reset, clean, or force push. "
-        "Continue only the next independent track and record a checkpoint."
+        "Continue only the next independent track and record a checkpoint. "
+        f"Before work, send exactly one recovery notification through the configured Slack runner to "
+        f"{config.get('slackRecoveryChannel', 'the Archive World status channel')}: branch, checkpoint, resumed track, "
+        "old heartbeat, new PID, and restart count. Do not expose credentials."
     )
     proc = subprocess.Popen([*command, prompt], cwd=config["repo"], start_new_session=True)
     state["activePid"] = proc.pid

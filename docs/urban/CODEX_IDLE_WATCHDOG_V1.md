@@ -45,5 +45,6 @@ chmod 700 /home/csj1116/.local/lib/archive-world/codex
 
 After a Windows/WSL reboot, run the `nohup` command again. It deliberately does
 not register a Windows Scheduled Task. Recovery notifications are emitted as
-structured log events; a configured local Slack runner may consume only
-`action: resumed` events. No token or webhook is stored in this repository.
+structured log events. The resumed Codex prompt includes the one permitted
+recovery notification and the configured channel ID; no token or webhook is
+stored in this repository.

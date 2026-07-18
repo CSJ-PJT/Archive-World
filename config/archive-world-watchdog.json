@@ -11,6 +11,7 @@
   "maxRestart24h": 6,
   "cooldownSeconds": 1800,
   "generatedRoot": "/mnt/c/ArchiveData/World/Generated/v4/visual-factory-foundation-marathon",
+  "slackRecoveryChannel": "C0BDKFHS4N6",
   "resumeCommand": ["/home/csj1116/.local/lib/archive-world/codex", "exec", "--cd", "/mnt/c/ArchivePJT/Archive-World"],
   "enabled": true
 }
