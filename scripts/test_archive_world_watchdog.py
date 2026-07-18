@@ -39,6 +39,7 @@ expect("blocked", state(status="BLOCKED"), "SKIP")
 expect("complete", state(status="COMPLETE"), "SKIP")
 expect("empty queue", state(pendingTracks=[]), "SKIP")
 assert MODULE.decide(state(activePid=os.getpid()), CONFIG, SNAPSHOT, 700, 0, 12, OUTPUT)[0] == "RUNNING"
+assert MODULE.decide(state(activePid=999999), CONFIG, SNAPSHOT, 700, 0, 12, OUTPUT)[0] == "IDLE"
 changed = dict(SNAPSHOT, status=[" M docs/changed.md"])
 assert MODULE.decide(state(), CONFIG, changed, 700, 0, 12, OUTPUT)[0] == "BLOCK"
 assert MODULE.decide(state(), CONFIG, changed, 700, 0, 12, OUTPUT)[1] == "worktree-changed"
