@@ -4,6 +4,18 @@ This is a repository-local Python watchdog. It polls every ten minutes and
 uses an atomic checkpoint in `state/archive-world-marathon.json`. It is not a
 ChatGPT browser automation mechanism.
 
+## Liveness model
+
+`WATCHDOG_RUNNING` and `WORKER_RUNNING` are separate. The UI/reporting layer
+may say *working* only while a worker PID, relevant child, worker heartbeat,
+worker stdout/stderr, Generated output, source diff, test result, or commit has
+changed in the last ten minutes. A watchdog with no worker is explicitly
+`WATCHDOG_RUNNING + WORKER_IDLE`.
+
+`AUTH_BLOCKED` is a resume-transport condition, never a Track failure. A Track
+remains pending for an authenticated runner or the active Codex session. Only
+an actual content/validation failure belongs in `blockedTracks`.
+
 ## Safety contract
 
 The watchdog only considers a resume when the queue has a pending track and

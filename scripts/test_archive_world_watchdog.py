@@ -17,7 +17,7 @@ OUTPUT = {"fileCount": 3, "bytes": 9}
 
 def state(**changes):
     value = {
-        "status": "RUNNING", "head": "3227afe", "heartbeat": 0,
+        "lifecycle": "RUNNING", "head": "3227afe", "workerHeartbeat": 0,
         "pendingTracks": ["render-studio"], "activePid": None,
         "knownWorktree": SNAPSHOT["status"],
         "watchSnapshot": {"logBytes": 12, "output": OUTPUT, "head": "3227afe", "status": SNAPSHOT["status"]},
@@ -32,11 +32,12 @@ def expect(label, value, wanted):
 
 
 expect("running process", state(activePid=1), "RUNNING")
-expect("fresh heartbeat", state(heartbeat=200), "RUNNING")
+expect("fresh heartbeat", state(workerHeartbeat=200), "RUNNING")
 expect("stale idle", state(), "IDLE")
-expect("waiting approval", state(status="WAITING_APPROVAL"), "SKIP")
-expect("blocked", state(status="BLOCKED"), "SKIP")
-expect("complete", state(status="COMPLETE"), "SKIP")
+expect("waiting approval", state(lifecycle="WAITING_APPROVAL"), "SKIP")
+expect("blocked", state(lifecycle="BLOCKED"), "SKIP")
+expect("complete", state(lifecycle="COMPLETE"), "SKIP")
+expect("auth blocked", state(authStatus="AUTH_BLOCKED"), "AUTH_BLOCKED")
 expect("empty queue", state(pendingTracks=[]), "SKIP")
 assert MODULE.decide(state(activePid=os.getpid()), CONFIG, SNAPSHOT, 700, 0, 12, OUTPUT)[0] == "RUNNING"
 assert MODULE.decide(state(activePid=999999), CONFIG, SNAPSHOT, 700, 0, 12, OUTPUT)[0] == "IDLE"

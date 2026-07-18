@@ -11,8 +11,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import shlex
-import signal
 import subprocess
 import time
 from pathlib import Path
@@ -85,8 +83,8 @@ def tree_metrics(root: Path) -> dict[str, int]:
 def decide(state: dict[str, Any], config: dict[str, Any], snapshot: dict[str, Any], now: float,
            child_count: int, log_size: int, output: dict[str, int]) -> tuple[str, str]:
     """Pure decision helper; covered by dry-run fixtures."""
-    if state.get("status") in GATED:
-        return "SKIP", f"gated-status:{state.get('status')}"
+    if state.get("lifecycle", "RUNNING") in GATED:
+        return "SKIP", f"gated-lifecycle:{state.get('lifecycle')}"
     if not state.get("pendingTracks"):
         return "SKIP", "empty-queue"
     if snapshot["branch"] != config["branch"] or snapshot["head"] != state.get("head"):
@@ -96,7 +94,9 @@ def decide(state: dict[str, Any], config: dict[str, Any], snapshot: dict[str, An
         return "BLOCK", "worktree-changed"
     if process_alive(state.get("activePid")) or child_count:
         return "RUNNING", "active-process"
-    heartbeat_age = now - float(state.get("heartbeat", 0))
+    if state.get("authStatus") == "AUTH_BLOCKED":
+        return "AUTH_BLOCKED", "resume-transport-auth-blocked"
+    heartbeat_age = now - float(state.get("workerHeartbeat", 0))
     previous = state.get("watchSnapshot", {})
     stable = (
         previous.get("logBytes") == log_size
@@ -116,15 +116,19 @@ def start_resume(config: dict[str, Any], state: dict[str, Any], now: float) -> t
     history = [entry for entry in state.get("restartHistory", []) if now - entry["at"] < 86400]
     same_track = [entry for entry in history if entry["track"] == track]
     if len(history) >= config["maxRestart24h"]:
+        state["authStatus"] = "AUTH_BLOCKED"
+        state["lastTransportError"] = "daily-restart-limit-after-resume-transport-failure"
         return "daily-restart-limit", None
     if len(same_track) >= config["maxRestartPerTrack"]:
-        state.setdefault("blockedTracks", []).append(track)
-        state["status"] = "BLOCKED"
+        state["authStatus"] = "AUTH_BLOCKED"
+        state["lastTransportError"] = "restart-limit-after-resume-transport-failure"
         return "track-restart-limit", None
     if same_track and now - same_track[-1]["at"] < config["cooldownSeconds"]:
         return "cooldown", None
     command = config.get("resumeCommand", [])
     if not command or not shutil_which(command[0]):
+        state["authStatus"] = "AUTH_BLOCKED"
+        state["lastTransportError"] = "resume-command-unavailable"
         return "resume-command-unavailable", None
     checkpoint = state.get("lastCheckpoint", "initial")
     prompt = (
@@ -139,7 +143,8 @@ def start_resume(config: dict[str, Any], state: dict[str, Any], now: float) -> t
     )
     proc = subprocess.Popen([*command, prompt], cwd=config["repo"], start_new_session=True)
     state["activePid"] = proc.pid
-    state["heartbeat"] = now
+    state["workerHeartbeat"] = now
+    state["workerStatus"] = "WORKER_RUNNING"
     state.setdefault("restartHistory", []).append({"track": track, "at": now, "pid": proc.pid})
     return "resumed", proc.pid
 
@@ -173,10 +178,15 @@ def run(config_path: Path, dry_run: bool, once: bool) -> int:
             children = active_children()
             output = tree_metrics(Path(config["generatedRoot"]))
             marathon_log_bytes = marathon_log_path.stat().st_size if marathon_log_path.exists() else 0
+            active_worker = process_alive(state.get("activePid")) or bool(children)
             decision, reason = decide(state, config, snapshot, now, len(children), marathon_log_bytes, output)
+            state["watchdogStatus"] = "WATCHDOG_RUNNING"
+            state["workerStatus"] = "WORKER_RUNNING" if active_worker else "WORKER_IDLE"
+            if active_worker:
+                state["workerHeartbeat"] = now
             event: dict[str, Any] = {
                 "at": now, "action": decision.lower(), "reason": reason, "track": (state.get("pendingTracks") or [None])[0],
-                "heartbeatAge": now - float(state.get("heartbeat", 0)), "children": children,
+                "workerHeartbeatAge": now - float(state.get("workerHeartbeat", 0)), "children": children,
                 "output": output, "git": {"branch": snapshot["branch"], "head": snapshot["head"]}, "dryRun": dry_run,
             }
             if decision == "IDLE" and not dry_run and config.get("enabled", False):
@@ -184,7 +194,7 @@ def run(config_path: Path, dry_run: bool, once: bool) -> int:
                 event["action"] = action
                 event["newPid"] = pid
             if decision == "BLOCK":
-                state["status"] = "BLOCKED"
+                state["lifecycle"] = "BLOCKED"
                 state["lastError"] = reason
             state["watchSnapshot"] = {"at": now, "logBytes": marathon_log_bytes, "output": output, "head": snapshot["head"], "status": snapshot["status"]}
             atomic_json(state_path, state)
