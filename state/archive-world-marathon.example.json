@@ -1,0 +1,14 @@
+{
+  "status": "RUNNING",
+  "branch": "feat/archive-visual-foundation-v1",
+  "head": "<short-head>",
+  "heartbeat": 0,
+  "activePid": null,
+  "lastCheckpoint": "<checkpoint-name>",
+  "completedTracks": [],
+  "pendingTracks": ["<next-independent-track>"],
+  "blockedTracks": [],
+  "knownWorktree": [],
+  "restartHistory": [],
+  "watchSnapshot": {}
+}

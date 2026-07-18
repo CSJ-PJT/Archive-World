@@ -1,0 +1,16 @@
+{
+  "repo": "/mnt/c/ArchivePJT/Archive-World",
+  "branch": "feat/archive-visual-foundation-v1",
+  "state": "state/archive-world-marathon.json",
+  "log": "logs/archive-world-watchdog.log",
+  "marathonLog": "logs/archive-world-marathon.log",
+  "pidFile": "state/archive-world-watchdog.pid",
+  "intervalSeconds": 600,
+  "staleSeconds": 600,
+  "maxRestartPerTrack": 2,
+  "maxRestart24h": 6,
+  "cooldownSeconds": 1800,
+  "generatedRoot": "/mnt/c/ArchiveData/World/Generated/v4/visual-factory-foundation-marathon",
+  "resumeCommand": ["/home/csj1116/.local/lib/archive-world/codex", "exec", "--cd", "/mnt/c/ArchivePJT/Archive-World"],
+  "enabled": true
+}
