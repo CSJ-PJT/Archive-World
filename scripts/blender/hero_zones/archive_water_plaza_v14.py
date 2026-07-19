@@ -382,6 +382,260 @@ def add_connected_ground_floor(batch, *, x, y, width, depth, facing, style):
             "attachmentDepthM": frontage_attachment_depth, "bays": bays}
 
 
+def add_family_identity(batch, *, x, y, width, depth, facing, style, podium_h, lower_h, middle_h, upper_h):
+    """Author a distinct, load-path-connected civic/CBD identity per building.
+
+    These are not facade props.  Every frame begins at the podium or a transfer
+    floor and returns to the constructed envelope.  The six identities remain
+    legible from both stream level and the district skyline.
+    """
+    # Identity pieces belong to the tower wall, not the front edge of the
+    # deeper podium.  The former `(depth + 5) / 2` datum left civic frames and
+    # terrace blades several metres in front of the glazing.  The production
+    # lower mass is 76% of the authored depth, so every frame below starts on
+    # that same constructed facade and projects outward from it.
+    lower_tower_depth=depth*.76
+    front_y=y+facing*lower_tower_depth*.5
+    accent="archive-metal" if style<3 else "ledger-bronze"
+    stone="archive-warm-stone" if style<3 else "ledger-limestone"
+    roof=podium_h+lower_h+middle_h+upper_h
+    identity=("archive-institutional-frame","archive-civic-terrace","archive-data-bay",
+              "ledger-premium-frame","ledger-sky-terrace","ledger-park-edge")[style%6]
+    if style%6==0:
+        # Civic-scale vertical order and a recessed public atrium datum.
+        for fin in (-.34,-.17,.17,.34):
+            batch.add_box("v27-institutional-mega-fin",accent,
+                          (x+width*fin,front_y+facing*.42,podium_h+lower_h*.44),
+                          (.48,.84,lower_h*.78))
+        batch.add_box("v27-institutional-atrium-head",stone,
+                      (x,front_y+facing*.30,podium_h+8.0),(width*.56,.60,1.0))
+        batch.add_box("v27-institutional-crown-slot","archive-cyan-light",
+                      (x,front_y+facing*.42,roof+4.7),(width*.34,.12,.20))
+    elif style%6==1:
+        # A broad mid-tower sky terrace breaks the repeated curtain-wall run.
+        terrace_z=podium_h+lower_h+middle_h*.18
+        batch.add_box("v27-civic-sky-terrace",stone,
+                      (x-width*.06,front_y+facing*1.35,terrace_z),(width*.72,2.7,.58))
+        for fin in (-.30,-.10,.10,.30):
+            batch.add_box("v27-civic-terrace-fin",accent,
+                          (x+width*fin,front_y+facing*.62,podium_h+lower_h*.38),
+                          (.34,1.20,lower_h*.62))
+        for planter in (-.24,0,.24):
+            batch.add_box("v27-civic-terrace-planter",stone,
+                          (x+width*planter,front_y+facing*1.55,terrace_z+.52),
+                          (width*.17,1.15,.65))
+    elif style%6==2:
+        # Alternating deep data-bays and a corner lantern establish a civic-tech silhouette.
+        corner=1 if style%2 else -1
+        for level in range(4):
+            z=podium_h+lower_h*(.18+level*.19)
+            batch.add_box("v27-data-bay-projecting-frame",accent,
+                          (x-corner*width*.18,front_y+facing*.62,z),
+                          (width*.38,1.15,1.0))
+        batch.add_box("v27-civic-corner-lantern","occupied-window-glass",
+                      (x+corner*width*.34,front_y+facing*.25,podium_h+lower_h*.52),
+                      (width*.16,.42,lower_h*.64))
+    elif style%6==3:
+        # Premium Ledger frame: stone base, bronze exoskeleton, and a formal crown.
+        for fin in (-.38,-.19,.19,.38):
+            batch.add_box("v27-ledger-premium-fin",accent,
+                          (x+width*fin,front_y+facing*.58,podium_h+lower_h*.50),
+                          (.42,1.12,lower_h*.92))
+        for z_ratio in (.28,.55,.82):
+            batch.add_box("v27-ledger-premium-crossbeam",accent,
+                          (x,front_y+facing*.57,podium_h+lower_h*z_ratio),
+                          (width*.82,1.08,.32))
+    elif style%6==4:
+        # A planted transfer terrace and asymmetric corner frame distinguish the annex.
+        terrace_z=podium_h+lower_h*.82
+        batch.add_box("v27-ledger-transfer-terrace",stone,
+                      (x+width*.08,front_y+facing*1.65,terrace_z),(width*.64,3.3,.62))
+        for planter in (-.22,0,.22):
+            px=x+width*(planter+.08)
+            batch.add_box("v27-ledger-transfer-planter",stone,(px,front_y+facing*1.78,terrace_z+.56),(width*.15,1.25,.62))
+            for shrub in (-.45,.45):
+                batch.add_uv_sphere("v27-ledger-transfer-shrub","foliage-deep",
+                                    (px+shrub,front_y+facing*1.78,terrace_z+1.08),.42,12,6,(1,.75,.62))
+        batch.add_box("v27-ledger-asymmetric-blade",accent,
+                      (x-width*.34,front_y+facing*.52,podium_h+lower_h*.48),
+                      (.58,1.0,lower_h*.82))
+    else:
+        # Park-edge office uses occupied terraces rather than another sheer wall.
+        for tier,(z_ratio,projection) in enumerate(((.22,1.1),(.48,1.45),(.74,1.75))):
+            z=podium_h+lower_h*z_ratio
+            batch.add_box("v27-park-edge-terrace",stone,
+                          (x+(-1 if tier%2 else 1)*width*.08,front_y+facing*projection,z),
+                          (width*(.62-tier*.05),projection*2,.52))
+            for planter in (-.22,0,.22):
+                batch.add_box("v27-park-edge-planter",stone,
+                              (x+width*(planter+(-.08 if tier%2 else .08)),front_y+facing*(projection+.18),z+.48),
+                              (width*.14,1.05,.55))
+        batch.add_box("v27-park-edge-crown-screen",accent,
+                      (x+width*.10,front_y-facing*1.2,roof+4.6),(width*.38,2.2,4.0))
+    return identity
+
+
+def add_s_grade_body_articulation(batch, *, x, y, width, depth, facing, style,
+                                  podium_h, lower_h, middle_h, upper_h):
+    """Add genuinely attached near-camera architecture to each support body.
+
+    This is a second architectural system, not a prop pass: lower-floor rooms,
+    corner volumes, transfer terraces, rear service screens, and roof devices
+    all share a datum with the mass they modify.  Glass volumes are bounded by
+    a floor, ceiling, rear wall and side returns so no pane can read as a card
+    floating in front of a tower.
+    """
+    accent = "archive-metal" if style < 3 else "ledger-bronze"
+    stone = "archive-warm-stone" if style < 3 else "ledger-limestone"
+    lower_w, lower_d = width*.78, depth*.76
+    front_y = y + facing*lower_d*.5
+    inside = -facing
+    rear_y = y - facing*lower_d*.5
+    tower_base = podium_h
+    roof = podium_h+lower_h+middle_h+upper_h
+
+    # A three-storey architectural base locks tower, podium and occupied lobby
+    # together.  Its five structural frames are tied back to the shell by deep
+    # heads and returns rather than standing as a decorative screen.
+    base_h = min(12.6, lower_h*.19)
+    frame_w = lower_w*.82
+    for grid in (-.50, -.25, 0.0, .25, .50):
+        px = x + grid*frame_w
+        batch.add_box("v28-lower-architectural-pier", accent,
+                      (px, front_y+facing*.34, tower_base+base_h*.5),
+                      (.46, .68, base_h))
+        batch.add_box("v28-lower-pier-return", accent,
+                      (px, front_y+inside*.62, tower_base+base_h*.5),
+                      (.46, 1.24, base_h))
+    for level in (tower_base+4.2, tower_base+8.4, tower_base+base_h):
+        batch.add_box("v28-lower-architectural-head", accent,
+                      (x, front_y+facing*.34, level), (frame_w+.5, .68, .32))
+        batch.add_box("v28-lower-head-return", accent,
+                      (x, front_y+inside*.62, level), (frame_w+.5, 1.24, .32))
+
+    # Two occupied corner rooms create real oblique depth at eye level.  Each
+    # has a back wall, slab, soffit and side wall before the glazing is added.
+    for side in (-1, 1):
+        room_x = x + side*lower_w*.385
+        room_w = lower_w*.18
+        room_depth = 3.6 + .35*((style+side)%2)
+        room_y = front_y + inside*room_depth*.5
+        batch.add_box("v28-corner-room-floor", "ledger-granite",
+                      (room_x, room_y, tower_base+.14), (room_w, room_depth, .28))
+        batch.add_box("v28-corner-room-ceiling", "warm-interior",
+                      (room_x, room_y, tower_base+5.85), (room_w, room_depth, .20))
+        batch.add_box("v28-corner-room-back", "warm-interior",
+                      (room_x, front_y+inside*(room_depth-.10), tower_base+3.0),
+                      (room_w, .20, 5.7))
+        batch.add_box("v28-corner-room-side-return", stone,
+                      (room_x+side*room_w*.5, room_y, tower_base+3.0),
+                      (.24, room_depth, 6.0))
+        batch.add_box("v28-corner-room-glass", "frontage-glass",
+                      (room_x, front_y-facing*.05, tower_base+3.0),
+                      (room_w-.36, .10, 5.65))
+        batch.add_box("v28-corner-room-mullion", accent,
+                      (room_x, front_y+facing*.08, tower_base+3.0),
+                      (.16, .24, 5.8))
+
+    # A transfer terrace is physically anchored by a slab that enters the
+    # envelope and by two side returns.  Planters and rails remain inside it.
+    transfer_z = podium_h + lower_h*(.48 + .06*(style%3))
+    transfer_w = lower_w*(.54 + .05*(style%2))
+    projection = 1.55 + .25*(style%3)
+    batch.add_box("v28-attached-transfer-slab", stone,
+                  (x+(-1 if style%2 else 1)*lower_w*.08,
+                   front_y+facing*projection*.45, transfer_z),
+                  (transfer_w, projection*1.9, .44))
+    for side in (-1, 1):
+        rail_x=x+(-1 if style%2 else 1)*lower_w*.08+side*transfer_w*.48
+        batch.add_box("v28-transfer-side-return", accent,
+                      (rail_x, front_y+facing*projection*.45, transfer_z+1.02),
+                      (.12, projection*1.65, 1.75))
+    batch.add_box("v28-transfer-glass-rail", "frontage-glass",
+                  (x+(-1 if style%2 else 1)*lower_w*.08,
+                   front_y+facing*(projection*1.34), transfer_z+1.02),
+                  (transfer_w*.94, .10, 1.45))
+    for planter in (-.33, 0.0, .33):
+        px=x+(-1 if style%2 else 1)*lower_w*.08+transfer_w*planter
+        batch.add_box("v28-transfer-planter", stone,
+                      (px, front_y+facing*projection*.72, transfer_z+.43),
+                      (transfer_w*.21, .82, .56))
+        batch.add_box("v28-transfer-soil", "soil-v11",
+                      (px, front_y+facing*projection*.72, transfer_z+.74),
+                      (transfer_w*.18, .66, .08))
+
+    # Family-specific skyline pieces remain connected to the upper mass.  The
+    # six patterns deliberately change section, symmetry and roof silhouette.
+    upper_w, upper_d = width*(.46+.03*(style%3)), depth*.52
+    upper_x = x+width*(.11 if style%3==0 else -.07)
+    upper_front = y-facing*2.0+facing*upper_d*.5
+    if style == 0:
+        for side in (-1, 1):
+            batch.add_box("v28-institutional-crown-pier", accent,
+                          (upper_x+side*upper_w*.42, upper_front+facing*.26, roof+3.8),
+                          (.54, .52, 7.4))
+        batch.add_box("v28-institutional-crown-beam", accent,
+                      (upper_x, upper_front+facing*.26, roof+7.25),
+                      (upper_w*.88, .52, .48))
+    elif style == 1:
+        batch.add_box("v28-civic-roof-pavilion-floor", stone,
+                      (upper_x+upper_w*.10, y, roof+1.0),
+                      (upper_w*.62, upper_d*.48, .42))
+        batch.add_box("v28-civic-roof-pavilion-canopy", accent,
+                      (upper_x+upper_w*.10, y, roof+5.6),
+                      (upper_w*.68, upper_d*.54, .30))
+        for side in (-1, 1):
+            batch.add_box("v28-civic-roof-pavilion-glass", "occupied-window-glass",
+                          (upper_x+side*upper_w*.30, y, roof+3.25),
+                          (.12, upper_d*.42, 4.3))
+    elif style == 2:
+        for index in range(3):
+            batch.add_box("v28-data-crown-step", accent,
+                          (upper_x-upper_w*.20+index*upper_w*.20,
+                           upper_front-facing*.35, roof+2.0+index*1.65),
+                          (upper_w*.18, upper_d*.42, 2.4+index*.7))
+    elif style == 3:
+        batch.add_box("v28-ledger-crown-lantern", "occupied-window-glass",
+                      (upper_x, y, roof+3.7),
+                      (upper_w*.46, upper_d*.42, 6.8))
+        for side in (-1, 1):
+            batch.add_box("v28-ledger-crown-return", accent,
+                          (upper_x+side*upper_w*.25, y, roof+3.7),
+                          (.34, upper_d*.52, 7.4))
+    elif style == 4:
+        batch.add_box("v28-ledger-asymmetric-crown-blade", accent,
+                      (upper_x-upper_w*.34, y, roof+5.0),
+                      (.72, upper_d*.62, 9.2))
+        batch.add_box("v28-ledger-crown-bridge", accent,
+                      (upper_x-upper_w*.05, upper_front+facing*.20, roof+7.2),
+                      (upper_w*.62, .44, .48))
+    else:
+        for tier in range(3):
+            batch.add_box("v28-park-crown-terrace", stone,
+                          (upper_x+(tier-1)*upper_w*.09,
+                           upper_front+facing*(.45+tier*.35), roof+1.4+tier*1.55),
+                          (upper_w*(.78-tier*.12), 1.4+tier*.7, .38))
+        batch.add_box("v28-park-crown-screen", accent,
+                      (upper_x+upper_w*.30, y-facing*.4, roof+4.7),
+                      (.48, upper_d*.56, 7.8))
+
+    # The public front and operational rear are intentionally different.
+    # Louvers, a screened escape core and loading light make the rear complete
+    # without borrowing the stream-facing glass grammar.
+    service_x = x + (1 if style%2 else -1)*lower_w*.27
+    batch.add_box("v28-rear-service-core", "service-charcoal",
+                  (service_x, rear_y+facing*.35, podium_h+lower_h*.31),
+                  (lower_w*.20, .70, lower_h*.54))
+    for row in range(7):
+        batch.add_box("v28-rear-service-louver", accent,
+                      (service_x, rear_y-facing*.08,
+                       podium_h+lower_h*(.10+row*.065)),
+                      (lower_w*.17, .22, .24))
+    batch.add_box("v28-rear-loading-light", "warm-light",
+                  (x+width*.24, rear_y-facing*2.05, 4.05),
+                  (6.8, .10, .12))
+
+
 def add_production_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     facing = -1 if y > 0 else 1
@@ -464,6 +718,10 @@ def add_production_building(batch, spec):
     upper_side=add_connected_side_and_rear(batch,x=upper_x,y=y-facing*2.0,width=upper_w,depth=upper_d,
                                            base_z=podium_h+lower_h+middle_h,height=upper_h,facing=facing,style=style+2,prefix="v26-upper")
     ground = add_connected_ground_floor(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style)
+    identity=add_family_identity(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style,
+                                 podium_h=podium_h,lower_h=lower_h,middle_h=middle_h,upper_h=upper_h)
+    add_s_grade_body_articulation(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style,
+                                  podium_h=podium_h,lower_h=lower_h,middle_h=middle_h,upper_h=upper_h)
 
     roof = podium_h+lower_h+middle_h+upper_h
     batch.add_box("v14-roof-machine-room","service-charcoal",(upper_x-upper_w*.12,y,roof+2.7),(upper_w*.38,upper_d*.42,5.4))
@@ -475,7 +733,7 @@ def add_production_building(batch, spec):
 
     maximum=max(lower["maximumGapM"],middle["maximumGapM"],upper["maximumGapM"],ground["maximumGapM"])
     assert maximum<=MAX_ENVELOPE_GAP_M+1e-6
-    ENVELOPE_REPORTS.append({"style":style,"position":[x,y],"maximumEnvelopeGapM":maximum,
+    ENVELOPE_REPORTS.append({"style":style,"identity":identity,"position":[x,y],"maximumEnvelopeGapM":maximum,
                              "minimumFacadeAttachmentDepthM":min(lower["attachmentDepthM"],middle["attachmentDepthM"],upper["attachmentDepthM"]),
                              "glassRecessM":max(lower["glassRecessM"],middle["glassRecessM"],upper["glassRecessM"]),
                              "glassBackToStructuralFaceGapM":max(lower["glassBackToStructuralFaceGapM"],
