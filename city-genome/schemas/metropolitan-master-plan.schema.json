@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://archive.local/schemas/metropolitan-master-plan.schema.json",
+  "title": "Archive Metropolitan Master Plan",
+  "type": "object",
+  "required": ["schemaVersion","cityId","boundsMeters","districts","roadHierarchy","transit","greenBlue","status"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "cityId": {"type":"string","minLength":1},
+    "boundsMeters": {"type":"array","prefixItems":[{"type":"number","minimum":4000},{"type":"number","minimum":4000}],"minItems":2,"maxItems":2},
+    "districts": {"type":"array","minItems":7,"items":{"type":"object","required":["id","polygon","dna"],"properties":{"id":{"type":"string"},"polygon":{"type":"array","minItems":4},"dna":{"type":"object"}}}},
+    "roadHierarchy": {"type":"object"},
+    "transit": {"type":"object"},
+    "greenBlue": {"type":"object"},
+    "status": {"const":"GENERATED_METROPOLITAN_PILOT"}
+  },
+  "additionalProperties": true
+}

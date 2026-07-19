@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "seed": 7302026,
+  "cityId": "archive-metropolitan-seed-v1",
+  "boundsMeters": [6000, 5000],
+  "generatedRoot": "C:/ArchiveData/World/Generated/v7/metropolitan-seed-city-v1",
+  "status": "GENERATED_METROPOLITAN_PILOT",
+  "canonical": false,
+  "v3Applied": false,
+  "simulationRuntimeIntegration": false,
+  "targets": {
+    "districtsMin": 7,
+    "uniqueFamiliesMin": 30,
+    "blockVariantsMin": 80,
+    "buildingInstancesMin": 2500,
+    "streetSegmentsMin": 500,
+    "intersectionsMin": 100,
+    "publicRealmNodesMin": 150,
+    "greenModulesMin": 100,
+    "transitNodesMin": 30,
+    "districtGatewaysMin": 12,
+    "greenOpenSpaceRatioMin": 0.18
+  },
+  "frozenPOBaselines": {
+    "office": {"family":"archive-cbd-twin-atrium-pq-v5","score":82,"grade":"B","status":"PO_REVIEW_CANDIDATE_FROZEN"},
+    "residential": {"family":"residential-courtyard-piloti-pq-v6","score":82,"grade":"B","status":"PO_REVIEW_CANDIDATE_FROZEN"}
+  },
+  "prohibitions": ["canonical-mutation","v3-layout-mutation","runtime-mutation","main-merge","production-manifest-registration"]
+}
