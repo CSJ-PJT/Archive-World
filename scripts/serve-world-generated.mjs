@@ -12,10 +12,10 @@ import { resolve, sep } from 'node:path';
 const args=process.argv.slice(2);
 const option=(name)=>{const index=args.indexOf(name);return index<0?undefined:args[index+1];};
 const outputRoot=resolve(option('--output-root') ?? process.env.ARCHIVE_WORLD_OUTPUT_ROOT ?? 'C:/ArchiveData/World/Generated');
-const viewerRoot=resolve(outputRoot,'v3','viewer');
+const viewerRoot=resolve(option('--viewer-root') ?? resolve(outputRoot,'v3','viewer'));
 const host=option('--host') ?? '127.0.0.1';
 const port=Number(option('--port') ?? 4173);
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.glb':'model/gltf-binary','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.map':'application/json; charset=utf-8'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.glb':'model/gltf-binary','.png':'image/png','.svg':'image/svg+xml','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.map':'application/json; charset=utf-8'};
 const inside=(root,target)=>target===root || target.startsWith(`${root}${sep}`);
 const type=(file)=>mime[file.slice(file.lastIndexOf('.')).toLowerCase()] ?? 'application/octet-stream';
 

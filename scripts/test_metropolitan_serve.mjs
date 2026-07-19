@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+test('generated server accepts explicit viewer root without changing default',()=>{const source=fs.readFileSync(new URL('./serve-world-generated.mjs',import.meta.url),'utf8');assert.match(source,/option\('--viewer-root'\)/);assert.match(source,/resolve\(outputRoot,'v3','viewer'\)/);assert.match(source,/image\/svg\+xml/);assert.match(source,/127\.0\.0\.1/);});
