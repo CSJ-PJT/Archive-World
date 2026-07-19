@@ -1,1 +1,1 @@
-{"name":"archive-gltf-validator-toolchain","private":true,"version":"1.0.0","dependencies":{"gltf-validator":"2.0.0-dev.3.10"}}
+{"name":"archive-gltf-validator-toolchain","private":true,"version":"1.0.0","scripts":{"test":"node ../../scripts/test_gltf_validator.mjs"},"dependencies":{"gltf-validator":"2.0.0-dev.3.10"}}
