@@ -347,6 +347,30 @@ def build_zone():
     for index, (tx, ty) in enumerate(tree_positions):
         add_tree(batch, tx, ty, SEED + 300 + index, .85 + (index % 4) * .08, z_base=2.3)
         tree_records.append({"variant": index % 12, "position": [tx, ty], "role": "entrance-frame" if abs(ty) > 30 else "stream-edge-softening"})
+    # Lower-promenade trees and seating alcoves provide a continuous inhabited
+    # water edge in the eye-level sequence.  They are deliberately paired with
+    # retaining-wall gaps and never randomly scattered through the circulation
+    # strip.
+    near_bank_trees=[(-338,-12.7),(-304,12.6),(-273,-12.8),(-236,12.7),(-201,-12.6),(-166,12.8)]
+    for index,(tx,ty) in enumerate(near_bank_trees):
+        add_tree(batch,tx,ty,SEED+420+index,.64+(index%3)*.06,z_base=.14)
+        tree_records.append({"variant":(index+6)%12,"position":[tx,ty],"role":"lower-promenade-shade"})
+        side=1 if ty>0 else -1
+        batch.add_box("hero-lower-tree-pit","ledger-granite",(tx,ty,.22),(4.6,3.2,.34))
+        batch.add_box("hero-lower-tree-pit-soil","soil-v11",(tx,ty,.42),(3.9,2.5,.14))
+        batch.add_box("hero-lower-seat-edge","timber-accent",(tx+4.1,ty,.58),(3.1,.72,.18))
+        batch.add_box("hero-lower-seat-back","timber-accent",(tx+4.1,ty-side*.30,1.03),(3.1,.14,.86))
+        batch.add_box("hero-lower-edge-light","warm-light",(tx-3.4,side*6.32,.46),(1.7,.10,.13))
+    # Gateway landings contain real threshold architecture and planting rather
+    # than terminating directly in a blank expanse of paving.
+    for bank in (-1,1):
+        for side in (-1,1):
+            px=-250+side*10.8;py=bank*14.0
+            batch.add_box("hero-gateway-landing-planter","archive-warm-stone",(px,py,1.0),(4.2,2.4,1.3))
+            batch.add_box("hero-gateway-landing-soil","soil-v11",(px,py,1.69),(3.7,1.9,.12))
+            for shrub in (-1.1,0,1.1):
+                batch.add_uv_sphere("hero-gateway-landing-shrub","foliage-mid",
+                                    (px+shrub,py,2.18),.58,14,7,(1,.76,.62))
     # Benches, café clusters, bollards and lights create readable activity anchors.
     for cluster_x in (-330, -285, -220, -175):
         for side in (-1, 1):
@@ -378,8 +402,11 @@ def build_zone():
     actions = ("walking", "conversation", "seated", "pavilion", "crossing")
     featured_activity = [
         (-334, -11, "walking"), (-330, -9, "conversation"), (-324, -12, "conversation"),
+        (-304, 11, "seated"), (-299, 10, "walking"), (-278, -11, "conversation"),
+        (-273, -9, "walking"), (-241, 11, "seated"), (-235, 10, "conversation"),
         (-306, -21, "pavilion"), (-300, -18, "pavilion"), (-292, -22, "seated"),
         (-270, 10, "crossing"), (-264, 12, "crossing"), (-238, -10, "walking"),
+        (-205, -11, "walking"), (-199, -10, "conversation"), (-171, 11, "seated"),
         (-226, 18, "seated"), (-214, 17, "conversation"), (-208, 20, "conversation"),
         (-316, -28, "seated"), (-312, -30, "conversation"), (-257, 28, "seated"), (-252, 31, "conversation"),
         (-197, -28, "seated"), (-191, -31, "conversation"), (-183, 28, "seated"), (-177, 30, "conversation"),
