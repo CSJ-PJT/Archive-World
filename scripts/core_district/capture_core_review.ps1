@@ -1,0 +1,5 @@
+param([string]$Url='http://127.0.0.1:4176/?mode=core3d',[string]$Output='C:\ArchiveData\World\Generated\v8\core-district-precision-v1\renders')
+$chrome='C:\Program Files\Google\Chrome\Application\chrome.exe';if(!(Test-Path $chrome)){throw 'Chrome missing'};New-Item -ItemType Directory -Force $Output|Out-Null
+$views=@('aerial','archive-plaza','ledger-boulevard','street','bird','service','transit','retail','skyline','park-edge','landmark','dropoff');$times=@('day','dusk','night')
+for($i=0;$i -lt $views.Count;$i++){foreach($time in $times){$target=Join-Path $Output ("{0:00}-{1}-{2}.png" -f ($i+1),$views[$i],$time);$uri="$Url&camera=$i&time=$time";$args=@('--headless','--disable-gpu-sandbox','--hide-scrollbars','--window-size=1920,1080','--virtual-time-budget=7000',"--screenshot=$target",$uri);Start-Process -FilePath $chrome -ArgumentList $args -WindowStyle Hidden -Wait;if(!(Test-Path $target) -or (Get-Item $target).Length -lt 10000){throw "capture failed $target"}}}
+[pscustomobject]@{status='PASS';count=(Get-ChildItem $Output -Filter *.png).Count}|ConvertTo-Json
