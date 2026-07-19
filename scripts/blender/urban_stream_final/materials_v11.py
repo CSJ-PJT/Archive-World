@@ -58,9 +58,9 @@ def create_materials():
             bsdf.inputs["Transmission Weight"].default_value = 0.28 if "water" in name else 0.18
             bsdf.inputs["IOR"].default_value = 1.333 if "water" in name else 1.47
             material.surface_render_method = "DITHERED"
-        if "light" in name or name == "warm-interior":
+        if name in ("archive-cyan-light", "warm-light", "warm-interior"):
             bsdf.inputs["Emission Color"].default_value = color
-            bsdf.inputs["Emission Strength"].default_value = 5.0 if "light" in name else 1.6
+            bsdf.inputs["Emission Strength"].default_value = 5.0 if name in ("archive-cyan-light", "warm-light") else 1.6
         result[name] = material
     assert len(bpy.data.images) == 0
     assert not any(node.type == "TEX_IMAGE" for material in result.values() for node in material.node_tree.nodes)

@@ -8,4 +8,6 @@ for required in ("wet-stone", "dry-stone", "shallow-water-v11", "warm-interior",
 assert "ShaderNodeTexNoise" in source and "ShaderNodeBump" in source
 assert "TEX_IMAGE" in source and "bpy.data.images" in source
 assert "images.load" not in source and "images.save" not in source
+assert 'name in ("archive-cyan-light", "warm-light", "warm-interior")' in source
+assert 'if "light" in name' not in source
 print("final stream materials: PASS")
