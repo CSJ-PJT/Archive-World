@@ -32,6 +32,8 @@ def setup(size):
     scene=bpy.context.scene; scene.render.engine="BLENDER_EEVEE"; scene.render.resolution_x=size; scene.render.resolution_y=size
     scene.render.resolution_percentage=100; scene.render.image_settings.file_format="PNG"; scene.view_settings.look="AgX - Medium High Contrast"
     scene.render.film_transparent=False
+    if scene.world is None: scene.world=bpy.data.worlds.new("production-review-world")
+    scene.world.use_nodes=True
     camera_data=bpy.data.cameras.new("production-review-camera"); camera=bpy.data.objects.new("production-review-camera",camera_data)
     scene.collection.objects.link(camera); scene.camera=camera; camera.data.lens=52
     wire=bpy.data.materials.new("review-wireframe"); wire.use_nodes=True; nodes=wire.node_tree.nodes; links=wire.node_tree.links
@@ -42,18 +44,33 @@ def setup(size):
     return camera,wire
 
 
+def _review_proxy(name,center,dimensions,material):
+    bpy.ops.mesh.primitive_cube_add(location=center); obj=bpy.context.object; obj.name=name; obj.dimensions=dimensions
+    bpy.ops.object.transform_apply(location=False,rotation=False,scale=True); obj.data.materials.append(material); obj["reviewOnly"]=True
+    return obj
+
+
 def render_views(output,objects,bounds,size=1920):
     output=Path(output); output.mkdir(parents=True,exist_ok=True); scene=bpy.context.scene; camera,wire=setup(size)
     dimensions=bounds["dimensions"]; center=[(bounds["min"][i]+bounds["max"][i])/2 for i in range(3)]
     radius=max(dimensions[0],dimensions[1],dimensions[2]); results=[]
+    proxy_material=bpy.data.materials.new("review-scale-proxy"); proxy_material.diffuse_color=(.8,.18,.06,1)
+    _review_proxy("review-human-1.75m",(center[0]-3,bounds["min"][1]+10,.875),(.5,.4,1.75),proxy_material)
+    _review_proxy("review-sedan-4.5m",(center[0]+4,bounds["min"][1]+10,.75),(4.5,1.8,1.5),proxy_material)
     original_override=scene.view_layers[0].material_override
     for name,position,target_offset,lighting in VIEWS:
         for obj in list(bpy.data.objects):
             if obj.type=="LIGHT": bpy.data.objects.remove(obj,do_unlink=True)
         target=(center[0]+target_offset[0]*dimensions[0],center[1]+target_offset[1]*dimensions[1],bounds["min"][2]+target_offset[2]*dimensions[2])
         camera.location=(center[0]+position[0]*radius,center[1]+position[1]*radius,bounds["min"][2]+position[2]*radius); _look(camera,target)
-        if lighting=="dusk": scene.world.color=(.055,.08,.13); scene.view_settings.exposure=.55; energy=(1300,700,900)
-        else: scene.world.color=(.55,.62,.7) if lighting=="day" else (.42,.45,.48); scene.view_settings.exposure=.7; energy=(2600,1300,1500)
+        background=scene.world.node_tree.nodes.get("Background")
+        if lighting=="dusk":
+            scene.world.color=(.055,.08,.13); background.inputs["Color"].default_value=(.055,.08,.13,1); background.inputs["Strength"].default_value=.35
+            scene.view_settings.exposure=.75; energy=(2200,1200,1600)
+        else:
+            color=(.72,.78,.84,1) if lighting=="day" else (.62,.65,.68,1)
+            scene.world.color=color[:3]; background.inputs["Color"].default_value=color; background.inputs["Strength"].default_value=.8
+            scene.view_settings.exposure=.65; energy=(5200,2800,3200)
         _area("key",(center[0]+radius*.6,center[1]-radius*.7,bounds["max"][2]+radius*.45),energy[0],radius*.28,target)
         _area("fill",(center[0]-radius*.65,center[1]-radius*.2,bounds["max"][2]*.65),energy[1],radius*.3,target)
         _area("rim",(center[0],center[1]+radius*.65,bounds["max"][2]),energy[2],radius*.22,target)

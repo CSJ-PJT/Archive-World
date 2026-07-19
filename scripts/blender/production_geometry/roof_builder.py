@@ -32,7 +32,8 @@ def office_roofs(batch, towers, lod):
             batch.add_box("office-hvac-unit","painted-steel",(x-w*.25+unit*w*.2,y+d*.25,top+.9),(w*.13,d*.18,1.8)); equipment+=1
         if detail>=2:
             batch.add_box("office-maintenance-walkway","sidewalk-concrete",(x,y-d*.3,top+.14),(w*.7,1.0,.28)); equipment+=1
+        # The communications silhouette is retained in every LOD; only radial detail changes.
+        batch.add_cylinder("office-communications-proxy","aluminum",(x,y,top+crown_h+3),.18,6,10 if detail==3 else 8 if detail==2 else 6); equipment+=1
         if detail==3:
-            batch.add_cylinder("office-communications-proxy","aluminum",(x,y,top+crown_h+3),.18,6,10); equipment+=1
             batch.add_box("office-hvac-screen","dark-metal-panel",(x-w*.28,y+d*.2,top+1.4),(w*.22,d*.25,2.8)); equipment+=1
     return {"equipmentCount":equipment,"parapetEdges":len(towers)*4,"crownVariants":len(towers)}

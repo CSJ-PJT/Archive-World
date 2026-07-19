@@ -20,10 +20,18 @@ def residential_entrance(batch, lod):
     batch.add_box("res-parking-header","dark-stone",(17,-14.0,2.2),(8.0,.5,1.2))
     batch.add_box("res-service-entry","dark-metal-panel",(-19,6,1.3),(.3,3.0,2.6))
     batch.add_box("res-fire-entry","painted-steel",(-8,12.2,1.25),(2.2,.25,2.5))
+    # Community pavilion and courtyard pergola make the active base legible as a residential complex.
+    batch.add_box("res-community-pavilion","precast-concrete",(-25,5,2.4),(10,8,4.8))
+    batch.add_box("res-community-glazing","residential-glass",(-25,.85,2.3),(7,.25,3.8))
+    batch.add_box("res-community-canopy","light-metal-panel",(-25,-1.1,4.6),(9,4,.28))
+    if detail>=2:
+        for x in (-12,-8,-4,4,8,12):
+            batch.add_cylinder("res-courtyard-pergola-column","precast-concrete",(x,13,1.5),.18,3,8)
+        batch.add_box("res-courtyard-pergola","wood-accent",(0,13,3.2),(28,3,.24))
     if detail>=2:
         for x in (-4,-2,2,4): batch.add_box("res-lobby-mullion","aluminum",(x,-12.75,2.7),(.12,.22,4.5))
     return {"entranceCount":4,"pilotiColumns":7,"parkingRampWidth":7.2,"canopyThickness":.34,
-            "humanScaleFeatures":12 if detail==3 else 8,"podiumArticulation":9}
+            "humanScaleFeatures":16 if detail==3 else 11,"podiumArticulation":11}
 
 
 def office_entrance(batch, lod):
@@ -43,6 +51,10 @@ def office_entrance(batch, lod):
     batch.add_box("office-parking-wall","granite",(24.2,-3,.8),(.4,20,2.8))
     batch.add_box("office-loading-bay","dark-metal-panel",(-27,9,2.2),(.45,7,4.4))
     batch.add_box("office-service-door","painted-steel",(-20,18.2,1.6),(3.2,.3,3.2))
+    batch.add_box("office-loading-canopy","dark-metal-panel",(-22,16.5,4.8),(11,5,.35))
+    if detail>=2:
+        for x in (-7,-3.5,0,3.5,7): batch.add_box("office-atrium-mullion","aluminum",(x,-16.62,7),(.16,.18,11.5))
+        for z in (3.5,7,10.5): batch.add_box("office-atrium-transom","aluminum",(0,-16.63,z),(17,.18,.16))
     for x in range(-12,13,3): batch.add_cylinder("office-security-bollard","dark-metal-panel",(x,-26,.65),.16,1.3,8)
     return {"entranceCount":5,"storefrontBays":10,"canopyColumns":4,"parkingRampWidth":8.0,
-            "humanScaleFeatures":14 if detail==3 else 9,"podiumArticulation":11}
+            "humanScaleFeatures":18 if detail==3 else 12,"podiumArticulation":13}
