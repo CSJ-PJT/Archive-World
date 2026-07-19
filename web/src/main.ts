@@ -5,11 +5,15 @@ const generatedMode=import.meta.env.VITE_ARCHIVE_WORLD_RUNTIME_MODE==='generated
 const planningMode=new URLSearchParams(window.location.search).get('mode')==='planning';
 const metropolitanMode=new URLSearchParams(window.location.search).get('mode')==='metropolitan';
 const coreDistrictMode=new URLSearchParams(window.location.search).get('mode')==='core3d';
+const coreStreamMode=new URLSearchParams(window.location.search).get('mode')==='corestream';
 const generatedBase=(import.meta.env.VITE_ARCHIVE_WORLD_GENERATED_BASE_URL ?? '').replace(/\/$/,'');
 const runtimeBase=generatedMode?generatedBase:(import.meta.env.VITE_ARCHIVE_WORLD_ASSET_BASE_URL ?? '').replace(/\/$/,'');
 const modeLabel=generatedMode?'GENERATED MODE':'SOURCE MODE';
 const app=document.querySelector<HTMLDivElement>('#app')!;
-if(coreDistrictMode){
+if(coreStreamMode){
+  const streamBase=(import.meta.env.VITE_ARCHIVE_WORLD_CORE_STREAM_BASE_URL ?? '').replace(/\/$/,'');
+  if(!streamBase){app.innerHTML='<main class="planning-error">CORE_DISTRICT_STREAM_REVIEW requires VITE_ARCHIVE_WORLD_CORE_STREAM_BASE_URL.</main>';}else{void import('./core-district-review').then(({createCoreDistrictReview})=>createCoreDistrictReview(app,streamBase,'core-district-stream-3d.json'));}
+}else if(coreDistrictMode){
   const coreBase=(import.meta.env.VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL ?? '').replace(/\/$/,'');
   if(!coreBase){app.innerHTML='<main class="planning-error">CORE_DISTRICT_3D_REVIEW requires <code>VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL</code>.</main>';}else{void import('./core-district-review').then(({createCoreDistrictReview})=>createCoreDistrictReview(app,coreBase));}
 }else if(metropolitanMode){
