@@ -6,6 +6,8 @@ import bpy
 HERE=Path(__file__).resolve().parent;PROD=HERE.parent/'production_geometry';sys.path[:0]=[str(PROD),str(HERE.parent)]
 from geometry_core import MeshBatch,validate_geometry
 from material_library import create_material_library
+from family_palette import apply_palette
+from batch_consolidation import consolidate
 
 SPECS=(
  ('premium-medium-office','tower',28,34,24,5,1),('compact-financial-office','compact',18,24,20,3,2),
@@ -51,7 +53,8 @@ def build_family(spec,lod,materials):
  for i in range(2 if lod=='LOD2' else 5): b.add_box('hvac','painted-steel',(-w*.2+i*3,0,podium*4+floors*fh+5),(2,3,1.6))
  # Ground interface.
  b.add_box('sidewalk','sidewalk-concrete',(0,-d/2-8,.12),(w+18,14,.24));b.add_box('service-apron','asphalt',(0,d/2+7,.1),(w+14,12,.2))
- objects=b.finalize();return objects,b.statistics(),validate_geometry(objects)
+ b.add_box('blank-signage-panel','light-metal-panel',(0,-d/2-9.25,3.7),(w*.20,.18,1.3));b.add_box('accessible-ramp','granite',(-w*.24,-d/2-8,.35),(w*.22,5,.7));b.add_box('corner-emphasis','limestone',(-w/2-.35,-d/2-.35,podium*4+floors*fh*.45),(.7,.7,floors*fh*.72))
+ consolidation=consolidate(b);objects=b.finalize();stats=b.statistics();stats['consolidation']=consolidation;return objects,stats,validate_geometry(objects)
 
 def main():
  args=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--output-root',required=True);a=p.parse_args(args)
@@ -59,11 +62,11 @@ def main():
  for spec in SPECS:
   family=spec[0]
   for lod in ('LOD0','LOD1','LOD2'):
-   bpy.ops.wm.read_factory_settings(use_empty=True);materials,_=create_material_library();objects,stats,validation=build_family(spec,lod,materials)
+   bpy.ops.wm.read_factory_settings(use_empty=True);materials,_=create_material_library();palette=apply_palette(materials,spec[-1]);objects,stats,validation=build_family(spec,lod,materials)
    for o in objects:o['familyId']=family;o['lod']=lod;o['actualGLB']=True;o['canonical']=False;o['generationSeed']=8102026+spec[-1]
    path=out/'families'/family/lod;path.mkdir(parents=True,exist_ok=True);glb=path/f'{family}-{lod.lower()}.glb'
    bpy.ops.export_scene.gltf(filepath=str(glb),export_format='GLB',export_yup=True,export_normals=True,export_texcoords=False,export_materials='EXPORT',export_apply=True)
-   report={'family':family,'lod':lod,'glb':str(glb),'bytes':glb.stat().st_size,'geometry':stats,'validation':validation,'frontSideRearRoof':True,'mainEntrance':True,'serviceEntrance':True,'groundContact':True,'proceduralOnly':True,'visualStatus':'PENDING_RENDER_REVIEW'}
+   report={'family':family,'lod':lod,'glb':str(glb),'bytes':glb.stat().st_size,'geometry':stats,'validation':validation,'palette':palette,'frontSideRearRoof':True,'mainEntrance':True,'serviceEntrance':True,'activeGroundFloor':True,'groundContact':True,'proceduralOnly':True,'visualStatus':'PENDING_RENDER_REVIEW'}
    (path/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8');reports.append(report)
  (out/'reports').mkdir(parents=True,exist_ok=True);(out/'reports'/'support-families.json').write_text(json.dumps({'actualFamilies':len(SPECS),'lodGlbs':len(reports),'reports':reports},indent=2),encoding='utf-8')
  print(json.dumps({'status':'PASS','families':len(SPECS),'lodGlbs':len(reports),'output':str(out)}))
