@@ -7,11 +7,15 @@ const metropolitanMode=new URLSearchParams(window.location.search).get('mode')==
 const coreDistrictMode=new URLSearchParams(window.location.search).get('mode')==='core3d';
 const coreStreamMode=new URLSearchParams(window.location.search).get('mode')==='corestream';
 const coreStreamFinalMode=new URLSearchParams(window.location.search).get('mode')==='corestreamfinal';
+const corePrecisionMode=new URLSearchParams(window.location.search).get('mode')==='coreprecision';
 const generatedBase=(import.meta.env.VITE_ARCHIVE_WORLD_GENERATED_BASE_URL ?? '').replace(/\/$/,'');
 const runtimeBase=generatedMode?generatedBase:(import.meta.env.VITE_ARCHIVE_WORLD_ASSET_BASE_URL ?? '').replace(/\/$/,'');
 const modeLabel=generatedMode?'GENERATED MODE':'SOURCE MODE';
 const app=document.querySelector<HTMLDivElement>('#app')!;
-if(coreStreamFinalMode){
+if(corePrecisionMode){
+  const precisionBase=(import.meta.env.VITE_ARCHIVE_WORLD_CORE_PRECISION_BASE_URL ?? '').replace(/\/$/,'');
+  if(!precisionBase){app.innerHTML='<main class="planning-error">CORE_STREAM_PRECISION_REVIEW requires VITE_ARCHIVE_WORLD_CORE_PRECISION_BASE_URL.</main>';}else{void import('./core-district-review').then(({createCoreDistrictReview})=>createCoreDistrictReview(app,precisionBase,'core-district-stream-precision.json'));}
+}else if(coreStreamFinalMode){
   const streamBase=(import.meta.env.VITE_ARCHIVE_WORLD_CORE_STREAM_FINAL_BASE_URL ?? '').replace(/\/$/,'');
   if(!streamBase){app.innerHTML='<main class="planning-error">CORE_STREAM_FINAL_REVIEW requires VITE_ARCHIVE_WORLD_CORE_STREAM_FINAL_BASE_URL.</main>';}else{void import('./core-district-review').then(({createCoreDistrictReview})=>createCoreDistrictReview(app,streamBase,'core-district-stream-final.json'));}
 }else if(coreStreamMode){
