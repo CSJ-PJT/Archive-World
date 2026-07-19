@@ -33,13 +33,18 @@ def build(batch):
  for i,x in enumerate(range(-550,551,55)):
   for y in (-385,-175,35,245,455):
    if (i+int(y))%3==0:continue
-   h=6+(i%5)*.8;batch.add_cylinder('tree-trunk','wood-accent',(x,y,h*.35),.25+(i%3)*.04,h*.7,8);batch.add_cylinder('tree-crown','soil',(x,y,h),2.2+(i%4)*.35,h*.65,10)
+   h=6+(i%5)*.8;batch.add_cylinder('tree-trunk','wood-accent',(x,y,h*.35),.20+(i%3)*.04,h*.7,8);batch.add_cylinder('tree-upper-trunk','wood-accent',(x,y,h*.72),.13+(i%2)*.03,h*.42,8)
+   for lobe in range(3+(i%3)):batch.add_cylinder('tree-crown-lobe','soil',(x+(lobe%2-.5)*1.5,y+((lobe//2)-.5)*1.2,h+(lobe%2)*.7),1.25+(i+lobe)%3*.28,h*.42,8+(i%3)*2)
  for i in range(42):
   x=-520+(i%14)*80;y=-150+(i//14)*150
   batch.add_box('bench','wood-accent',(x,y,.55),(2.4,.65,.45));batch.add_box('planter','granite',(x+4,y,.55),(3,2,1.1))
  for i in range(80):
   x=-560+(i%20)*58;y=-450+(i//20)*300;batch.add_cylinder('streetlight','painted-steel',(x,y,3.8),.11,7.6,8);batch.add_box('light-head','light-metal-panel',(x,y-0.4,7.5),(.3,1,.25))
  for i in range(60):batch.add_cylinder('bollard','dark-metal-panel',(-240+(i%20)*24,70+(i//20)*65,.45),.11,.9,8)
+ for i in range(18):
+  x=-220+(i%6)*82;y=78+(i//6)*58;batch.add_box('bicycle-rack','painted-steel',(x,y,.55),(1.8,.18,1.1));batch.add_box('grouped-seating','wood-accent',(x+5,y,.55),(3.2,1.1,.5))
+ for x,y in ((-195,165),(215,150),(-40,-190)):
+  batch.add_box('wayfinding-blank','light-metal-panel',(x,y,1.6),(1.2,.35,3.2));batch.add_box('kiosk-proxy','curtain-wall-glass',(x+8,y,2.4),(5,4,4.8))
  # Low/mid-detail vehicles and humans are actual geometry, status remains proxy.
  for i in range(45):
   x=-520+(i%15)*72;y=(-420,-210,210)[i%3];batch.add_box('vehicle-body','dark-metal-panel',(x,y,1),(4.5,1.9,1.3));batch.add_box('vehicle-cabin','residential-glass',(x+.2,y,1.8),(2.4,1.7,.8))
