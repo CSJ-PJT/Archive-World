@@ -279,18 +279,29 @@ def build_zone():
             for seat_x in (-8.0,0.0,8.0):
                 batch.add_box("hero-stepped-timber-seat", "timber-accent",
                               (terrace_x+seat_x,side*17.8,1.72),(4.3,.68,.16))
-    # Gateway bridge, pavilion and event terrace.
+    # Gateway bridge, pavilion and event terrace.  The failed bridge read as a
+    # pair of oversized rectangular portals.  V27 keeps civic identity at the
+    # approaches, but the deck, pylons and diagonal members now form a credible
+    # low pedestrian bridge that preserves the stream view corridor.
     batch.add_box("hero-gateway-bridge-deck", "archive-warm-stone", (-250, 0, 2.65), (16, 36, .75))
     for side in (-1, 1):
-        frame_x = -250 + side * 6.5
+        edge_x = -250 + side * 7.1
         for bank in (-1, 1):
-            batch.add_box("hero-gateway-frame-column", "archive-metal", (frame_x, bank * 14.4, 7.0), (.72, .72, 8.7))
-            batch.add_box("hero-gateway-light-line", "archive-cyan-light", (frame_x - side * .39, bank * 14.4, 7.2), (.10, .18, 6.0))
-        batch.add_box("hero-gateway-frame-beam", "archive-metal", (frame_x, 0, 11.15), (.72, 29.5, .65))
-        batch.add_box("hero-gateway-light-line", "archive-cyan-light", (frame_x - side * .39, 0, 10.78), (.10, 27.5, .10))
+            pylon_y = bank * 12.0
+            batch.add_box("hero-gateway-approach-pylon", "archive-metal",
+                          (edge_x, pylon_y, 5.7), (.62, .86, 5.8))
+            batch.add_box("hero-gateway-pylon-light", "archive-cyan-light",
+                          (edge_x-side*.33, pylon_y-bank*.18, 5.65), (.08, .18, 3.9))
+            batch.add_tapered_branch("hero-gateway-diagonal-brace", "archive-metal",
+                                     (edge_x, pylon_y, 8.45),
+                                     (edge_x, bank*3.2, 3.25), .20, .12, 12)
+        batch.add_box("hero-gateway-deck-edge", "service-charcoal",
+                      (edge_x, 0, 3.08), (.28, 33.0, .34))
         for post in range(-5, 6):
-            batch.add_cylinder("hero-bridge-railing-post", "archive-metal", (-250 + side * 7.1, post * 2.7, 4.0), .07, 2.0, 8)
-        batch.add_box("hero-bridge-handrail", "archive-metal", (-250 + side * 7.1, 0, 4.95), (.15, 31, .15))
+            batch.add_cylinder("hero-bridge-railing-post", "archive-metal", (edge_x, post * 2.7, 4.0), .07, 2.0, 8)
+        batch.add_box("hero-bridge-handrail", "archive-metal", (edge_x, 0, 4.95), (.15, 31, .15))
+        batch.add_box("hero-bridge-handrail-light", "warm-light",
+                      (edge_x-side*.09, 0, 4.80), (.06, 30.0, .08))
     batch.add_box("hero-water-pavilion-floor", "dry-stone", (-300, -24, 2.45), (24, 18, .45))
     batch.add_box("hero-water-pavilion-roof", "archive-metal", (-300, -24, 8.4), (27, 21, .45))
     for px in (-310, -302, -294):
@@ -330,6 +341,8 @@ def build_zone():
         (-340, 40), (-318, 43), (-286, 40), (-220, 42), (-188, 44), (-164, 40),
         (-340, -42), (-315, -46), (-285, -42), (-225, -45), (-195, -42), (-165, -44),
         (-350, 48), (-300, 49), (-240, 48), (-175, 49), (-350, -50), (-295, -50), (-235, -49), (-170, -50),
+        (-332, 31), (-305, 33), (-272, 31), (-238, 33), (-204, 31), (-176, 33),
+        (-332, -31), (-305, -33), (-272, -31), (-238, -33), (-204, -31), (-176, -33),
     ]
     for index, (tx, ty) in enumerate(tree_positions):
         add_tree(batch, tx, ty, SEED + 300 + index, .85 + (index % 4) * .08, z_base=2.3)
@@ -347,6 +360,15 @@ def build_zone():
             batch.add_box("hero-terrace-planter-soil", "soil-v11", (cluster_x - 5.2, side * 34.0, 3.42), (3.8, 1.45, .18))
             for shrub in (-1.15, 0, 1.15):
                 batch.add_uv_sphere("hero-planter-shrub", "foliage-mid", (cluster_x - 5.2 + shrub, side * 34.0, 4.05), .72, 14, 7, (1.0, .72, .62))
+    # Occupied cafe terraces give the civic banks a legible everyday use.
+    for cafe_x,cafe_side in ((-315,-1),(-255,1),(-195,-1),(-180,1)):
+        cafe_y=cafe_side*29.0
+        batch.add_cylinder("hero-cafe-umbrella-pole","ledger-bronze",(cafe_x,cafe_y,4.25),.09,3.7,10)
+        batch.add_frustum("hero-cafe-umbrella-canopy","archive-warm-stone",(cafe_x,cafe_y,6.0),2.25,.35,.65,18)
+        batch.add_cylinder("hero-cafe-terrace-table","ledger-bronze",(cafe_x,cafe_y,3.03),.72,.14,18)
+        for angle in (0,math.pi*.5,math.pi,math.pi*1.5):
+            batch.add_box("hero-cafe-terrace-chair","timber-accent",
+                          (cafe_x+math.cos(angle)*1.25,cafe_y+math.sin(angle)*1.25,2.72),(.48,.48,.62),angle)
     for light_x in range(-350, -149, 20):
         for side in (-1, 1):
             batch.add_cylinder("hero-pedestrian-light-pole", "archive-metal", (light_x, side * 18.5, 2.2), .10, 4.4, 10)
@@ -359,6 +381,8 @@ def build_zone():
         (-306, -21, "pavilion"), (-300, -18, "pavilion"), (-292, -22, "seated"),
         (-270, 10, "crossing"), (-264, 12, "crossing"), (-238, -10, "walking"),
         (-226, 18, "seated"), (-214, 17, "conversation"), (-208, 20, "conversation"),
+        (-316, -28, "seated"), (-312, -30, "conversation"), (-257, 28, "seated"), (-252, 31, "conversation"),
+        (-197, -28, "seated"), (-191, -31, "conversation"), (-183, 28, "seated"), (-177, 30, "conversation"),
     ]
     for index, (x, y, action) in enumerate(featured_activity):
         activity.append(add_human(batch, x, y, 0, SEED + 550 + index, action, z_base=2.3 if abs(y)>15 else 0.0))
@@ -378,6 +402,13 @@ def build_zone():
     consolidation = consolidate(batch)
     objects = batch.finalize()
     for obj in objects:
+        # Near-camera foliage and water are intentionally smooth shaded.  The
+        # prior flat primitive normals made otherwise multi-lobed trees read as
+        # faceted symbols at street level.
+        lowered=obj.name.lower()
+        if any(token in lowered for token in ("foliage-", "shallow-water")):
+            for polygon in obj.data.polygons:
+                polygon.use_smooth=True
         obj["heroZone"] = "archive-water-plaza"
         obj["canonical"] = False
         obj["v3Applied"] = False
