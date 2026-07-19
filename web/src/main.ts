@@ -4,11 +4,15 @@ import type { District } from './types';
 const generatedMode=import.meta.env.VITE_ARCHIVE_WORLD_RUNTIME_MODE==='generated';
 const planningMode=new URLSearchParams(window.location.search).get('mode')==='planning';
 const metropolitanMode=new URLSearchParams(window.location.search).get('mode')==='metropolitan';
+const coreDistrictMode=new URLSearchParams(window.location.search).get('mode')==='core3d';
 const generatedBase=(import.meta.env.VITE_ARCHIVE_WORLD_GENERATED_BASE_URL ?? '').replace(/\/$/,'');
 const runtimeBase=generatedMode?generatedBase:(import.meta.env.VITE_ARCHIVE_WORLD_ASSET_BASE_URL ?? '').replace(/\/$/,'');
 const modeLabel=generatedMode?'GENERATED MODE':'SOURCE MODE';
 const app=document.querySelector<HTMLDivElement>('#app')!;
-if(metropolitanMode){
+if(coreDistrictMode){
+  const coreBase=(import.meta.env.VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL ?? '').replace(/\/$/,'');
+  if(!coreBase){app.innerHTML='<main class="planning-error">CORE_DISTRICT_3D_REVIEW requires <code>VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL</code>.</main>';}else{void import('./core-district-review').then(({createCoreDistrictReview})=>createCoreDistrictReview(app,coreBase));}
+}else if(metropolitanMode){
   const metropolitanBase=(import.meta.env.VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL ?? '').replace(/\/$/,'');
   if(!metropolitanBase){app.innerHTML='<main class="planning-error">METROPOLITAN_REVIEW requires <code>VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL</code>. Generated output only.</main>';}else{void import('./metropolitan-review').then(({createMetropolitanReview})=>createMetropolitanReview(app,metropolitanBase));}
 }else if(planningMode){

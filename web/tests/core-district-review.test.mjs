@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+test('core district mode is actual WebGL GLTF review',()=>{const main=fs.readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');const view=fs.readFileSync(new URL('../src/core-district-review.ts',import.meta.url),'utf8');assert.match(main,/mode'\)==='core3d'/);assert.match(view,/new THREE\.WebGLRenderer/);assert.match(view,/GLTFLoader/);assert.match(view,/loadAsync/);assert.match(view,/renderer\.info\.render/);assert.match(view,/NOT CANONICAL/);});
