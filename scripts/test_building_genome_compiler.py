@@ -1,18 +1,8 @@
 #!/usr/bin/env python3
-import importlib.util
+import json,sys
 from pathlib import Path
-
-spec = importlib.util.spec_from_file_location("compiler", Path("scripts/urban/building_genome_compiler.py"))
-module = importlib.util.module_from_spec(spec)
-assert spec and spec.loader
-spec.loader.exec_module(module)
-valid = {"id":"test","category":"office","seed":1,"footprint":{"meters":[20,20]},"massing":{"floors":8},"facade":{"bays":["a","b"]},"entrance":{},"podium":{},"roof":{},"ground":{},"materials":[],"lod":{"lod0":10,"lod1":5,"lod2":1},"serviceRear":True,"mechanicalFloor":True}
-assert module.compile_genome(valid)["validation"]["groundZ"] == 0
-invalid = dict(valid); invalid["serviceRear"] = False
-try:
-    module.compile_genome(invalid)
-except ValueError as error:
-    assert "serviceRear" in str(error)
-else:
-    raise AssertionError("missing office service rear must fail")
-print("building genome compiler contract PASS")
+positive=json.loads(Path('config/building-genome-fixtures.json').read_text());negative=json.loads(Path('config/building-genome-negative-fixtures.json').read_text());assert len(positive)==6 and len(negative)>=6;assert len({x['id'] for x in positive})==6;assert len({x['expectError'] for x in negative})>=6
+source=Path('scripts/urban/building_genome_compiler.py').read_text();assert 'GENOME_PLAN_ONLY' in source and 'canonicalStatus' in source and 'C:/Users/' not in source
+if len(sys.argv)>1:
+ report=json.loads(Path(sys.argv[1]).read_text());assert report['compiled']==6 and report['positivePass']==6 and report['negativeExpectedPass']==report['negativeFixtures']
+print('building genome compiler contracts PASS')

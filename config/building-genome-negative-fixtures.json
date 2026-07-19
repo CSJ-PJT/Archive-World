@@ -1,0 +1,11 @@
+[
+  {"id":"neg-no-entrance","base":"office-tower-v1","path":"entrance.module","value":"","expectError":"ENTRANCE_MISSING"},
+  {"id":"neg-no-service","base":"office-tower-v1","path":"serviceRear","value":false,"expectError":"SERVICE_ACCESS_MISSING"},
+  {"id":"neg-empty-roof","base":"residential-slab-v1","path":"roof.module","value":"","expectError":"ROOF_EMPTY"},
+  {"id":"neg-no-rear","base":"residential-point-v1","path":"sideRearComplete","value":false,"expectError":"SIDE_REAR_FACADE_MISSING"},
+  {"id":"neg-ground","base":"office-annex-v1","path":"groundZ","value":1.5,"expectError":"GROUND_CONTACT_FAILED"},
+  {"id":"neg-repetition","base":"residential-midrise-v1","path":"facadeRepeatRatio","value":0.8,"expectError":"FACADE_REPETITION_EXCEEDED"},
+  {"id":"neg-collision","base":"office-podium-v1","path":"moduleCollisions","value":2,"expectError":"MODULE_COLLISION"},
+  {"id":"neg-dimension","base":"office-tower-v1","path":"massing.floors","value":120,"expectError":"DIMENSION_OUT_OF_RANGE"},
+  {"id":"neg-material","base":"residential-slab-v1","path":"materials","value":["unknown-slot"],"expectError":"MATERIAL_SLOT_INVALID"}
+]
