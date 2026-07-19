@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "family": "residential-courtyard-piloti-pq-v6",
+  "officeBaseline": {
+    "family": "archive-cbd-twin-atrium-pq-v5",
+    "score": 82,
+    "grade": "B",
+    "status": "PO_REVIEW_CANDIDATE",
+    "frozen": true,
+    "canonical": false,
+    "cityApplied": false
+  },
+  "before": {
+    "family": "residential-courtyard-piloti-pq-v5",
+    "score": 76,
+    "grade": "C",
+    "facadeRepetitionRatio": 0.1334,
+    "issues": {
+      "massingSilhouette": "three masses read as closely related extrusions",
+      "facadeDepth": "limited depth families and repeated full-height grid",
+      "balconyVariation": "one dominant projected-balcony rhythm",
+      "cornerTreatment": "corner differentiation is not legible in four review angles",
+      "lowRiseLife": "podium frontage and courtyard uses are under-articulated",
+      "entranceHierarchy": "main, secondary, community and service entries lack sufficient hierarchy",
+      "groundPublicRealm": "large undifferentiated site surface and repeated tree proxies",
+      "materialDepth": "procedural palette reads too uniformly at district distance",
+      "sideRearCompleteness": "technically complete but visually subordinate",
+      "roofSkyline": "roof equipment exists but crowns remain too similar"
+    }
+  },
+  "targets": {
+    "minimumScore": 82,
+    "facadeRepetitionRatioMax": 0.09,
+    "facadeBayFamiliesMin": 7,
+    "balconyFamiliesMin": 4,
+    "cornerFamiliesMin": 3,
+    "sidePatternsMin": 2,
+    "rearPatternsMin": 2,
+    "verticalZonesMin": 4,
+    "horizontalBandsMin": 3,
+    "entranceHierarchyCountMin": 5,
+    "pavingZonesMin": 4,
+    "humanScaleProxyMin": 20,
+    "triangleRange": {
+      "LOD0": [120000, 180000],
+      "LOD1": [40000, 85000],
+      "LOD2": [15000, 35000]
+    },
+    "reviewViewsMin": 20,
+    "streetLevelViewsMin": 8,
+    "resolutionMin": [1920, 1920]
+  },
+  "plannedScoreGain": {
+    "massingSilhouette": 2,
+    "facadeGeometry": 2,
+    "entrancePodiumGround": 2,
+    "roofMechanical": 1,
+    "materialPBR": 1
+  },
+  "prohibitions": [
+    "office-v5-modification",
+    "canonical-registration",
+    "city-layout-application",
+    "runtime-change",
+    "main-merge",
+    "camera-only-score-increase",
+    "color-only-score-increase"
+  ]
+}
