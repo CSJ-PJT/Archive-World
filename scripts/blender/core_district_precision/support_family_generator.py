@@ -45,7 +45,7 @@ def build_family(spec,lod,materials):
  else:b.add_box('tower','curtain-wall-glass',(0,0,podium*4+floors*fh/2),(w,d,floors*fh))
  add_facades(b,w,d,floors,fh,lod,seed)
  # Human-scale entrance, loading/service rear and roof equipment.
- b.add_box('main-lobby','entrance-glazing',(0,-d/2-5,3.2),(w*.36,7,6.4));b.add_box('entrance-canopy','light-metal-panel',(0,-d/2-9,6.2),(w*.42,8,.45))
+ b.add_box('main-lobby','curtain-wall-glass',(0,-d/2-5,3.2),(w*.36,7,6.4));b.add_box('entrance-canopy','light-metal-panel',(0,-d/2-9,6.2),(w*.42,8,.45))
  b.add_box('service-entry','dark-metal-panel',(w*.24,d/2+5,2.2),(7,6,4.4));b.add_box('loading-canopy','painted-steel',(w*.24,d/2+8,4.7),(9,5,.4))
  b.add_box('parapet','limestone',(0,0,podium*4+floors*fh+1),(w*.78,d*.78,2));b.add_box('machine-room','dark-metal-panel',(w*.12,0,podium*4+floors*fh+3),(w*.28,d*.34,4))
  for i in range(2 if lod=='LOD2' else 5): b.add_box('hvac','painted-steel',(-w*.2+i*3,0,podium*4+floors*fh+5),(2,3,1.6))
