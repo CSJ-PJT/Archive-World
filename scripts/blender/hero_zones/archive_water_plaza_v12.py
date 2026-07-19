@@ -231,16 +231,30 @@ def add_human(batch, x, y, facing, seed, action, z_base=0.0):
     rng = random.Random(seed)
     palette = ("archive-metal", "ledger-bronze", "archive-warm-stone", "service-charcoal")
     clothing = palette[seed % len(palette)]
-    batch.add_frustum("hero-human-tailored-torso",clothing,(x,y,z_base+1.19),.16,.24,.70,12)
-    batch.add_box("hero-human-shoulder-line",clothing,(x,y,z_base+1.48),(.54,.20,.14))
-    batch.add_cylinder("hero-human-neck","archive-warm-stone",(x,y,z_base+1.57),.075,.16,10)
-    batch.add_uv_sphere("hero-human-head", "archive-warm-stone", (x, y, z_base+1.75), .155, 14, 7, (1, .94, 1.10))
-    stride = .18 if action in ("walking", "crossing") else .08
+    body_scale=.94+(seed%5)*.025
+    height=1.66+(seed%7)*.025
+    shoulder_z=z_base+height*.80
+    hip_z=z_base+height*.48
+    head_z=z_base+height*.94
+    batch.add_frustum("hero-human-tailored-torso",clothing,(x,y,(shoulder_z+hip_z)*.5),.15*body_scale,.225*body_scale,shoulder_z-hip_z,12)
+    batch.add_box("hero-human-shoulder-line",clothing,(x,y,shoulder_z),(.46*body_scale,.18,.12))
+    batch.add_cylinder("hero-human-neck","archive-warm-stone",(x,y,head_z-.13),.062,.13,10)
+    batch.add_uv_sphere("hero-human-head", "archive-warm-stone", (x, y, head_z), .125*body_scale, 16, 8, (1, .92, 1.08))
+    hair_offset=(-.015 if seed%2 else .015)
+    batch.add_uv_sphere("hero-human-hair","service-charcoal",(x,y+hair_offset,head_z+.055),.108*body_scale,14,7,(1,.94,.72))
+    stride = .20 if action in ("walking", "crossing") else .04
+    forward=(math.sin(facing),math.cos(facing));right=(math.cos(facing),-math.sin(facing))
     for side in (-1, 1):
-        batch.add_frustum("hero-human-leg", "service-charcoal", (x + side * .09, y + side * stride, z_base+.47), .055,.075,.88,8)
-        batch.add_frustum("hero-human-arm", clothing, (x + side * .29, y - side * stride, z_base+1.18), .045,.06,.66,8)
-        batch.add_uv_sphere("hero-human-hand","archive-warm-stone",(x+side*.29,y-side*stride,z_base+.83),.065,8,4,(1,.82,1.12))
-        batch.add_box("hero-human-shoe","service-charcoal",(x+side*.09,y+side*(stride+.055),z_base+.055),(.14,.26,.11))
+        hip=(x+right[0]*side*.09,y+right[1]*side*.09,hip_z)
+        foot=(x+right[0]*side*.09+forward[0]*side*stride,
+              y+right[1]*side*.09+forward[1]*side*stride,z_base+.10)
+        batch.add_tapered_branch("hero-human-leg","service-charcoal",hip,foot,.075,.052,8)
+        shoulder=(x+right[0]*side*.245,y+right[1]*side*.245,shoulder_z-.04)
+        arm_swing=-side*stride*.72 if action in ("walking","crossing") else .02*side
+        hand=(shoulder[0]+forward[0]*arm_swing,shoulder[1]+forward[1]*arm_swing,z_base+height*.48)
+        batch.add_tapered_branch("hero-human-arm",clothing,shoulder,hand,.060,.042,8)
+        batch.add_uv_sphere("hero-human-hand","archive-warm-stone",hand,.055,10,5,(1,.82,1.12))
+        batch.add_box("hero-human-shoe","service-charcoal",(foot[0]+forward[0]*.05,foot[1]+forward[1]*.05,z_base+.055),(.13,.25,.11),-facing)
     return {"position": [x, y], "action": action, "orientation": facing, "grounded": True}
 
 
@@ -303,7 +317,11 @@ def build_zone():
         batch.add_box("hero-bridge-handrail-light", "warm-light",
                       (edge_x-side*.09, 0, 4.80), (.06, 30.0, .08))
     batch.add_box("hero-water-pavilion-floor", "dry-stone", (-300, -24, 2.45), (24, 18, .45))
-    batch.add_box("hero-water-pavilion-roof", "archive-metal", (-300, -24, 8.4), (27, 21, .45))
+    batch.add_box("hero-water-pavilion-roof", "archive-warm-stone", (-300, -24, 8.35), (25.5, 18.5, .30))
+    for edge_y in (-33.1,-14.9):
+        batch.add_box("hero-water-pavilion-roof-edge","archive-metal",(-300,edge_y,8.31),(25.7,.20,.42))
+    for edge_x in (-312.65,-287.35):
+        batch.add_box("hero-water-pavilion-roof-edge","archive-metal",(edge_x,-24,8.31),(.20,18.3,.42))
     for px in (-310, -302, -294):
         for py in (-31, -17):
             batch.add_cylinder("hero-pavilion-column", "ledger-bronze", (px, py, 5.35), .26, 5.8, 12)
