@@ -132,6 +132,13 @@ def add_precision_landscape_rooms():
         (-338, 0), (-310, 1), (-280, 2), (-218, 3), (-186, 4), (-158, 5),
     )
     for side in (-1, 1):
+        # Alternating civic paving fields give the 24m terrace a readable
+        # hierarchy without obstructing its barrier-free movement spine.
+        for field, field_x in enumerate((-337, -302, -267, -218, -183, -153)):
+            batch.add_box("v31-civic-paving-field",
+                          "dry-stone" if field % 2 else "promenade-paver",
+                          (field_x, side * 24.9, 2.275),
+                          (24.0 if field < 3 else 22.0, 7.2, .045))
         for index, (x, variant) in enumerate(room_specs):
             y = side * (32.4 + (variant % 2) * 1.2)
             length = 13.0 + (variant % 3) * 1.8
