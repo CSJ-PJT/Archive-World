@@ -2,10 +2,10 @@
 from collections import Counter
 from .city_assembler import assemble_city
 from .street_transit import build_street_graph, build_transit
-from .green_blue import build_green_blue_network
+from .green_blue import build_green_blue
 
 def analyze(seed=7302026):
- city=assemble_city(seed); street=build_street_graph(); transit=build_transit(street); green=build_green_blue_network()
+ city=assemble_city(seed); street=build_street_graph(); transit=build_transit(street); green=build_green_blue()
  heights=[]; tier_counts=Counter(); family_counts=Counter(x['familyId'] for x in city['instances'])
  dna={d['id']:d['dna'] for d in city['districts']}
  for index,item in enumerate(city['instances']):
@@ -21,7 +21,6 @@ def analyze(seed=7302026):
  metrics={"totalAreaM2":30000000,"districtCount":len(city['districts']),"buildingInstances":len(city['instances']),"uniqueFamilies":len(city['families']),
   "blockInstances":len(city['blocks']),"blockVariantCount":len({b['variantId'] for b in city['blocks']}),"streetSegments":len(street['edges']),
   "intersections":len(street['nodes']),"streetLengthM":round(sum(e['widthM']*0+235 for e in street['edges'])),"transitStations":len(transit['stations']),
-  "busStops":len(transit['busStops']),"greenOpenSpaceRatio":green['metrics']['greenOpenSpaceRatioProxy'],"greenModules":green['metrics']['greenModules'],
+  "busStops":len(transit['busStops']),"greenOpenSpaceRatio":green['greenOpenSpaceRatioProxy'],"greenModules":len(green['modules']),
   "familyRepetitionMaximumShare":round(dominant,4),"skylineDiversity":84,"districtTransition":81,"status":"PLANNING_PROXY_NOT_ENGINEERING_CERTIFICATION"}
  return {"skyline":skyline,"metrics":metrics}
-
