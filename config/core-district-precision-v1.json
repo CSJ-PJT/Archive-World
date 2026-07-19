@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "seed": 8102026,
+  "boundsMeters": [1200, 1000],
+  "status": "GENERATED_CORE_DISTRICT_PILOT",
+  "metropolitanPlanningFoundation": "PASS",
+  "metropolitanVisualCity": "NOT_IMPLEMENTED",
+  "outputRoot": "C:/ArchiveData/World/Generated/v8/core-district-precision-v1",
+  "targets": {"actualFamilies": 12, "blocks": 22, "buildingInstances": 220, "proxyRatioMax": 0.10},
+  "frozenAnchor": {"family": "archive-cbd-twin-atrium-pq-v5", "score": 82, "grade": "B", "mutable": false},
+  "prohibitions": ["canonical-mutation", "v3-layout-mutation", "runtime-mutation", "main-merge"]
+}
