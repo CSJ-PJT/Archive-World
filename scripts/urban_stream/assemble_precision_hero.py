@@ -26,9 +26,9 @@ def atomic(path: Path, payload: dict):
     os.replace(temporary, path)
 
 
-def assemble(v11: Path, v12: Path):
+def assemble(v11: Path, v12: Path, hero_version: str = "v26", required_score: int = 82):
     manifest = json.loads((v11 / "manifest/core-district-stream-final.json").read_text(encoding="utf-8-sig"))
-    report = json.loads((v12 / "hero-archive/archive-water-plaza-hero-v26-report.json").read_text(encoding="utf-8-sig"))
+    report = json.loads((v12 / f"hero-archive/archive-water-plaza-hero-{hero_version}-report.json").read_text(encoding="utf-8-sig"))
     original = len(manifest["instances"])
     manifest["instances"] = [instance for instance in manifest["instances"] if instance["id"] not in REPLACED]
     assert original - len(manifest["instances"]) == 12
@@ -37,7 +37,7 @@ def assemble(v11: Path, v12: Path):
     manifest["badges"] = ["PRECISION HERO ZONE A", "NOT CANONICAL", "NOT V3 APPLIED"]
     manifest["heroZones"] = [{
         "id": "archive-water-plaza", "status": f"REVISION_{report['revision']}_PENDING_VISUAL_GATE",
-        "uri": "hero-archive/archive-water-plaza-hero-v26.glb", "actual3D": True,
+        "uri": f"hero-archive/archive-water-plaza-hero-{hero_version}.glb", "actual3D": True,
         "buildingCount": report["buildingCount"], "replacedInstanceIds": sorted(REPLACED),
         "radiusM": 155, "streetEyePriority": True, "officeV5Changed": False,
         "geometry": report["geometry"], "lobbies": report["lobbyCount"],
@@ -52,7 +52,8 @@ def assemble(v11: Path, v12: Path):
     })
     manifest["precision"] = {
         "mode": "HERO_ZONE_SEQUENTIAL", "currentZone": "archive-water-plaza",
-        "revision": 4, "nextZoneLocked": True, "requiredScore": 82,
+        "revision": report["revision"], "nextZoneLocked": True, "requiredScore": required_score,
+        "qualityTarget": report.get("qualityTarget", {"grade": "B", "minimumScore": required_score}),
         "groundPlaneStreamOpening": True, "directReferenceCopy": False,
     }
     atomic(v12 / "manifest/core-district-stream-precision.json", manifest)
@@ -63,6 +64,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--v11", type=Path, required=True)
     parser.add_argument("--v12", type=Path, required=True)
+    parser.add_argument("--hero-version", default="v26")
+    parser.add_argument("--required-score", type=int, default=82)
     args = parser.parse_args()
-    result = assemble(args.v11, args.v12)
+    result = assemble(args.v11, args.v12, args.hero_version, args.required_score)
     print(json.dumps({"status": "PASS", "batchedInstances": len(result["instances"]), "heroBuildings": 6, "actualBuildings": result["metrics"]["buildingInstances"]}))
