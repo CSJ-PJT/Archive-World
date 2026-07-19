@@ -183,6 +183,35 @@ def add_ground_floor(batch, x, y, width, depth, facing, variant):
     batch.add_box("hero-loading-apron", "ledger-granite", (x, rear_y - facing * 5.8, .12), (width + 4, 7.0, .24))
 
 
+def add_active_connector(batch, x, y, width, facing, variant):
+    """Close podium gaps with occupied low-rise architecture, not prop boxes."""
+    grade=2.3;depth=15.0;height=7.2;front_y=y+facing*depth*.5;inside=-facing
+    stone="archive-warm-stone" if y>0 else "ledger-limestone"
+    accent="archive-metal" if y>0 else "ledger-bronze"
+    batch.add_box("hero-connector-structural-body",stone,(x,y,grade+height*.5),(width,depth,height))
+    batch.add_box("hero-connector-interior-floor","ledger-granite",(x,front_y+inside*3.2,grade+.14),(width-.8,6.2,.28))
+    batch.add_box("hero-connector-interior-ceiling","warm-interior",(x,front_y+inside*3.2,grade+5.6),(width-.8,6.2,.18))
+    batch.add_box("hero-connector-rear-wall","warm-interior",(x,front_y+inside*6.15,grade+2.8),(width-.8,.20,5.35))
+    bay_count=max(2,round(width/4.2));pitch=(width-.8)/bay_count
+    for bay in range(bay_count):
+        bx=x-(width-.8)*.5+(bay+.5)*pitch
+        batch.add_box("hero-connector-glazing","frontage-glass",(bx,front_y-facing*.06,grade+2.65),(pitch-.34,.12,5.1))
+        batch.add_box("hero-connector-mullion",accent,(bx-pitch*.5,front_y-facing*.14,grade+2.75),(.18,.30,5.5))
+        batch.add_box("hero-connector-door",accent,(bx+pitch*.18,front_y+facing*.05,grade+1.42),(.92,.16,2.75))
+        batch.add_box("hero-connector-counter","timber-accent",(bx,front_y+inside*3.7,grade+1.0),(pitch*.56,.62,1.15))
+        batch.add_box("hero-connector-light-slot","warm-light",(bx,front_y+inside*2.8,grade+5.42),(pitch*.55,1.8,.08))
+    batch.add_box("hero-connector-end-frame",accent,(x-(width-.8)*.5,front_y-facing*.14,grade+2.75),(.22,.30,5.5))
+    batch.add_box("hero-connector-end-frame",accent,(x+(width-.8)*.5,front_y-facing*.14,grade+2.75),(.22,.30,5.5))
+    batch.add_box("hero-connector-canopy",accent,(x,front_y+facing*1.65,grade+5.85),(width+1.2,3.3,.24))
+    batch.add_box("hero-connector-roof-terrace","dry-stone",(x,y,grade+height+.18),(width-1.0,depth-1.2,.36))
+    for planter in (-1,1):
+        px=x+planter*width*.25
+        batch.add_box("hero-connector-roof-planter",stone,(px,y,grade+height+.72),(width*.28,3.0,.80))
+        batch.add_box("hero-connector-roof-soil","soil-v11",(px,y,grade+height+1.15),(width*.24,2.6,.10))
+        for shrub in (-.6,0,.6):
+            batch.add_uv_sphere("hero-connector-roof-shrub","foliage-mid",(px+shrub,y,grade+height+1.60),.46,12,6,(1,.76,.62))
+
+
 def add_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     facing = -1 if y > 0 else 1
@@ -353,6 +382,11 @@ def build_zone():
     ]
     for spec in specs:
         add_building(batch, spec)
+    # Four occupied connectors complete the stream-facing urban wall between
+    # the six towers while preserving separate rear/service access.
+    for x,y,width,variant in ((-294.5,66,10.5,0),(-222.0,66,15.0,1),
+                              (-290.5,-66,13.0,2),(-226.0,-66,12.0,3)):
+        add_active_connector(batch,x,y,width,-1 if y>0 else 1,variant)
     # Curated trees frame entrances and views instead of random scatter.
     tree_records = []
     tree_positions = [

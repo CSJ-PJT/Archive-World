@@ -9,7 +9,7 @@ for token in ('FACADE_GLASS_RECESS_M=.12','FACADE_GLASS_THICKNESS_M=.08',
 for token in ('structural_face_y','glass_front_y','glass_y','glass_back_y','glass_back_gap',
               'attachment_depth','-facade-return','opening-side-return','opening-head',
               'opening-sill','-occupied-interior-back','side-attached-vertical-frame',
-              'side-opening-return'):
+              'side-opening-return','add_active_connector','hero-connector-glazing'):
     assert token in facade
 for forbidden in ('bpy.data.images.load','bpy.data.images.save','ShaderNodeTexImage'):
     assert forbidden not in source+facade
