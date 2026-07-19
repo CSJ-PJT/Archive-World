@@ -10,7 +10,8 @@ import bpy
 
 HERE = Path(__file__).resolve().parent
 PROD = HERE.parent / "production_geometry"
-sys.path[:0] = [str(HERE), str(PROD)]
+CORE = HERE.parent / "core_district_precision"
+sys.path[:0] = [str(HERE), str(PROD), str(CORE)]
 from geometry_core import MeshBatch, validate_geometry
 from batch_consolidation import consolidate
 from materials_v11 import create_materials
