@@ -7,4 +7,6 @@ for contract in ("archive-urban-stream-final.glb", "stream-facing", "opposite-st
     assert contract in source
 assert 'family["id"] != "archive-cbd-twin-atrium-pq-v5"' in source
 assert '"officeV5Changed": False' in source
+assert "support_instance_count = sum(" in source
+assert '"supportInstancesAffected": support_instance_count' in source
 print("final district assembly: PASS")

@@ -37,6 +37,10 @@ def assemble(v10: Path, v11: Path):
             family["status"] = "ACTUAL_GLTF_SUPPORT_FAMILY_V11"
             family["streamBodyReworked"] = True
             family["lowerFloorGrammar"] = True
+    support_instance_count = sum(
+        item["familyId"] != "archive-cbd-twin-atrium-pq-v5"
+        for item in manifest["instances"]
+    )
     stream = {
         "uri": "stream/archive-urban-stream-final.glb", "actual3D": True,
         "lengthM": alignment["lengthM"], "urbanSectionTypes": len(generation["sections"]["sectionTypes"]),
@@ -58,7 +62,7 @@ def assemble(v10: Path, v11: Path):
         "schemaVersion": 3, "status": "GENERATED_CORE_URBAN_STREAM_FINALIZATION",
         "badges": ["GENERATED CORE + URBAN STREAM FINAL", "NOT CANONICAL", "NOT V3 APPLIED"],
         "urbanStream": stream, "streamChunks": stream_chunks,
-        "finalization": {"reorientedActualBuildings": reoriented, "officeV5Changed": False, "supportBodiesRebuilt": 11, "supportInstancesAffected": 30},
+        "finalization": {"reorientedActualBuildings": reoriented, "officeV5Changed": False, "supportBodiesRebuilt": 11, "supportInstancesAffected": support_instance_count},
     })
     manifest["metrics"].update({
         "streamLengthM": alignment["lengthM"], "streamSectionTypes": 7,
