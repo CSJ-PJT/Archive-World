@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "residential": {
+    "family": "residential-courtyard-piloti-pq-v5",
+    "triangleRange": {"LOD0": [60000, 140000], "LOD1": [25000, 70000], "LOD2": [8000, 25000]},
+    "silhouetteComplexity": 12,
+    "facadePatterns": 4,
+    "maxFacadeRepetitionRatio": 0.35,
+    "visibleDepthRangeMeters": [0.15, 1.2],
+    "balconyDepthMeters": 1.35,
+    "mullionCount": 300,
+    "entranceComplexity": 8,
+    "podiumArticulation": 8,
+    "roofEquipmentCount": 18,
+    "groundInterfaceCount": 20,
+    "materialCount": 10,
+    "streetLevelDetailCount": 30,
+    "humanScaleFeatureCount": 12
+  },
+  "office": {
+    "family": "archive-cbd-twin-atrium-pq-v5",
+    "triangleRange": {"LOD0": [80000, 180000], "LOD1": [35000, 90000], "LOD2": [10000, 30000]},
+    "silhouetteComplexity": 14,
+    "facadePatterns": 5,
+    "maxFacadeRepetitionRatio": 0.32,
+    "visibleDepthRangeMeters": [0.12, 1.5],
+    "balconyDepthMeters": 0,
+    "mullionCount": 500,
+    "entranceComplexity": 10,
+    "podiumArticulation": 10,
+    "roofEquipmentCount": 22,
+    "groundInterfaceCount": 24,
+    "materialCount": 10,
+    "streetLevelDetailCount": 36,
+    "humanScaleFeatureCount": 14
+  }
+}
