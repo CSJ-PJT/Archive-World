@@ -13,7 +13,7 @@ from node_builder import build_nodes
 from landscape_activity import build_landscape_activity
 
 def main():
- args=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--alignment',required=True);p.add_argument('--output-root',required=True);a=p.parse_args()
+ args=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--alignment',required=True);p.add_argument('--output-root',required=True);a=p.parse_args(args)
  alignment=json.loads(Path(a.alignment).read_text(encoding='utf-8'));out=Path(a.output_root);out.mkdir(parents=True,exist_ok=True)
  bpy.ops.wm.read_factory_settings(use_empty=True);materials=create_materials();batch=MeshBatch(materials)
  edge=build_edges(batch,alignment['segments']);bridges=build_bridges(batch,alignment['bridges']);nodes=build_nodes(batch,alignment['nodes']);activity=build_landscape_activity(batch,alignment['segments'],alignment['nodes'])
