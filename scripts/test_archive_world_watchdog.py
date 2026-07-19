@@ -38,6 +38,8 @@ expect("waiting approval", state(lifecycle="WAITING_APPROVAL"), "SKIP")
 expect("blocked", state(lifecycle="BLOCKED"), "SKIP")
 expect("complete", state(lifecycle="COMPLETE"), "SKIP")
 expect("auth blocked", state(authStatus="AUTH_BLOCKED"), "AUTH_BLOCKED")
+expect("direct session overrides transport auth", state(authStatus="AUTH_BLOCKED", directSessionStatus="DIRECT_SESSION_RUNNING", directSessionLastActivity=650), "RUNNING")
+expect("stale direct session does not hide auth", state(authStatus="AUTH_BLOCKED", directSessionStatus="DIRECT_SESSION_RUNNING", directSessionLastActivity=1), "AUTH_BLOCKED")
 expect("empty queue", state(pendingTracks=[]), "SKIP")
 assert MODULE.decide(state(activePid=os.getpid()), CONFIG, SNAPSHOT, 700, 0, 12, OUTPUT)[0] == "RUNNING"
 assert MODULE.decide(state(activePid=999999), CONFIG, SNAPSHOT, 700, 0, 12, OUTPUT)[0] == "IDLE"

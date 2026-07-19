@@ -94,6 +94,9 @@ def decide(state: dict[str, Any], config: dict[str, Any], snapshot: dict[str, An
         return "BLOCK", "worktree-changed"
     if process_alive(state.get("activePid")) or child_count:
         return "RUNNING", "active-process"
+    direct_age = now - float(state.get("directSessionLastActivity", 0))
+    if state.get("directSessionStatus") == "DIRECT_SESSION_RUNNING" and direct_age < config["staleSeconds"]:
+        return "RUNNING", "active-direct-session"
     if state.get("authStatus") == "AUTH_BLOCKED":
         return "AUTH_BLOCKED", "resume-transport-auth-blocked"
     heartbeat_age = now - float(state.get("workerHeartbeat", 0))
@@ -182,6 +185,9 @@ def run(config_path: Path, dry_run: bool, once: bool) -> int:
             decision, reason = decide(state, config, snapshot, now, len(children), marathon_log_bytes, output)
             state["watchdogStatus"] = "WATCHDOG_RUNNING"
             state["workerStatus"] = "WORKER_RUNNING" if active_worker else "WORKER_IDLE"
+            direct_age = now - float(state.get("directSessionLastActivity", 0))
+            if state.get("directSessionStatus") == "DIRECT_SESSION_RUNNING" and direct_age >= config["staleSeconds"]:
+                state["directSessionStatus"] = "DIRECT_SESSION_IDLE"
             if active_worker:
                 state["workerHeartbeat"] = now
             event: dict[str, Any] = {
