@@ -1,31 +1,30 @@
-"""Image-free architectural material/studio/pilot smoke path for Blender 5.2."""
-import argparse,json,os,sys
+"""No-image procedural PBR library plus lightweight residential/office smoke scenes."""
+import argparse,hashlib,json,os,sys
+from pathlib import Path
 import bpy
 from mathutils import Vector
-NAMES=['painted-concrete','exposed-concrete','light-stone','dark-stone','curtain-wall-glass','residential-glass','aluminum-mullion','metal-panel','brick-accent','asphalt','sidewalk-concrete','plaza-stone']
-COLORS=[(.48,.5,.48),(.38,.39,.37),(.72,.68,.57),(.19,.18,.16),(.05,.18,.27),(.18,.34,.4),(.37,.42,.45),(.12,.15,.17),(.42,.2,.13),(.055,.06,.065),(.58,.58,.55),(.68,.62,.5)]
-def a():
+SPECS=[
+('painted-concrete',(.55,.57,.55),(.62,.78),.16,.45,0),('exposed-concrete',(.38,.40,.38),(.68,.86),.26,.7,0),('precast-concrete',(.62,.63,.60),(.58,.74),.12,.35,0),('limestone',(.72,.68,.58),(.5,.68),.1,.3,0),('granite',(.42,.43,.42),(.42,.62),.2,.18,0),('dark-stone',(.16,.17,.16),(.48,.66),.12,.22,0),('brick',(.43,.19,.12),(.58,.76),.24,.12,0),('curtain-wall-glass',(.05,.18,.28),(.12,.24),.03,1.5,0),('residential-glass',(.15,.30,.36),(.18,.32),.04,1.2,0),('balcony-glass',(.22,.38,.42),(.15,.3),.035,1.2,0),('aluminum',(.35,.40,.42),(.22,.38),.05,.08,.78),('painted-steel',(.18,.22,.24),(.3,.5),.08,.1,.62),('dark-metal-panel',(.10,.13,.15),(.25,.42),.06,.15,.7),('light-metal-panel',(.58,.62,.62),(.28,.46),.06,.15,.68),('asphalt',(.055,.06,.065),(.72,.9),.32,.06,0),('sidewalk-concrete',(.56,.56,.53),(.66,.82),.2,.18,0),('plaza-paver',(.67,.61,.50),(.52,.7),.14,.24,0),('wood-accent',(.34,.17,.08),(.4,.58),.18,.09,0),('soil',(.16,.10,.055),(.76,.94),.3,.05,0),('water',(.04,.24,.34),(.06,.18),.025,2.0,0)]
+def cli():
  v=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [];p=argparse.ArgumentParser();p.add_argument('--output-root',required=True);p.add_argument('--mode',choices=('materials','residential','office'),required=True);p.add_argument('--size',type=int,default=512);return p.parse_args(v)
-def box(n,l,d,m):
- bpy.ops.mesh.primitive_cube_add(location=l);o=bpy.context.object;o.name=n;o.dimensions=d;bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);o.data.materials.append(m);return o
-def material(n,c,i):
- m=bpy.data.materials.new(n);m.use_nodes=True;t=m.node_tree;t.nodes.clear();out=t.nodes.new('ShaderNodeOutputMaterial');bs=t.nodes.new('ShaderNodeBsdfPrincipled');noise=t.nodes.new('ShaderNodeTexNoise');noise.inputs['Scale'].default_value=3+i*.37;noise.inputs['Detail'].default_value=4;noise.inputs['Roughness'].default_value=.7;ramp=t.nodes.new('ShaderNodeValToRGB');ramp.color_ramp.elements[0].color=(*[x*.55 for x in c],1);ramp.color_ramp.elements[1].color=(*[min(1,x*1.25+.04) for x in c],1);bump=t.nodes.new('ShaderNodeBump');bump.inputs['Strength'].default_value=.22;bump.inputs['Distance'].default_value=.14;bs.inputs['Roughness'].default_value=.18 if 'glass' in n else (.35 if 'metal' in n or 'mullion' in n else .68);bs.inputs['Metallic'].default_value=.72 if 'metal' in n or 'mullion' in n else 0;t.links.new(noise.outputs['Fac'],ramp.inputs['Fac']);t.links.new(ramp.outputs['Color'],bs.inputs['Base Color']);t.links.new(noise.outputs['Fac'],bump.inputs['Height']);t.links.new(bump.outputs['Normal'],bs.inputs['Normal']);t.links.new(bs.outputs[0],out.inputs[0]);return m
-def studio(size):
- s=bpy.context.scene;s.render.engine='BLENDER_EEVEE';s.render.resolution_x=s.render.resolution_y=size;s.render.resolution_percentage=100;s.render.image_settings.file_format='PNG';s.world=bpy.data.worlds.new('neutral');s.world.color=(.32,.36,.4);s.view_settings.look='AgX - Medium High Contrast'
- for loc,e,sz in [((8,-10,12),1700,8),((-10,-4,7),900,7),((2,8,10),1300,6)]:
-  ld=bpy.data.lights.new('studio','AREA');ld.energy=e;ld.shape='DISK';ld.size=sz;o=bpy.data.objects.new('studio',ld);s.collection.objects.link(o);o.location=loc;o.rotation_euler=(Vector((0,0,2))-o.location).to_track_quat('-Z','Y').to_euler()
- camd=bpy.data.cameras.new('camera');cam=bpy.data.objects.new('camera',camd);s.collection.objects.link(cam);s.camera=cam;cam.location=(12,-18,12);cam.rotation_euler=(Vector((0,0,3))-cam.location).to_track_quat('-Z','Y').to_euler()
-def render(path):os.makedirs(os.path.dirname(path),exist_ok=True);bpy.context.scene.render.filepath=path;bpy.ops.render.render(write_still=True)
+def box(name,loc,dims,mat):
+ bpy.ops.mesh.primitive_cube_add(location=loc);o=bpy.context.object;o.name=name;o.dimensions=dims;bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);o.data.materials.append(mat);return o
+def make_material(spec,index):
+ name,color,rough,bump,meter_scale,metal=spec;m=bpy.data.materials.new(name);m.use_nodes=True;t=m.node_tree;t.nodes.clear();out=t.nodes.new('ShaderNodeOutputMaterial');bs=t.nodes.new('ShaderNodeBsdfPrincipled');coord=t.nodes.new('ShaderNodeTexCoord');mapping=t.nodes.new('ShaderNodeMapping');noise=t.nodes.new('ShaderNodeTexNoise');ramp=t.nodes.new('ShaderNodeValToRGB');b=t.nodes.new('ShaderNodeBump');mapping.inputs['Scale'].default_value=(1/meter_scale,1/meter_scale,1/meter_scale);noise.inputs['Scale'].default_value=2.4+index*.11;noise.inputs['Detail'].default_value=4;noise.inputs['Roughness'].default_value=.65;ramp.color_ramp.elements[0].color=(*[x*.72 for x in color],1);ramp.color_ramp.elements[1].color=(*[min(1,x*1.16+.025) for x in color],1);bs.inputs['Roughness'].default_value=sum(rough)/2;bs.inputs['Metallic'].default_value=metal;b.inputs['Strength'].default_value=bump;b.inputs['Distance'].default_value=.08
+ if 'glass' in name or name=='water':
+  if 'Transmission Weight' in bs.inputs:bs.inputs['Transmission Weight'].default_value=.55 if name!='water' else .7
+ t.links.new(coord.outputs['Generated'],mapping.inputs['Vector']);t.links.new(mapping.outputs['Vector'],noise.inputs['Vector']);t.links.new(noise.outputs['Fac'],ramp.inputs['Fac']);t.links.new(ramp.outputs['Color'],bs.inputs['Base Color']);t.links.new(noise.outputs['Fac'],b.inputs['Height']);t.links.new(b.outputs['Normal'],bs.inputs['Normal']);t.links.new(bs.outputs[0],out.inputs[0]);signature=hashlib.sha256(json.dumps([name,color,rough,bump,meter_scale,metal]).encode()).hexdigest();m['seed']=1000+index;m['mappingScaleMeters']=meter_scale;m['signature']=signature;return m,{'id':name,'seed':1000+index,'baseColorRange':[[round(x*.72,4) for x in color],[round(min(1,x*1.16+.025),4) for x in color]],'roughnessRange':list(rough),'bumpStrength':bump,'mappingScaleMeters':meter_scale,'principled':{'metallic':metal,'transmission':.55 if 'glass' in name else .7 if name=='water' else 0},'signature':signature,'provenance':'Archive procedural nodes','imageNodes':0}
+def studio(size,target=(0,0,3)):
+ s=bpy.context.scene;s.render.engine='BLENDER_EEVEE';s.render.resolution_x=s.render.resolution_y=size;s.render.resolution_percentage=100;s.render.image_settings.file_format='PNG';w=bpy.data.worlds.new('neutral');w.color=(.48,.51,.55);s.world=w;s.view_settings.look='AgX - Medium High Contrast';target=Vector(target)
+ for loc,e,sz in [((12,-16,18),2000,9),((-12,-6,10),950,8),((2,12,15),1000,7)]:d=bpy.data.lights.new('studio','AREA');d.energy=e;d.size=sz;o=bpy.data.objects.new('studio',d);s.collection.objects.link(o);o.location=loc;o.rotation_euler=(target-o.location).to_track_quat('-Z','Y').to_euler()
+ d=bpy.data.cameras.new('camera');c=bpy.data.objects.new('camera',d);s.collection.objects.link(c);s.camera=c;c.location=(18,-25,16);c.rotation_euler=(target-c.location).to_track_quat('-Z','Y').to_euler()
 def main():
- x=a();bpy.ops.wm.read_factory_settings(use_empty=True);mats=[material(n,c,i) for i,(n,c) in enumerate(zip(NAMES,COLORS))];box('ground',(0,0,-.2),(30,22,.4),mats[11]);studio(x.size)
- if x.mode=='materials':
-  for i,m in enumerate(mats):box(m.name,((i%4-1.5)*5,(i//4-1)*5,1.5),(3.4,3.4,3),m)
+ a=cli();bpy.ops.wm.read_factory_settings(use_empty=True);pairs=[make_material(x,i) for i,x in enumerate(SPECS)];mats=[x[0] for x in pairs];metadata=[x[1] for x in pairs];box('ground',(0,0,-.25),(38,30,.5),mats[16]);studio(a.size)
+ if a.mode=='materials':
+  for i,m in enumerate(mats):box(m.name,((i%5-2)*6,(i//5-1.5)*6,1.6),(4,4,3.2),m)
  else:
-  office=x.mode=='office';spec=[(-4,0,5,5,26 if office else 20),(4,1,4,4,21 if office else 16)]
-  for i,(px,py,w,d,f) in enumerate(spec):
-   h=f*3.4;box('tower',(px,py,h/2),(w,d,h),mats[4 if office else 0]);
-   for z in range(4,int(h),7):box('facade-band',(px,py-d/2-.16,z),(w,.3,.35),mats[6]);box('facade-band',(px,py+d/2+.16,z),(w,.3,.35),mats[6])
-   box('roof-machine',(px,py,h+1.5),(w*.35,d*.35,3),mats[7])
-  box('podium',(0,-1,4),(18,13,8),mats[2]);box('entrance',(0,-7.6,3),(7,.5,5),mats[4]);box('canopy',(0,-9,5.5),(9,3,.3),mats[7]);box('service',(8,4,2),(3,3,4),mats[3])
- out=os.path.join(x.output_root,x.mode);render(os.path.join(out,'preview.png'));external=[i.name for i in bpy.data.images if i.name!='Render Result'];json.dump({'mode':x.mode,'transientRenderResult':'Render Result' in bpy.data.images,'externalImageDatablocks':external,'externalImageReferences':0,'imageTextureNodes':0,'materials':NAMES,'studio':'AgX/key-fill-rim/neutral-ground','status':'PROCEDURAL_ONLY'},open(os.path.join(out,'report.json'),'w'),indent=2)
+  office=a.mode=='office';heights=(82,66) if office else (68,55)
+  for i,(x,h) in enumerate(zip((-5,5),heights)):box(f'tower-{i}',(x,1,h/2),(7 if office else 8,7,h),mats[7 if office else 0]);box(f'roof-{i}',(x,1,h+2),(3.5,3.5,4),mats[12])
+  box('podium',(0,-1,4),(22,16,8),mats[3]);box('entrance',(0,-9.2,3),(8,.5,5),mats[7]);box('canopy',(0,-10.5,5.5),(10,3,.3),mats[10]);box('rear-service',(9,5,2),(3,4,4),mats[12])
+ out=Path(a.output_root)/a.mode;out.mkdir(parents=True,exist_ok=True);bpy.context.scene.render.filepath=str(out/'preview.png');bpy.ops.render.render(write_still=True);external=[i.name for i in bpy.data.images if i.name!='Render Result'];report={'mode':a.mode,'materialCount':len(metadata),'materials':metadata,'duplicateSignatures':len(metadata)-len({x['signature'] for x in metadata}),'externalImageDatablocks':external,'externalImageReferences':0,'imageTextureNodes':sum(n.type=='TEX_IMAGE' for m in mats for n in m.node_tree.nodes),'status':'PROCEDURAL_ONLY'};(out/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8');print(json.dumps({'mode':a.mode,'materials':len(metadata),'images':len(external),'duplicates':report['duplicateSignatures']}))
 if __name__=='__main__':main()
