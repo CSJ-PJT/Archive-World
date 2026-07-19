@@ -21,6 +21,18 @@ const cameras:CameraPreset[]=[
  {name:'park-edge',position:[-620,45,80],target:[-250,22,0]},
  {name:'landmark-context',position:[160,70,540],target:[-130,25,100]},
  {name:'taxi-dropoff',position:[460,45,330],target:[250,16,120]},
+ {name:'stream-aerial',position:[0,360,470],target:[0,0,0]},
+ {name:'archive-water-plaza',position:[-240,14,86],target:[-240,3,4]},
+ {name:'ledger-stream-terrace',position:[60,12,-86],target:[60,3,0]},
+ {name:'transit-stream-junction',position:[260,13,88],target:[260,3,2]},
+ {name:'slim-steel-bridge',position:[-310,8,60],target:[-310,1,16]},
+ {name:'stepped-stream-edge',position:[-270,7,-54],target:[-250,1,5]},
+ {name:'green-stream-edge',position:[-150,7,55],target:[-150,1,-8]},
+ {name:'archive-gateway-bridge',position:[65,9,65],target:[65,2,8]},
+ {name:'stream-pavilion',position:[-258,8,-58],target:[-240,2,10]},
+ {name:'accessible-ramp',position:[245,7,-58],target:[260,1,8]},
+ {name:'service-stream-crossing',position:[300,8,60],target:[300,1,-4]},
+ {name:'future-riverfront-corridor',position:[390,12,-85],target:[300,3,0]},
 ];
 
 export async function createCoreDistrictReview(app:HTMLDivElement,base:string,manifestFile='core-district-3d.json'){
@@ -40,7 +52,7 @@ export async function createCoreDistrictReview(app:HTMLDivElement,base:string,ma
  const assetRevision='v9-material-hierarchy-2',loaded=new Map<string,THREE.Object3D>();await Promise.all(manifest.families.map(async family=>{const gltf=await loader.loadAsync(`${base}/${family.lod.LOD1}?rev=${assetRevision}`);loaded.set(family.id,gltf.scene);}));
  for(const family of manifest.families){const source=loaded.get(family.id);if(!source)continue;source.updateMatrixWorld(true);const items=manifest.instances.filter(item=>item.familyId===family.id),buckets=new Map<string,{material:THREE.Material;geometries:THREE.BufferGeometry[]}>();source.traverse(child=>{if(!(child instanceof THREE.Mesh)||Array.isArray(child.material))return;const key=child.material.uuid,bucket=buckets.get(key)??{material:child.material as THREE.Material,geometries:[] as THREE.BufferGeometry[]};bucket.geometries.push(child.geometry.clone().applyMatrix4(child.matrixWorld));buckets.set(key,bucket);});for(const [materialId,bucket] of buckets){const geometry=mergeGeometries(bucket.geometries,false);if(!geometry)throw new Error(`merge failure ${family.id}/${materialId}`);const mesh=new THREE.InstancedMesh(geometry,bucket.material,items.length);mesh.name=`batch-${family.id}-${bucket.material.name}`;mesh.userData={familyId:family.id,status:'ACTUAL_GLTF_MATERIAL_BATCH'};items.forEach((item,index)=>{mesh.setMatrixAt(index,new THREE.Matrix4().compose(new THREE.Vector3(...item.position),new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),item.rotationY),new THREE.Vector3(item.scale,item.scale,item.scale)));});mesh.instanceMatrix.needsUpdate=true;buildings.add(mesh);}}
  const infra=await loader.loadAsync(`${base}/${manifest.infrastructure.uri}?rev=${assetRevision}`);infrastructure.add(infra.scene);const ready=performance.now();
- if(manifest.urbanStream){const stream=await loader.loadAsync(`${base}/${manifest.urbanStream.uri}?rev=v10-stream-1`);urbanStream.add(stream.scene);}
+ if(manifest.urbanStream){const stream=await loader.loadAsync(`${base}/${manifest.urbanStream.uri}?rev=v10-stream-2`);urbanStream.add(stream.scene);}
  let frames=0,last=performance.now(),previous=last,fps=0;const frameTimes:number[]=[];
  function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
  new ResizeObserver(resize).observe(host);resize();
