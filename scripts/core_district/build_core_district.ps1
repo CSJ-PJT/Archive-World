@@ -1,0 +1,9 @@
+param([string]$OutputRoot='C:/ArchiveData/World/Generated/v8/core-district-precision-v1',[ValidateSet('families','infrastructure','assembly','viewer','all')][string]$Stage='all')
+$ErrorActionPreference='Stop';$repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path;$blender='C:\Program Files\Blender Foundation\Blender 5.2\blender.exe';if(!(Test-Path $blender)){throw 'Blender 5.2 missing'}
+$state=Join-Path ($OutputRoot -replace '/','\') 'checkpoints';New-Item -ItemType Directory -Force $state|Out-Null
+function Mark($name,$status){$tmp=Join-Path $state "$name.tmp";$final=Join-Path $state "$name.json";[pscustomobject]@{stage=$name;status=$status;at=(Get-Date).ToString('o')}|ConvertTo-Json|Set-Content $tmp;Move-Item -Force $tmp $final}
+if($Stage -in @('families','all')){Mark families RUNNING;& $blender -b --factory-startup --python "$repo\scripts\blender\core_district_precision\support_family_generator.py" -- --output-root $OutputRoot;if($LASTEXITCODE){throw 'families failed'};Mark families PASS}
+if($Stage -in @('infrastructure','all')){Mark infrastructure RUNNING;& $blender -b --factory-startup --python "$repo\scripts\blender\core_district_precision\infrastructure_generator.py" -- --output-root $OutputRoot;if($LASTEXITCODE){throw 'infrastructure failed'};Mark infrastructure PASS}
+if($Stage -in @('assembly','all')){Mark assembly RUNNING;wsl.exe --cd /mnt/c/ArchivePJT/Archive-World python3 scripts/core_district/assemble_core_district.py --output-root /mnt/c/ArchiveData/World/Generated/v8/core-district-precision-v1;if($LASTEXITCODE){throw 'assembly failed'};Mark assembly PASS}
+if($Stage -in @('viewer','all')){Mark viewer RUNNING;Push-Location "$repo\web";$env:VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL='/generated/v8/core-district-precision-v1';npm.cmd run typecheck;npm.cmd test;npm.cmd run build;Pop-Location;if($LASTEXITCODE){throw 'viewer failed'};Mark viewer PASS}
+[pscustomobject]@{status='PASS';stage=$Stage;output=$OutputRoot}|ConvertTo-Json
