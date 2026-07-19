@@ -44,22 +44,22 @@ def add_natural_tree(batch,x,y,seed,scale=1.0,z_base=0.0):
             batch.add_tapered_branch("v30-tree-secondary-branch","timber-accent",end,fork_end,
                                      .052*scale,.018*scale,8)
     palette=("foliage-deep","foliage-mid","foliage-light")
-    # Small overlapping lobes produce a porous silhouette; the previous few
-    # large spheres read as low-poly symbols at eye level.
-    for lobe in range(14):
-        angle=lobe*math.tau/14+rng.uniform(-.14,.14)
-        ring=1.10+(lobe%3)*.55+rng.uniform(-.18,.18)
-        radius=(.78+.36*rng.random())*scale
+    # Many smaller overlapping lobes create a porous, asymmetric silhouette;
+    # large isolated spheres read as diagram symbols at eye level.
+    for lobe in range(26):
+        angle=lobe*math.tau/26+rng.uniform(-.19,.19)
+        ring=.85+(lobe%4)*.48+rng.uniform(-.22,.22)
+        radius=(.46+.31*rng.random())*scale
         cx=x+math.cos(angle)*ring*scale
         cy=y+math.sin(angle)*ring*.82*scale
-        cz=crown_center+((lobe%4)-1.5)*.42*scale+rng.uniform(-.18,.18)*scale
+        cz=crown_center+((lobe%5)-2.0)*.35*scale+rng.uniform(-.24,.24)*scale
         batch.add_uv_sphere("v30-tree-porous-crown",palette[(seed+lobe)%3],
                             (cx,cy,cz),radius,16,8,
                             (1.14+.10*rng.random(),.82+.13*rng.random(),.72+.14*rng.random()))
     # A smaller crown core keeps the branch/canopy junction credible without
     # returning to the single-primitive ball silhouette.
     batch.add_uv_sphere("v30-tree-crown-core",palette[seed%3],
-                        (x,y,crown_center-.18*scale),1.35*scale,18,9,(1.16,.90,.70))
+                        (x,y,crown_center-.18*scale),.88*scale,18,9,(1.18,.88,.68))
 
 
 def main():
