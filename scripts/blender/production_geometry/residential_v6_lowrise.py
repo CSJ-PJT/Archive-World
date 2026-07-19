@@ -44,7 +44,8 @@ def build_residential_v6_lowrise(batch,lod):
     batch.add_box("v6-bicycle-shelter-roof","light-metal-panel",(27,9,2.6),(10,4,.25))
     for x in (23.5,26,28.5,31): batch.add_box("v6-bicycle-shelter-rack","aluminum",(x,9,.55),(.12,2.2,1.1))
     # Separate parking, service, fire and recycling functions on rear/side edges.
-    batch.add_wedge("v6-parking-ramp","asphalt",(22,-2,-.75),(7.6,20,2.8),"y")
+    # Keep the underground threshold within the shared -0.75 m ground contract.
+    batch.add_wedge("v6-parking-ramp","asphalt",(22,-2,.65),(7.6,20,2.8),"y")
     for x in (18.0,26.0): batch.add_box("v6-parking-ramp-wall","light-gray-stone",(x,-2,.65),(.4,20,2.8))
     batch.add_box("v6-parking-ramp-canopy","dark-gray-accent",(22,-12.0,3.2),(9,4,.4))
     batch.add_box("v6-parking-warning-strip","painted-steel",(22,-13.8,.45),(7.2,.35,.18))
