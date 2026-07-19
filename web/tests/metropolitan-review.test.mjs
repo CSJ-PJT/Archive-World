@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+test('metropolitan mode is generated-only and visibly non-canonical',()=>{const main=fs.readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');const view=fs.readFileSync(new URL('../src/metropolitan-review.ts',import.meta.url),'utf8');assert.match(main,/mode'\)==='metropolitan'/);assert.match(main,/VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL/);assert.match(view,/NOT CANONICAL/);assert.match(view,/NOT V3 APPLIED/);assert.match(view,/districtCount/);});

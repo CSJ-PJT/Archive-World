@@ -3,11 +3,15 @@ import type { District } from './types';
 
 const generatedMode=import.meta.env.VITE_ARCHIVE_WORLD_RUNTIME_MODE==='generated';
 const planningMode=new URLSearchParams(window.location.search).get('mode')==='planning';
+const metropolitanMode=new URLSearchParams(window.location.search).get('mode')==='metropolitan';
 const generatedBase=(import.meta.env.VITE_ARCHIVE_WORLD_GENERATED_BASE_URL ?? '').replace(/\/$/,'');
 const runtimeBase=generatedMode?generatedBase:(import.meta.env.VITE_ARCHIVE_WORLD_ASSET_BASE_URL ?? '').replace(/\/$/,'');
 const modeLabel=generatedMode?'GENERATED MODE':'SOURCE MODE';
 const app=document.querySelector<HTMLDivElement>('#app')!;
-if(planningMode){
+if(metropolitanMode){
+  const metropolitanBase=(import.meta.env.VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL ?? '').replace(/\/$/,'');
+  if(!metropolitanBase){app.innerHTML='<main class="planning-error">METROPOLITAN_REVIEW requires <code>VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL</code>. Generated output only.</main>';}else{void import('./metropolitan-review').then(({createMetropolitanReview})=>createMetropolitanReview(app,metropolitanBase));}
+}else if(planningMode){
   const planningBase=(import.meta.env.VITE_ARCHIVE_WORLD_PLANNING_BASE_URL ?? '').replace(/\/$/,'');
   if(!planningBase){app.innerHTML='<main class="planning-error">PLAN_ONLY 모드는 <code>VITE_ARCHIVE_WORLD_PLANNING_BASE_URL</code>가 필요합니다. Generated planning output만 지정하십시오.</main>';}else{void import('./planning-mode').then(({createPlanningMode})=>createPlanningMode(app,planningBase));}
 }else{
