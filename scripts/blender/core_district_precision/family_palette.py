@@ -11,6 +11,9 @@ def apply_palette(materials,seed):
   # for Blender review while exporting an explicit PBR base-color fallback.
   material.diffuse_color=(*color,1)
   bsdf=next((n for n in material.node_tree.nodes if n.type=='BSDF_PRINCIPLED'),None)
-  if bsdf and 'Base Color' in bsdf.inputs: bsdf.inputs['Base Color'].default_value=(*color,1)
+  if bsdf and 'Base Color' in bsdf.inputs:
+   for link in list(material.node_tree.links):
+    if link.to_node==bsdf and link.to_socket.name=='Base Color': material.node_tree.links.remove(link)
+   bsdf.inputs['Base Color'].default_value=(*color,1)
   material['districtPalette']='ArchiveOS' if seed%2 else 'Ledger';material['imageTextureNodes']=0
  return {'palette':materials['limestone']['districtPalette'],'accent':accent,'proceduralOnly':True,'gltfPbrFallback':True}
