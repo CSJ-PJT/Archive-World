@@ -9,8 +9,11 @@ def atomic(path,data):
  os.replace(tmp,path)
 
 def plan():
- points=[[-390,-24],[-260,-12],[-130,10],[0,0],[130,-16],[260,-6],[390,18]]
- edges=['formal-stone','stepped-seating','green-planted','plaza-terrace','transit-frontage','low-retaining']
+ # Ten short sections let the stream change civic character without copying a
+ # real-world canal section.  The centerline remains intentionally shallow and
+ # irregular so it reads as an integrated city seam rather than a straight strip.
+ points=[[-390,-24],[-312,-17],[-234,-6],[-156,8],[-78,7],[0,0],[78,-10],[156,-14],[234,-9],[312,4],[390,18]]
+ edges=['formal-stone','stepped-seating','green-planted','low-retaining','plaza-terrace','transit-frontage','service-maintenance','bridge-abutment','pocket-wetland','pavilion-edge']
  segments=[]
  for i,(a,b) in enumerate(zip(points,points[1:])):
   length=math.dist(a,b);segments.append({'id':f'stream-segment-{i+1}','start':a,'end':b,'lengthM':round(length,2),'waterWidthM':10+i%3*2,'corridorWidthM':30+i%2*6,'depthM':.35+i%2*.12,'elevationM':round(-.05*i,2),'edgeType':edges[i]})
