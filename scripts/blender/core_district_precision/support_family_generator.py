@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse,json,math,sys,time
 from pathlib import Path
 import bpy
-HERE=Path(__file__).resolve().parent;PROD=HERE.parent/'production_geometry';sys.path[:0]=[str(PROD),str(HERE.parent)]
+HERE=Path(__file__).resolve().parent;PROD=HERE.parent/'production_geometry';sys.path[:0]=[str(HERE),str(PROD),str(HERE.parent)]
 from geometry_core import MeshBatch,validate_geometry
 from material_library import create_material_library
 from family_palette import apply_palette
