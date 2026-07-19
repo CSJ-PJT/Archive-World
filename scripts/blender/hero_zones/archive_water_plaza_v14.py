@@ -636,6 +636,60 @@ def add_s_grade_body_articulation(batch, *, x, y, width, depth, facing, style,
                   (6.8, .10, .12))
 
 
+def add_podium_side_activation(batch, *, x, y, width, depth, facing, style, podium_h):
+    """Replace blank podium flank walls with bounded occupied side rooms."""
+    podium_w=width+7.0;podium_d=depth+5.0
+    accent="archive-metal" if style<3 else "ledger-bronze"
+    stone="archive-warm-stone" if style<3 else "ledger-limestone"
+    room_depth=3.8
+    usable=podium_d*.68
+    bays=4+style%2;pitch=usable/bays
+    for side in (-1,1):
+        face_x=x+side*podium_w*.5
+        inside=-side
+        # Continuous floor, soffit and rear wall make the side frontage a real
+        # 3.8m-deep room sequence rather than glass applied to a solid box.
+        room_x=face_x+inside*room_depth*.5
+        batch.add_box("v30-podium-side-room-floor","ledger-granite",
+                      (room_x,y,.14),(room_depth,usable,.28))
+        batch.add_box("v30-podium-side-room-ceiling","warm-interior",
+                      (room_x,y,5.35),(room_depth,usable,.20))
+        batch.add_box("v30-podium-side-room-back","warm-interior",
+                      (face_x+inside*(room_depth-.10),y,2.7),(.20,usable,5.2))
+        for bay in range(bays):
+            by=y-usable*.5+(bay+.5)*pitch
+            glass_x=face_x-side*.05
+            batch.add_box("v30-podium-side-attached-glass","frontage-glass",
+                          (glass_x,by,2.65),(.10,pitch-.42,5.0))
+            for edge in (-1,1):
+                batch.add_box("v30-podium-side-opening-jamb",accent,
+                              (face_x,by+edge*(pitch-.30)*.5,2.72),
+                              (.34,.20,5.45))
+            batch.add_box("v30-podium-side-opening-head",accent,
+                          (face_x,by,5.25),(.34,pitch-.22,.26))
+            batch.add_box("v30-podium-side-opening-sill",stone,
+                          (face_x,by,.24),(.34,pitch-.22,.32))
+            batch.add_box("v30-podium-side-interior-light","warm-light",
+                          (face_x+inside*2.1,by,5.12),(1.5,pitch*.52,.08))
+            if bay==(style+side)%bays:
+                batch.add_box("v30-podium-side-entry-door",accent,
+                              (face_x+side*.04,by,1.45),(.12,1.15,2.9))
+        # A masonry corner pier and wrap canopy terminate the elevation instead
+        # of exposing the end of the front curtain wall.
+        corner_y=y+facing*podium_d*.44
+        batch.add_box("v30-podium-corner-solid-pier",stone,
+                      (face_x-side*.22,corner_y,3.0),(.62,1.35,6.0))
+        batch.add_box("v30-podium-side-wrap-canopy",accent,
+                      (face_x+side*1.55,corner_y-facing*3.4,5.65),
+                      (3.4,7.4,.28))
+        for planter in (-.26,.26):
+            py=y+usable*planter
+            batch.add_box("v30-podium-side-planter",stone,
+                          (face_x+side*2.0,py,.72),(3.2,3.8,1.15))
+            batch.add_box("v30-podium-side-planter-soil","soil-v11",
+                          (face_x+side*2.0,py,1.34),(2.7,3.3,.10))
+
+
 def add_production_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     facing = -1 if y > 0 else 1
@@ -718,6 +772,7 @@ def add_production_building(batch, spec):
     upper_side=add_connected_side_and_rear(batch,x=upper_x,y=y-facing*2.0,width=upper_w,depth=upper_d,
                                            base_z=podium_h+lower_h+middle_h,height=upper_h,facing=facing,style=style+2,prefix="v26-upper")
     ground = add_connected_ground_floor(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style)
+    add_podium_side_activation(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style,podium_h=podium_h)
     identity=add_family_identity(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style,
                                  podium_h=podium_h,lower_h=lower_h,middle_h=middle_h,upper_h=upper_h)
     add_s_grade_body_articulation(batch,x=x,y=y,width=width,depth=depth,facing=facing,style=style,
