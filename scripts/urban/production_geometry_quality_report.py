@@ -61,7 +61,8 @@ def html(root,pilots):
     for mode,data in pilots.items():
         images="".join(f'<figure><img src="../{mode}/previews/{item["file"]}"><figcaption>{item["file"]}</figcaption></figure>' for item in data["previews"])
         cards.append(f'<section><h2>{data["family"]} — {data["visualScore"]["total"]}/100 ({data["visualScore"]["grade"]})</h2><div class="grid">{images}</div></section>')
-    return "<!doctype html><meta charset=utf-8><title>Archive Production Geometry V5 Review</title><style>body{font:16px system-ui;background:#171b20;color:#eee;margin:24px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}figure{margin:0;background:#252b33;padding:8px}img{width:100%;display:block}figcaption{padding-top:6px;font-size:12px}</style><h1>Archive Production Geometry Deep Build V1</h1>"+"".join(cards)
+    baseline='<section><h2>Failed V4 proof → V5 comparison</h2><div class="grid"><figure><img src="../baseline-v4/residential-daylight.png"><figcaption>Residential V4 — D 45</figcaption></figure><figure><img src="../residential/previews/day-hero-front.png"><figcaption>Residential V5</figcaption></figure><figure><img src="../baseline-v4/office-daylight.png"><figcaption>Office V4 — D 45</figcaption></figure><figure><img src="../office/previews/day-hero-front.png"><figcaption>Office V5</figcaption></figure></div></section>'
+    return "<!doctype html><meta charset=utf-8><title>Archive Production Geometry V5 Review</title><style>body{font:16px system-ui;background:#171b20;color:#eee;margin:24px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}figure{margin:0;background:#252b33;padding:8px}img{width:100%;display:block}figcaption{padding-top:6px;font-size:12px}</style><h1>Archive Production Geometry Deep Build V1</h1>"+baseline+"".join(cards)
 
 
 def main():

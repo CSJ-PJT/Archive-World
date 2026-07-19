@@ -6,4 +6,5 @@ for token in ("CODEX_VISUAL_REVIEW_COMPLETE_PO_APPROVAL_PENDING","actualCityAppl
     assert token in source
 assert '"residential":{' in source and '"office":{' in source
 assert "PARTIAL" in source and "productionClaim" in source
+assert "Failed V4 proof" in source and "baseline-v4" in source
 print("production geometry quality report contract PASS")
