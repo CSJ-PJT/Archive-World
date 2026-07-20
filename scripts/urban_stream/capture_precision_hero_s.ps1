@@ -1,23 +1,31 @@
 param(
   [string]$Url='http://127.0.0.1:4176/?mode=coreprecision&clean=1&cinematic=1',
-  [string]$Output='C:\ArchiveData\World\Generated\v13\core-stream-s-grade\renders\hero-a-v34-final',
-  [int]$VirtualTimeBudgetMs=55000
+  [string]$Output='C:\ArchiveData\World\Generated\v13\core-stream-s-grade\renders\metropolitan-precision-v40',
+  [int]$VirtualTimeBudgetMs=22000
 )
 $ErrorActionPreference='Stop'
 $chrome='C:\Program Files\Google\Chrome\Application\chrome.exe'
 if(!(Test-Path -LiteralPath $chrome)){throw 'Chrome executable missing'}
 New-Item -ItemType Directory -Force -Path $Output|Out-Null
 $views=@(
-  [pscustomobject]@{name='street-axis';camera=43},
-  [pscustomobject]@{name='frontage';camera=44},
-  [pscustomobject]@{name='water-plaza';camera=45},
-  [pscustomobject]@{name='gateway';camera=46}
+  [pscustomobject]@{name='district-aerial';camera=0},
+  [pscustomobject]@{name='district-skyline';camera=8},
+  [pscustomobject]@{name='ledger-terrace';camera=36},
+  [pscustomobject]@{name='ledger-frontage';camera=37},
+  [pscustomobject]@{name='transit-junction';camera=38},
+  [pscustomobject]@{name='transit-entry';camera=39},
+  [pscustomobject]@{name='archive-axis';camera=43},
+  [pscustomobject]@{name='archive-aerial';camera=49},
+  [pscustomobject]@{name='archive-street';camera=50},
+  [pscustomobject]@{name='archive-frontage';camera=51},
+  [pscustomobject]@{name='archive-water-plaza';camera=52},
+  [pscustomobject]@{name='archive-gateway';camera=53}
 )
 $records=@()
 foreach($view in $views){
   foreach($time in @('day','dusk','night')){
     $target=Join-Path $Output ("hero-a-{0}-{1}.png" -f $view.name,$time)
-    $uri="$Url&camera=$($view.camera)&time=$time&rev=precision-s-v34"
+    $uri="$Url&camera=$($view.camera)&time=$time&rev=metropolitan-precision-v40"
     $watch=[Diagnostics.Stopwatch]::StartNew()
     $arguments=@(
       '--headless=new','--disable-gpu-sandbox','--hide-scrollbars',
@@ -44,7 +52,7 @@ foreach($view in $views){
 }
 $report=[ordered]@{
   status='PASS';mode='CORE_STREAM_PRECISION_REVIEW';gradeTarget='S'
-  actualWebGL=$true;heroZone='Archive Water Plaza';screenshotCount=$records.Count
+  actualWebGL=$true;scope='METROPOLITAN_CORE_STREAM_PRECISION';screenshotCount=$records.Count
   records=$records;generatedAt=(Get-Date).ToUniversalTime().ToString('o')
 }
 $temporary=Join-Path $Output 'capture-report.json.tmp'
