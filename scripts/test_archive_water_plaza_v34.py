@@ -107,7 +107,9 @@ assert 'v40-archive-gateway-portal-column' in source
 assert 'v40-archive-gateway-portal-beam' in source
 for token in (
     "_add_hyper_polish_archive_scene", "v41-hyper-gallery-room-back",
-    "v41-hyper-room-inlay", "v41-hyper-wet-edge", "hyperPolishScene",
+    "v41-hyper-room-inlay", "v41-hyper-wet-edge",
+    "v42-water-watch-seat", '"activityClusters": activity_clusters',
+    "hyperPolishScene",
 ):
     assert token in source, token
 print("archive water plaza v40 restrained gateway contract: PASS")

@@ -681,6 +681,72 @@ def _build_hyper_polish_city_scene(batch):
                 chair_side, 2.94, 2.39))
         cafe_clusters += 1
 
+    # Camera-composed activity groups make the promenade legible as a sequence
+    # of actual uses rather than evenly scattered population markers.
+    activity_clusters = []
+    for cluster_index, (cx, cy, action, count, facing) in enumerate((
+            (30.0, -20.5, "office-arrival", 8, .18),
+            (104.0, 20.5, "lunch-terrace", 10, 3.0),
+            (158.0, -20.5, "water-watch", 7, .08),
+            (218.0, 20.5, "bridge-approach", 9, 3.02),
+            (278.0, -20.5, "transit-transfer", 12, .12),
+            (334.0, 20.5, "evening-cafe", 8, 3.0))):
+        bank = 1 if cy > 0 else -1
+        for person in range(count):
+            row = person // 5
+            px = cx - 4.4 + (person % 5) * 2.2 + row * .6
+            py = cy + bank * (row * 1.45 + .25 * (person % 2))
+            people.append(hero._add_mid_detail_human(
+                batch, px, py, facing + .06 * (person % 3 - 1),
+                31300 + cluster_index * 40 + person,
+                "walking" if action in ("office-arrival", "bridge-approach",
+                                          "transit-transfer") and person % 3 == 0
+                else "conversation", 2.39))
+        activity_clusters.append({"role": action, "count": count,
+                                  "foregroundMidgroundComposed": True})
+
+    # People occupy bridge decks and the water edge, so circulation and pause
+    # read in the same frame instead of leaving the centre corridor empty.
+    for bridge_index, bridge_x in enumerate((60.0, 260.0)):
+        for person in range(7):
+            people.append(hero._add_mid_detail_human(
+                batch, bridge_x - 3.6 + (person % 4) * 2.4,
+                -7.2 + (person // 4) * 4.6, .03,
+                31800 + bridge_index * 30 + person, "walking", 2.92))
+    for watcher_index, (x, bank) in enumerate(((18.0, -1), (116.0, 1),
+                                                (204.0, -1), (310.0, 1))):
+        y = bank * 11.2
+        batch.add_box("v52-water-watch-seat", "timber-accent",
+                      (x, y, .76), (5.6, .72, .18))
+        for side in (-1, 1):
+            seated.append(hero._add_seated_human(
+                batch, x + side * 1.35, y, 0 if bank > 0 else 3.14159,
+                32000 + watcher_index * 10 + side, .86, .28))
+
+    # A small exhibition/performance terrace and bicycle stop give the wide
+    # central paving a reason to exist without reducing the clear path.
+    batch.add_box("v52-performance-terrace", "dry-stone",
+                  (154.0, 30.0, 2.52), (18.0, 7.2, .24))
+    batch.add_box("v52-performance-backdrop", "archive-metal",
+                  (154.0, 33.1, 4.65), (9.0, .22, 4.0))
+    batch.add_box("v52-performance-art-panel", "archive-cyan-light",
+                  (154.0, 32.94, 4.72), (5.6, .08, 2.5))
+    for audience in range(8):
+        seated.append(hero._add_seated_human(
+            batch, 148.0 + (audience % 4) * 4.0,
+            25.4 + (audience // 4) * 1.5, 0.0,
+            32200 + audience, 2.84, 2.39))
+    for bike in range(5):
+        bx = 244.0 + bike * 2.0
+        batch.add_box("v52-bicycle-rack", "archive-metal",
+                      (bx, -30.0, 3.05), (.12, 1.7, 1.05))
+        batch.add_box("v52-bicycle-frame", "ledger-bronze" if bike % 2 else "archive-metal",
+                      (bx + .34, -30.0, 2.94), (.08, 1.25, .72))
+    activity_clusters.append({"role": "performance-exhibition", "count": 8,
+                              "foregroundMidgroundComposed": True})
+    activity_clusters.append({"role": "bicycle-stop", "count": 5,
+                              "foregroundMidgroundComposed": True})
+
     # Ledger bridge gains tapered landing pylons and a central viewing bay;
     # Transit receives open canopy fins.  Both remain distinct and accessible.
     for bridge_x, accent, role in ((60.0, "ledger-bronze", "ledger"),
@@ -713,6 +779,7 @@ def _build_hyper_polish_city_scene(batch):
     return {"occupiedFrontageRooms": rooms, "programmedNodes": len(node_specs),
             "programmedHumans": len(people), "seatedHumans": len(seated),
             "cafeTerraceClusterCount": cafe_clusters,
+            "activityClusters": activity_clusters,
             "bridges": bridges, "clearPromenadeM": 6.0,
             "scatterPlacement": False, "floatingObjects": 0,
             "waterIntrusions": 0}
@@ -753,7 +820,9 @@ def main():
                            + street_rooms["activityHumans"]
                            + cinematic_activity["programmedHumans"]
                            + stream_edge_rooms["humanCount"]
-                           + aaa_polish["programmedHumans"])
+                           + aaa_polish["programmedHumans"]
+                           + hyper_polish["programmedHumans"]
+                           + hyper_polish["seatedHumans"])
     source_objects = batch.finalize()
     runtime_objects, consolidation = hero._consolidate_scene_objects_by_material(source_objects)
     validation = hero.v12.validate_geometry(runtime_objects)

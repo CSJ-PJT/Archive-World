@@ -2102,12 +2102,49 @@ def _add_hyper_polish_archive_scene():
                 batch.add_box("v41-hyper-edge-seat", "timber-accent",
                               (x, bank * 11.2, .76), (5.8, .72, .18))
             edge_sections += 1
+    # Compose arrivals, bridge crossings, runners and water watchers as
+    # foreground/midground groups rather than increasing an even scatter.
+    activity_clusters = []
+    for cluster_index, (cx, cy, action, count, facing) in enumerate((
+            (-326.0, -20.5, "office-arrival", 8, .18),
+            (-286.0, 20.5, "civic-meeting", 9, 3.0),
+            (-246.0, -20.5, "gateway-crossing", 10, .10),
+            (-205.0, 20.5, "water-lunch", 8, 3.0),
+            (-172.0, -20.5, "evening-walk", 7, .15))):
+        bank = 1 if cy > 0 else -1
+        for person in range(count):
+            row = person // 5
+            activity.append(_add_mid_detail_human(
+                batch, cx - 4.4 + (person % 5) * 2.2 + row * .5,
+                cy + bank * (row * 1.45 + .22 * (person % 2)),
+                facing + .06 * (person % 3 - 1),
+                26400 + cluster_index * 40 + person,
+                "walking" if action in ("office-arrival", "gateway-crossing",
+                                          "evening-walk") and person % 3 == 0
+                else "conversation", 2.39))
+        activity_clusters.append({"role": action, "count": count,
+                                  "foregroundMidgroundComposed": True})
+    for bridge_person in range(8):
+        activity.append(_add_mid_detail_human(
+            batch, -254.0 + (bridge_person % 4) * 2.5,
+            -6.5 + (bridge_person // 4) * 5.0, .04,
+            26800 + bridge_person, "walking", 2.92))
+    for watcher_index, (x, bank) in enumerate(((-332.0, -1), (-292.0, 1),
+                                                (-222.0, -1), (-178.0, 1))):
+        y = bank * 11.2
+        batch.add_box("v42-water-watch-seat", "timber-accent",
+                      (x, y, .76), (5.6, .72, .18))
+        for side in (-1, 1):
+            activity.append(_add_seated_human(
+                batch, x + side * 1.35, y, 0 if bank > 0 else math.pi,
+                27000 + watcher_index * 10 + side, .86, .28))
     return batch.finalize(), {
         "occupiedGalleryCount": len(rooms), "occupiedGalleries": rooms,
         "programmedRoomCount": len(node_specs),
         "programmedHumanCount": len(activity),
         "cafeTerraceClusterCount": cafe_clusters,
         "waterEdgeSections": edge_sections,
+        "activityClusters": activity_clusters,
         "clearPromenadeM": 6.0, "scatterPlacement": False,
         "floatingObjects": 0, "waterIntrusions": 0,
     }

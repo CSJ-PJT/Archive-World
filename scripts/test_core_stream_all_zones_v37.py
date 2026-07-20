@@ -31,6 +31,8 @@ required = (
     "transit_clear = 240 <= x <= 280",
     "_build_hyper_polish_city_scene", "v51-hyper-frontage-room-back",
     "v51-hyper-node-inlay", "v51-hyper-bridge-landing-pylon",
+    "v52-water-watch-seat", "v52-performance-terrace",
+    "v52-bicycle-rack", '"activityClusters": activity_clusters',
     "hyperPolishScene",
 )
 missing = [token for token in required if token not in text]
