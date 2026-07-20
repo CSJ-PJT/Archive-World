@@ -67,6 +67,16 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
                           (pitch - .34, .14, opening_h))
             if lod == "LOD2":
                 continue
+            # Mullion and transom sit in the same bounded opening as the glass.
+            # They are envelope members, never detached cards in front of a
+            # monolithic box.  LOD0 retains the complete near-camera grid.
+            batch.add_box("integrated-front-centre-mullion", accent,
+                          (x, face_y + .22, opening_z),
+                          (.12, .52, opening_h + .08))
+            if lod == "LOD0":
+                batch.add_box("integrated-front-transom", accent,
+                              (x, face_y + .22, opening_z + opening_h * .08),
+                              (pitch - .36, .52, .12))
             for side in (-1, 1):
                 batch.add_box("integrated-front-jamb-return", accent,
                               (x + side * (pitch * .5 - .14),
@@ -81,6 +91,14 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
         batch.add_box("integrated-front-spandrel", stone,
                       (0, face_y + .12, base_z + (floor + span) * floor_h),
                       (width, .32, .36 if floor % 8 else .58))
+        if lod == "LOD0" and floor % 4 in (0, 1):
+            # Projected vertical fins break the all-storey repetition and cast
+            # real grazing shadows across each four-floor facade zone.
+            for bay in range(0, bay_count + 1, 2):
+                x = -width * .5 + bay * pitch
+                batch.add_box("integrated-front-projected-fin", accent,
+                              (x, face_y - .34, opening_z),
+                              (.18, 1.28, opening_h + .34))
     for bay in range(bay_count + 1):
         x = -width * .5 + bay * pitch
         batch.add_box("integrated-front-structural-pier", accent,
@@ -111,6 +129,14 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
                               (.14, pitch - .34, opening_h))
                 if lod == "LOD2":
                     continue
+                batch.add_box("integrated-side-centre-mullion", accent,
+                              (face_x - side * .22, y, z),
+                              (.52, .12, opening_h + .08))
+                if lod == "LOD0":
+                    batch.add_box("integrated-side-transom", accent,
+                                  (face_x - side * .22, y,
+                                   z + opening_h * .08),
+                                  (.52, pitch - .36, .12))
                 for edge in (-1, 1):
                     batch.add_box("integrated-side-jamb-return", accent,
                                   (face_x - side * .28,
@@ -134,6 +160,14 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
             batch.add_box("integrated-rear-infill", material,
                           (x, rear_y - .28, z),
                           (rear_pitch - .38, .14, span * floor_h - .94))
+            if lod != "LOD2":
+                batch.add_box("integrated-rear-mullion", accent,
+                              (x, rear_y - .18, z),
+                              (.12, .48, span * floor_h - .82))
+                if lod == "LOD0":
+                    batch.add_box("integrated-rear-transom", accent,
+                                  (x, rear_y - .18, z + span * floor_h * .07),
+                                  (rear_pitch - .42, .48, .12))
         batch.add_box("integrated-rear-service-band", accent,
                       (0, rear_y - .10, base_z + (floor + span) * floor_h),
                       (width * .80, .42, .38))
@@ -168,6 +202,15 @@ def _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent):
         batch.add_box("occupied-lobby-furniture", "timber-accent",
                       (x, facing_y + 1.0, .84),
                       (pitch * .52, 1.2, 1.10))
+        # The furniture silhouette is spatially grounded by a meeting table,
+        # two chairs and a rear ceiling pendant in every occupied lobby bay.
+        batch.add_box("occupied-lobby-table", "timber-accent",
+                      (x, facing_y + 2.25, .82),
+                      (pitch * .46, 1.05, .16))
+        for chair in (-1, 1):
+            batch.add_box("occupied-lobby-chair", "service-charcoal",
+                          (x + chair * pitch * .18, facing_y + 2.25, .58),
+                          (.44, .48, .68))
     batch.add_box("inhabited-entry-canopy", accent,
                   (lobby_x, facing_y - room_depth * .5 - 2.2, 7.30),
                   (lobby_w + 5.0, 5.0, .38))
@@ -409,10 +452,10 @@ def main():
             reports.append(report)
     (output / "reports").mkdir(parents=True, exist_ok=True)
     summary = {"status": "TECHNICAL_PASS_VISUAL_GATE_PENDING",
-               "revision": 13, "families": len(SPECS),
+               "revision": 14, "families": len(SPECS),
                "lodGlbs": len(reports), "detachedWindowCount": 0,
                "officeV5Changed": False, "reports": reports}
-    (output / "reports/support-body-v13-integrated.json").write_text(
+    (output / "reports/support-body-v14-metropolitan-precision.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps({"status": summary["status"], "families": len(SPECS),
                       "lodGlbs": len(reports), "detachedWindowCount": 0,
