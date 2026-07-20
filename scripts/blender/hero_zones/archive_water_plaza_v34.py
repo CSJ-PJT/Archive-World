@@ -33,16 +33,17 @@ CAMERA_CLEARANCE_SHIFTS = {
 }
 ORIGINAL_ADD_UV_SPHERE = v12.HeroBatch.add_uv_sphere
 ORIGINAL_ADD_HUMAN = v12.add_human
+ORIGINAL_NATURAL_TREE = v30.add_natural_tree
 
 
 def _near_camera(x, y, radius):
-    camera_origins = ((-340, -15), (-300, -20), (-340, 10), (-210, 22))
+    camera_origins = ((-340, -15), (-292, 9), (-340, 10), (-210, 22))
     return any(math.hypot(x - cx, y - cy) < radius for cx, cy in camera_origins)
 
 
 def _occludes_camera(x, y, length=30.0, width=4.0):
     rays = (
-        ((-340, -15), (-218, 1)), ((-300, -20), (-322, -55)),
+        ((-340, -15), (-218, 1)), ((-292, 9), (-325, -60)),
         ((-340, 10), (-230, 0)), ((-210, 22), (-250, 0)),
     )
     for (cx, cy), (tx, ty) in rays:
@@ -76,14 +77,14 @@ def add_camera_safe_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
         scale *= .86
     if _near_camera(x, y, 22.0) or _occludes_camera(x, y, 38.0, 5.5):
         return
-    v30.add_natural_tree(batch, x, y, seed, scale, z_base)
+    _add_architectural_tree(batch, x, y, seed, scale, z_base)
 
 
 def add_camera_safe_human(batch, x, y, facing, seed, action, z_base=0.0):
     """Keep certified eye-level camera origins free of mannequin occlusion."""
-    if _near_camera(x, y, 18.0) or _occludes_camera(x, y, 32.0, 3.2):
-        y += 20.0 if y >= 0 else -20.0
-        x += 11.0
+    if _near_camera(x, y, 30.0) or _occludes_camera(x, y, 48.0, 4.0):
+        return {"position": [x, y], "action": action, "orientation": facing,
+                "grounded": True, "culledForCertifiedCamera": True}
     return ORIGINAL_ADD_HUMAN(batch, x, y, facing, seed, action, z_base)
 
 
@@ -106,8 +107,20 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
     batch.add_box("v34-facade-room-back", "warm-interior",
                   (x, face_y + inside * room_depth, base_z + height * .5),
                   (width, .18, height))
-    batch.add_box("v34-integrated-glass-field", "occupied-window-glass",
+    batch.add_box("v34-integrated-glass-field", "blue-gray-glass",
                   (x, glass_y, base_z + height * .5), (width - .22, .12, height - .20))
+    # Floor plates and occupation backs sit behind the glass.  They provide a
+    # real spatial cavity, so the facade reads as a building envelope rather
+    # than a glass card attached to a solid box.
+    for floor in range(floors):
+        pz = base_z + floor * floor_h + .10
+        batch.add_box("v34-interior-floor-plate", "service-charcoal",
+                      (x, face_y + inside * .82, pz), (width - .42, 1.15, .18))
+        if (floor + style) % 3:
+            zone_x = x + ((floor + style) % 4 - 1.5) * width * .12
+            batch.add_box("v34-occupied-room-back", "warm-interior",
+                          (zone_x, face_y + inside * 1.12, pz + floor_h * .53),
+                          (width * .20, .12, floor_h * .62))
     for column in range(bay_count + 1):
         px = x - width * .5 + column * bay_width
         pier_w = .28 if column not in (0, bay_count) else .48
@@ -119,6 +132,13 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
         band_h = .25 if floor % 4 else .42
         batch.add_box("v34-attached-spandrel", stone if floor % 4 == 0 else accent,
                       (x, face_y + inside * .10, pz), (width + .24, .72, band_h))
+    # Deep vertical frames create a legible primary rhythm at street and aerial
+    # distance without becoming a detached second facade.
+    for column in range(0, bay_count + 1, 3):
+        px = x - width * .5 + column * bay_width
+        batch.add_box("v34-primary-depth-frame", stone,
+                      (px, face_y + facing * .19, base_z + height * .5),
+                      (.48, 1.10, height + .56))
     # Three broad recessed rooms break the repetition without a second grid.
     for zone in range(3):
         start = (style * 2 + zone * 3) % max(1, bay_count - 2)
@@ -204,6 +224,18 @@ def _inhabited_podium(batch, spec, podium_h, stone, accent):
         batch.add_box("v34-frontage-structural-column", accent,
                       (px, face_y + inside * room_depth * .5, podium_h * .5),
                       (.34, room_depth, podium_h))
+    # Each occupied bay receives a recessed head and a warm internal reveal.
+    # These pieces are physically contained by the continuous floor, ceiling,
+    # back wall and columns above.
+    for bay in range(bay_count):
+        bx = x - facade_width * .5 + (bay + .5) * pitch
+        batch.add_box("v34-frontage-deep-head", stone,
+                      (bx, face_y + inside * 1.20, podium_h - .44),
+                      (pitch - .36, 2.28, .30))
+        if (bay + style) % 2 == 0:
+            batch.add_box("v34-frontage-warm-reveal", "warm-interior",
+                          (bx, face_y + inside * 1.62, 4.35),
+                          (pitch * .50, .16, 2.75))
     # A deep inhabited canopy terminates in real columns and a warm soffit.
     canopy_x = x - facade_width * .22 + (style % 3) * 2.2
     batch.add_box("v34-inhabited-canopy", stone,
@@ -289,6 +321,67 @@ def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
         batch.add_box("v34-signature-entry-soil", "soil-v11",
                       (lobby_x + side * (lobby_width * .5 + 2.1), outer_y + facing * 4.8, 3.64),
                       (2.8, 2.6, .10))
+    # The lobby terrace is programmed as a small civic room, not left as blank
+    # paving.  Curved tables, loose chairs, a screen wall and paired trees form
+    # foreground/midground depth while preserving the camera ray.
+    terrace_y = outer_y + facing * 6.8
+    batch.add_box("v34-signature-terrace-screen", accent,
+                  (lobby_x - lobby_width * .5 - 3.3, terrace_y, 4.05),
+                  (.30, 7.2, 3.3))
+    for table_index in (-1, 0, 1):
+        table_x = lobby_x + table_index * 4.4
+        batch.add_cylinder("v34-signature-cafe-table", "ledger-bronze",
+                           (table_x, terrace_y, 3.10), .74, .12, 24)
+        for chair_index in range(3):
+            angle = chair_index * math.tau / 3 + .35
+            batch.add_box("v34-signature-cafe-chair", "timber-accent",
+                          (table_x + math.cos(angle) * 1.35,
+                           terrace_y + math.sin(angle) * 1.35, 2.82),
+                          (.48, .52, .70), angle)
+    for tree_side in (-1, 1):
+        tx = lobby_x + tree_side * (lobby_width * .5 + 3.6)
+        ty = terrace_y + facing * 1.0
+        add_camera_safe_tree(batch, tx, ty, 1240 + style * 7 + tree_side, .68, 2.30)
+
+
+def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
+    """Three near-field species silhouettes with attached branch systems."""
+    variant = seed % 3
+    if variant == 0:
+        return ORIGINAL_NATURAL_TREE(batch, x, y, seed, scale, z_base)
+    height = (8.2 if variant == 1 else 6.7) * scale
+    material = ("foliage-deep", "foliage-mid", "foliage-light")[seed % 3]
+    if variant == 1:
+        batch.add_frustum("v34-columnar-tree-trunk", "timber-accent",
+                          (x, y, z_base + height * .36), .34 * scale, .18 * scale,
+                          height * .72, 16)
+        for branch in range(7):
+            angle = branch * math.tau / 7 + .22
+            start = (x, y, z_base + height * (.43 + .035 * (branch % 3)))
+            end = (x + math.cos(angle) * 1.25 * scale,
+                   y + math.sin(angle) * 1.25 * scale,
+                   z_base + height * (.70 + .025 * (branch % 2)))
+            batch.add_tapered_branch("v34-columnar-primary-branch", "timber-accent",
+                                     start, end, .12 * scale, .035 * scale, 10)
+        for level in (-1, 0, 1):
+            batch.add_uv_sphere("v34-columnar-tree-crown", material,
+                                (x + level * .38 * scale, y, z_base + height * (.71 + level * .08)),
+                                1.72 * scale, 24, 12, (.74, .72, 1.25))
+    else:
+        for stem in (-1, 1):
+            start = (x + stem * .22 * scale, y, z_base)
+            end = (x + stem * 1.10 * scale, y + stem * .30 * scale, z_base + height * .67)
+            batch.add_tapered_branch("v34-multistem-tree-trunk", "timber-accent",
+                                     start, end, .28 * scale, .09 * scale, 14)
+            for branch in range(3):
+                angle = branch * math.tau / 3 + (0 if stem > 0 else .55)
+                tip = (end[0] + math.cos(angle) * 1.2 * scale,
+                       end[1] + math.sin(angle) * 1.2 * scale,
+                       end[2] + (.7 + .22 * branch) * scale)
+                batch.add_tapered_branch("v34-multistem-primary-branch", "timber-accent",
+                                         end, tip, .09 * scale, .025 * scale, 10)
+                batch.add_uv_sphere("v34-open-tree-crown", material, tip,
+                                    1.18 * scale, 22, 11, (1.28, .90, .72))
 
 
 def add_wall_first_building(batch, spec):
@@ -309,8 +402,8 @@ def add_wall_first_building(batch, spec):
     lower_face = lower_y + facing * lower_d * .5
     # The structural core sits behind the glazing datum and supplies side/rear mass.
     batch.add_box("v34-tower-structural-core", stone,
-                  (lower_x, lower_y - facing * .42, podium_h + lower_h * .5),
-                  (lower_w, lower_d - .84, lower_h))
+                  (lower_x, lower_y - facing * 1.36, podium_h + lower_h * .5),
+                  (lower_w, lower_d - 2.72, lower_h))
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
                           width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
@@ -333,8 +426,8 @@ def add_wall_first_building(batch, spec):
         upper_y = lower_y - facing * 1.6
         upper_face = upper_y + facing * upper_d * .5
         batch.add_box("v34-upper-structural-core", stone,
-                      (upper_x, upper_y - facing * .40, podium_h + lower_h + upper_h * .5),
-                      (upper_w, upper_d - .80, upper_h))
+                      (upper_x, upper_y - facing * 1.30, podium_h + lower_h + upper_h * .5),
+                      (upper_w, upper_d - 2.60, upper_h))
         _bounded_curtain_wall(batch, x=upper_x, face_y=upper_face, facing=facing,
                               width=upper_w, base_z=podium_h + lower_h,
                               floors=upper_floors, floor_h=floor_h,
@@ -407,6 +500,12 @@ def main():
         "boundedFrontageBayCount": sum(7 + style % 3 for style in range(6)),
         "lobbyCount": 6, "retailPublicBayCount": 42,
         "signatureProjectedLobbyCount": 2,
+        "interiorFloorPlateCount": sum(item[4] for item in [
+            (-326, 78, 44, 34, 22), (-260, 82, 50, 38, 28), (-190, 75, 38, 32, 18),
+            (-326, -78, 48, 36, 25), (-258, -82, 42, 34, 20), (-188, -76, 54, 40, 16),
+        ]),
+        "signatureCafeTerraceCount": 2,
+        "nearFieldTreeSilhouetteCount": 3,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,

@@ -12,6 +12,9 @@ required = (
     "_occludes_camera", '"smoothOrganicObjectCount"',
     "v34-signature-lobby-glass", "v34-signature-entry-terrace",
     '"signatureProjectedLobbyCount": 2',
+    "v34-interior-floor-plate", "v34-primary-depth-frame",
+    "v34-signature-cafe-table", '"signatureCafeTerraceCount": 2',
+    "_add_architectural_tree", '"nearFieldTreeSilhouetteCount": 3',
 )
 for token in required:
     assert token in source, token
