@@ -45,6 +45,30 @@ def add_human(batch,x,y,index):
   batch.add_box('human-leg','dark-metal-panel',(x+side*.12,y+side*stride,.42),(.14,.16,.72))
   batch.add_box('human-arm',outfit,(x+side*.31,y-side*stride,1.08),(.12,.14,.70))
 
+
+def add_vehicle(batch,x,y,index,axis='x'):
+ body=(4.5,1.9,1.3) if axis=='x' else (1.9,4.5,1.3)
+ cabin=(2.4,1.7,.8) if axis=='x' else (1.7,2.4,.8)
+ batch.add_box('vehicle-body','dark-metal-panel',(x,y,1),body)
+ batch.add_box('vehicle-cabin','residential-glass',(x,y,1.8),cabin)
+ for along in (-1.45,1.45):
+  for across in (-.94,.94):
+   wx,wy=(x+along,y+across) if axis=='x' else (x+across,y+along)
+   batch.add_box('vehicle-wheel','dark-metal-panel',(wx,wy,.55),(.62,.18,.62) if axis=='x' else (.18,.62,.62))
+ light=(.08,1.2,.32) if axis=='x' else (1.2,.08,.32)
+ lx,ly=(x+2.28,y) if axis=='x' else (x,y+2.28)
+ batch.add_box('vehicle-light','light-metal-panel',(lx,ly,.98),light)
+
+
+def add_activity_cluster(batch, center, count, seed, role):
+ """Compose a foreground/midground activity room around a real destination."""
+ cx,cy=center
+ layouts=((0,0),(-2.2,.8),(2.1,-.6),(-4.3,-1.1),(4.4,1.0),
+          (-6.4,.4),(6.2,-.7),(-1.0,2.5),(1.4,-2.4),(-7.8,-1.9),(7.6,2.0))
+ for index,(dx,dy) in enumerate(layouts[:count]):
+  add_human(batch,cx+dx,cy+dy,seed+index)
+ return {'role':role,'count':count,'destination':[cx,cy]}
+
 def build(batch):
  # 1.2 km x 1.0 km structured network with raised curbs/sidewalks and physical markings.
  roads=[]
@@ -100,15 +124,33 @@ def build(batch):
   x=-220+(i%6)*82;y=78+(i//6)*58;batch.add_box('bicycle-rack','painted-steel',(x,y,.55),(1.8,.18,1.1));batch.add_box('grouped-seating','wood-accent',(x+5,y,.55),(3.2,1.1,.5))
  for x,y in ((-195,165),(215,150),(-40,-190)):
   batch.add_box('wayfinding-blank','light-metal-panel',(x,y,1.6),(1.2,.35,3.2));batch.add_box('kiosk-proxy','curtain-wall-glass',(x+8,y,2.4),(5,4,4.8))
- # Low/mid-detail vehicles and humans are actual geometry, status remains proxy.
- for i in range(45):
-  x=-520+(i%15)*72;y=(-420,-210,210)[i%3];batch.add_box('vehicle-body','dark-metal-panel',(x,y,1),(4.5,1.9,1.3));batch.add_box('vehicle-cabin','residential-glass',(x+.2,y,1.8),(2.4,1.7,.8))
-  for wx in (-1.45,1.45):
-   for wy in (-.94,.94):batch.add_box('vehicle-wheel','dark-metal-panel',(x+wx,y+wy,.55),(.62,.18,.62))
-  batch.add_box('vehicle-light','light-metal-panel',(x+2.28,y,.98),(.08,1.2,.32))
- for i in range(90):
-  x=-520+(i%18)*60;y=-360+(i//18)*160;add_human(batch,x,y,i)
- return {'roadSegments':10,'intersections':24,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':45,'humans':90,'plazas':2,'parcelFields':parcel_count,'streamRoadConflict':False,'laneMarkingRuns':10,'midDetailPopulation':True}
+ # Traffic occupies the authored carriageways.  Earlier revisions placed cars
+ # on obsolete grid rows, which made them read as scattered props on parcels.
+ vehicle_index=0
+ for road_y in (-500,-250,250,500):
+  for lane in (-1,1):
+   for slot in range(5):
+    add_vehicle(batch,-430+slot*190,road_y+lane*5.2,vehicle_index,'x');vehicle_index+=1
+ for road_x in (-360,360):
+  for slot in range(2):
+   add_vehicle(batch,road_x+(-5.2 if slot else 5.2),-120+slot*260,vehicle_index,'y');vehicle_index+=1
+ add_vehicle(batch,600-5.2,120,vehicle_index,'y');vehicle_index+=1
+ # Human life is composed around destinations rather than uniformly scattered.
+ activity_specs=(
+  ((-150,155),11,100,'archive-plaza-arrival'),
+  ((-80,118),10,120,'archive-pavilion-use'),
+  ((225,155),11,140,'ledger-lunch'),
+  ((295,125),10,160,'ledger-dropoff'),
+  ((-42,-205),11,180,'transit-west-entry'),
+  ((42,-205),11,200,'transit-east-entry'),
+  ((-360,-270),8,220,'boulevard-crossing'),
+  ((360,270),8,240,'office-arrival'),
+  ((-120,270),5,260,'bus-waiting'),
+  ((120,-270),5,280,'bicycle-transfer'),
+ )
+ activity=[]
+ for center,count,seed,role in activity_specs:activity.append(add_activity_cluster(batch,center,count,seed,role))
+ return {'roadSegments':10,'intersections':24,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':vehicle_index,'humans':90,'activityClusters':activity,'plazas':2,'parcelFields':parcel_count,'streamRoadConflict':False,'laneMarkingRuns':10,'midDetailPopulation':True,'activityPlacement':'PROGRAMMED_BY_DESTINATION'}
 
 def main():
  v=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--output-root',required=True);a=p.parse_args(v);bpy.ops.wm.read_factory_settings(use_empty=True)
