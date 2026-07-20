@@ -632,43 +632,54 @@ def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
 
 
 def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
-    """Three near-field species silhouettes with attached branch systems."""
-    variant = seed % 3
-    if variant == 0:
-        return ORIGINAL_NATURAL_TREE(batch, x, y, seed, scale, z_base)
-    height = (8.2 if variant == 1 else 6.7) * scale
-    material = ("foliage-deep", "foliage-mid", "foliage-light")[seed % 3]
-    if variant == 1:
-        batch.add_frustum("v34-columnar-tree-trunk", "timber-accent",
-                          (x, y, z_base + height * .36), .34 * scale, .18 * scale,
-                          height * .72, 16)
-        for branch in range(7):
-            angle = branch * math.tau / 7 + .22
-            start = (x, y, z_base + height * (.43 + .035 * (branch % 3)))
-            end = (x + math.cos(angle) * 1.25 * scale,
-                   y + math.sin(angle) * 1.25 * scale,
-                   z_base + height * (.70 + .025 * (branch % 2)))
-            batch.add_tapered_branch("v34-columnar-primary-branch", "timber-accent",
-                                     start, end, .12 * scale, .035 * scale, 10)
-        for level in (-1, 0, 1):
-            batch.add_uv_sphere("v34-columnar-tree-crown", material,
-                                (x + level * .38 * scale, y, z_base + height * (.71 + level * .08)),
-                                1.72 * scale, 24, 12, (.74, .72, 1.25))
-    else:
-        for stem in (-1, 1):
-            start = (x + stem * .22 * scale, y, z_base)
-            end = (x + stem * 1.10 * scale, y + stem * .30 * scale, z_base + height * .67)
-            batch.add_tapered_branch("v34-multistem-tree-trunk", "timber-accent",
-                                     start, end, .28 * scale, .09 * scale, 14)
-            for branch in range(3):
-                angle = branch * math.tau / 3 + (0 if stem > 0 else .55)
-                tip = (end[0] + math.cos(angle) * 1.2 * scale,
-                       end[1] + math.sin(angle) * 1.2 * scale,
-                       end[2] + (.7 + .22 * branch) * scale)
-                batch.add_tapered_branch("v34-multistem-primary-branch", "timber-accent",
-                                         end, tip, .09 * scale, .025 * scale, 10)
-                batch.add_uv_sphere("v34-open-tree-crown", material, tip,
-                                    1.18 * scale, 22, 11, (1.28, .90, .72))
+    """Twelve deterministic near-field tree silhouettes with real branching."""
+    variant = seed % 12
+    family = variant % 4
+    height = (6.8, 8.4, 7.5, 9.1)[family] * scale * (0.94 + (variant // 4) * .045)
+    material = ("foliage-deep", "foliage-mid", "foliage-light")[(variant + family) % 3]
+    trunk_lean_x = math.sin(seed * .73) * .28 * scale
+    trunk_lean_y = math.cos(seed * .51) * .24 * scale
+    trunk_top = (x + trunk_lean_x, y + trunk_lean_y, z_base + height * .64)
+    batch.add_tapered_branch("v34-species-tree-tapered-trunk", "timber-accent",
+                             (x, y, z_base), trunk_top,
+                             (.34 + family * .025) * scale,
+                             (.10 + family * .008) * scale, 16)
+    branch_count = 6 + family
+    tips = []
+    for branch in range(branch_count):
+        angle = branch * math.tau / branch_count + variant * .31
+        start_z = z_base + height * (.36 + .035 * (branch % 4))
+        start = (x + trunk_lean_x * .62, y + trunk_lean_y * .62, start_z)
+        spread = (1.20 + .18 * family + .10 * (branch % 3)) * scale
+        rise = (.62 + .12 * ((branch + variant) % 3)) * scale
+        tip = (trunk_top[0] + math.cos(angle) * spread,
+               trunk_top[1] + math.sin(angle) * spread,
+               trunk_top[2] + rise)
+        batch.add_tapered_branch("v34-species-tree-primary-branch", "timber-accent",
+                                 start, tip, .105 * scale, .032 * scale, 10)
+        # One attached secondary branch gives the silhouette believable forked
+        # structure without creating an expensive leaf-per-card canopy.
+        fork_angle = angle + (-.48 if branch % 2 else .44)
+        fork = (tip[0] + math.cos(fork_angle) * .62 * scale,
+                tip[1] + math.sin(fork_angle) * .62 * scale,
+                tip[2] + (.32 + .06 * (branch % 2)) * scale)
+        batch.add_tapered_branch("v34-species-tree-secondary-branch", "timber-accent",
+                                 tip, fork, .036 * scale, .014 * scale, 8)
+        tips.extend((tip, fork))
+    # Irregular, overlapping crown lobes follow the branch tips.  Family
+    # proportions span columnar, vase, spreading and upright plaza species.
+    squash_by_family = ((.76, .74, 1.15), (1.18, .88, .78),
+                        (1.34, .92, .70), (.92, .82, 1.02))
+    squash = squash_by_family[family]
+    for lobe, tip in enumerate(tips):
+        if lobe % 2 and family == 0:
+            continue
+        radius = (1.02 + .10 * ((lobe + variant) % 4)) * scale
+        center = (tip[0] + math.sin(lobe * 1.73 + variant) * .24 * scale,
+                  tip[1] + math.cos(lobe * 1.31 + variant) * .20 * scale,
+                  tip[2] + .32 * scale + .08 * (lobe % 3) * scale)
+        batch.add_uv_sphere("v34-species-tree-irregular-crown", material,
+                            center, radius, 18, 9, squash)
 
 
 def _add_signature_activity_layer():
@@ -1042,7 +1053,7 @@ def main():
             (-326, -78, 48, 36, 25), (-258, -82, 42, 34, 20), (-188, -76, 54, 40, 16),
         ]),
         "signatureCafeTerraceCount": 2,
-        "nearFieldTreeSilhouetteCount": 3,
+        "nearFieldTreeSilhouetteCount": 12,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "singleFacadeGlassCardCount": 0,
         "chamferedPrimaryMassCount": 12,
