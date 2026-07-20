@@ -140,6 +140,55 @@ def _build_promenance_life(batch):
             "occupiedPavilions": 4, "floating": 0, "waterIntrusions": 0}
 
 
+def _build_metropolitan_node_precision(batch):
+    """Give Ledger and Transit distinct, occupied metropolitan identities."""
+    activity = []
+    # Ledger: formal stone terrace with inhabited colonnade and lunch rooms.
+    for bank in (-1, 1):
+        y = bank * 28.5
+        batch.add_box("v38-ledger-formal-terrace", "ledger-granite", (60.0, y, 2.55), (58.0, 12.0, .26))
+        batch.add_box("v38-ledger-colonnade-canopy", "ledger-bronze", (60.0, y + bank * 2.0, 7.5), (54.0, 6.4, .34))
+        for col in range(7):
+            x = 60.0 - 24.0 + col * 8.0
+            batch.add_cylinder("v38-ledger-colonnade-column", "ledger-bronze", (x, y + bank * 2.0, 5.0), .18, 4.7, 16)
+            if col < 6:
+                table_x = x + 4.0
+                batch.add_cylinder("v38-ledger-lunch-table", "timber-accent", (table_x, y - bank * 1.0, 3.15), .72, .16, 18)
+                for chair in (-1, 1):
+                    batch.add_box("v38-ledger-lunch-chair", "timber-accent", (table_x + chair * 1.0, y - bank * 1.0, 3.02), (.68, .68, .16))
+        for person in range(12):
+            activity.append(hero._add_mid_detail_human(batch, 60.0 - 16.0 + (person % 6) * 6.0, y + bank * (-1.2 + (person // 6) * 2.2), .12 * bank, 9100 + person + (40 if bank > 0 else 0), "conversation" if person % 3 else "walking", 2.68))
+
+    # Transit: a high-capacity covered connector with legible entry portals,
+    # bicycle parking and waiting clusters on both banks.
+    for bank in (-1, 1):
+        y = bank * 29.0
+        batch.add_box("v38-transit-transfer-plaza", "dry-stone", (260.0, y, 2.58), (70.0, 13.0, .24))
+        batch.add_box("v38-transit-canopy-spine", "archive-metal", (260.0, y, 8.15), (64.0, 8.2, .42))
+        batch.add_box("v38-transit-canopy-light", "warm-light", (260.0, y, 7.90), (58.0, 6.8, .09))
+        for col in range(9):
+            x = 260.0 - 28.0 + col * 7.0
+            batch.add_cylinder("v38-transit-canopy-column", "archive-metal", (x, y, 5.25), .16, 5.4, 16)
+        for rack in range(5):
+            rx = 260.0 - 12.0 + rack * 6.0
+            batch.add_box("v38-transit-bicycle-rack", "archive-metal", (rx, y + bank * 4.2, 3.10), (.12, 1.8, 1.0))
+        for person in range(16):
+            activity.append(hero._add_mid_detail_human(batch, 260.0 - 21.0 + (person % 8) * 6.0, y + bank * (-1.0 + (person // 8) * 2.2), .10 * bank, 9300 + person + (40 if bank > 0 else 0), "waiting" if person % 3 else "walking", 2.70))
+
+    # Distinct portal frames mark the two node crossings without copying the
+    # Archive gateway language.
+    for x, material, light_material in ((60.0, "ledger-bronze", "warm-light"), (260.0, "archive-metal", "archive-cyan-light")):
+        batch.add_box("v38-node-bridge-deck", "ledger-granite", (x, 0, 2.72), (12.0, 38.0, .52))
+        for bank in (-1, 1):
+            for side in (-1, 1):
+                batch.add_box("v38-node-bridge-portal-column", material, (x + side * 5.0, bank * 13.5, 6.0), (.38, .46, 6.2))
+            batch.add_box("v38-node-bridge-portal-beam", material, (x, bank * 13.5, 8.92), (10.4, .46, .34))
+            batch.add_box("v38-node-bridge-portal-light", light_material, (x, bank * 13.3, 8.70), (8.8, .08, .10))
+    return {"ledgerTerraceRooms": 2, "transitTransferRooms": 2,
+            "nodeBridgePortals": 4, "activityHumans": len(activity),
+            "activityPlacement": "PROGRAMMED_BY_NODE"}
+
+
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
     parser = argparse.ArgumentParser()
@@ -164,6 +213,8 @@ def main():
     life = v36._build_vegetation_activity_lighting(batch)
     occupied_frontages = _build_mixed_corridor_frontages(batch)
     promenade_life = _build_promenance_life(batch)
+    metropolitan_precision = _build_metropolitan_node_precision(batch)
+    life["humanCount"] += metropolitan_precision["activityHumans"]
     source_objects = batch.finalize()
     runtime_objects, consolidation = hero._consolidate_scene_objects_by_material(source_objects)
     validation = hero.v12.validate_geometry(runtime_objects)
@@ -173,13 +224,13 @@ def main():
     assert detached_windows == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
-    target = output / "core-stream-ledger-transit-v37.glb"
+    target = output / "core-stream-ledger-transit-v38.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB",
                               export_yup=True, export_normals=True,
                               export_texcoords=False, export_materials="EXPORT",
                               export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 37,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 38,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,
@@ -189,6 +240,7 @@ def main():
         "runtimeGeometry": consolidation, "validation": validation,
         "corridor": corridor, "ledger": ledger, "transit": transit,
         "life": life, "promenadeLife": promenade_life,
+        "metropolitanPrecision": metropolitan_precision,
         "occupiedCorridorFrontages": occupied_frontages,
         "imageDatablocks": len(bpy.data.images),
         "detachedWindowCount": detached_windows,
@@ -196,7 +248,7 @@ def main():
         "canonical": False, "v3Applied": False, "directReferenceCopy": False,
         "qualityTarget": {"grade": "S", "minimumScore": 95},
     }
-    (output / "core-stream-ledger-transit-v37-report.json").write_text(
+    (output / "core-stream-ledger-transit-v38-report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "buildings": len(buildings),
