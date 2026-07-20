@@ -554,17 +554,43 @@ def add_wall_first_building(batch, spec):
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
                           width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
-    # Side walls use recessed vertical ribbons that intersect the shell.
+    # Side walls use a materially bounded vertical rhythm.  Recessed infill
+    # panels intersect the core datum and receive actual jambs/bands, avoiding
+    # both blank party walls and decorative cards hovering beside the tower.
     for side in (-1, 1):
         side_x = lower_x + side * lower_w * .5
-        for ribbon in range(3):
-            sy = lower_y - lower_d * .28 + ribbon * lower_d * .28
-            batch.add_box("v34-side-recessed-ribbon", "blue-gray-glass",
-                          (side_x - side * .10, sy, podium_h + lower_h * .50),
-                          (.16, lower_d * .18, lower_h * .78))
-            batch.add_box("v34-side-ribbon-return", accent,
-                          (side_x, sy - lower_d * .10, podium_h + lower_h * .50),
-                          (.42, .24, lower_h * .80))
+        for ribbon in range(5):
+            sy = lower_y - lower_d * .34 + ribbon * lower_d * .17
+            ribbon_depth = lower_d * .105
+            batch.add_box("v34-side-integrated-window-ribbon", "blue-gray-glass",
+                          (side_x - side * .13, sy, podium_h + lower_h * .50),
+                          (.14, ribbon_depth, lower_h * .80))
+            for return_side in (-1, 1):
+                batch.add_box("v34-side-ribbon-jamb", accent,
+                              (side_x - side * .28,
+                               sy + return_side * ribbon_depth * .5,
+                               podium_h + lower_h * .50),
+                              (.56, .18, lower_h * .82))
+        for band_floor in range(0, lower_floors + 1, 4):
+            band_z = podium_h + band_floor * floor_h
+            batch.add_box("v34-side-structural-floor-band", stone,
+                          (side_x - side * .18, lower_y, band_z),
+                          (.52, lower_d * .76, .34))
+    # Rear/service elevation has a distinct, still complete grammar.
+    rear_face = lower_y - facing * lower_d * .5
+    rear_outward = -facing
+    for floor in range(lower_floors):
+        rz = podium_h + floor * floor_h + floor_h * .5
+        for bay in range(4):
+            rx = lower_x - lower_w * .34 + bay * lower_w * .225
+            material = "service-charcoal" if (floor + bay + style) % 7 == 0 else "blue-gray-glass"
+            batch.add_box("v34-rear-integrated-service-window", material,
+                          (rx, rear_face - rear_outward * .18, rz),
+                          (lower_w * .14, .14, floor_h * .58))
+        if floor % 5 == 0:
+            batch.add_box("v34-rear-mechanical-service-band", accent,
+                          (lower_x, rear_face + rear_outward * .10, rz),
+                          (lower_w * .78, .46, .50))
     if upper_floors:
         upper_h = upper_floors * floor_h
         upper_w = lower_w * (.68 + .05 * (style % 3))

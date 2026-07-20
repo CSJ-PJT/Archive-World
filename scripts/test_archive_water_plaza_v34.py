@@ -24,6 +24,9 @@ required = (
     '"detail": "MID_DETAIL_NEAR_FIELD"',
     "v34-civic-island-stone-edge", "v34-civic-island-layered-planting",
     "v34-civic-forecourt-axis-inlay", '"inhabitedCivicIslandCount": 2',
+    "v34-side-integrated-window-ribbon", "v34-side-ribbon-jamb",
+    "v34-side-structural-floor-band", "v34-rear-integrated-service-window",
+    "v34-rear-mechanical-service-band",
 )
 for token in required:
     assert token in source, token
