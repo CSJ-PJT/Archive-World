@@ -1493,6 +1493,81 @@ def _consolidate_scene_objects_by_material(objects):
     }
 
 
+def _add_signature_tower_civic_wing(batch, *, x, y, width, depth, podium_h,
+                                    floor_h, facing, style, stone, accent):
+    """Attach a four-storey civic wing to each principal Archive tower body.
+
+    This is a massing operation, not a facade applique: the wing has floor
+    plates, a rear/side envelope, recessed per-floor glazing, a roof terrace and
+    a vertical service spine.  It creates a third massing step between podium
+    and tower and makes the two signature buildings legibly asymmetric.
+    """
+    inside = -facing
+    hand = -1 if style == 0 else 1
+    wing_w = width * .38
+    wing_d = depth * .48
+    wing_floors = 4
+    wing_h = wing_floors * floor_h
+    wing_x = x + hand * width * .31
+    wing_y = y + facing * depth * .12
+    face_y = wing_y + facing * wing_d * .5
+    rear_y = wing_y + inside * wing_d * .5
+    batch.add_box("v35-signature-civic-wing-structural-body", stone,
+                  (wing_x, wing_y + inside * 1.15, podium_h + wing_h * .5),
+                  (wing_w, wing_d - 2.30, wing_h))
+    batch.add_box("v35-signature-civic-wing-rear-service-spine", "service-charcoal",
+                  (wing_x + hand * wing_w * .34, rear_y,
+                   podium_h + wing_h * .5),
+                  (wing_w * .22, .52, wing_h + .30))
+    bay_count = 4
+    pitch = wing_w / bay_count
+    for floor in range(wing_floors):
+        z0 = podium_h + floor * floor_h
+        room_z = z0 + floor_h * .5
+        batch.add_box("v35-signature-civic-wing-floor-plate", "ledger-granite",
+                      (wing_x, face_y + inside * 1.35, z0 + .13),
+                      (wing_w - .40, 2.60, .26))
+        batch.add_box("v35-signature-civic-wing-room-back", "warm-interior",
+                      (wing_x, face_y + inside * 2.58, room_z),
+                      (wing_w - .42, .18, floor_h - .48))
+        for bay in range(bay_count):
+            bx = wing_x - wing_w * .5 + (bay + .5) * pitch
+            batch.add_box("v35-signature-civic-wing-integrated-glass",
+                          "occupied-window-glass" if (bay + floor) % 3 == 0
+                          else "blue-gray-glass",
+                          (bx, face_y + inside * .48, room_z),
+                          (pitch - .34, .12, floor_h - .70))
+            for edge in (-1, 1):
+                batch.add_box("v35-signature-civic-wing-jamb-return", accent,
+                              (bx + edge * (pitch * .5 - .14),
+                               face_y + inside * .30, room_z),
+                              (.16, .68, floor_h - .48))
+            batch.add_box("v35-signature-civic-wing-head-return", accent,
+                          (bx, face_y + inside * .30,
+                           room_z + floor_h * .5 - .25),
+                          (pitch - .18, .68, .18))
+            batch.add_box("v35-signature-civic-wing-sill-return", stone,
+                          (bx, face_y + inside * .30,
+                           room_z - floor_h * .5 + .24),
+                          (pitch - .18, .68, .24))
+    # A planted roof room completes the stepped silhouette and maintains the
+    # public-space language above the stream-facing podium.
+    roof_z = podium_h + wing_h
+    batch.add_box("v35-signature-civic-wing-roof-terrace", "dry-stone",
+                  (wing_x, wing_y, roof_z + .18), (wing_w + .70, wing_d + .70, .36))
+    for side in (-1, 1):
+        batch.add_box("v35-signature-civic-wing-roof-planter", stone,
+                      (wing_x + side * wing_w * .30, wing_y,
+                       roof_z + .72), (wing_w * .24, wing_d * .32, .92))
+        batch.add_box("v35-signature-civic-wing-roof-planting", "foliage-deep",
+                      (wing_x + side * wing_w * .30, wing_y,
+                       roof_z + 1.30), (wing_w * .20, wing_d * .27, .34))
+    batch.add_box("v35-signature-civic-wing-vertical-frame", accent,
+                  (wing_x - hand * wing_w * .50, face_y + facing * .38,
+                   podium_h + wing_h * .50),
+                  (.54, 1.18, wing_h + .52))
+
+
 def add_wall_first_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     north = y > 0
@@ -1521,6 +1596,11 @@ def add_wall_first_building(batch, spec):
                                    transfer_z=podium_h + lower_h,
                                    facing=facing, style=style,
                                    stone=stone, accent=accent)
+    if style in (0, 3):
+        _add_signature_tower_civic_wing(
+            batch, x=x, y=y, width=width, depth=depth, podium_h=podium_h,
+            floor_h=floor_h, facing=facing, style=style,
+            stone=stone, accent=accent)
     # Side walls are complete per-opening envelopes.  The former five tall
     # glass ribbons still left large blank slabs in the stream-axis camera and
     # read like applied decoration.  Every side lite now sits in a bounded
@@ -1682,6 +1762,8 @@ def main():
         "signatureLobbyDepthM": 10.8,
         "atriumMezzanineCount": 2,
         "atriumVestibuleCount": 2,
+        "signatureTowerCivicWingCount": 2,
+        "signatureTowerMassingStageCount": 3,
         "secondaryGroundFloorGrammarCount": 2,
         "inhabitedArcadeCount": 2,
         "cornerPublicRoomCount": 2,
