@@ -10,6 +10,9 @@ required = (
     "integrated-front-infill", "integrated-front-jamb-return",
     "integrated-front-head-return", "integrated-front-sill-return",
     "occupied-lobby-glass-infill", "occupied-lobby-jamb-return",
+    "_grammar_specific_architecture", "identity-vertical-megaframe",
+    "identity-civic-portal-pier", "identity-transit-long-canopy",
+    "identity-cultural-roof-lantern", '"identityComponents": identity',
     '"detachedWindowCount": 0', '"officeV5Changed": False',
     'for spec in SPECS', 'for lod in ("LOD0", "LOD1", "LOD2")',
 )

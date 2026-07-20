@@ -189,6 +189,110 @@ def _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent):
             "publicBayCount": 2, "detachedGlazing": 0}
 
 
+def _grammar_specific_architecture(batch, grammar, width, depth, podium_h,
+                                   roof_z, lod, stone, accent):
+    """Give every support family a legible role beyond height and scale."""
+    components = []
+    detail_step = 2 if lod == "LOD2" else 1
+    if grammar == "vertical-frame":
+        for x in (-width * .34, 0, width * .34)[::detail_step]:
+            batch.add_box("identity-vertical-megaframe", accent,
+                          (x, -depth * .38, podium_h + (roof_z - podium_h) * .5),
+                          (.72, 1.4, roof_z - podium_h + 3.0))
+        components += ["vertical-megaframe", "stone-base"]
+    elif grammar == "dense-corner":
+        for side in (-1, 1):
+            batch.add_box("identity-corner-lantern", "frontage-glass",
+                          (side * width * .40, -depth * .40, podium_h + 13.0),
+                          (width * .16, 3.0, 23.0))
+            batch.add_box("identity-corner-lantern-frame", accent,
+                          (side * width * .40, -depth * .45, podium_h + 13.0),
+                          (width * .18, .34, 24.0))
+        components += ["corner-lanterns", "dense-curtain-wall"]
+    elif grammar == "corner-emphasis":
+        batch.add_box("identity-corner-wing-left", stone,
+                      (-width * .42, -depth * .18, podium_h + 17.0),
+                      (width * .18, depth * .52, 34.0))
+        batch.add_box("identity-corner-wing-right", "blue-gray-glass",
+                      (width * .38, -depth * .31, podium_h + 12.0),
+                      (width * .22, depth * .30, 24.0))
+        components += ["asymmetric-corner-wings", "corner-entry"]
+    elif grammar == "terraced":
+        for level, factor in enumerate((.92, .72, .52)[::detail_step]):
+            batch.add_box("identity-occupied-terrace", "dry-stone",
+                          (width * .18 * (level % 2), -depth * .22,
+                           podium_h + 10.0 + level * 13.0),
+                          (width * factor, depth * (.66 - level * .10), .46))
+            batch.add_box("identity-terrace-planter", stone,
+                          (-width * .28, -depth * .40,
+                           podium_h + 10.6 + level * 13.0),
+                          (width * .22, 2.2, 1.0))
+        components += ["three-stage-terraces", "occupied-setbacks"]
+    elif grammar == "civic-portal":
+        for side in (-1, 1):
+            batch.add_box("identity-civic-portal-pier", accent,
+                          (side * width * .34, -depth * .56, 10.5),
+                          (1.1, 2.0, 21.0))
+        batch.add_box("identity-civic-portal-beam", accent,
+                      (0, -depth * .56, 20.2), (width * .70, 2.0, 1.2))
+        batch.add_box("identity-civic-public-hall", "frontage-glass",
+                      (0, -depth * .52, 8.0), (width * .60, 1.2, 14.0))
+        components += ["civic-portal", "public-hall"]
+    elif grammar == "public-connector":
+        batch.add_box("identity-public-connector", "frontage-glass",
+                      (0, -depth * .44, podium_h + 15.0),
+                      (width * .78, 4.0, 6.0))
+        batch.add_box("identity-public-connector-frame", accent,
+                      (0, -depth * .48, podium_h + 15.0),
+                      (width * .84, .52, 7.0))
+        components += ["elevated-public-connector", "civic-tech-atrium"]
+    elif grammar == "active-lowrise":
+        for x in (-width * .30, 0, width * .30)[::detail_step]:
+            batch.add_box("identity-retail-lantern", "frontage-glass",
+                          (x, -depth * .57, 6.0),
+                          (width * .20, 2.4, 10.0))
+            batch.add_box("identity-retail-canopy", accent,
+                          (x, -depth * .62, 10.8),
+                          (width * .23, 4.0, .32))
+        components += ["three-retail-lanterns", "public-roof"]
+    elif grammar == "formal-annex":
+        for x in range(-12, 13, 6)[::detail_step]:
+            batch.add_cylinder("identity-formal-colonnade", accent,
+                               (x, -depth * .59, 5.0), .28, 9.5, 18)
+        batch.add_box("identity-formal-entablature", stone,
+                      (0, -depth * .59, 9.7), (width * .86, 1.4, 1.0))
+        components += ["formal-colonnade", "granite-plinth"]
+    elif grammar == "service-rear":
+        for x in (-width * .28, 0, width * .28)[::detail_step]:
+            batch.add_box("identity-service-screen", "service-charcoal",
+                          (x, depth * .63, 8.0),
+                          (width * .20, 1.0, 14.0))
+        batch.add_box("identity-service-crown", "service-charcoal",
+                      (0, 0, roof_z + 4.0), (width * .66, depth * .50, 7.0))
+        components += ["screened-service-rear", "operations-crown"]
+    elif grammar == "transit-canopy":
+        batch.add_box("identity-transit-long-canopy", accent,
+                      (0, -depth * .66, 9.0),
+                      (width * 1.10, 12.0, .58))
+        for x in range(-24, 25, 8)[::detail_step]:
+            batch.add_cylinder("identity-transit-canopy-column", accent,
+                               (x, -depth * .66, 4.7), .20, 8.2, 18)
+        batch.add_box("identity-transit-entry-volume", "frontage-glass",
+                      (0, -depth * .56, 5.4),
+                      (width * .44, 5.0, 9.6))
+        components += ["long-span-canopy", "station-entry-volume"]
+    elif grammar == "public-roof":
+        for x, height in ((-width * .28, 5.0), (0, 8.0), (width * .28, 6.5))[::detail_step]:
+            batch.add_box("identity-cultural-roof-lantern", "frontage-glass",
+                          (x, 0, roof_z + height * .5),
+                          (width * .20, depth * .34, height))
+            batch.add_box("identity-cultural-roof-cap", accent,
+                          (x, 0, roof_z + height + .3),
+                          (width * .24, depth * .38, .42))
+        components += ["asymmetric-roof-lanterns", "public-pavilion"]
+    return components
+
+
 def build_family(spec, lod, materials):
     family, grammar, width, depth, floors, podium_floors, seed = spec
     batch = MeshBatch(materials)
@@ -251,11 +355,13 @@ def build_family(spec, lod, materials):
         batch.add_box("integrated-roof-hvac", "service-charcoal",
                       (-width * .22 + index * 3.0, depth * .12, roof_z + 6.1),
                       (2.0, 2.6, 1.5))
+    identity = _grammar_specific_architecture(
+        batch, grammar, width, depth, podium_h, roof_z, lod, stone, accent)
     consolidation = consolidate(batch)
     objects = batch.finalize()
     return objects, batch.statistics(), validate_geometry(objects), consolidation, {
         "front": front, "groundFloor": ground, "detachedWindowCount": 0,
-        "frontSideRearRoof": True,
+        "frontSideRearRoof": True, "identityComponents": identity,
     }
 
 
