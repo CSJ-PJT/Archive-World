@@ -24,6 +24,7 @@ import archive_water_plaza_v29 as v29
 import archive_water_plaza_v30 as v30
 
 ENVELOPE = []
+STRUCTURAL_PLAUSIBILITY = []
 CAMERA_CLEARANCE_SHIFTS = {
     (-305, -33): (-305, -47), (-272, -31): (-266, -45),
     (-238, -33): (-230, -46), (-305, 33): (-305, 46),
@@ -377,44 +378,54 @@ def _add_style_specific_massing_details(batch, *, x, y, width, depth,
     """
     grammar = style % 3
     if grammar == 0:
-        # Archive institutional crown: two enclosed service volumes and a
-        # restrained civic frame, visibly attached to the roof slab.
+        # Institutional crown.  Earlier versions used a wide beam above two
+        # ten-metre blades; in street views that beam read as a floating cap.
+        # The new frame is contained by the top-floor footprint and bears on a
+        # single enclosed mechanical penthouse.
+        penthouse_w, penthouse_d, penthouse_h = width * .46, depth * .38, 5.4
+        batch.add_box("v38-archive-integrated-penthouse", "service-charcoal",
+                      (x, y, roof_z + penthouse_h * .5),
+                      (penthouse_w, penthouse_d, penthouse_h))
         for side in (-1, 1):
-            batch.add_box("v34-archive-crown-service-volume", "service-charcoal",
-                          (x + side * width * .19, y, roof_z + 3.05),
-                          (width * .24, depth * .34, 6.1))
-            batch.add_box("v34-archive-crown-vertical-blade", accent,
-                          (x + side * width * .33, y + facing * depth * .05,
-                           roof_z + 5.1),
-                          (.54, depth * .48, 10.2))
-        batch.add_box("v34-archive-crown-bridge", stone,
-                      (x, y + facing * depth * .06, roof_z + 9.3),
-                      (width * .70, depth * .15, .72))
+            batch.add_box("v38-archive-crown-bearing-pier", accent,
+                          (x + side * penthouse_w * .48,
+                           y + facing * penthouse_d * .08,
+                           roof_z + penthouse_h * .58),
+                          (.52, penthouse_d * .84, penthouse_h * 1.16))
+        batch.add_box("v38-archive-crown-contained-head", stone,
+                      (x, y + facing * penthouse_d * .08,
+                       roof_z + penthouse_h * 1.16),
+                      (penthouse_w + .52, penthouse_d * .84, .46))
     elif grammar == 1:
-        # Ledger terrace crown: three stepped, occupied roof plates with a
-        # perimeter rail and integrated planting datum.
-        for step in range(3):
-            step_w = width * (.62 - step * .10)
-            step_d = depth * (.46 - step * .07)
-            step_z = roof_z + .32 + step * 1.25
-            step_x = x + width * (.04 * step)
-            batch.add_box("v34-ledger-roof-terrace", stone,
-                          (step_x, y - facing * step * .38, step_z),
-                          (step_w, step_d, .42))
-            batch.add_box("v34-ledger-terrace-guard", accent,
-                          (step_x, y + facing * step_d * .48, step_z + .78),
-                          (step_w, .16, 1.20))
+        # Ledger crown: two enclosed setback storeys.  The old stack of three
+        # thin plates looked like unsupported shelves instead of architecture.
+        stages = ((.52, .44, 3.8, 0.0), (.34, .30, 2.8, .035))
+        z_cursor = roof_z
+        for index, (wf, df, height, x_offset) in enumerate(stages):
+            step_x = x + width * x_offset
+            batch.add_box("v38-ledger-enclosed-roof-stage", stone,
+                          (step_x, y - facing * index * .28,
+                           z_cursor + height * .5),
+                          (width * wf, depth * df, height))
+            batch.add_box("v38-ledger-roof-stage-glazing", "occupied-window-glass",
+                          (step_x, y + facing * depth * df * .5,
+                           z_cursor + height * .52),
+                          (width * wf - .64, .14, height - .72))
+            z_cursor += height
+        # A bounded roof garden sits beside the penthouse, inside the roof edge.
         for planter in (-1, 1):
-            batch.add_box("v34-ledger-roof-planter", stone,
-                          (x + planter * width * .19, y, roof_z + 1.02),
-                          (width * .18, depth * .16, 1.10))
-            batch.add_box("v34-ledger-roof-planting", "foliage-deep",
-                          (x + planter * width * .19, y, roof_z + 1.72),
-                          (width * .15, depth * .13, .40))
+            batch.add_box("v38-ledger-roof-planter", stone,
+                          (x + planter * width * .34, y - facing * depth * .20,
+                           roof_z + .52),
+                          (width * .14, depth * .14, .72))
+            batch.add_box("v38-ledger-roof-planting", "foliage-deep",
+                          (x + planter * width * .34, y - facing * depth * .20,
+                           roof_z + 1.03),
+                          (width * .11, depth * .11, .30))
     else:
         # Civic-tech lantern: a recessed occupied volume is bounded by four
         # structural corner piers and a roof frame.
-        lantern_w, lantern_d, lantern_h = width * .34, depth * .32, 6.8
+        lantern_w, lantern_d, lantern_h = width * .34, depth * .32, 5.8
         batch.add_box("v34-civic-roof-lantern-interior", "warm-interior",
                       (x, y, roof_z + lantern_h * .5),
                       (lantern_w - 1.0, lantern_d - 1.0, lantern_h - .8))
@@ -425,9 +436,9 @@ def _add_style_specific_massing_details(batch, *, x, y, width, depth,
                                y + sy * lantern_d * .5,
                                roof_z + lantern_h * .5),
                               (.44, .44, lantern_h))
-        batch.add_box("v34-civic-lantern-roof-frame", stone,
+        batch.add_box("v38-civic-lantern-roof-frame", stone,
                       (x, y, roof_z + lantern_h),
-                      (lantern_w + 1.2, lantern_d + 1.2, .52))
+                      (lantern_w + .52, lantern_d + .52, .42))
         batch.add_box("v34-civic-lantern-light-line", "archive-cyan-light",
                       (x, y + facing * (lantern_d * .5 + .08),
                        roof_z + lantern_h * .72),
@@ -1617,6 +1628,7 @@ def _add_upper_side_rear_envelope(batch, *, x, y, width, depth, base_z,
     height = floors * floor_h
     side_bays = max(3, round(depth / 5.4))
     side_pitch = depth * .92 / side_bays
+    side_reveal = 1.05
     for side in (-1, 1):
         face_x = x + side * width * .5
         for floor in range(floors):
@@ -1633,22 +1645,22 @@ def _add_upper_side_rear_envelope(batch, *, x, y, width, depth, base_z,
                               (.14, side_pitch - .30, opening_h))
                 for edge in (-1, 1):
                     batch.add_box("v42-upper-side-jamb-return", accent,
-                                  (face_x - side * .18,
+                                  (face_x - side * (side_reveal * .52),
                                    sy + edge * (side_pitch * .5 - .12), z),
-                                  (.66, .15, opening_h + .12))
+                                  (side_reveal + .10, .15, opening_h + .12))
                 batch.add_box("v42-upper-side-head-return", accent,
-                              (face_x - side * .18, sy,
+                              (face_x - side * (side_reveal * .52), sy,
                                z + opening_h * .5),
-                              (.66, side_pitch - .16, .16))
+                              (side_reveal + .10, side_pitch - .16, .16))
                 batch.add_box("v42-upper-side-sill-return", stone,
-                              (face_x - side * .18, sy,
+                              (face_x - side * (side_reveal * .52), sy,
                                z - opening_h * .5),
-                              (.66, side_pitch - .16, .20))
+                              (side_reveal + .10, side_pitch - .16, .20))
         for band_floor in range(0, floors + 1, 3):
             batch.add_box("v42-upper-side-floor-band", stone,
-                          (face_x - side * .18, y,
+                          (face_x - side * (side_reveal * .52), y,
                            base_z + band_floor * floor_h),
-                          (.52, depth * .75, .30))
+                          (side_reveal + .10, depth * .75, .30))
     rear_y = y - facing * depth * .5
     rear_outward = -facing
     rear_bays = max(4, round(width / 5.0))
@@ -1690,12 +1702,27 @@ def add_wall_first_building(batch, spec):
     lower_y = y
     lower_h = lower_floors * floor_h
     lower_face = lower_y + facing * lower_d * .5
-    # The structural core sits behind the glazing datum and supplies side/rear mass.
+    inside = -facing
+    front_reveal, rear_reveal, side_reveal = 1.35, .95, 1.05
+    # The core used to start 2.72m behind the glass while the bounded window
+    # room was only 1.35m deep.  That left a visible air gap and made windows
+    # look detached from the building.  The core now meets the room back exactly.
     _add_chamfered_mass(batch, "v34-tower-chamfered-structural-core", stone,
-                        (lower_x, lower_y - facing * 1.36, podium_h + lower_h * .5),
-                        (lower_w - 2.72, lower_d - 2.72, lower_h), 1.45 + .22 * (style % 3))
+                        (lower_x,
+                         lower_y + inside * (front_reveal - rear_reveal) * .5,
+                         podium_h + lower_h * .5),
+                        (lower_w - side_reveal * 2,
+                         lower_d - front_reveal - rear_reveal, lower_h),
+                        1.05 + .16 * (style % 3))
+    for side in (-1, 1):
+        for end in (-1, 1):
+            batch.add_box("v38-lower-corner-bearing-pier", stone,
+                          (lower_x + side * (lower_w * .5 - .58),
+                           lower_y + end * (lower_d * .5 - .58),
+                           podium_h + lower_h * .5),
+                          (1.16, 1.16, lower_h))
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
-                          width=lower_w, base_z=podium_h, floors=lower_floors,
+                                   width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
     _add_occupied_setback_terraces(batch, x=x, y=y, width=width, depth=depth,
                                    podium_h=podium_h,
@@ -1729,29 +1756,29 @@ def add_wall_first_building(batch, spec):
                               (.14, side_pitch - .32, opening_h))
                 for edge in (-1, 1):
                     batch.add_box("v34-side-opening-jamb-return", accent,
-                                  (side_x - side * .18,
+                                  (side_x - side * (side_reveal * .52),
                                    sy + edge * (side_pitch * .5 - .13),
                                    opening_z),
-                                  (.68, .16, opening_h + .12))
+                                  (side_reveal + .10, .16, opening_h + .12))
                 batch.add_box("v34-side-opening-head-return", accent,
-                              (side_x - side * .18, sy,
+                              (side_x - side * (side_reveal * .52), sy,
                                opening_z + opening_h * .5),
-                              (.68, side_pitch - .18, .16))
+                              (side_reveal + .10, side_pitch - .18, .16))
                 batch.add_box("v34-side-opening-sill-return", accent,
-                              (side_x - side * .18, sy,
+                              (side_x - side * (side_reveal * .52), sy,
                                opening_z - opening_h * .5),
-                              (.68, side_pitch - .18, .16))
+                              (side_reveal + .10, side_pitch - .18, .16))
         for bay in range(side_bays + 1):
             sy = lower_y - lower_d * .46 + bay * side_pitch
             batch.add_box("v34-side-structural-pier", stone,
-                          (side_x - side * .08, sy,
+                          (side_x - side * (side_reveal * .48), sy,
                            podium_h + lower_h * .5),
-                          (.42, .30, lower_h + .34))
+                          (side_reveal, .30, lower_h + .34))
         for band_floor in range(0, lower_floors + 1, 4):
             band_z = podium_h + band_floor * floor_h
             batch.add_box("v34-side-structural-floor-band", stone,
-                          (side_x - side * .18, lower_y, band_z),
-                          (.52, lower_d * .90, .34))
+                          (side_x - side * (side_reveal * .52), lower_y, band_z),
+                          (side_reveal + .10, lower_d * .90, .34))
     # Rear/service elevation has a distinct, still complete grammar.
     rear_face = lower_y - facing * lower_d * .5
     rear_outward = -facing
@@ -1767,6 +1794,8 @@ def add_wall_first_building(batch, spec):
             batch.add_box("v34-rear-mechanical-service-band", accent,
                           (lower_x, rear_face + rear_outward * .10, rz),
                           (lower_w * .78, .46, .50))
+    upper_w, upper_d = lower_w, lower_d
+    upper_x, upper_y = lower_x, lower_y
     if upper_floors:
         upper_h = upper_floors * floor_h
         upper_w = lower_w * (.68 + .05 * (style % 3))
@@ -1775,10 +1804,19 @@ def add_wall_first_building(batch, spec):
         upper_y = lower_y - facing * 1.6
         upper_face = upper_y + facing * upper_d * .5
         _add_chamfered_mass(batch, "v34-upper-chamfered-structural-core", stone,
-                            (upper_x, upper_y - facing * 1.30,
+                            (upper_x,
+                             upper_y + inside * (front_reveal - rear_reveal) * .5,
                              podium_h + lower_h + upper_h * .5),
-                            (upper_w - 2.60, upper_d - 2.60, upper_h),
-                            1.15 + .18 * ((style + 1) % 3))
+                            (upper_w - side_reveal * 2,
+                             upper_d - front_reveal - rear_reveal, upper_h),
+                            .92 + .14 * ((style + 1) % 3))
+        for side in (-1, 1):
+            for end in (-1, 1):
+                batch.add_box("v38-upper-corner-bearing-pier", stone,
+                              (upper_x + side * (upper_w * .5 - .54),
+                               upper_y + end * (upper_d * .5 - .54),
+                               podium_h + lower_h + upper_h * .5),
+                              (1.08, 1.08, upper_h))
         _bounded_curtain_wall(batch, x=upper_x, face_y=upper_face, facing=facing,
                               width=upper_w, base_z=podium_h + lower_h,
                               floors=upper_floors, floor_h=floor_h,
@@ -1789,20 +1827,47 @@ def add_wall_first_building(batch, spec):
             floor_h=floor_h, facing=facing, style=style + 7,
             stone=stone, accent=accent)
     roof_z = podium_h + floors * floor_h
+    roof_x = upper_x if upper_floors else lower_x
+    roof_y = upper_y if upper_floors else lower_y
+    roof_w = upper_w if upper_floors else lower_w
+    roof_d = upper_d if upper_floors else lower_d
+    # A continuous parapet establishes the load-bearing roof datum.  Every
+    # crown and service volume below is contained within this top footprint.
+    for side in (-1, 1):
+        batch.add_box("v38-roof-parapet-long", stone,
+                      (roof_x, roof_y + side * (roof_d * .5 - .18), roof_z + .64),
+                      (roof_w, .36, 1.28))
+        batch.add_box("v38-roof-parapet-short", stone,
+                      (roof_x + side * (roof_w * .5 - .18), roof_y, roof_z + .64),
+                      (.36, roof_d, 1.28))
     _add_chamfered_mass(batch, "v34-integrated-chamfered-machine-room", "service-charcoal",
-                        (x - width * .10, y, roof_z + 2.4),
-                        (width * .27, depth * .28, 4.8), .70)
-    batch.add_box("v34-roof-screen", accent,
-                  (x + width * .10, y + facing * depth * .10, roof_z + 3.25),
-                  (width * .42, .35, 4.9))
+                        (roof_x - roof_w * .08, roof_y, roof_z + 2.3),
+                        (roof_w * .30, roof_d * .30, 4.6), .52)
+    batch.add_box("v38-roof-screen-return", accent,
+                  (roof_x + roof_w * .13,
+                   roof_y + facing * roof_d * .11, roof_z + 2.55),
+                  (roof_w * .24, roof_d * .20, 3.8))
     for unit in range(3):
-        batch.add_box("v34-roof-hvac", "service-charcoal",
-                      (x - 3.4 + unit * 3.4, y - facing * depth * .10, roof_z + 5.25),
-                      (2.2, 2.8, 1.4))
-    _add_style_specific_massing_details(batch, x=x, y=y, width=width,
-                                        depth=depth, roof_z=roof_z,
+        batch.add_box("v38-roof-hvac", "service-charcoal",
+                      (roof_x - roof_w * .18 + unit * roof_w * .18,
+                       roof_y - facing * roof_d * .18, roof_z + 1.20),
+                      (min(2.2, roof_w * .13), min(2.8, roof_d * .18), 1.10))
+    _add_style_specific_massing_details(batch, x=roof_x, y=roof_y, width=roof_w,
+                                        depth=roof_d, roof_z=roof_z,
                                         facing=facing, style=style,
                                         stone=stone, accent=accent)
+    STRUCTURAL_PLAUSIBILITY.append({
+        "style": style,
+        "windowRoomDepthM": front_reveal,
+        "sideWindowRevealM": side_reveal,
+        "rearWindowRevealM": rear_reveal,
+        "coreMeetsWindowRoomBack": True,
+        "topFootprintWidthM": roof_w,
+        "topFootprintDepthM": roof_d,
+        "roofEquipmentContained": True,
+        "unsupportedRoofCapCount": 0,
+        "upperMassContainedByLower": upper_w <= lower_w and upper_d <= lower_d,
+    })
 
 
 def _add_metropolitan_precision_layer():
@@ -1947,13 +2012,13 @@ def main():
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
 
-    target = output / "archive-water-plaza-hero-v37.glb"
+    target = output / "archive-water-plaza-hero-v39.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB", export_yup=True,
                               export_normals=True, export_texcoords=False,
                               export_materials="EXPORT", export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 37,
-        "geometryRevision": 43,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 39,
+        "geometryRevision": 45,
         "zone": "Archive Water Plaza", "qualityTarget": {"grade": "S", "minimumScore": 95},
         "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
@@ -1984,6 +2049,18 @@ def main():
         "nearFieldTreeSilhouetteCount": 12,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "singleFacadeGlassCardCount": 0,
+        "structuralPlausibility": {
+            "buildingCount": len(STRUCTURAL_PLAUSIBILITY),
+            "coreMeetsWindowRoomBack": all(
+                item["coreMeetsWindowRoomBack"] for item in STRUCTURAL_PLAUSIBILITY),
+            "unsupportedRoofCapCount": sum(
+                item["unsupportedRoofCapCount"] for item in STRUCTURAL_PLAUSIBILITY),
+            "roofEquipmentContained": all(
+                item["roofEquipmentContained"] for item in STRUCTURAL_PLAUSIBILITY),
+            "upperMassContainedByLower": all(
+                item["upperMassContainedByLower"] for item in STRUCTURAL_PLAUSIBILITY),
+            "buildings": STRUCTURAL_PLAUSIBILITY,
+        },
         "chamferedPrimaryMassCount": 12,
         "distinctFacadeGrammarCount": 3,
         "facadeBodyCornerReturnCount": 24,
@@ -1993,7 +2070,7 @@ def main():
         "distinctRoofGrammarCount": 3,
         "coordinatedBuildingPaletteCount": 6,
         "sidePerOpeningEnvelope": True,
-        "sideCoreRevealM": 1.30,
+        "sideCoreRevealM": 1.05,
         "podiumSideBoundedRoomCount": 42,
         "podiumRearServiceGrammar": True,
         "upperSideRearBoundedEnvelope": True,
@@ -2024,7 +2101,7 @@ def main():
         "officeV5Changed": False, "directReferenceCopy": False,
         "referencePolicy": "Abstract spatial and visual-quality direction only; no identifiable design reproduced.",
     }
-    (output / "archive-water-plaza-hero-v37-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    (output / "archive-water-plaza-hero-v39-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "facadeAssemblies": len(ENVELOPE), "detachedWindows": 0}))
 

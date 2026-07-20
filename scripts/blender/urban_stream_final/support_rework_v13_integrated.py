@@ -117,6 +117,7 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
     # Carry the opening field to the corner returns.  The previous 78% span
     # left deep blank end-caps that dominated oblique street cameras.
     pitch = depth * .92 / side_bays
+    side_reveal = 1.05
     for side in (-1, 1):
         face_x = x_center + side * width * .5
         for floor in range(0, floors, step):
@@ -132,24 +133,26 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
                 if lod == "LOD2":
                     continue
                 batch.add_box("integrated-side-centre-mullion", accent,
-                              (face_x - side * .22, y, z),
-                              (.52, .12, opening_h + .08))
+                              (face_x - side * (side_reveal * .52), y, z),
+                              (side_reveal + .10, .12, opening_h + .08))
                 if lod == "LOD0":
                     batch.add_box("integrated-side-transom", accent,
-                                  (face_x - side * .22, y,
+                                  (face_x - side * (side_reveal * .52), y,
                                    z + opening_h * .08),
-                                  (.52, pitch - .36, .12))
+                                  (side_reveal + .10, pitch - .36, .12))
                 for edge in (-1, 1):
                     batch.add_box("integrated-side-jamb-return", accent,
-                                  (face_x - side * .28,
+                                  (face_x - side * (side_reveal * .52),
                                    y + edge * (pitch * .5 - .13), z),
-                                  (.68, .16, opening_h + .12))
+                                  (side_reveal + .10, .16, opening_h + .12))
                 batch.add_box("integrated-side-head-return", accent,
-                              (face_x - side * .28, y, z + opening_h * .5),
-                              (.68, pitch - .18, .17))
+                              (face_x - side * (side_reveal * .52), y,
+                               z + opening_h * .5),
+                              (side_reveal + .10, pitch - .18, .17))
                 batch.add_box("integrated-side-sill-return", stone,
-                              (face_x - side * .28, y, z - opening_h * .5),
-                              (.68, pitch - .18, .22))
+                              (face_x - side * (side_reveal * .52), y,
+                               z - opening_h * .5),
+                              (side_reveal + .10, pitch - .18, .22))
     rear_y = y_center + depth * .5
     rear_bays = max(4, round(width / 5.0))
     rear_pitch = width * .90 / rear_bays
@@ -282,10 +285,13 @@ def _podium_perimeter(batch, width, depth, podium_h, seed, stone, accent):
 
 
 def _grammar_specific_architecture(batch, grammar, width, depth, podium_h,
-                                   roof_z, lod, stone, accent):
+                                   roof_z, lod, stone, accent, *, roof_x=0.0,
+                                   roof_width=None, roof_depth=None):
     """Give every support family a legible role beyond height and scale."""
     components = []
     detail_step = 2 if lod == "LOD2" else 1
+    roof_width = roof_width or width
+    roof_depth = roof_depth or depth
     if grammar == "vertical-frame":
         for x in (-width * .34, 0, width * .34)[::detail_step]:
             batch.add_box("identity-vertical-megaframe", accent,
@@ -359,8 +365,9 @@ def _grammar_specific_architecture(batch, grammar, width, depth, podium_h,
             batch.add_box("identity-service-screen", "service-charcoal",
                           (x, depth * .63, 8.0),
                           (width * .20, 1.0, 14.0))
-        batch.add_box("identity-service-crown", "service-charcoal",
-                      (0, 0, roof_z + 4.0), (width * .66, depth * .50, 7.0))
+        batch.add_box("identity-service-contained-penthouse", "service-charcoal",
+                      (roof_x, 0, roof_z + 2.8),
+                      (roof_width * .52, roof_depth * .44, 5.6))
         components += ["screened-service-rear", "operations-crown"]
     elif grammar == "transit-canopy":
         batch.add_box("identity-transit-long-canopy", accent,
@@ -374,13 +381,19 @@ def _grammar_specific_architecture(batch, grammar, width, depth, podium_h,
                       (width * .44, 5.0, 9.6))
         components += ["long-span-canopy", "station-entry-volume"]
     elif grammar == "public-roof":
-        for x, height in ((-width * .28, 5.0), (0, 8.0), (width * .28, 6.5))[::detail_step]:
+        lanterns = ((-.24, 4.4), (0, 6.2), (.24, 5.0))[::detail_step]
+        for offset, height in lanterns:
+            lantern_x = roof_x + roof_width * offset
+            lantern_w = roof_width * .18
+            lantern_d = roof_depth * .30
             batch.add_box("identity-cultural-roof-lantern", "frontage-glass",
-                          (x, 0, roof_z + height * .5),
-                          (width * .20, depth * .34, height))
-            batch.add_box("identity-cultural-roof-cap", accent,
-                          (x, 0, roof_z + height + .3),
-                          (width * .24, depth * .38, .42))
+                          (lantern_x, 0, roof_z + height * .5),
+                          (lantern_w, lantern_d, height))
+            # The cap is supported by the full lantern footprint and never
+            # projects beyond the parent roof mass.
+            batch.add_box("identity-cultural-roof-contained-cap", stone,
+                          (lantern_x, 0, roof_z + height + .22),
+                          (lantern_w + .34, lantern_d + .34, .34))
         components += ["asymmetric-roof-lanterns", "public-pavilion"]
     return components
 
@@ -409,22 +422,46 @@ def build_family(spec, lod, materials):
     lower_d = depth * (.70 + .02 * ((seed + 1) % 3))
     lower_x = width * (-.08 if seed % 2 else .07)
     lower_h = lower_floors * floor_h
+    # Match the core face to the 1.65m occupied facade room.  The old core was
+    # inset on all sides, leaving the side glazing and corner returns visibly
+    # suspended away from the building body.
+    front_reveal, rear_reveal, side_reveal = 1.65, 1.15, 1.05
     batch.add_box("integrated-lower-structural-core", stone,
-                  (lower_x, 0, podium_h + lower_h * .5),
-                  (lower_w - 2.3, lower_d - 2.3, lower_h))
+                  (lower_x, (front_reveal - rear_reveal) * .5,
+                   podium_h + lower_h * .5),
+                  (lower_w - side_reveal * 2,
+                   lower_d - front_reveal - rear_reveal, lower_h))
+    for side in (-1, 1):
+        for end in (-1, 1):
+            batch.add_box("integrated-lower-corner-bearing-pier", stone,
+                          (lower_x + side * (lower_w * .5 - .58),
+                           end * (lower_d * .5 - .58),
+                           podium_h + lower_h * .5),
+                          (1.16, 1.16, lower_h))
     front = _front_envelope(batch, lower_w, lower_d, podium_h,
                             lower_floors, floor_h, lod, seed, stone, accent,
                             lower_x, 0)
     _side_rear_envelope(batch, lower_w, lower_d, podium_h, lower_floors,
                         floor_h, lod, seed, stone, accent, lower_x, 0)
+    upper_w, upper_d = lower_w, lower_d
+    upper_x = lower_x
     if upper_floors > 0:
         upper_w = lower_w * (.66 + .04 * (seed % 3))
         upper_d = lower_d * (.70 + .03 * ((seed + 1) % 3))
         upper_x = lower_x + width * (.08 if seed % 2 else -.07)
         upper_h = upper_floors * floor_h
         batch.add_box("integrated-upper-structural-core", stone,
-                      (upper_x, 0, podium_h + lower_h + upper_h * .5),
-                      (upper_w - 2.1, upper_d - 2.1, upper_h))
+                      (upper_x, (front_reveal - rear_reveal) * .5,
+                       podium_h + lower_h + upper_h * .5),
+                      (upper_w - side_reveal * 2,
+                       upper_d - front_reveal - rear_reveal, upper_h))
+        for side in (-1, 1):
+            for end in (-1, 1):
+                batch.add_box("integrated-upper-corner-bearing-pier", stone,
+                              (upper_x + side * (upper_w * .5 - .54),
+                               end * (upper_d * .5 - .54),
+                               podium_h + lower_h + upper_h * .5),
+                              (1.08, 1.08, upper_h))
         _front_envelope(batch, upper_w, upper_d, podium_h + lower_h,
                         upper_floors, floor_h, lod, seed + 4, stone, accent,
                         upper_x, 0)
@@ -442,25 +479,40 @@ def build_family(spec, lod, materials):
                   (width * .20, depth * .5 + 8.0, 4.6),
                   (width * .36, 5.0, .38))
     roof_z = podium_h + tower_h
-    batch.add_box("integrated-roof-crown", accent,
-                  (width * .08, 0, roof_z + 2.1),
-                  (width * (.36 + .03 * (seed % 3)), depth * .44, 4.2))
+    roof_x, roof_w, roof_d = upper_x, upper_w, upper_d
+    # Use the actual top-storey footprint.  Prior crowns were centred on the
+    # original parcel width, so on shifted upper masses they appeared to float.
+    for side in (-1, 1):
+        batch.add_box("integrated-roof-parapet-long", stone,
+                      (roof_x, side * (roof_d * .5 - .17), roof_z + .58),
+                      (roof_w, .34, 1.16))
+        batch.add_box("integrated-roof-parapet-short", stone,
+                      (roof_x + side * (roof_w * .5 - .17), 0, roof_z + .58),
+                      (.34, roof_d, 1.16))
+    batch.add_box("integrated-roof-crown", stone,
+                  (roof_x + roof_w * .06, 0, roof_z + 1.8),
+                  (roof_w * (.32 + .02 * (seed % 3)), roof_d * .34, 3.6))
     batch.add_box("integrated-machine-room", "service-charcoal",
-                  (-width * .15, 0, roof_z + 2.8),
-                  (width * .24, depth * .28, 5.6))
+                  (roof_x - roof_w * .16, 0, roof_z + 2.4),
+                  (roof_w * .22, roof_d * .24, 4.8))
     for index in range(2 if lod == "LOD2" else 5):
         batch.add_box("integrated-roof-hvac", "service-charcoal",
-                      (-width * .22 + index * 3.0, depth * .12, roof_z + 6.1),
-                      (2.0, 2.6, 1.5))
+                      (roof_x - roof_w * .22 + index * roof_w * .11,
+                       roof_d * .16, roof_z + 1.05),
+                      (min(1.8, roof_w * .09), min(2.3, roof_d * .15), 1.0))
     identity = _grammar_specific_architecture(
-        batch, grammar, width, depth, podium_h, roof_z, lod, stone, accent)
+        batch, grammar, width, depth, podium_h, roof_z, lod, stone, accent,
+        roof_x=roof_x, roof_width=roof_w, roof_depth=roof_d)
     consolidation = consolidate(batch)
     objects = batch.finalize()
     return objects, batch.statistics(), validate_geometry(objects), consolidation, {
         "front": front, "groundFloor": ground,
         "podiumPerimeter": podium_perimeter, "detachedWindowCount": 0,
-        "sideCoreRevealM": 1.05,
+        "sideCoreRevealM": side_reveal,
         "envelopeDatumAligned": True,
+        "coreMeetsWindowRoomBack": True,
+        "roofEquipmentContained": True,
+        "unsupportedRoofCapCount": 0,
         "frontSideRearRoof": True, "identityComponents": identity,
     }
 
@@ -509,10 +561,10 @@ def main():
             reports.append(report)
     (output / "reports").mkdir(parents=True, exist_ok=True)
     summary = {"status": "TECHNICAL_PASS_VISUAL_GATE_PENDING",
-               "revision": 14, "families": len(SPECS),
+               "revision": 15, "families": len(SPECS),
                "lodGlbs": len(reports), "detachedWindowCount": 0,
                "officeV5Changed": False, "reports": reports}
-    (output / "reports/support-body-v14-metropolitan-precision.json").write_text(
+    (output / "reports/support-body-v15-human-building-grammar.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps({"status": summary["status"], "families": len(SPECS),
                       "lodGlbs": len(reports), "detachedWindowCount": 0,

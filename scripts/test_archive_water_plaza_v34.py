@@ -52,14 +52,15 @@ required = (
     "v34-institutional-vertical-fin", "v34-horizontal-terrace-band",
     "v34-civic-portal-megaframe", '"distinctFacadeGrammarCount": 3',
     "v34-facade-to-body-corner-return", '"facadeBodyCornerReturnCount": 24',
-    "v34-archive-crown-service-volume", "v34-ledger-roof-terrace",
+    "v38-archive-integrated-penthouse", "v38-ledger-enclosed-roof-stage",
     "v34-civic-roof-lantern-interior", '"distinctRoofGrammarCount": 3',
     '"coordinatedBuildingPaletteCount": 6',
     "_secondary_ground_floor_grammar", "v34-deep-public-arcade-roof",
     "v34-corner-public-room-glass", '"secondaryGroundFloorGrammarCount": 2',
     '"inhabitedArcadeCount": 2', '"cornerPublicRoomCount": 2',
     '"sidePerOpeningEnvelope": True',
-    '"sideCoreRevealM": 1.30',
+    '"sideCoreRevealM": 1.05',
+    "v38-lower-corner-bearing-pier", "v38-upper-corner-bearing-pier",
     "v41-podium-side-bounded-infill", "v41-podium-side-jamb-return",
     "v41-podium-side-interior-back", "v41-podium-rear-service-infill",
     "v41-podium-rear-loading-canopy", '"podiumRearServiceGrammar": True',
@@ -98,5 +99,8 @@ for token in (
     '"plantedWaterEdgePockets": 6',
 ):
     assert token in source, token
-assert 'archive-water-plaza-hero-v37.glb' in source
-print("archive water plaza v37 metropolitan precision contract: PASS")
+assert 'archive-water-plaza-hero-v39.glb' in source
+assert 'coreMeetsWindowRoomBack' in source
+assert 'unsupportedRoofCapCount' in source
+assert 'roofEquipmentContained' in source
+print("archive water plaza v39 four-sided envelope contract: PASS")

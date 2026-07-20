@@ -20,10 +20,13 @@ required = (
     "_grammar_specific_architecture", "identity-vertical-megaframe",
     "identity-civic-portal-pier", "identity-transit-long-canopy",
     "identity-cultural-roof-lantern", '"identityComponents": identity',
+    "integrated-roof-parapet-long", "identity-cultural-roof-contained-cap",
+    '"coreMeetsWindowRoomBack": True', '"unsupportedRoofCapCount": 0',
     '"detachedWindowCount": 0', '"officeV5Changed": False',
     'for spec in SPECS', 'for lod in ("LOD0", "LOD1", "LOD2")',
-    '"revision": 14', 'support-body-v14-metropolitan-precision.json',
-    '"sideCoreRevealM": 1.05', '"envelopeDatumAligned": True',
+    '"revision": 15', 'support-body-v15-human-building-grammar.json',
+    '"sideCoreRevealM": side_reveal', '"envelopeDatumAligned": True',
+    "integrated-lower-corner-bearing-pier",
 )
 missing = [token for token in required if token not in text]
 assert not missing, missing

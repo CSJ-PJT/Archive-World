@@ -521,14 +521,14 @@ def main():
     assert detached_windows == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
-    target = output / "core-stream-ledger-transit-v45.glb"
+    target = output / "core-stream-ledger-transit-v47.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB",
                               export_yup=True, export_normals=True,
                               export_texcoords=False, export_materials="EXPORT",
                               export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 45,
-        "geometryRevision": 48,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 47,
+        "geometryRevision": 50,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,
@@ -546,11 +546,23 @@ def main():
         "occupiedCorridorFrontages": occupied_frontages,
         "imageDatablocks": len(bpy.data.images),
         "detachedWindowCount": detached_windows,
+        "structuralPlausibility": {
+            "buildingCount": len(hero.STRUCTURAL_PLAUSIBILITY),
+            "coreMeetsWindowRoomBack": all(
+                item["coreMeetsWindowRoomBack"] for item in hero.STRUCTURAL_PLAUSIBILITY),
+            "unsupportedRoofCapCount": sum(
+                item["unsupportedRoofCapCount"] for item in hero.STRUCTURAL_PLAUSIBILITY),
+            "roofEquipmentContained": all(
+                item["roofEquipmentContained"] for item in hero.STRUCTURAL_PLAUSIBILITY),
+            "upperMassContainedByLower": all(
+                item["upperMassContainedByLower"] for item in hero.STRUCTURAL_PLAUSIBILITY),
+            "buildings": hero.STRUCTURAL_PLAUSIBILITY,
+        },
         "frontSideRearRoofComplete": True, "officeV5Changed": False,
         "canonical": False, "v3Applied": False, "directReferenceCopy": False,
         "qualityTarget": {"grade": "S", "minimumScore": 95},
     }
-    (output / "core-stream-ledger-transit-v45-report.json").write_text(
+    (output / "core-stream-ledger-transit-v47-report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "buildings": len(buildings),
