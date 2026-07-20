@@ -38,8 +38,9 @@ SPECS = (
 
 def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
                     stone, accent):
-    step = {"LOD0": 1, "LOD1": 2, "LOD2": 4}[lod]
-    bay_count = max(5, round(width / (3.5 + .25 * (seed % 3))))
+    step = {"LOD0": 1, "LOD1": 2, "LOD2": 6}[lod]
+    bay_count = (max(4, round(width / 9.5)) if lod == "LOD2" else
+                 max(5, round(width / (3.5 + .25 * (seed % 3)))))
     pitch = width / bay_count
     face_y = -depth * .5
     glass_y = face_y + .34
@@ -64,6 +65,8 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
             batch.add_box("integrated-front-infill", material,
                           (x, glass_y, opening_z),
                           (pitch - .34, .14, opening_h))
+            if lod == "LOD2":
+                continue
             for side in (-1, 1):
                 batch.add_box("integrated-front-jamb-return", accent,
                               (x + side * (pitch * .5 - .14),
@@ -85,13 +88,14 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
                       (.20 if lod != "LOD2" else .28, .64, height + .36))
     return {"bayCount": bay_count, "detachedWindows": 0,
             "glassRecessM": .34, "boundedOpenings": True,
-            "structuralReturns": True}
+            "structuralReturns": lod != "LOD2",
+            "sharedStructuralGrid": lod == "LOD2"}
 
 
 def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
                         seed, stone, accent):
-    step = {"LOD0": 1, "LOD1": 2, "LOD2": 4}[lod]
-    side_bays = max(4, round(depth / 5.2))
+    step = {"LOD0": 1, "LOD1": 2, "LOD2": 6}[lod]
+    side_bays = (3 if lod == "LOD2" else max(4, round(depth / 5.2)))
     pitch = depth * .78 / side_bays
     for side in (-1, 1):
         face_x = side * width * .5
@@ -105,6 +109,8 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
                 batch.add_box("integrated-side-infill", material,
                               (face_x - side * .32, y, z),
                               (.14, pitch - .34, opening_h))
+                if lod == "LOD2":
+                    continue
                 for edge in (-1, 1):
                     batch.add_box("integrated-side-jamb-return", accent,
                                   (face_x - side * .28,
