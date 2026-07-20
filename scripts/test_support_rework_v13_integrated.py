@@ -13,6 +13,9 @@ required = (
     "integrated-front-projected-fin", "integrated-side-centre-mullion",
     "integrated-side-transom", "integrated-rear-mullion",
     "occupied-lobby-table", "occupied-lobby-chair",
+    "_podium_perimeter", "integrated-podium-side-infill",
+    "integrated-podium-side-room-back", "integrated-podium-rear-infill",
+    '"podiumPerimeter": podium_perimeter',
     "occupied-lobby-glass-infill", "occupied-lobby-jamb-return",
     "_grammar_specific_architecture", "identity-vertical-megaframe",
     "identity-civic-portal-pier", "identity-transit-long-canopy",
@@ -20,6 +23,7 @@ required = (
     '"detachedWindowCount": 0', '"officeV5Changed": False',
     'for spec in SPECS', 'for lod in ("LOD0", "LOD1", "LOD2")',
     '"revision": 14', 'support-body-v14-metropolitan-precision.json',
+    '"sideCoreRevealM": 1.05', '"envelopeDatumAligned": True',
 )
 missing = [token for token in required if token not in text]
 assert not missing, missing

@@ -489,7 +489,50 @@ def _inhabited_podium(batch, spec, podium_h, stone, accent):
     # The podium shell stops behind the occupied rooms instead of covering them.
     batch.add_box("v34-podium-structural-shell", stone,
                   (x, y + inside * 2.9, podium_h * .5),
-                  (width + 8.0, body_depth - 5.8, podium_h))
+                  (width + 2.4, body_depth - 5.8, podium_h))
+    # Complete the podium sides as real occupied/service elevations.  These
+    # bounded rooms remove the blank flank that previously dominated oblique
+    # Ledger and Transit street cameras.
+    shell_width = width + 8.0
+    shell_depth = body_depth - 5.8
+    for side in (-1, 1):
+        side_x = x + side * shell_width * .5
+        side_bays = 3 + style % 2
+        side_pitch = shell_depth * .90 / side_bays
+        for bay in range(side_bays):
+            sy = y - shell_depth * .45 + (bay + .5) * side_pitch
+            public = (bay + style) % 3 != 0
+            infill = "occupied-window-glass" if public else "service-charcoal"
+            batch.add_box("v41-podium-side-bounded-infill", infill,
+                          (side_x - side * .26, sy, podium_h * .52),
+                          (.14, side_pitch - .38, podium_h - 1.10))
+            for edge in (-1, 1):
+                batch.add_box("v41-podium-side-jamb-return", accent,
+                              (side_x - side * .20,
+                               sy + edge * (side_pitch * .5 - .15),
+                               podium_h * .52),
+                              (.58, .18, podium_h - .88))
+            batch.add_box("v41-podium-side-head-return", stone,
+                          (side_x - side * .20, sy, podium_h - .44),
+                          (.58, side_pitch - .30, .28))
+            batch.add_box("v41-podium-side-interior-back", "warm-interior",
+                          (side_x - side * 2.8, sy, podium_h * .52),
+                          (.18, side_pitch - .52, podium_h - 1.22))
+    rear_y = y - facing * shell_depth * .5
+    rear_bays = 4 + style % 3
+    rear_pitch = shell_width * .90 / rear_bays
+    for bay in range(rear_bays):
+        rx = x - shell_width * .45 + (bay + .5) * rear_pitch
+        infill = "service-charcoal" if (bay + style) % 2 else "blue-gray-glass"
+        batch.add_box("v41-podium-rear-service-infill", infill,
+                      (rx, rear_y + facing * .24, podium_h * .48),
+                      (rear_pitch - .40, .14, podium_h - 1.35))
+        batch.add_box("v41-podium-rear-service-frame", accent,
+                      (rx, rear_y + facing * .16, podium_h - .52),
+                      (rear_pitch - .24, .48, .26))
+    batch.add_box("v41-podium-rear-loading-canopy", "service-charcoal",
+                  (x + width * .18, rear_y - facing * 2.4, 5.0),
+                  (width * .34, 5.2, .42))
     batch.add_box("v34-frontage-continuous-floor", "ledger-granite",
                   (x, face_y + inside * room_depth * .5, 2.44),
                   (facade_width, room_depth, .28))
@@ -1568,6 +1611,69 @@ def _add_signature_tower_civic_wing(batch, *, x, y, width, depth, podium_h,
                   (.54, 1.18, wing_h + .52))
 
 
+def _add_upper_side_rear_envelope(batch, *, x, y, width, depth, base_z,
+                                  floors, floor_h, facing, style, stone, accent):
+    """Close the setback tower with recessed, bounded side/rear openings."""
+    height = floors * floor_h
+    side_bays = max(3, round(depth / 5.4))
+    side_pitch = depth * .92 / side_bays
+    for side in (-1, 1):
+        face_x = x + side * width * .5
+        for floor in range(floors):
+            z = base_z + floor * floor_h + floor_h * .5
+            opening_h = floor_h - (.76 if floor % 3 else .92)
+            for bay in range(side_bays):
+                sy = y - depth * .46 + (bay + .5) * side_pitch
+                service = (bay + floor + style) % 8 == 0
+                material = stone if service else (
+                    "occupied-window-glass" if (bay + floor + style) % 3 == 0
+                    else "blue-gray-glass")
+                batch.add_box("v42-upper-side-bounded-infill", material,
+                              (face_x - side * .32, sy, z),
+                              (.14, side_pitch - .30, opening_h))
+                for edge in (-1, 1):
+                    batch.add_box("v42-upper-side-jamb-return", accent,
+                                  (face_x - side * .18,
+                                   sy + edge * (side_pitch * .5 - .12), z),
+                                  (.66, .15, opening_h + .12))
+                batch.add_box("v42-upper-side-head-return", accent,
+                              (face_x - side * .18, sy,
+                               z + opening_h * .5),
+                              (.66, side_pitch - .16, .16))
+                batch.add_box("v42-upper-side-sill-return", stone,
+                              (face_x - side * .18, sy,
+                               z - opening_h * .5),
+                              (.66, side_pitch - .16, .20))
+        for band_floor in range(0, floors + 1, 3):
+            batch.add_box("v42-upper-side-floor-band", stone,
+                          (face_x - side * .18, y,
+                           base_z + band_floor * floor_h),
+                          (.52, depth * .75, .30))
+    rear_y = y - facing * depth * .5
+    rear_outward = -facing
+    rear_bays = max(4, round(width / 5.0))
+    rear_pitch = width * .90 / rear_bays
+    for floor in range(floors):
+        z = base_z + floor * floor_h + floor_h * .5
+        for bay in range(rear_bays):
+            bx = x - width * .45 + (bay + .5) * rear_pitch
+            material = "service-charcoal" if (floor + bay + style) % 7 == 0 else "blue-gray-glass"
+            batch.add_box("v42-upper-rear-bounded-infill", material,
+                          (bx, rear_y + rear_outward * .28, z),
+                          (rear_pitch - .34, .14, floor_h - .90))
+            batch.add_box("v42-upper-rear-mullion", accent,
+                          (bx, rear_y + rear_outward * .18, z),
+                          (.12, .48, floor_h - .72))
+        if floor % 3 == 0:
+            batch.add_box("v42-upper-rear-service-band", accent,
+                          (x, rear_y + rear_outward * .10,
+                           base_z + (floor + 1) * floor_h),
+                          (width * .78, .42, .34))
+    return {"sideBayCount": side_bays, "rearBayCount": rear_bays,
+            "boundedOpenings": True, "blankCoreExposure": False,
+            "heightM": height}
+
+
 def add_wall_first_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     north = y > 0
@@ -1587,7 +1693,7 @@ def add_wall_first_building(batch, spec):
     # The structural core sits behind the glazing datum and supplies side/rear mass.
     _add_chamfered_mass(batch, "v34-tower-chamfered-structural-core", stone,
                         (lower_x, lower_y - facing * 1.36, podium_h + lower_h * .5),
-                        (lower_w, lower_d - 2.72, lower_h), 1.45 + .22 * (style % 3))
+                        (lower_w - 2.72, lower_d - 2.72, lower_h), 1.45 + .22 * (style % 3))
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
                           width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
@@ -1608,12 +1714,12 @@ def add_wall_first_building(batch, spec):
     for side in (-1, 1):
         side_x = lower_x + side * lower_w * .5
         side_bays = max(4, round(lower_d / 5.8))
-        side_pitch = lower_d * .78 / side_bays
+        side_pitch = lower_d * .92 / side_bays
         for floor in range(lower_floors):
             opening_z = podium_h + floor * floor_h + floor_h * .5
             opening_h = floor_h - (.70 if floor % 4 else .86)
             for bay in range(side_bays):
-                sy = lower_y - lower_d * .39 + (bay + .5) * side_pitch
+                sy = lower_y - lower_d * .46 + (bay + .5) * side_pitch
                 service = (bay + floor + style) % 9 == 0
                 material = stone if service else (
                     "occupied-window-glass" if (bay + floor + style) % 4 == 0
@@ -1636,7 +1742,7 @@ def add_wall_first_building(batch, spec):
                                opening_z - opening_h * .5),
                               (.68, side_pitch - .18, .16))
         for bay in range(side_bays + 1):
-            sy = lower_y - lower_d * .39 + bay * side_pitch
+            sy = lower_y - lower_d * .46 + bay * side_pitch
             batch.add_box("v34-side-structural-pier", stone,
                           (side_x - side * .08, sy,
                            podium_h + lower_h * .5),
@@ -1645,14 +1751,14 @@ def add_wall_first_building(batch, spec):
             band_z = podium_h + band_floor * floor_h
             batch.add_box("v34-side-structural-floor-band", stone,
                           (side_x - side * .18, lower_y, band_z),
-                          (.52, lower_d * .76, .34))
+                          (.52, lower_d * .90, .34))
     # Rear/service elevation has a distinct, still complete grammar.
     rear_face = lower_y - facing * lower_d * .5
     rear_outward = -facing
     for floor in range(lower_floors):
         rz = podium_h + floor * floor_h + floor_h * .5
         for bay in range(4):
-            rx = lower_x - lower_w * .34 + bay * lower_w * .225
+            rx = lower_x - lower_w * .40 + bay * lower_w * .267
             material = "service-charcoal" if (floor + bay + style) % 7 == 0 else "blue-gray-glass"
             batch.add_box("v34-rear-integrated-service-window", material,
                           (rx, rear_face - rear_outward * .18, rz),
@@ -1671,12 +1777,17 @@ def add_wall_first_building(batch, spec):
         _add_chamfered_mass(batch, "v34-upper-chamfered-structural-core", stone,
                             (upper_x, upper_y - facing * 1.30,
                              podium_h + lower_h + upper_h * .5),
-                            (upper_w, upper_d - 2.60, upper_h),
+                            (upper_w - 2.60, upper_d - 2.60, upper_h),
                             1.15 + .18 * ((style + 1) % 3))
         _bounded_curtain_wall(batch, x=upper_x, face_y=upper_face, facing=facing,
                               width=upper_w, base_z=podium_h + lower_h,
                               floors=upper_floors, floor_h=floor_h,
                               style=style + 7, stone=stone, accent=accent)
+        _add_upper_side_rear_envelope(
+            batch, x=upper_x, y=upper_y, width=upper_w, depth=upper_d,
+            base_z=podium_h + lower_h, floors=upper_floors,
+            floor_h=floor_h, facing=facing, style=style + 7,
+            stone=stone, accent=accent)
     roof_z = podium_h + floors * floor_h
     _add_chamfered_mass(batch, "v34-integrated-chamfered-machine-room", "service-charcoal",
                         (x - width * .10, y, roof_z + 2.4),
@@ -1842,6 +1953,7 @@ def main():
                               export_materials="EXPORT", export_apply=True)
     report = {
         "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 37,
+        "geometryRevision": 43,
         "zone": "Archive Water Plaza", "qualityTarget": {"grade": "S", "minimumScore": 95},
         "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
@@ -1881,6 +1993,11 @@ def main():
         "distinctRoofGrammarCount": 3,
         "coordinatedBuildingPaletteCount": 6,
         "sidePerOpeningEnvelope": True,
+        "sideCoreRevealM": 1.30,
+        "podiumSideBoundedRoomCount": 42,
+        "podiumRearServiceGrammar": True,
+        "upperSideRearBoundedEnvelope": True,
+        "cornerOpeningCoverage": "90_PERCENT_OR_GREATER",
         "occupiedSetbackTerraceCount": 18,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,

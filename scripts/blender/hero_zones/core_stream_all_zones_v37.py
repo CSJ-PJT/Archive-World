@@ -349,6 +349,7 @@ def main():
                               export_apply=True)
     report = {
         "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 40,
+        "geometryRevision": 43,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,

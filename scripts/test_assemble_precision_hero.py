@@ -41,6 +41,8 @@ with tempfile.TemporaryDirectory() as directory:
     assert result["metrics"]["buildingInstances"]==20
     assert result["precision"]["metropolitanComposition"]["officeV5Changed"] is False
     assert result["precision"]["metropolitanComposition"]["scatterRowsRemoved"] is True
+    assert result["heroZones"][0]["geometryRevision"] == 29
+    assert result["heroZones"][1]["geometryRevision"] == 36
     assert len(FAMILY_BY_BLOCK_ROLE)>=12
     saved=json.loads((target/"manifest/core-district-stream-precision.json").read_text(encoding="utf-8"))
     assert saved==result

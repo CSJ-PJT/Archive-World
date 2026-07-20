@@ -37,27 +37,27 @@ SPECS = (
 
 
 def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
-                    stone, accent):
+                    stone, accent, x_center=0.0, y_center=0.0):
     step = {"LOD0": 1, "LOD1": 2, "LOD2": 6}[lod]
     bay_count = (max(4, round(width / 9.5)) if lod == "LOD2" else
                  max(5, round(width / (3.5 + .25 * (seed % 3)))))
     pitch = width / bay_count
-    face_y = -depth * .5
+    face_y = y_center - depth * .5
     glass_y = face_y + .34
     room_back_y = face_y + 1.65
     height = floors * floor_h
     batch.add_box("integrated-front-room-back", "warm-interior",
-                  (0, room_back_y, base_z + height * .5),
+                  (x_center, room_back_y, base_z + height * .5),
                   (width - .5, .18, height))
     for floor in range(0, floors, step):
         span = min(step, floors - floor)
         opening_h = span * floor_h - .72
         opening_z = base_z + floor * floor_h + span * floor_h * .5
         batch.add_box("integrated-floor-plate", "service-charcoal",
-                      (0, face_y + .90, base_z + floor * floor_h + .10),
+                      (x_center, face_y + .90, base_z + floor * floor_h + .10),
                       (width - .42, 1.32, .18))
         for bay in range(bay_count):
-            x = -width * .5 + (bay + .5) * pitch
+            x = x_center - width * .5 + (bay + .5) * pitch
             blind = (floor + bay + seed) % 11 == 0
             material = stone if blind else (
                 "occupied-window-glass" if (floor + bay + seed) % 4 == 0
@@ -100,7 +100,7 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
                               (x, face_y - .34, opening_z),
                               (.18, 1.28, opening_h + .34))
     for bay in range(bay_count + 1):
-        x = -width * .5 + bay * pitch
+        x = x_center - width * .5 + bay * pitch
         batch.add_box("integrated-front-structural-pier", accent,
                       (x, face_y + .08, base_z + height * .5),
                       (.20 if lod != "LOD2" else .28, .64, height + .36))
@@ -111,18 +111,20 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
 
 
 def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
-                        seed, stone, accent):
+                        seed, stone, accent, x_center=0.0, y_center=0.0):
     step = {"LOD0": 1, "LOD1": 2, "LOD2": 6}[lod]
     side_bays = (3 if lod == "LOD2" else max(4, round(depth / 5.2)))
-    pitch = depth * .78 / side_bays
+    # Carry the opening field to the corner returns.  The previous 78% span
+    # left deep blank end-caps that dominated oblique street cameras.
+    pitch = depth * .92 / side_bays
     for side in (-1, 1):
-        face_x = side * width * .5
+        face_x = x_center + side * width * .5
         for floor in range(0, floors, step):
             span = min(step, floors - floor)
             opening_h = span * floor_h - .82
             z = base_z + floor * floor_h + span * floor_h * .5
             for bay in range(side_bays):
-                y = -depth * .39 + (bay + .5) * pitch
+                y = y_center - depth * .46 + (bay + .5) * pitch
                 material = stone if (floor + bay + seed) % 9 == 0 else "blue-gray-glass"
                 batch.add_box("integrated-side-infill", material,
                               (face_x - side * .32, y, z),
@@ -148,14 +150,14 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
                 batch.add_box("integrated-side-sill-return", stone,
                               (face_x - side * .28, y, z - opening_h * .5),
                               (.68, pitch - .18, .22))
-    rear_y = depth * .5
+    rear_y = y_center + depth * .5
     rear_bays = max(4, round(width / 5.0))
-    rear_pitch = width * .78 / rear_bays
+    rear_pitch = width * .90 / rear_bays
     for floor in range(0, floors, step):
         span = min(step, floors - floor)
         z = base_z + floor * floor_h + span * floor_h * .5
         for bay in range(rear_bays):
-            x = -width * .39 + (bay + .5) * rear_pitch
+            x = x_center - width * .45 + (bay + .5) * rear_pitch
             material = "service-charcoal" if (floor + bay + seed) % 6 == 0 else "blue-gray-glass"
             batch.add_box("integrated-rear-infill", material,
                           (x, rear_y - .28, z),
@@ -169,7 +171,7 @@ def _side_rear_envelope(batch, width, depth, base_z, floors, floor_h, lod,
                                   (x, rear_y - .18, z + span * floor_h * .07),
                                   (rear_pitch - .42, .48, .12))
         batch.add_box("integrated-rear-service-band", accent,
-                      (0, rear_y - .10, base_z + (floor + span) * floor_h),
+                      (x_center, rear_y - .10, base_z + (floor + span) * floor_h),
                       (width * .80, .42, .38))
 
 
@@ -230,6 +232,53 @@ def _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent):
                   (width * .32, 3.2, .32))
     return {"lobbyDepthM": room_depth, "interiorVolume": True,
             "publicBayCount": 2, "detachedGlazing": 0}
+
+
+def _podium_perimeter(batch, width, depth, podium_h, seed, stone, accent):
+    """Complete side and rear podium elevations as bounded occupied rooms."""
+    outer_width, outer_depth = width + 11.0, depth + 6.0
+    side_rooms = 0
+    for side in (-1, 1):
+        face_x = side * outer_width * .5
+        bays = 3 + seed % 2
+        pitch = outer_depth * .90 / bays
+        for bay in range(bays):
+            y = -outer_depth * .45 + (bay + .5) * pitch
+            public = (bay + seed) % 3 != 0
+            material = "occupied-window-glass" if public else "service-charcoal"
+            batch.add_box("integrated-podium-side-infill", material,
+                          (face_x - side * .22, y, podium_h * .52),
+                          (.14, pitch - .34, podium_h - 1.08))
+            batch.add_box("integrated-podium-side-room-back", "warm-interior",
+                          (face_x - side * 2.25, y, podium_h * .52),
+                          (.18, pitch - .52, podium_h - 1.32))
+            for edge in (-1, 1):
+                batch.add_box("integrated-podium-side-jamb", accent,
+                              (face_x - side * .15,
+                               y + edge * (pitch * .5 - .14),
+                               podium_h * .52),
+                              (.52, .16, podium_h - .86))
+            batch.add_box("integrated-podium-side-head", stone,
+                          (face_x - side * .15, y, podium_h - .42),
+                          (.52, pitch - .24, .30))
+            side_rooms += 1
+    rear_y = outer_depth * .5
+    rear_bays = 4 + seed % 3
+    rear_pitch = outer_width * .90 / rear_bays
+    for bay in range(rear_bays):
+        x = -outer_width * .45 + (bay + .5) * rear_pitch
+        material = "service-charcoal" if (bay + seed) % 2 else "blue-gray-glass"
+        batch.add_box("integrated-podium-rear-infill", material,
+                      (x, rear_y - .22, podium_h * .50),
+                      (rear_pitch - .40, .14, podium_h - 1.20))
+        batch.add_box("integrated-podium-rear-frame", accent,
+                      (x, rear_y - .14, podium_h - .44),
+                      (rear_pitch - .22, .48, .28))
+    batch.add_box("integrated-podium-loading-canopy", "service-charcoal",
+                  (width * .18, rear_y + 2.4, 5.0),
+                  (width * .34, 5.2, .42))
+    return {"sideBoundedRooms": side_rooms, "rearServiceBays": rear_bays,
+            "detachedGlazing": 0}
 
 
 def _grammar_specific_architecture(batch, grammar, width, depth, podium_h,
@@ -347,7 +396,7 @@ def build_family(spec, lod, materials):
     # Articulated base and setback masses differ by grammar.
     batch.add_box("integrated-podium-core", stone,
                   (0, 1.1, podium_h * .5),
-                  (width + 11.0, depth + 6.0, podium_h))
+                  (width + 6.2, depth + 1.2, podium_h))
     batch.add_box("integrated-podium-stream-wing", "ledger-limestone",
                   (-width * .27, -depth * .5 - 3.2, podium_h * .42),
                   (width * .50, 7.0, podium_h * .82))
@@ -361,25 +410,30 @@ def build_family(spec, lod, materials):
     lower_x = width * (-.08 if seed % 2 else .07)
     lower_h = lower_floors * floor_h
     batch.add_box("integrated-lower-structural-core", stone,
-                  (lower_x, 1.15, podium_h + lower_h * .5),
-                  (lower_w, lower_d - 2.3, lower_h))
+                  (lower_x, 0, podium_h + lower_h * .5),
+                  (lower_w - 2.3, lower_d - 2.3, lower_h))
     front = _front_envelope(batch, lower_w, lower_d, podium_h,
-                            lower_floors, floor_h, lod, seed, stone, accent)
+                            lower_floors, floor_h, lod, seed, stone, accent,
+                            lower_x, 0)
     _side_rear_envelope(batch, lower_w, lower_d, podium_h, lower_floors,
-                        floor_h, lod, seed, stone, accent)
+                        floor_h, lod, seed, stone, accent, lower_x, 0)
     if upper_floors > 0:
         upper_w = lower_w * (.66 + .04 * (seed % 3))
         upper_d = lower_d * (.70 + .03 * ((seed + 1) % 3))
         upper_x = lower_x + width * (.08 if seed % 2 else -.07)
         upper_h = upper_floors * floor_h
         batch.add_box("integrated-upper-structural-core", stone,
-                      (upper_x, 1.0, podium_h + lower_h + upper_h * .5),
-                      (upper_w, upper_d - 2.1, upper_h))
+                      (upper_x, 0, podium_h + lower_h + upper_h * .5),
+                      (upper_w - 2.1, upper_d - 2.1, upper_h))
         _front_envelope(batch, upper_w, upper_d, podium_h + lower_h,
-                        upper_floors, floor_h, lod, seed + 4, stone, accent)
+                        upper_floors, floor_h, lod, seed + 4, stone, accent,
+                        upper_x, 0)
         _side_rear_envelope(batch, upper_w, upper_d, podium_h + lower_h,
-                            upper_floors, floor_h, lod, seed + 4, stone, accent)
+                            upper_floors, floor_h, lod, seed + 4, stone, accent,
+                            upper_x, 0)
     ground = _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent)
+    podium_perimeter = _podium_perimeter(batch, width, depth, podium_h,
+                                         seed, stone, accent)
     # Operational rear and integrated crown remain complete at all LODs.
     batch.add_box("rear-service-core", "service-charcoal",
                   (width * .20, depth * .5 + 4.0, 3.0),
@@ -403,7 +457,10 @@ def build_family(spec, lod, materials):
     consolidation = consolidate(batch)
     objects = batch.finalize()
     return objects, batch.statistics(), validate_geometry(objects), consolidation, {
-        "front": front, "groundFloor": ground, "detachedWindowCount": 0,
+        "front": front, "groundFloor": ground,
+        "podiumPerimeter": podium_perimeter, "detachedWindowCount": 0,
+        "sideCoreRevealM": 1.05,
+        "envelopeDatumAligned": True,
         "frontSideRearRoof": True, "identityComponents": identity,
     }
 
