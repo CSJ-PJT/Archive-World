@@ -22,7 +22,6 @@ import archive_water_plaza_v12 as v12
 import archive_water_plaza_v28 as v28
 import archive_water_plaza_v29 as v29
 import archive_water_plaza_v30 as v30
-import archive_water_plaza_v31 as v31
 
 ENVELOPE = []
 CAMERA_CLEARANCE_SHIFTS = {
@@ -37,8 +36,25 @@ ORIGINAL_ADD_HUMAN = v12.add_human
 
 
 def _near_camera(x, y, radius):
-    camera_origins = ((-340, -15), (-345, -25), (-340, 10), (-276, 18))
+    camera_origins = ((-340, -15), (-300, -20), (-340, 10), (-210, 22))
     return any(math.hypot(x - cx, y - cy) < radius for cx, cy in camera_origins)
+
+
+def _occludes_camera(x, y, length=30.0, width=4.0):
+    rays = (
+        ((-340, -15), (-218, 1)), ((-300, -20), (-322, -55)),
+        ((-340, 10), (-230, 0)), ((-210, 22), (-250, 0)),
+    )
+    for (cx, cy), (tx, ty) in rays:
+        dx, dy = tx - cx, ty - cy
+        magnitude = math.hypot(dx, dy)
+        ux, uy = dx / magnitude, dy / magnitude
+        px, py = x - cx, y - cy
+        along = px * ux + py * uy
+        across = abs(px * uy - py * ux)
+        if 0.0 <= along <= length and across <= width:
+            return True
+    return False
 
 
 def add_precision_uv_sphere(self, role, material, center, radius,
@@ -58,14 +74,14 @@ def add_camera_safe_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
     if shifted:
         x, y = shifted
         scale *= .86
-    if _near_camera(x, y, 22.0):
+    if _near_camera(x, y, 22.0) or _occludes_camera(x, y, 38.0, 5.5):
         return
     v30.add_natural_tree(batch, x, y, seed, scale, z_base)
 
 
 def add_camera_safe_human(batch, x, y, facing, seed, action, z_base=0.0):
     """Keep certified eye-level camera origins free of mannequin occlusion."""
-    if _near_camera(x, y, 18.0):
+    if _near_camera(x, y, 18.0) or _occludes_camera(x, y, 32.0, 3.2):
         y += 20.0 if y >= 0 else -20.0
         x += 11.0
     return ORIGINAL_ADD_HUMAN(batch, x, y, facing, seed, action, z_base)
@@ -204,6 +220,75 @@ def _inhabited_podium(batch, spec, podium_h, stone, accent):
     batch.add_box("v34-integrated-signage-band", stone,
                   (x, face_y + facing * .02, podium_h - .52),
                   (facade_width - .7, .28, .62))
+    if style in (0, 3):
+        _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent)
+
+
+def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
+    """A real projected public room for the two principal plaza buildings."""
+    x, y, width, _depth, _floors, _floor_h, style = spec
+    facing = -1 if y > 0 else 1
+    inside = -facing
+    lobby_x = x + (-3.6 if style == 0 else 3.8)
+    lobby_width = min(18.0, width * .42)
+    projection = 7.4
+    outer_y = face_y + facing * projection
+    room_y = face_y + facing * projection * .48
+    room_h = min(8.2, podium_h - .28)
+    batch.add_box("v34-signature-lobby-floor", "ledger-granite",
+                  (lobby_x, room_y, 2.45), (lobby_width, projection, .30))
+    batch.add_box("v34-signature-lobby-ceiling", "warm-interior",
+                  (lobby_x, room_y, 2.30 + room_h), (lobby_width, projection, .26))
+    batch.add_box("v34-signature-lobby-back-wall", "warm-interior",
+                  (lobby_x, face_y + inside * .08, 2.30 + room_h * .5),
+                  (lobby_width, .20, room_h))
+    for side in (-1, 1):
+        batch.add_box("v34-signature-lobby-side-return", stone,
+                      (lobby_x + side * lobby_width * .5, room_y, 2.30 + room_h * .5),
+                      (.42, projection, room_h + .30))
+    # The entry wall is one bounded curtain-wall assembly with paired doors.
+    batch.add_box("v34-signature-lobby-glass", "frontage-glass",
+                  (lobby_x, outer_y, 2.30 + room_h * .5),
+                  (lobby_width - .42, .12, room_h - .34))
+    for mullion in range(6):
+        px = lobby_x - lobby_width * .5 + mullion * lobby_width / 5
+        batch.add_box("v34-signature-lobby-mullion", accent,
+                      (px, outer_y + facing * .04, 2.30 + room_h * .5),
+                      (.18, .34, room_h))
+    batch.add_box("v34-signature-lobby-transom", accent,
+                  (lobby_x, outer_y + facing * .04, 5.25),
+                  (lobby_width, .34, .18))
+    for door in (-1, 1):
+        dx = lobby_x + door * 1.05
+        batch.add_box("v34-signature-entry-door-frame", accent,
+                      (dx, outer_y + facing * .12, 3.82), (1.68, .28, 3.04))
+        batch.add_box("v34-signature-entry-door-glass", "frontage-glass",
+                      (dx, outer_y + facing * .16, 3.82), (1.38, .10, 2.74))
+    batch.add_box("v34-signature-lobby-canopy", stone,
+                  (lobby_x, outer_y + facing * 2.45, 2.30 + room_h + .42),
+                  (lobby_width + 3.6, 5.1, .38))
+    batch.add_box("v34-signature-lobby-canopy-soffit", "warm-light",
+                  (lobby_x, outer_y + facing * 2.45, 2.30 + room_h + .19),
+                  (lobby_width + 3.0, 4.55, .08))
+    # Interior floor plates, reception and lounge silhouettes remain visible.
+    batch.add_box("v34-signature-reception", "timber-accent",
+                  (lobby_x, room_y + inside * 1.45, 3.15), (5.2, 1.0, 1.30))
+    for side in (-1, 1):
+        batch.add_box("v34-signature-lounge", "timber-accent",
+                      (lobby_x + side * 4.4, room_y, 2.92), (2.6, 1.15, .72))
+        batch.add_cylinder("v34-signature-pendant", "warm-light",
+                           (lobby_x + side * 4.2, room_y, 7.25), .16, .34, 14)
+    # A stone threshold terrace gives the projection a real ground relationship.
+    batch.add_box("v34-signature-entry-terrace", "dry-stone",
+                  (lobby_x, outer_y + facing * 5.4, 2.34),
+                  (lobby_width + 9.0, 10.8, .16))
+    for side in (-1, 1):
+        batch.add_box("v34-signature-entry-planter", stone,
+                      (lobby_x + side * (lobby_width * .5 + 2.1), outer_y + facing * 4.8, 2.96),
+                      (3.2, 3.0, 1.28))
+        batch.add_box("v34-signature-entry-soil", "soil-v11",
+                      (lobby_x + side * (lobby_width * .5 + 2.1), outer_y + facing * 4.8, 3.64),
+                      (2.8, 2.6, .10))
 
 
 def add_wall_first_building(batch, spec):
@@ -286,13 +371,19 @@ def main():
     try:
         base_objects, base_geometry, base_validation, consolidation, trees, base_activity = v12.build_zone()
         public_objects, public_geometry, public_activity = v29.add_inhabited_promenade()
-        landscape_objects, landscape_geometry, landscape_activity = v31.add_precision_landscape_rooms()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
-    objects = base_objects + public_objects + landscape_objects
+    objects = base_objects + public_objects
     precision_edges = v28.apply_precision_edges(objects)
+    smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
+    smooth_object_count = 0
+    for obj in objects:
+        if obj.type == "MESH" and any(token in obj.name.lower() for token in smooth_tokens):
+            for polygon in obj.data.polygons:
+                polygon.use_smooth = True
+            smooth_object_count += 1
     validation = v12.validate_geometry(objects)
     triangles = v28.triangle_count(objects)
     assert len(ENVELOPE) == 12
@@ -311,14 +402,16 @@ def main():
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
         "glb": str(target), "bytes": target.stat().st_size,
         "geometry": {"triangles": triangles, "meshObjects": len(objects),
-                     "components": base_geometry["components"] + public_geometry["components"] + landscape_geometry["components"]},
+                     "components": base_geometry["components"] + public_geometry["components"]},
         "buildingCount": 6, "facadeAssemblyCount": len(ENVELOPE),
         "boundedFrontageBayCount": sum(7 + style % 3 for style in range(6)),
         "lobbyCount": 6, "retailPublicBayCount": 42,
+        "signatureProjectedLobbyCount": 2,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,
-        "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(landscape_activity),
+        "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity),
+        "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),
         "officeV5Changed": False, "directReferenceCopy": False,
         "referencePolicy": "Abstract spatial and visual-quality direction only; no identifiable design reproduced.",

@@ -12,7 +12,7 @@ import {OutputPass} from 'three/examples/jsm/postprocessing/OutputPass.js';
 type Family={id:string;status:string;lod:Record<string,string>};
 type Instance={familyId:string;position:[number,number,number];rotationY:number;scale:number;chunk:string};
 type StreamLight={position:[number,number,number];color:'cyan'|'warm';intensity:number;distanceM:number};
-type HeroZone={id:string;status:string;uri:string;actual3D:boolean;buildingCount:number;radiusM:number};
+type HeroZone={id:string;status:string;uri:string;actual3D:boolean;buildingCount:number;radiusM:number;geometry?:{triangles?:number}};
 type Manifest={status:string;badges:string[];families:Family[];instances:Instance[];blocks:{id:string;type:string}[];infrastructure:{uri:string};urbanStream?:{uri:string;lengthM:number;bridges:number;accessPoints:number;viewerLights?:StreamLight[]};heroZones?:HeroZone[];metrics:Record<string,number>};
 type CameraPreset={name:string;position:[number,number,number];target:[number,number,number]};
 
@@ -62,11 +62,11 @@ const cameras:CameraPreset[]=[
  {name:'hero-archive-aerial',position:[-250,160,180],target:[-250,18,0]},
  // The upper civic terrace is at +2.30m; 3.95m is a true 1.65m eye height.
  {name:'hero-s-street-axis',position:[-340,3.95,-15],target:[-218,3.2,1]},
- {name:'hero-s-frontage',position:[-345,3.95,-25],target:[-326,4.2,-74]},
+ {name:'hero-s-frontage',position:[-300,3.95,-20],target:[-322,4.2,-55]},
  // The lower promenade is +0.14m; this is a true 1.71m eye height.
  {name:'hero-s-water-plaza',position:[-340,1.85,10],target:[-230,1.1,0]},
  // V32 relocates camera-corridor trees for an unobstructed gateway view.
- {name:'hero-s-gateway',position:[-276,3.95,18],target:[-250,3.35,0]},
+ {name:'hero-s-gateway',position:[-210,3.95,22],target:[-250,3.35,0]},
 ];
 
 function material(color:number,roughness=.72,metalness=0){return new THREE.MeshStandardMaterial({color,roughness,metalness});}
@@ -170,7 +170,7 @@ export async function createCoreDistrictReview(app:HTMLDivElement,base:string,ma
  for(const entry of supportEntries){const mesh=new THREE.InstancedMesh(entry.geometry,entry.material,entry.items.length);mesh.name=`batch-${entry.familyId}-${entry.material.name}`;mesh.userData={familyId:entry.familyId,status:'ACTUAL_GLTF_MATERIAL_BATCH'};entry.items.forEach((item,index)=>{mesh.setMatrixAt(index,new THREE.Matrix4().compose(new THREE.Vector3(...item.position),new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),item.rotationY),new THREE.Vector3(item.scale,item.scale,item.scale)));});mesh.instanceMatrix.needsUpdate=true;buildings.add(mesh);}
  if(!manifest.heroZones?.length){const infra=await loader.loadAsync(`${base}/${manifest.infrastructure.uri}?rev=${assetRevision}`);finalizeInfrastructureMaterials(infra.scene);infrastructure.add(infra.scene);}
  if(manifest.urbanStream&&!manifest.heroZones?.length){const stream=await loader.loadAsync(`${base}/${manifest.urbanStream.uri}?rev=v11-stream-final`);urbanStream.add(stream.scene);}
- if(manifest.heroZones){for(const zone of manifest.heroZones){const hero=await loader.loadAsync(`${base}/${zone.uri}?rev=${encodeURIComponent(zone.status)}`);finalizeHeroMaterials(hero.scene,performanceMode);hero.scene.userData={heroZone:zone.id,status:zone.status,actual3D:true};heroZones.add(hero.scene);}}
+ if(manifest.heroZones){for(const zone of manifest.heroZones){const heroAssetRevision=`${zone.status}-${zone.geometry?.triangles??'geometry'}`;const hero=await loader.loadAsync(`${base}/${zone.uri}?rev=${encodeURIComponent(heroAssetRevision)}`);finalizeHeroMaterials(hero.scene,performanceMode);hero.scene.userData={heroZone:zone.id,status:zone.status,actual3D:true};heroZones.add(hero.scene);}}
  const ready=performance.now();perf.textContent=`READY ${Math.round(ready-started)}ms · ${reviewLod} · calibrated material hierarchy`;
  let frames=0,last=performance.now(),previous=last,fps=0,warmupReset=false;const frameTimes:number[]=[];
  function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);composer?.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}

@@ -9,6 +9,9 @@ required = (
     "v34-frontage-continuous-back", "v34-bounded-frontage-glass",
     '"detachedWindowCount": 0', '"stackedDecorativeGridCount": 0',
     'assert len(bpy.data.images) == 0', '"minimumScore": 95',
+    "_occludes_camera", '"smoothOrganicObjectCount"',
+    "v34-signature-lobby-glass", "v34-signature-entry-terrace",
+    '"signatureProjectedLobbyCount": 2',
 )
 for token in required:
     assert token in source, token
