@@ -25,7 +25,7 @@ if(corePrecisionMode){
   const coreBase=(import.meta.env.VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL ?? '').replace(/\/$/,'');
   if(!coreBase){app.innerHTML='<main class="planning-error">CORE_DISTRICT_3D_REVIEW requires <code>VITE_ARCHIVE_WORLD_CORE_DISTRICT_BASE_URL</code>.</main>';}else{void import('./core-district-review').then(({createCoreDistrictReview})=>createCoreDistrictReview(app,coreBase));}
 }else if(metropolitanMode){
-  const metropolitanBase=(import.meta.env.VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL ?? '').replace(/\/$/,'');
+  const metropolitanBase=(new URLSearchParams(window.location.search).get('metrobase') ?? import.meta.env.VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL ?? '').replace(/\/$/,'');
   if(!metropolitanBase){app.innerHTML='<main class="planning-error">METROPOLITAN_REVIEW requires <code>VITE_ARCHIVE_WORLD_METROPOLITAN_BASE_URL</code>. Generated output only.</main>';}else{void import('./metropolitan-review').then(({createMetropolitanReview})=>createMetropolitanReview(app,metropolitanBase));}
 }else if(planningMode){
   const planningBase=(import.meta.env.VITE_ARCHIVE_WORLD_PLANNING_BASE_URL ?? '').replace(/\/$/,'');
