@@ -17,7 +17,7 @@ type Manifest={status:string;badges:string[];families:Family[];instances:Instanc
 type CameraPreset={name:string;position:[number,number,number];target:[number,number,number]};
 
 const cameras:CameraPreset[]=[
- {name:'aerial-core',position:[740,570,790],target:[0,55,0]},
+ {name:'aerial-core',position:[500,350,600],target:[-50,40,0]},
  {name:'archive-plaza',position:[0,14,520],target:[0,28,0]},
  {name:'ledger-boulevard',position:[-470,65,500],target:[-120,28,60]},
  {name:'office-v5-approach',position:[540,100,420],target:[150,35,0]},
