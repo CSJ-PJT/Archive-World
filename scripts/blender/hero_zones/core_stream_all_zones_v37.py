@@ -214,7 +214,40 @@ def _build_metropolitan_street_rooms(batch):
                           (cx, cy - bank * 12.0, 2.51), (54.0, .18, .09))
             # An inhabited covered walk makes the frontage/stream connection
             # architectural rather than a row of detached street furniture.
-            arcade_y = cy + bank * 7.0
+            frontage_y = cy - bank * 11.0
+            room_inside = bank
+            # Four bounded, occupied public rooms join each forecourt to its
+            # parent building line. They replace flat glass cards with an
+            # eight-metre architectural interior.
+            for bay in range(4):
+                bay_x = cx - 19.5 + bay * 13.0
+                batch.add_box("v40-street-room-floor", "ledger-granite",
+                              (bay_x, frontage_y + room_inside * 4.0, 2.48),
+                              (11.6, 8.0, .28))
+                batch.add_box("v40-street-room-ceiling", "warm-interior",
+                              (bay_x, frontage_y + room_inside * 4.0, 8.72),
+                              (11.6, 8.0, .30))
+                batch.add_box("v40-street-room-rear", "warm-interior",
+                              (bay_x, frontage_y + room_inside * 7.85, 5.58),
+                              (11.6, .22, 6.25))
+                batch.add_box("v40-street-room-glass", "frontage-glass",
+                              (bay_x, frontage_y + room_inside * .15, 5.58),
+                              (11.1, .14, 5.82))
+                for jamb in (-1, 1):
+                    batch.add_box("v40-street-room-jamb", accent,
+                                  (bay_x + jamb * 5.65,
+                                   frontage_y + room_inside * .35, 5.58),
+                                  (.20, .75, 6.22))
+                batch.add_box("v40-street-room-canopy", accent,
+                              (bay_x, frontage_y - bank * 1.8, 8.48),
+                              (12.0, 3.8, .30))
+                batch.add_box("v40-street-room-interior-light", "warm-light",
+                              (bay_x, frontage_y + room_inside * 3.6, 8.46),
+                              (8.0, 3.8, .08))
+                batch.add_box("v40-street-room-furniture", "timber-accent",
+                              (bay_x, frontage_y + room_inside * 4.6, 3.05),
+                              (5.8, 1.2, .88))
+            arcade_y = cy - bank * 6.0
             batch.add_box("v39-urban-room-arcade-roof", accent,
                           (cx, arcade_y, 7.35), (51.0, 7.2, .36))
             batch.add_box("v39-urban-room-arcade-soffit", "warm-light",
@@ -309,13 +342,13 @@ def main():
     assert detached_windows == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
-    target = output / "core-stream-ledger-transit-v39.glb"
+    target = output / "core-stream-ledger-transit-v40.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB",
                               export_yup=True, export_normals=True,
                               export_texcoords=False, export_materials="EXPORT",
                               export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 39,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 40,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,
@@ -334,7 +367,7 @@ def main():
         "canonical": False, "v3Applied": False, "directReferenceCopy": False,
         "qualityTarget": {"grade": "S", "minimumScore": 95},
     }
-    (output / "core-stream-ledger-transit-v39-report.json").write_text(
+    (output / "core-stream-ledger-transit-v40-report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "buildings": len(buildings),
