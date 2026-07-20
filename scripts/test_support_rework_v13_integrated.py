@@ -24,9 +24,11 @@ required = (
     '"coreMeetsWindowRoomBack": True', '"unsupportedRoofCapCount": 0',
     '"detachedWindowCount": 0', '"officeV5Changed": False',
     'for spec in SPECS', 'for lod in ("LOD0", "LOD1", "LOD2")',
-    '"revision": 15', 'support-body-v15-human-building-grammar.json',
     '"sideCoreRevealM": side_reveal', '"envelopeDatumAligned": True',
     "integrated-lower-corner-bearing-pier",
+    "integrated-front-zone-shadow-band", "occupied-lobby-vestibule",
+    "occupied-lobby-reception-desk", "integrated-mechanical-screen-louver",
+    '"revision": 16', 'support-body-v16-aaa-polish.json',
 )
 missing = [token for token in required if token not in text]
 assert not missing, missing

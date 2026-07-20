@@ -51,28 +51,36 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
                   (width - .5, .18, height))
     for floor in range(0, floors, step):
         span = min(step, floors - floor)
-        opening_h = span * floor_h - .72
+        # Each mass is read as lower/middle/upper architecture instead of one
+        # extruded curtain-wall cage.  The zone changes alter reveal depth,
+        # solid/open ratio and the projected frame rhythm while keeping every
+        # pane inside its structural opening.
+        zone = min(3, int((floor / max(floors, 1)) * 4))
+        zone_recess = (.18, .42, .28, .58)[(zone + seed) % 4]
+        opening_h = span * floor_h - (.72 + .08 * zone)
         opening_z = base_z + floor * floor_h + span * floor_h * .5
         batch.add_box("integrated-floor-plate", "service-charcoal",
                       (x_center, face_y + .90, base_z + floor * floor_h + .10),
                       (width - .42, 1.32, .18))
         for bay in range(bay_count):
             x = x_center - width * .5 + (bay + .5) * pitch
-            blind = (floor + bay + seed) % 11 == 0
+            blind_period = (7, 9, 6, 8)[(zone + seed) % 4]
+            blind = (floor * 2 + bay + seed) % blind_period == 0
             material = stone if blind else (
                 "occupied-window-glass" if (floor + bay + seed) % 4 == 0
                 else "blue-gray-glass")
             batch.add_box("integrated-front-infill", material,
-                          (x, glass_y, opening_z),
+                          (x, glass_y + zone_recess, opening_z),
                           (pitch - .34, .14, opening_h))
             if lod == "LOD2":
                 continue
             # Mullion and transom sit in the same bounded opening as the glass.
             # They are envelope members, never detached cards in front of a
             # monolithic box.  LOD0 retains the complete near-camera grid.
+            mullion_w = (.11, .15, .10, .18)[zone]
             batch.add_box("integrated-front-centre-mullion", accent,
-                          (x, face_y + .22, opening_z),
-                          (.12, .52, opening_h + .08))
+                          (x, face_y + .22 + zone_recess * .42, opening_z),
+                          (mullion_w, .52 + zone_recess, opening_h + .08))
             if lod == "LOD0":
                 batch.add_box("integrated-front-transom", accent,
                               (x, face_y + .22, opening_z + opening_h * .08),
@@ -90,20 +98,36 @@ def _front_envelope(batch, width, depth, base_z, floors, floor_h, lod, seed,
                           (pitch - .18, .72, .22))
         batch.add_box("integrated-front-spandrel", stone,
                       (0, face_y + .12, base_z + (floor + span) * floor_h),
-                      (width, .32, .36 if floor % 8 else .58))
-        if lod == "LOD0" and floor % 4 in (0, 1):
+                      (width, .32 + zone_recess * .30,
+                       .34 if floor % (5 + zone) else .66))
+        if lod == "LOD0" and floor % (4 + zone) == seed % (4 + zone):
             # Projected vertical fins break the all-storey repetition and cast
             # real grazing shadows across each four-floor facade zone.
-            for bay in range(0, bay_count + 1, 2):
+            fin_stride = 2 + ((seed + zone) % 2)
+            for bay in range(zone % 2, bay_count + 1, fin_stride):
                 x = -width * .5 + bay * pitch
                 batch.add_box("integrated-front-projected-fin", accent,
                               (x, face_y - .34, opening_z),
                               (.18, 1.28, opening_h + .34))
+        if lod != "LOD2" and floor in {
+                max(step, (floors // 4) // step * step),
+                max(step, (floors // 2) // step * step),
+                max(step, (floors * 3 // 4) // step * step)}:
+            batch.add_box("integrated-front-zone-shadow-band", accent,
+                          (x_center, face_y - .26, opening_z - span * floor_h * .5),
+                          (width + .8, 1.02, .42))
+    # Full-height piers are limited to a family-specific primary rhythm.  The
+    # secondary bay structure terminates at zone bands, removing the uniform
+    # ladder effect visible in the previous district aerial.
+    primary_stride = 2 + seed % 3
     for bay in range(bay_count + 1):
+        if bay not in (0, bay_count) and bay % primary_stride:
+            continue
         x = x_center - width * .5 + bay * pitch
         batch.add_box("integrated-front-structural-pier", accent,
                       (x, face_y + .08, base_z + height * .5),
-                      (.20 if lod != "LOD2" else .28, .64, height + .36))
+                      ((.24 + .04 * (seed % 2)) if lod != "LOD2" else .30,
+                       .72, height + .36))
     return {"bayCount": bay_count, "detachedWindows": 0,
             "glassRecessM": .34, "boundedOpenings": True,
             "structuralReturns": lod != "LOD2",
@@ -204,6 +228,10 @@ def _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent):
                           (.15, .70, 7.05))
         batch.add_box("occupied-lobby-ceiling-light", "warm-light",
                       (x, facing_y, 7.40), (pitch * .62, 4.8, .08))
+        for baffle in (-1, 0, 1):
+            batch.add_box("occupied-lobby-ceiling-baffle", accent,
+                          (x + baffle * pitch * .22, facing_y + .6, 7.18),
+                          (.10, room_depth * .60, .30))
         batch.add_box("occupied-lobby-furniture", "timber-accent",
                       (x, facing_y + 1.0, .84),
                       (pitch * .52, 1.2, 1.10))
@@ -216,12 +244,32 @@ def _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent):
             batch.add_box("occupied-lobby-chair", "service-charcoal",
                           (x + chair * pitch * .18, facing_y + 2.25, .58),
                           (.44, .48, .68))
+        if bay % 2 == seed % 2:
+            batch.add_box("occupied-lobby-reception-desk", stone,
+                          (x, facing_y + 3.45, 1.12),
+                          (pitch * .62, .78, 1.34))
+            batch.add_box("occupied-lobby-rear-light", "warm-light",
+                          (x, facing_y + 4.75, 4.75),
+                          (pitch * .48, .08, 2.8))
     batch.add_box("inhabited-entry-canopy", accent,
                   (lobby_x, facing_y - room_depth * .5 - 2.2, 7.30),
                   (lobby_w + 5.0, 5.0, .38))
     batch.add_box("inhabited-entry-soffit", "warm-light",
                   (lobby_x, facing_y - room_depth * .5 - 2.2, 7.08),
                   (lobby_w + 3.8, 4.4, .08))
+    # A true vestibule and framed door establish an entrance hierarchy at eye
+    # level instead of leaving the centre of the glass frontage anonymous.
+    batch.add_box("occupied-lobby-vestibule", "frontage-glass",
+                  (lobby_x, facing_y - room_depth * .5 - .92, 3.25),
+                  (max(3.4, lobby_w * .23), 2.1, 5.85))
+    for side in (-1, 1):
+        batch.add_box("occupied-lobby-door-frame", accent,
+                      (lobby_x + side * max(1.55, lobby_w * .105),
+                       facing_y - room_depth * .5 - 1.98, 3.25),
+                      (.18, .34, 6.10))
+    batch.add_box("occupied-lobby-door-head", accent,
+                  (lobby_x, facing_y - room_depth * .5 - 1.98, 6.20),
+                  (max(3.4, lobby_w * .23), .34, .20))
     # A second public bay prevents a single pasted lobby from carrying the base.
     retail_x = -lobby_x * .52
     batch.add_box("occupied-public-bay", "warm-interior",
@@ -233,8 +281,17 @@ def _deep_ground_floor(batch, width, depth, podium_h, seed, stone, accent):
     batch.add_box("occupied-public-bay-canopy", stone,
                   (retail_x, -depth * .5 - 9.0, 6.72),
                   (width * .32, 3.2, .32))
+    for module in range(3):
+        shelf_x = retail_x - width * .095 + module * width * .095
+        batch.add_box("occupied-public-display-plinth", "timber-accent",
+                      (shelf_x, -depth * .5 - 3.2, .82),
+                      (max(1.4, width * .055), .78, 1.18))
+        batch.add_box("occupied-public-pendant", "warm-light",
+                      (shelf_x, -depth * .5 - 3.4, 5.75),
+                      (.24, .24, .20))
     return {"lobbyDepthM": room_depth, "interiorVolume": True,
-            "publicBayCount": 2, "detachedGlazing": 0}
+            "publicBayCount": 2, "interiorProxyFamilies": 5,
+            "vestibuleDepthM": 2.1, "detachedGlazing": 0}
 
 
 def _podium_perimeter(batch, width, depth, podium_h, seed, stone, accent):
@@ -499,7 +556,17 @@ def build_family(spec, lod, materials):
         batch.add_box("integrated-roof-hvac", "service-charcoal",
                       (roof_x - roof_w * .22 + index * roof_w * .11,
                        roof_d * .16, roof_z + 1.05),
-                      (min(1.8, roof_w * .09), min(2.3, roof_d * .15), 1.0))
+                       (min(1.8, roof_w * .09), min(2.3, roof_d * .15), 1.0))
+    if lod != "LOD2":
+        screen_count = 3 + seed % 3
+        for index in range(screen_count):
+            x = roof_x - roof_w * .27 + index * (roof_w * .54 / max(1, screen_count - 1))
+            batch.add_box("integrated-mechanical-screen-louver", accent,
+                          (x, roof_d * .25, roof_z + 2.25),
+                          (.14, roof_d * .28, 3.8 + .35 * ((seed + index) % 3)))
+        batch.add_box("integrated-roof-maintenance-walk", "dry-stone",
+                      (roof_x, -roof_d * .18, roof_z + .16),
+                      (roof_w * .62, 1.05, .14))
     identity = _grammar_specific_architecture(
         batch, grammar, width, depth, podium_h, roof_z, lod, stone, accent,
         roof_x=roof_x, roof_width=roof_w, roof_depth=roof_d)
@@ -561,10 +628,10 @@ def main():
             reports.append(report)
     (output / "reports").mkdir(parents=True, exist_ok=True)
     summary = {"status": "TECHNICAL_PASS_VISUAL_GATE_PENDING",
-               "revision": 15, "families": len(SPECS),
+               "revision": 16, "families": len(SPECS),
                "lodGlbs": len(reports), "detachedWindowCount": 0,
                "officeV5Changed": False, "reports": reports}
-    (output / "reports/support-body-v15-human-building-grammar.json").write_text(
+    (output / "reports/support-body-v16-aaa-polish.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps({"status": summary["status"], "families": len(SPECS),
                       "lodGlbs": len(reports), "detachedWindowCount": 0,

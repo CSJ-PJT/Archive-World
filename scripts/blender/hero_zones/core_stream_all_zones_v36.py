@@ -119,11 +119,28 @@ def _deep_room(batch, prefix, x, y, facing, width, depth, height,
                   (x, y, 2.44), (width, depth, .28))
     batch.add_box(f"v36-{prefix}-ceiling", "warm-interior",
                   (x, y, 2.30 + height), (width, depth, .26))
-    batch.add_box(f"v36-{prefix}-rear-wall", "warm-interior",
-                  (x, rear_y, 2.30 + height * .5), (width, .20, height))
     pitch = width / public_bays
     for bay in range(public_bays):
         bx = x - width * .5 + (bay + .5) * pitch
+        # Each room terminates at a slightly different internal datum.  The
+        # previous single warm rear wall read as one flat terracotta billboard
+        # through the glazing, even though the frontage was technically deep.
+        # Individual room backs, side partitions and shadow pockets expose the
+        # actual six-to-eighteen metre interior section at street eye level.
+        room_depth = depth * (.67 + .055 * ((bay + public_bays) % 3))
+        room_back_y = face_y + inside * room_depth
+        back_material = ("warm-interior" if bay % 3 else
+                         "archive-warm-stone" if "transit" in prefix else
+                         "ledger-limestone")
+        batch.add_box(f"v51-{prefix}-occupied-room-back", back_material,
+                      (bx, room_back_y, 2.30 + height * .5),
+                      (pitch - .55, .22, height - .42))
+        for edge in (-1, 1):
+            batch.add_box(f"v51-{prefix}-room-side-partition", stone,
+                          (bx + edge * (pitch * .5 - .24),
+                           face_y + inside * room_depth * .52,
+                           2.30 + height * .5),
+                          (.18, room_depth, height - .28))
         batch.add_box(f"v36-{prefix}-integrated-glass", "frontage-glass",
                       (bx, face_y + inside * .42, 2.30 + height * .5),
                       (pitch - .40, .12, height - .58))
@@ -135,6 +152,20 @@ def _deep_room(batch, prefix, x, y, facing, width, depth, height,
         batch.add_box(f"v36-{prefix}-interior-counter", "timber-accent",
                       (bx, face_y + inside * (depth * .62), 3.05),
                       (pitch * .50, .72, 1.05))
+        # A dark vestibule or illuminated display plane breaks the uniform
+        # window rhythm without turning the frontage into a repeated sign wall.
+        if bay % 3 == 1:
+            batch.add_box(f"v51-{prefix}-recessed-vestibule", "service-charcoal",
+                          (bx, face_y + inside * 2.2, 4.18),
+                          (pitch * .54, 2.8, 3.72))
+            batch.add_box(f"v51-{prefix}-vestibule-door", "frontage-glass",
+                          (bx, face_y + inside * .30, 4.05),
+                          (min(2.4, pitch * .42), .12, 3.42))
+        else:
+            batch.add_box(f"v51-{prefix}-occupied-rear-light", "warm-light",
+                          (bx, room_back_y - inside * .14,
+                           2.30 + height * .64),
+                          (pitch * .44, .06, height * .28))
         batch.add_box(f"v36-{prefix}-interior-light", "warm-light",
                       (bx, face_y + inside * (depth * .45),
                        2.30 + height - .28), (pitch * .52, 1.8, .07))
@@ -213,8 +244,17 @@ def _build_transit_junction(batch):
     # Wide covered connector across the stream, with separate walking lanes.
     batch.add_box("v36-transit-bridge-deck", "dry-stone",
                   (260.0, 0.0, 2.68), (18.0, 38.0, .68))
-    batch.add_box("v36-transit-bridge-canopy", "archive-metal",
-                  (260.0, 0.0, 7.20), (14.0, 31.0, .34))
+    # Keep the connector weather-protected at both landings while opening the
+    # centre span to sky.  The former 31 m opaque bar cut every stream vista in
+    # half and read as infrastructure rather than a civic pedestrian bridge.
+    for landing_y in (-11.8, 11.8):
+        batch.add_box("v48-transit-bridge-landing-canopy", "archive-metal",
+                      (260.0, landing_y, 7.20), (14.0, 7.2, .30))
+        batch.add_box("v48-transit-bridge-landing-soffit", "warm-light",
+                      (260.0, landing_y, 7.02), (12.8, 6.3, .08))
+    for rib_y in (-6.0, 0.0, 6.0):
+        batch.add_box("v48-transit-bridge-open-rib", "archive-metal",
+                      (260.0, rib_y, 7.0), (13.4, .24, .34))
     for side in (-1, 1):
         for y in (-13.0, -4.3, 4.3, 13.0):
             batch.add_cylinder("v36-transit-bridge-column", "archive-metal",

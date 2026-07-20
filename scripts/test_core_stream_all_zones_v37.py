@@ -10,13 +10,13 @@ required = (
     "_build_promenance_life", "interior-table", "interior-chair",
     "full-depth-jamb", "corridor-pavilion", "lower-promenade-bench",
     "_build_metropolitan_node_precision", "v38-ledger-formal-terrace",
-    "v38-transit-transfer-plaza", "v38-node-bridge-portal-column",
+    "v38-transit-transfer-plaza", "v48-node-bridge-portal-column",
     '"activityPlacement": "PROGRAMMED_BY_NODE"',
     "_build_metropolitan_street_rooms", "v39-urban-room-paving",
     "v39-urban-room-arcade-roof", "v39-programmed-vehicle-body",
     "v40-street-room-glass", "v40-street-room-interior-light",
     '"scatterPlacement": False',
-    "core-stream-ledger-transit-v47.glb", '"officeV5Changed": False',
+    "core-stream-ledger-transit-v51.glb", '"officeV5Changed": False',
     '"structuralPlausibility"', '"coreMeetsWindowRoomBack"',
     "_build_attached_identity_frames", "v41-attached-metropolitan-vertical-frame",
     "v41-attached-ground-portal-pier", "attachedIdentityFrames",
@@ -26,6 +26,12 @@ required = (
     '"detachedWindowCount": detached_windows',
     "_build_stream_edge_activity_rooms", "v45-stream-room-inset-paving",
     "v45-stream-room-planter", "streamEdgeActivityRooms",
+    "_build_aaa_corridor_polish", "v48-stream-wet-coping",
+    "v48-stream-dry-coping", "aaaCorridorPolish",
+    "transit_clear = 240 <= x <= 280",
+    "_build_hyper_polish_city_scene", "v51-hyper-frontage-room-back",
+    "v51-hyper-node-inlay", "v51-hyper-bridge-landing-pylon",
+    "hyperPolishScene",
 )
 missing = [token for token in required if token not in text]
 assert not missing, missing

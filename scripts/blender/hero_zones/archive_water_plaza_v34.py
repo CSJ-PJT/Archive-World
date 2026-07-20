@@ -1922,16 +1922,17 @@ def _add_metropolitan_precision_layer():
         _add_architectural_tree(batch, x, y, 8100 + index, .72 + .05 * (index % 3), .14)
         batch.add_box("v36-tree-room-grate", "ledger-granite", (x, y, .20), (3.0, 3.0, .10))
 
-    # Archive gateway bridge: a civic-scale crossing with structural portal,
-    # inhabited landings and a clearly readable lower-promenade connection.
+    # Archive gateway bridge: keep the civic threshold legible without turning
+    # the portal into a freestanding billboard that masks the inhabited bank.
+    # The lower frame preserves the terrace-to-lobby and water sightline.
     gateway_x = -250.0
     batch.add_box("v37-archive-gateway-deck", "ledger-granite", (gateway_x, 0, 2.78), (11.5, 38.0, .58))
     batch.add_box("v37-archive-gateway-walking-surface", "dry-stone", (gateway_x, 0, 3.10), (10.6, 37.2, .12))
     for bank in (-1, 1):
         for side in (-1, 1):
-            batch.add_box("v37-archive-gateway-portal-column", "archive-metal", (gateway_x + side * 4.8, bank * 13.2, 6.45), (.44, .56, 6.7))
-        batch.add_box("v37-archive-gateway-portal-beam", "archive-metal", (gateway_x, bank * 13.2, 9.62), (10.2, .56, .42))
-        batch.add_box("v37-archive-gateway-light-line", "archive-cyan-light", (gateway_x, bank * 13.0, 9.35), (8.6, .10, .10))
+            batch.add_box("v40-archive-gateway-portal-column", "archive-metal", (gateway_x + side * 4.55, bank * 13.2, 5.22), (.34, .48, 4.36))
+        batch.add_box("v40-archive-gateway-portal-beam", "archive-metal", (gateway_x, bank * 13.2, 7.30), (9.45, .48, .30))
+        batch.add_box("v40-archive-gateway-light-line", "archive-cyan-light", (gateway_x, bank * 13.0, 7.10), (7.90, .08, .07))
         batch.add_box("v37-archive-gateway-landing", "dry-stone", (gateway_x, bank * 22.4, 2.58), (20.0, 8.4, .22))
         batch.add_box("v37-archive-gateway-landing-seat", "timber-accent", (gateway_x - 5.2, bank * 22.4, 3.05), (5.4, 1.0, .18))
         for index in range(5):
@@ -1965,6 +1966,153 @@ def _add_metropolitan_precision_layer():
     return batch.finalize(), {"occupiedRooms": records, "activityCount": len(activity), "bridgeLandingRooms": 6, "nearFieldTrees": 8, "archiveGatewayBridge": 1, "cafeTerraces": 2, "cafeTables": 8, "plantedWaterEdgePockets": 6}
 
 
+def _add_hyper_polish_archive_scene():
+    """Complete the Archive Water Plaza as one inhabited urban scene.
+
+    Every object below belongs to a spatial room: occupied gallery, planted
+    seating court, bridge landing or water-edge section.  The pass deliberately
+    avoids a uniform scatter and leaves the six-metre promenade spine open.
+    """
+    batch = v12.HeroBatch(v12.create_materials())
+    rooms, activity = [], []
+    gallery_specs = (
+        (-320.0, -39.0, 1, 24.0, 8.5, "arrival-gallery", "archive-warm-stone", "archive-metal"),
+        (-270.0, 39.0, -1, 28.0, 9.2, "civic-library", "archive-warm-stone", "archive-metal"),
+        (-212.0, -39.0, 1, 26.0, 8.8, "water-cafe", "ledger-limestone", "ledger-bronze"),
+    )
+    for room_index, (x, y, facing, width, depth, role, stone, accent) in enumerate(gallery_specs):
+        inside = -facing
+        face_y = y + facing * depth * .5
+        batch.add_box("v41-hyper-gallery-floor", "ledger-granite",
+                      (x, y, 2.46), (width, depth, .28))
+        batch.add_box("v41-hyper-gallery-ceiling", stone,
+                      (x, y, 8.36), (width, depth, .34))
+        bays = 5 + room_index
+        pitch = width / bays
+        for bay in range(bays):
+            bx = x - width * .5 + (bay + .5) * pitch
+            back_depth = depth * (.66 + .08 * ((bay + room_index) % 3))
+            batch.add_box("v41-hyper-gallery-room-back",
+                          "warm-interior" if bay % 3 else stone,
+                          (bx, face_y + inside * back_depth, 5.34),
+                          (pitch - .42, .20, 5.42))
+            batch.add_box("v41-hyper-gallery-glass", "frontage-glass",
+                          (bx, face_y + inside * .26, 5.34),
+                          (pitch - .30, .12, 5.28))
+            for side in (-1, 1):
+                batch.add_box("v41-hyper-gallery-deep-jamb", accent,
+                              (bx + side * (pitch * .5 - .13),
+                               face_y + inside * back_depth * .48, 5.34),
+                              (.16, back_depth, 5.62))
+            batch.add_box("v41-hyper-gallery-ceiling-light", "warm-light",
+                          (bx, face_y + inside * back_depth * .50, 8.12),
+                          (pitch * .54, 1.8, .07))
+            batch.add_box("v41-hyper-gallery-table", "timber-accent",
+                          (bx, face_y + inside * back_depth * .62, 3.12),
+                          (pitch * .48, 1.12, .18))
+        batch.add_box("v41-hyper-gallery-canopy", accent,
+                      (x, face_y + facing * 2.4, 8.18),
+                      (width * .72, 5.0, .34))
+        batch.add_box("v41-hyper-gallery-canopy-light", "warm-light",
+                      (x, face_y + facing * 2.4, 7.98),
+                      (width * .65, 4.3, .08))
+        rooms.append({"role": role, "depthM": depth, "bays": bays,
+                      "occupied": True, "streamFacing": True})
+
+    # Six distinct upper-bank rooms replace the pale residual forecourt with
+    # cafe, arrival and civic seating compositions tied to the galleries.
+    node_specs = (
+        (-330.0, -24.0, "office-arrival"), (-292.0, 24.0, "civic-meeting"),
+        (-258.0, -24.0, "bridge-crossing"), (-226.0, 24.0, "water-lunch"),
+        (-195.0, -24.0, "evening-cafe"), (-176.0, 24.0, "promenade-rest"),
+    )
+    for node_index, (cx, cy, role) in enumerate(node_specs):
+        bank = 1 if cy > 0 else -1
+        accent = "archive-metal" if node_index < 4 else "ledger-bronze"
+        batch.add_box("v41-hyper-room-inlay",
+                      "dry-stone" if node_index % 2 else "promenade-paver",
+                      (cx, cy, 2.39), (24.0, 9.0, .16))
+        batch.add_box("v41-hyper-room-drain", "service-charcoal",
+                      (cx, cy - bank * 4.25, 2.49), (22.0, .14, .08))
+        planter_x = cx + (-7.0 if node_index % 2 else 7.0)
+        batch.add_box("v41-hyper-room-planter", "ledger-granite",
+                      (planter_x, cy + bank * .6, 2.92), (5.2, 3.6, 1.04))
+        batch.add_box("v41-hyper-room-soil", "soil-v11",
+                      (planter_x, cy + bank * .6, 3.48), (4.6, 3.0, .14))
+        _add_architectural_tree(batch, planter_x, cy + bank * .6,
+                                25000 + node_index, .58 + .035 * (node_index % 3), 3.55)
+        for side in (-1, 1):
+            seat_x = cx + side * 3.4
+            batch.add_box("v41-hyper-room-seat", "timber-accent",
+                          (seat_x, cy - bank * 1.8, 2.72), (2.8, .72, .18))
+            batch.add_box("v41-hyper-room-seat-back", "timber-accent",
+                          (seat_x, cy - bank * 2.12, 3.18), (2.8, .14, .82))
+            activity.append(_add_seated_human(
+                batch, seat_x, cy - bank * 1.82, 0 if bank > 0 else math.pi,
+                25300 + node_index * 10 + side, 2.84, 2.39))
+        for person in range(5):
+            activity.append(_add_mid_detail_human(
+                batch, cx - 4.6 + person * 2.3,
+                cy + bank * (2.4 + .4 * (person % 2)), .12 * bank,
+                25500 + node_index * 20 + person,
+                "walking" if person in (0, 4) else "conversation", 2.39))
+        batch.add_cylinder("v41-hyper-room-light-pole", accent,
+                           (cx - 9.0, cy + bank * 2.8, 4.52), .065, 4.2, 14)
+        batch.add_cylinder("v41-hyper-room-light-source", "warm-light",
+                           (cx - 9.0, cy + bank * 2.8, 6.66), .14, .18, 14)
+
+    # The two public-frontage rooms operate as real cafe terraces rather than
+    # empty paving.  Canopies, tables and seated groups form near/mid/far
+    # activity layers while maintaining the six-metre accessible spine.
+    cafe_clusters = 0
+    for cluster_index, (cx, cy, facing) in enumerate((
+            (-318.0, -31.0, 0.0), (-286.0, 31.0, math.pi),
+            (-224.0, 31.0, math.pi), (-190.0, -31.0, 0.0))):
+        for table_index, offset in enumerate((-4.2, 4.2)):
+            tx = cx + offset
+            batch.add_cylinder("v41-hyper-cafe-table", "timber-accent",
+                               (tx, cy, 3.20), .86, .16, 18)
+            batch.add_cylinder("v41-hyper-cafe-table-leg", "archive-metal",
+                               (tx, cy, 2.84), .08, .72, 12)
+            batch.add_cylinder("v41-hyper-cafe-canopy-pole", "archive-metal",
+                               (tx, cy, 4.42), .055, 3.78, 12)
+            batch.add_frustum("v41-hyper-cafe-canopy", "timber-accent",
+                              (tx, cy, 6.26), 2.35, .42, .58, 24)
+            for chair_side in (-1, 1):
+                sy = cy + chair_side * 1.20
+                batch.add_box("v41-hyper-cafe-chair", "timber-accent",
+                              (tx, sy, 2.82), (.72, .72, .18))
+                activity.append(_add_seated_human(
+                    batch, tx, sy, facing, 25900 + cluster_index * 20 +
+                    table_index * 4 + chair_side, 2.94, 2.39))
+            cafe_clusters += 1
+
+    # Wet/dry coping, seating cuts and joint rhythm make the water section
+    # legible from every Archive eye-level camera without changing the stream.
+    edge_sections = 0
+    for segment, x in enumerate(range(-344, -155, 12)):
+        for bank in (-1, 1):
+            batch.add_box("v41-hyper-wet-edge", "wet-stone",
+                          (x, bank * 7.82, .30), (11.65, .42, .34))
+            batch.add_box("v41-hyper-dry-edge", "dry-stone",
+                          (x, bank * 8.18, .67), (11.65, .28, .38))
+            batch.add_box("v41-hyper-edge-joint", "service-charcoal",
+                          (x - 5.84, bank * 8.18, .74), (.08, .48, .48))
+            if segment % 4 == 1:
+                batch.add_box("v41-hyper-edge-seat", "timber-accent",
+                              (x, bank * 11.2, .76), (5.8, .72, .18))
+            edge_sections += 1
+    return batch.finalize(), {
+        "occupiedGalleryCount": len(rooms), "occupiedGalleries": rooms,
+        "programmedRoomCount": len(node_specs),
+        "programmedHumanCount": len(activity),
+        "cafeTerraceClusterCount": cafe_clusters,
+        "waterEdgeSections": edge_sections,
+        "clearPromenadeM": 6.0, "scatterPlacement": False,
+        "floatingObjects": 0, "waterIntrusions": 0,
+    }
+
+
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
     parser = argparse.ArgumentParser()
@@ -1989,13 +2137,14 @@ def main():
         liner_objects, stream_liners = _add_stream_liner_architecture()
         section_objects, civic_sections = _add_archive_civic_section_rebuild()
         metropolitan_objects, metropolitan_precision = _add_metropolitan_precision_layer()
+        hyper_objects, hyper_polish = _add_hyper_polish_archive_scene()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
     objects = (base_objects + public_objects + activity_objects
                + stream_room_objects + liner_objects + section_objects
-               + metropolitan_objects)
+               + metropolitan_objects + hyper_objects)
     precision_edges = v28.apply_precision_edges(objects)
     smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
     smooth_object_count = 0
@@ -2012,13 +2161,13 @@ def main():
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
 
-    target = output / "archive-water-plaza-hero-v39.glb"
+    target = output / "archive-water-plaza-hero-v41.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB", export_yup=True,
                               export_normals=True, export_texcoords=False,
                               export_materials="EXPORT", export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 39,
-        "geometryRevision": 45,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 41,
+        "geometryRevision": 47,
         "zone": "Archive Water Plaza", "qualityTarget": {"grade": "S", "minimumScore": 95},
         "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
@@ -2046,6 +2195,7 @@ def main():
             (-326, -78, 48, 36, 25), (-258, -82, 42, 34, 20), (-188, -76, 54, 40, 16),
         ]),
         "signatureCafeTerraceCount": 2,
+        "hyperPolishScene": hyper_polish,
         "nearFieldTreeSilhouetteCount": 12,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "singleFacadeGlassCardCount": 0,
@@ -2101,7 +2251,7 @@ def main():
         "officeV5Changed": False, "directReferenceCopy": False,
         "referencePolicy": "Abstract spatial and visual-quality direction only; no identifiable design reproduced.",
     }
-    (output / "archive-water-plaza-hero-v39-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    (output / "archive-water-plaza-hero-v41-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "facadeAssemblies": len(ENVELOPE), "detachedWindows": 0}))
 

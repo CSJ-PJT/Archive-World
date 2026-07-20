@@ -9,17 +9,18 @@ const output = resolve(process.argv[3] ?? 'C:/ArchiveData/World/Generated/v13/co
 const port = Number(process.env.ARCHIVE_CDP_PORT ?? 9336);
 const allViews = [
   ['district-aerial', 0], ['district-skyline', 8],
-  ['ledger-terrace', 36], ['ledger-frontage', 37],
-  ['transit-junction', 38], ['transit-entry', 39],
-  ['archive-axis', 43], ['archive-aerial', 49],
-  ['archive-street', 50], ['archive-frontage', 51],
-  ['archive-water-plaza', 52], ['archive-gateway', 53],
+  ['ledger-terrace', 35], ['ledger-frontage', 36],
+  ['transit-junction', 37], ['transit-entry', 38],
+  ['archive-axis', 42], ['archive-aerial', 48],
+  ['archive-street', 49], ['archive-frontage', 50],
+  ['archive-water-plaza', 51], ['archive-gateway', 52],
 ];
 const selectedNames = new Set((process.env.ARCHIVE_CAPTURE_VIEWS ?? '').split(',').filter(Boolean));
 const views = selectedNames.size ? allViews.filter(([name]) => selectedNames.has(name)) : allViews;
 const times = (process.env.ARCHIVE_CAPTURE_TIMES ?? 'day,dusk,night').split(',');
 const pickPoints = (process.env.ARCHIVE_PICK_POINTS ?? '').split(';').filter(Boolean).map(value => value.split(',').map(Number)).filter(value => value.length === 2 && value.every(Number.isFinite));
 const performanceSeconds = Number(process.env.ARCHIVE_PERFORMANCE_SECONDS ?? 0);
+const performanceOnly = process.env.ARCHIVE_PERFORMANCE_ONLY === '1';
 
 const sleep = ms => new Promise(resolvePromise => setTimeout(resolvePromise, ms));
 async function json(url, attempts = 80) {
@@ -60,11 +61,13 @@ function cdp(socketUrl) {
 
 await mkdir(output, {recursive: true});
 const profile = join(tmpdir(), `archive-cdp-${process.pid}`);
-const child = spawn(chrome, [
+const chromeFlags = [
   '--headless=new', '--disable-gpu-sandbox', '--hide-scrollbars',
   '--window-size=1920,1080', `--remote-debugging-port=${port}`,
   `--user-data-dir=${profile}`, 'about:blank',
-], {stdio: 'ignore', windowsHide: true});
+];
+if (performanceOnly) chromeFlags.splice(3, 0, '--disable-frame-rate-limit', '--disable-gpu-vsync');
+const child = spawn(chrome, chromeFlags, {stdio: 'ignore', windowsHide: true});
 
 const report = [];
 try {
@@ -98,11 +101,22 @@ try {
       if (performanceSeconds > 0) {
         await sleep(8000);
         for (let second = 0; second < performanceSeconds; second += 1) {
-          const value = await call('Runtime.evaluate', {expression: `document.querySelector('#core-perf')?.dataset.metrics ?? ''`, returnByValue: true});
-          const raw = value.result?.value ?? '';
-          if (raw) performanceSamples.push({second, ...JSON.parse(raw)});
+          if (performanceOnly) {
+            const states = await fetch(`http://127.0.0.1:${port}/json/list`).then(response => response.json());
+            const currentTitle = states.find(item => item.id === target.id)?.title ?? '';
+            const parts = currentTitle.split('|').map((value, index) => index ? Number(value) : value);
+            if (parts[0] === 'CORE3D' && parts.slice(1).every(Number.isFinite)) performanceSamples.push({second, fps: parts[1], lowFps: parts[2], drawCalls: parts[3], triangles: parts[4], source: 'cdp-target-title'});
+          } else {
+            const value = await call('Runtime.evaluate', {expression: `document.querySelector('#core-perf')?.dataset.metrics ?? ''`, returnByValue: true});
+            const raw = value.result?.value ?? '';
+            if (raw) performanceSamples.push({second, ...JSON.parse(raw)});
+          }
           await sleep(1000);
         }
+      }
+      if (performanceOnly) {
+        report.push({name, camera, time, filename: null, bytes: 0, title, durationMs: Date.now() - started, actualWebGL: true, picks, performanceSamples, performanceOnly: true});
+        continue;
       }
       const image = await call('Page.captureScreenshot', {format: 'png', captureBeyondViewport: false});
       const filename = `${name}-${time}.png`;

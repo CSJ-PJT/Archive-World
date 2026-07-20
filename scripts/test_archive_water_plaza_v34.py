@@ -99,8 +99,15 @@ for token in (
     '"plantedWaterEdgePockets": 6',
 ):
     assert token in source, token
-assert 'archive-water-plaza-hero-v39.glb' in source
+assert 'archive-water-plaza-hero-v41.glb' in source
 assert 'coreMeetsWindowRoomBack' in source
 assert 'unsupportedRoofCapCount' in source
 assert 'roofEquipmentContained' in source
-print("archive water plaza v39 four-sided envelope contract: PASS")
+assert 'v40-archive-gateway-portal-column' in source
+assert 'v40-archive-gateway-portal-beam' in source
+for token in (
+    "_add_hyper_polish_archive_scene", "v41-hyper-gallery-room-back",
+    "v41-hyper-room-inlay", "v41-hyper-wet-edge", "hyperPolishScene",
+):
+    assert token in source, token
+print("archive water plaza v40 restrained gateway contract: PASS")

@@ -300,9 +300,9 @@ def _build_metropolitan_node_precision(batch):
     for x, material, light_material in ((60.0, "ledger-bronze", "warm-light"), (260.0, "archive-metal", "archive-cyan-light")):
         for bank in (-1, 1):
             for side in (-1, 1):
-                batch.add_box("v38-node-bridge-portal-column", material, (x + side * 5.0, bank * 13.5, 6.0), (.38, .46, 6.2))
-            batch.add_box("v38-node-bridge-portal-beam", material, (x, bank * 13.5, 8.92), (10.4, .46, .34))
-            batch.add_box("v38-node-bridge-portal-light", light_material, (x, bank * 13.3, 8.70), (8.8, .08, .10))
+                batch.add_box("v48-node-bridge-portal-column", material, (x + side * 5.0, bank * 13.5, 5.35), (.32, .42, 4.9))
+            batch.add_box("v48-node-bridge-portal-beam", material, (x, bank * 13.5, 7.66), (10.3, .42, .28))
+            batch.add_box("v48-node-bridge-portal-light", light_material, (x, bank * 13.3, 7.47), (8.8, .08, .08))
     return {"ledgerTerraceRooms": 2, "transitTransferRooms": 2,
             "nodeBridgePortals": 4, "duplicateBridgeDecks": 0,
             "activityHumans": len(activity),
@@ -479,6 +479,245 @@ def _build_metropolitan_street_rooms(batch):
             "blankGroundReplaced": True, "scatterPlacement": False}
 
 
+def _build_aaa_corridor_polish(batch):
+    """Finish the whole corridor with authored edge rhythm and activity.
+
+    The elements follow the two continuous promenades and node approaches;
+    none are random scatter.  Joint lines, coping, planted seating rooms and
+    foreground/midground activity turn the long pale strips into a sequence of
+    legible metropolitan places without blocking the six-metre clear route.
+    """
+    edge_segments, trees, people, fixtures = 0, 0, [], 0
+    for segment, x in enumerate(range(-110, 371, 16)):
+        for bank in (-1, 1):
+            edge_y = bank * 7.85
+            # Dark wet coping and a dry stone cap expose the water datum and
+            # make the height change legible at eye level.
+            batch.add_box("v48-stream-wet-coping", "wet-stone",
+                          (x, edge_y, .30), (15.55, .44, .32))
+            batch.add_box("v48-stream-dry-coping", "dry-stone",
+                          (x, bank * 8.20, .66), (15.55, .30, .38))
+            batch.add_box("v48-stream-edge-joint", "service-charcoal",
+                          (x - 7.78, bank * 8.20, .75), (.08, .48, .50))
+            edge_segments += 1
+            if segment % 3 == (1 if bank > 0 else 2):
+                room_y = bank * 19.0
+                batch.add_box("v48-stream-seat-plinth", "ledger-granite",
+                              (x, room_y, .62), (7.8, 2.2, .56))
+                batch.add_box("v48-stream-seat-timber", "timber-accent",
+                              (x, room_y - bank * .35, .98), (5.8, .82, .18))
+                # The transfer forecourt needs an unobstructed approach view;
+                # pull its specimen trees back into the seating room instead
+                # of letting a crown mask the station and active frontage.
+                transit_clear = 240 <= x <= 280
+                tree_x = x - 7.0 if transit_clear else x + (2.7 if segment % 2 else -2.7)
+                tree_y = bank * (28.8 if transit_clear else 23.2)
+                tree_scale = .62 if transit_clear else .72 + .025 * (segment % 4)
+                hero._add_architectural_tree(
+                    batch, tree_x, tree_y, 18000 + segment * 7 + bank,
+                    tree_scale, 2.42)
+                trees += 1
+                for person in range(4):
+                    px = x - 2.4 + person * 1.65
+                    py = bank * (16.5 + (person % 2) * 1.5)
+                    people.append(hero._add_mid_detail_human(
+                        batch, px, py, .10 * bank,
+                        19000 + segment * 10 + person + (5 if bank > 0 else 0),
+                        "walking" if person in (0, 3) else "conversation", .18))
+            if segment % 2 == 0:
+                batch.add_cylinder("v48-stream-edge-light-pole", "archive-metal",
+                                   (x, bank * 13.1, 2.12), .055, 3.9, 12)
+                batch.add_cylinder("v48-stream-edge-light-source", "warm-light",
+                                   (x, bank * 13.1, 4.10), .13, .16, 12)
+                fixtures += 1
+    # Three larger camera-facing clusters define arrival, lunch and transfer
+    # instead of leaving people as a uniform background scatter.
+    clusters = ((-42.0, -20.0, "walking"),
+                (122.0, 20.0, "conversation"),
+                (276.0, -20.0, "waiting"))
+    for cluster, (cx, cy, activity) in enumerate(clusters):
+        bank = 1 if cy > 0 else -1
+        for person in range(12):
+            lane = person // 4
+            px = cx - 4.8 + (person % 4) * 3.2
+            py = cy + bank * (-1.8 + lane * 1.8)
+            people.append(hero._add_mid_detail_human(
+                batch, px, py, .12 * bank,
+                21000 + cluster * 40 + person, activity if person % 3 else "walking", .20))
+    return {"edgeSegments": edge_segments, "nearFieldTrees": trees,
+            "programmedHumans": len(people), "lightFixtures": fixtures,
+            "clearPromenadeM": 6.0, "scatterPlacement": False,
+            "floatingObjects": 0, "waterIntrusions": 0}
+
+
+def _build_hyper_polish_city_scene(batch):
+    """Finish Ledger, Transit and the main stream axis as one urban scene."""
+    rooms, people, seated, bridges = [], [], [], []
+    # Each node receives an inhabited pair of frontage rooms whose internal
+    # depths and bay rhythms differ.  They replace the visually flat rear-card
+    # condition without attaching decorative boxes to the tower facade.
+    frontage_specs = (
+        (60.0, -40.5, 1, 60.0, 11.5, 7, "ledger-limestone", "ledger-bronze", "ledger-club"),
+        (60.0, 40.5, -1, 52.0, 10.0, 6, "ledger-limestone", "ledger-bronze", "ledger-lobby"),
+        (260.0, -41.0, 1, 72.0, 12.0, 9, "archive-warm-stone", "archive-metal", "transit-hall"),
+        (260.0, 41.0, -1, 64.0, 10.5, 8, "archive-warm-stone", "archive-metal", "mobility-gallery"),
+        (160.0, -40.0, 1, 46.0, 9.0, 6, "archive-warm-stone", "archive-metal", "stream-pavilion"),
+        (350.0, 40.0, -1, 44.0, 9.5, 5, "ledger-limestone", "ledger-bronze", "gateway-cafe"),
+    )
+    for room_index, (x, y, facing, width, depth, bays, stone, accent, role) in enumerate(frontage_specs):
+        inside = -facing
+        face_y = y + facing * depth * .5
+        batch.add_box("v51-hyper-frontage-floor", "ledger-granite",
+                      (x, y, 2.46), (width, depth, .28))
+        batch.add_box("v51-hyper-frontage-ceiling", stone,
+                      (x, y, 9.18), (width, depth, .34))
+        pitch = width / bays
+        for bay in range(bays):
+            bx = x - width * .5 + (bay + .5) * pitch
+            room_depth = depth * (.62 + .075 * ((bay + room_index) % 4))
+            back_y = face_y + inside * room_depth
+            back_material = "warm-interior" if bay % 3 else stone
+            batch.add_box("v51-hyper-frontage-room-back", back_material,
+                          (bx, back_y, 5.72),
+                          (pitch - .46, .20, 6.26))
+            batch.add_box("v51-hyper-frontage-glass", "frontage-glass",
+                          (bx, face_y + inside * .28, 5.72),
+                          (pitch - .32, .12, 6.04))
+            for side in (-1, 1):
+                batch.add_box("v51-hyper-frontage-room-partition", accent,
+                              (bx + side * (pitch * .5 - .14),
+                               face_y + inside * room_depth * .50, 5.72),
+                              (.16, room_depth, 6.34))
+            batch.add_box("v51-hyper-frontage-ceiling-light", "warm-light",
+                          (bx, face_y + inside * room_depth * .47, 8.92),
+                          (pitch * .54, 2.0, .08))
+            batch.add_box("v51-hyper-frontage-table", "timber-accent",
+                          (bx, face_y + inside * room_depth * .62, 3.12),
+                          (pitch * .46, 1.2, .18))
+            if bay in (bays // 2, max(0, bays // 2 - 1)):
+                batch.add_box("v51-hyper-frontage-entry-door", "frontage-glass",
+                              (bx, face_y + facing * .06, 4.16),
+                              (min(2.6, pitch * .48), .12, 3.46))
+        canopy_x = x + (-.12 if room_index % 2 else .12) * width
+        batch.add_box("v51-hyper-frontage-canopy", accent,
+                      (canopy_x, face_y + facing * 2.6, 8.98),
+                      (width * .46, 5.4, .36))
+        batch.add_box("v51-hyper-frontage-canopy-light", "warm-light",
+                      (canopy_x, face_y + facing * 2.6, 8.76),
+                      (width * .41, 4.7, .08))
+        rooms.append({"role": role, "depthM": depth, "bays": bays,
+                      "occupied": True, "streamFacing": True})
+
+    # Program the main axis as alternating arrival, lunch, waiting and garden
+    # rooms.  Low planted edges preserve views of the water and occupied bases.
+    node_specs = (
+        (-92.0, -23.0, "arrival"), (-28.0, 23.0, "meeting"),
+        (32.0, -23.0, "ledger-arrival"), (94.0, 23.0, "ledger-lunch"),
+        (154.0, -23.0, "stream-rest"), (214.0, 23.0, "transit-arrival"),
+        (274.0, -23.0, "transit-wait"), (334.0, 23.0, "gateway-cafe"),
+    )
+    for node_index, (cx, cy, role) in enumerate(node_specs):
+        bank = 1 if cy > 0 else -1
+        accent = "ledger-bronze" if 0 <= cx < 180 else "archive-metal"
+        batch.add_box("v51-hyper-node-inlay",
+                      "dry-stone" if node_index % 2 else "promenade-paver",
+                      (cx, cy, 2.39), (26.0, 9.5, .16))
+        batch.add_box("v51-hyper-node-drain", "service-charcoal",
+                      (cx, cy - bank * 4.48, 2.50), (24.0, .14, .08))
+        planter_x = cx + (-8.0 if node_index % 2 else 8.0)
+        batch.add_box("v51-hyper-node-planter", "ledger-granite",
+                      (planter_x, cy + bank * .7, 2.92), (5.8, 3.8, 1.04))
+        batch.add_box("v51-hyper-node-soil", "soil-v11",
+                      (planter_x, cy + bank * .7, 3.48), (5.1, 3.1, .14))
+        hero._add_architectural_tree(
+            batch, planter_x, cy + bank * .7, 30000 + node_index,
+            .60 + .035 * (node_index % 4), 3.55)
+        for seat_side in (-1, 1):
+            sx = cx + seat_side * 3.7
+            batch.add_box("v51-hyper-node-bench-seat", "timber-accent",
+                          (sx, cy - bank * 1.9, 2.74), (3.0, .72, .18))
+            batch.add_box("v51-hyper-node-bench-back", "timber-accent",
+                          (sx, cy - bank * 2.24, 3.20), (3.0, .14, .84))
+            seated.append(hero._add_seated_human(
+                batch, sx, cy - bank * 1.9, 0 if bank > 0 else 3.14159,
+                30300 + node_index * 10 + seat_side, 2.86, 2.39))
+        for person in range(6):
+            people.append(hero._add_mid_detail_human(
+                batch, cx - 5.5 + person * 2.2,
+                cy + bank * (2.3 + .45 * (person % 2)), .11 * bank,
+                30600 + node_index * 20 + person,
+                "walking" if person in (0, 5) else
+                "waiting" if "transit" in role else "conversation", 2.39))
+        batch.add_cylinder("v51-hyper-node-light-pole", accent,
+                           (cx - 10.0, cy + bank * 2.8, 4.55), .065, 4.25, 14)
+        batch.add_cylinder("v51-hyper-node-light-source", "warm-light",
+                           (cx - 10.0, cy + bank * 2.8, 6.72), .14, .18, 14)
+
+    # Ledger lunch and Transit waiting terraces receive distinct occupied
+    # canopy clusters.  These replace residual blank paving in the three Hero
+    # compositions without narrowing the continuous promenade.
+    cafe_clusters = 0
+    for cluster_index, (cx, cy, accent, facing) in enumerate((
+            (18.0, -30.0, "ledger-bronze", 0.0),
+            (47.0, -30.0, "ledger-bronze", 0.0),
+            (86.0, 30.0, "ledger-bronze", 3.14159),
+            (224.0, -30.0, "archive-metal", 0.0),
+            (252.0, 30.0, "archive-metal", 3.14159),
+            (294.0, -30.0, "archive-metal", 0.0))):
+        batch.add_cylinder("v51-hyper-cafe-table", "timber-accent",
+                           (cx, cy, 3.20), .90, .16, 18)
+        batch.add_cylinder("v51-hyper-cafe-table-leg", accent,
+                           (cx, cy, 2.84), .08, .72, 12)
+        batch.add_cylinder("v51-hyper-cafe-canopy-pole", accent,
+                           (cx, cy, 4.42), .055, 3.78, 12)
+        batch.add_frustum("v51-hyper-cafe-canopy", "timber-accent",
+                          (cx, cy, 6.26), 2.40, .44, .58, 24)
+        for chair_side in (-1, 1):
+            sy = cy + chair_side * 1.25
+            batch.add_box("v51-hyper-cafe-chair", "timber-accent",
+                          (cx, sy, 2.82), (.76, .76, .18))
+            seated.append(hero._add_seated_human(
+                batch, cx, sy, facing, 30900 + cluster_index * 10 +
+                chair_side, 2.94, 2.39))
+        cafe_clusters += 1
+
+    # Ledger bridge gains tapered landing pylons and a central viewing bay;
+    # Transit receives open canopy fins.  Both remain distinct and accessible.
+    for bridge_x, accent, role in ((60.0, "ledger-bronze", "ledger"),
+                                    (260.0, "archive-metal", "transit")):
+        for bank in (-1, 1):
+            batch.add_box("v51-hyper-bridge-landing-plinth", "dry-stone",
+                          (bridge_x, bank * 20.5, 2.55), (20.0, 7.8, .22))
+            for side in (-1, 1):
+                batch.add_tapered_branch(
+                    "v51-hyper-bridge-landing-pylon", accent,
+                    (bridge_x + side * 5.0, bank * 15.0, 2.74),
+                    (bridge_x + side * 4.1, bank * 15.0, 7.20),
+                    .36, .18, 14)
+            batch.add_box("v51-hyper-bridge-landing-light", "warm-light",
+                          (bridge_x, bank * 15.0, 6.96), (7.2, .10, .10))
+        if role == "ledger":
+            batch.add_box("v51-ledger-bridge-viewing-bay", "dry-stone",
+                          (bridge_x, 0.0, 2.96), (15.0, 7.5, .18))
+            for side in (-1, 1):
+                batch.add_box("v51-ledger-bridge-viewing-seat", "timber-accent",
+                              (bridge_x + side * 5.0, 0.0, 3.20),
+                              (3.8, .72, .18))
+        else:
+            for rib in (-8.5, -4.25, 0.0, 4.25, 8.5):
+                batch.add_box("v51-transit-bridge-open-canopy-fin", accent,
+                              (bridge_x + rib, 0.0, 7.18), (.18, 25.0, .72))
+        bridges.append({"role": role, "distinctSilhouette": True,
+                        "occupiedLanding": True, "accessible": True})
+
+    return {"occupiedFrontageRooms": rooms, "programmedNodes": len(node_specs),
+            "programmedHumans": len(people), "seatedHumans": len(seated),
+            "cafeTerraceClusterCount": cafe_clusters,
+            "bridges": bridges, "clearPromenadeM": 6.0,
+            "scatterPlacement": False, "floatingObjects": 0,
+            "waterIntrusions": 0}
+
+
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
     parser = argparse.ArgumentParser()
@@ -508,10 +747,13 @@ def main():
     metropolitan_precision = _build_metropolitan_node_precision(batch)
     cinematic_activity = _build_cinematic_activity_nodes(batch)
     street_rooms = _build_metropolitan_street_rooms(batch)
+    aaa_polish = _build_aaa_corridor_polish(batch)
+    hyper_polish = _build_hyper_polish_city_scene(batch)
     life["humanCount"] += (metropolitan_precision["activityHumans"]
                            + street_rooms["activityHumans"]
                            + cinematic_activity["programmedHumans"]
-                           + stream_edge_rooms["humanCount"])
+                           + stream_edge_rooms["humanCount"]
+                           + aaa_polish["programmedHumans"])
     source_objects = batch.finalize()
     runtime_objects, consolidation = hero._consolidate_scene_objects_by_material(source_objects)
     validation = hero.v12.validate_geometry(runtime_objects)
@@ -521,14 +763,14 @@ def main():
     assert detached_windows == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
-    target = output / "core-stream-ledger-transit-v47.glb"
+    target = output / "core-stream-ledger-transit-v51.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB",
                               export_yup=True, export_normals=True,
                               export_texcoords=False, export_materials="EXPORT",
                               export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 47,
-        "geometryRevision": 50,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 51,
+        "geometryRevision": 55,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,
@@ -543,6 +785,8 @@ def main():
         "cinematicActivityNodes": cinematic_activity,
         "streamEdgeActivityRooms": stream_edge_rooms,
         "metropolitanStreetRooms": street_rooms,
+        "aaaCorridorPolish": aaa_polish,
+        "hyperPolishScene": hyper_polish,
         "occupiedCorridorFrontages": occupied_frontages,
         "imageDatablocks": len(bpy.data.images),
         "detachedWindowCount": detached_windows,
@@ -562,7 +806,7 @@ def main():
         "canonical": False, "v3Applied": False, "directReferenceCopy": False,
         "qualityTarget": {"grade": "S", "minimumScore": 95},
     }
-    (output / "core-stream-ledger-transit-v47-report.json").write_text(
+    (output / "core-stream-ledger-transit-v51-report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "buildings": len(buildings),
