@@ -715,6 +715,35 @@ def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
         add_camera_safe_tree(batch, tx, ty, 1240 + style * 7 + tree_side, .68, 2.30)
 
 
+def _add_irregular_canopy_lobe(batch, role, material, center, radius,
+                               squash, seed, segments=14, rings=7):
+    """Faceted asymmetric canopy volume without primitive-sphere repetition."""
+    cx, cy, cz = center
+    vertices = []
+    for ring in range(rings + 1):
+        phi = math.pi * ring / rings
+        for segment in range(segments):
+            theta = math.tau * segment / segments
+            noise = (1.0 + .13 * math.sin(theta * 3.0 + seed * .31)
+                     + .08 * math.cos(phi * 4.0 - seed * .17)
+                     + .045 * math.sin(theta * 7.0 + phi * 2.0))
+            vertices.append((
+                cx + radius * math.sin(phi) * math.cos(theta) * squash[0] * noise,
+                cy + radius * math.sin(phi) * math.sin(theta) * squash[1] * noise,
+                cz + radius * math.cos(phi) * squash[2] * noise,
+            ))
+    faces = []
+    for ring in range(rings):
+        for segment in range(segments):
+            nxt = (segment + 1) % segments
+            a = ring * segments + segment
+            b = ring * segments + nxt
+            c = (ring + 1) * segments + nxt
+            d = (ring + 1) * segments + segment
+            faces.extend(((a, b, c), (a, c, d)))
+    batch._append(role, material, vertices, faces)
+
+
 def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
     """Twelve deterministic near-field tree silhouettes with real branching."""
     variant = seed % 12
@@ -755,15 +784,19 @@ def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
     squash_by_family = ((.76, .74, 1.15), (1.18, .88, .78),
                         (1.34, .92, .70), (.92, .82, 1.02))
     squash = squash_by_family[family]
-    for lobe, tip in enumerate(tips):
-        if lobe % 2 and family == 0:
-            continue
-        radius = (1.02 + .10 * ((lobe + variant) % 4)) * scale
+    # Four to six asymmetric volumes form one coherent crown instead of the
+    # previous necklace of identical UV spheres.  Each lobe follows a real
+    # branch attachment and is deterministic per species seed.
+    stride = max(2, len(tips) // (4 + family % 3))
+    selected_tips = tips[::stride][:6]
+    for lobe, tip in enumerate(selected_tips):
+        radius = (1.34 + .14 * ((lobe + variant) % 4)) * scale
         center = (tip[0] + math.sin(lobe * 1.73 + variant) * .24 * scale,
                   tip[1] + math.cos(lobe * 1.31 + variant) * .20 * scale,
-                  tip[2] + .32 * scale + .08 * (lobe % 3) * scale)
-        batch.add_uv_sphere("v34-species-tree-irregular-crown", material,
-                            center, radius, 18, 9, squash)
+                  tip[2] + .42 * scale + .10 * (lobe % 3) * scale)
+        _add_irregular_canopy_lobe(
+            batch, "v34-species-tree-irregular-crown", material,
+            center, radius, squash, seed + lobe * 17)
 
 
 def _add_signature_activity_layer():
