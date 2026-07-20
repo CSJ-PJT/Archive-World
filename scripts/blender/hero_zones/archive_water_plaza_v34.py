@@ -1106,6 +1106,58 @@ def _add_mid_detail_human(batch, x, y, facing, seed, action, z_base):
             "grounded": True, "detail": "MID_DETAIL_NEAR_FIELD"}
 
 
+def _canonical_material_name(name):
+    """Remove Blender's numeric duplicate suffix without touching semantic ids."""
+    stem, dot, suffix = name.rpartition(".")
+    return stem if dot and suffix.isdigit() else name
+
+
+def _consolidate_scene_objects_by_material(objects):
+    """Merge static hero geometry to one draw surface per semantic material.
+
+    Earlier revisions consolidated each generator batch independently, leaving
+    dozens of duplicate material datablocks and hundreds of WebGL draw calls.
+    All hero geometry is static, so canonicalising those duplicates and joining
+    equal-material objects preserves geometry while reducing runtime work.
+    """
+    canonical = {}
+    for material in list(bpy.data.materials):
+        key = _canonical_material_name(material.name)
+        canonical.setdefault(key, material)
+    groups = {}
+    for obj in objects:
+        if obj.type != "MESH" or not obj.data.materials:
+            continue
+        for slot in range(len(obj.data.materials)):
+            material = obj.data.materials[slot]
+            if material is None:
+                continue
+            key = _canonical_material_name(material.name)
+            obj.data.materials[slot] = canonical[key]
+        key = tuple(material.name if material else "none" for material in obj.data.materials)
+        groups.setdefault(key, []).append(obj)
+    merged = []
+    bpy.ops.object.select_all(action="DESELECT")
+    for key, group in groups.items():
+        live = [obj for obj in group if obj.name in bpy.data.objects]
+        if not live:
+            continue
+        for obj in live:
+            obj.select_set(True)
+        bpy.context.view_layer.objects.active = live[0]
+        if len(live) > 1:
+            bpy.ops.object.join()
+        joined = bpy.context.view_layer.objects.active
+        joined.name = "v34-runtime-batch-" + "-".join(key)
+        merged.append(joined)
+        bpy.ops.object.select_all(action="DESELECT")
+    return merged, {
+        "strategy": "GLOBAL_STATIC_ONE_MESH_PER_SEMANTIC_MATERIAL",
+        "sourceObjects": len(objects), "runtimeObjects": len(merged),
+        "materialBuckets": len(groups),
+    }
+
+
 def add_wall_first_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     north = y > 0
@@ -1263,8 +1315,9 @@ def main():
             for polygon in obj.data.polygons:
                 polygon.use_smooth = True
             smooth_object_count += 1
-    validation = v12.validate_geometry(objects)
-    triangles = v28.triangle_count(objects)
+    runtime_objects, runtime_consolidation = _consolidate_scene_objects_by_material(objects)
+    validation = v12.validate_geometry(runtime_objects)
+    triangles = v28.triangle_count(runtime_objects)
     assert len(ENVELOPE) == 12
     assert sum(item["detachedWindows"] for item in ENVELOPE) == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
@@ -1280,8 +1333,11 @@ def main():
         "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
         "glb": str(target), "bytes": target.stat().st_size,
-        "geometry": {"triangles": triangles, "meshObjects": len(objects),
+        "geometry": {"triangles": triangles, "meshObjects": len(runtime_objects),
+                     "sourceMeshObjects": len(objects),
                      "components": base_geometry["components"] + public_geometry["components"]},
+        "runtimeGeometry": {"meshObjects": len(runtime_objects),
+                            "consolidation": runtime_consolidation},
         "buildingCount": 6, "facadeAssemblyCount": len(ENVELOPE),
         "boundedFrontageBayCount": sum(7 + style % 3 for style in range(6)),
         "lobbyCount": 6, "retailPublicBayCount": 42,

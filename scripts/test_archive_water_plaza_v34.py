@@ -55,6 +55,9 @@ required = (
     "v34-liner-integrated-glass", "v34-liner-window-jamb-return",
     "v34-liner-arcade-canopy", "v34-liner-entry-door",
     "v34-liner-covered-parent-connector", '"streamLinerBuildingCount"',
+    "_consolidate_scene_objects_by_material",
+    "GLOBAL_STATIC_ONE_MESH_PER_SEMANTIC_MATERIAL",
+    '"runtimeGeometry"', '"materialBuckets"',
     "_add_occupied_setback_terraces", "v34-podium-roof-terrace-slab",
     "v34-tower-transfer-terrace-slab", '"occupiedSetbackTerraceCount": 18',
 )
