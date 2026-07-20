@@ -1,10 +1,49 @@
 """Actual 3D street, plaza, transit, landscape and population geometry."""
-import argparse,json,sys
+import argparse,json,math,sys
 from pathlib import Path
 import bpy
 HERE=Path(__file__).resolve().parent;PROD=HERE.parent/'production_geometry';sys.path[:0]=[str(PROD),str(HERE.parent)]
 from geometry_core import MeshBatch,validate_geometry
 from material_library import create_material_library
+
+
+def add_ellipsoid(batch, role, material, center, radii, segments=12, rings=7):
+ cx,cy,cz=center;rx,ry,rz=radii;vertices=[]
+ for ring in range(rings+1):
+  phi=math.pi*ring/rings
+  for segment in range(segments):
+   theta=2*math.pi*segment/segments
+   vertices.append((cx+rx*math.sin(phi)*math.cos(theta),
+                    cy+ry*math.sin(phi)*math.sin(theta),cz+rz*math.cos(phi)))
+ faces=[]
+ for ring in range(rings):
+  for segment in range(segments):
+   nxt=(segment+1)%segments;a=ring*segments+segment;b=ring*segments+nxt
+   c=(ring+1)*segments+nxt;d=(ring+1)*segments+segment
+   faces.extend(((a,b,c),(a,c,d)))
+ batch._append(role,material,vertices,faces)
+
+
+def add_tree(batch,x,y,index):
+ h=7.2+(index%5)*.72
+ batch.add_cylinder('tree-trunk','wood-accent',(x,y,h*.36),.22+(index%3)*.035,h*.72,10)
+ batch.add_cylinder('tree-upper-trunk','wood-accent',(x,y,h*.73),.13+(index%2)*.025,h*.42,10)
+ for lobe in range(4+(index%3)):
+  angle=(lobe*2.399)+(index%7)*.31;radius=1.0+(lobe%3)*.72
+  add_ellipsoid(batch,'tree-crown-lobe','soil',
+                (x+math.cos(angle)*radius,y+math.sin(angle)*radius,
+                 h+.35*(lobe%2)),
+                (1.65+.22*((index+lobe)%3),1.40+.18*(lobe%2),1.28+.20*((index+lobe)%2)))
+
+
+def add_human(batch,x,y,index):
+ outfit=('dark-metal-panel','painted-concrete','light-metal-panel')[index%3]
+ batch.add_box('human-torso',outfit,(x,y,1.12),(.44,.28,.82))
+ add_ellipsoid(batch,'human-head','painted-concrete',(x,y,1.73),(.20,.19,.23),10,5)
+ stride=.16 if index%4==0 else .05
+ for side in (-1,1):
+  batch.add_box('human-leg','dark-metal-panel',(x+side*.12,y+side*stride,.42),(.14,.16,.72))
+  batch.add_box('human-arm',outfit,(x+side*.31,y-side*stride,1.08),(.12,.14,.70))
 
 def build(batch):
  # 1.2 km x 1.0 km structured network with raised curbs/sidewalks and physical markings.
@@ -12,9 +51,11 @@ def build(batch):
  for y in (-420,-210,0,210,420):
   batch.add_box('road-asphalt','asphalt',(0,y,.05),(1200,26,.1));roads.append(('EW',y))
   for side in (-1,1):batch.add_box('raised-sidewalk','sidewalk-concrete',(0,y+side*20,.16),(1200,12,.32));batch.add_box('curb','limestone',(0,y+side*13.4,.25),(1200,.8,.5))
+  for x in range(-570,571,30):batch.add_box('lane-marking-dash','light-metal-panel',(x,y,.125),(13,.16,.035))
  for x in (-500,-250,0,250,500):
   batch.add_box('road-asphalt','asphalt',(x,0,.055),(28,1000,.11));roads.append(('NS',x))
   for side in (-1,1):batch.add_box('raised-sidewalk','sidewalk-concrete',(x+side*21,0,.16),(13,1000,.32));batch.add_box('curb','limestone',(x+side*14.4,0,.25),(.8,1000,.5))
+  for y in range(-465,466,30):batch.add_box('lane-marking-dash','light-metal-panel',(x,y,.13),(.16,13,.035))
  # Crosswalks, medians, tactile paving and loading/taxi bays.
  for x in (-500,-250,0,250,500):
   for y in (-420,-210,0,210,420):
@@ -33,8 +74,7 @@ def build(batch):
  for i,x in enumerate(range(-550,551,55)):
   for y in (-385,-175,35,245,455):
    if (i+int(y))%3==0:continue
-   h=6+(i%5)*.8;batch.add_cylinder('tree-trunk','wood-accent',(x,y,h*.35),.20+(i%3)*.04,h*.7,8);batch.add_cylinder('tree-upper-trunk','wood-accent',(x,y,h*.72),.13+(i%2)*.03,h*.42,8)
-   for lobe in range(3+(i%3)):batch.add_cylinder('tree-crown-lobe','soil',(x+(lobe%2-.5)*1.5,y+((lobe//2)-.5)*1.2,h+(lobe%2)*.7),1.25+(i+lobe)%3*.28,h*.42,8+(i%3)*2)
+   add_tree(batch,x,y,i+abs(int(y)))
  for i in range(42):
   x=-520+(i%14)*80;y=-150+(i//14)*150
   batch.add_box('bench','wood-accent',(x,y,.55),(2.4,.65,.45));batch.add_box('planter','granite',(x+4,y,.55),(3,2,1.1))
@@ -48,9 +88,12 @@ def build(batch):
  # Low/mid-detail vehicles and humans are actual geometry, status remains proxy.
  for i in range(45):
   x=-520+(i%15)*72;y=(-420,-210,210)[i%3];batch.add_box('vehicle-body','dark-metal-panel',(x,y,1),(4.5,1.9,1.3));batch.add_box('vehicle-cabin','residential-glass',(x+.2,y,1.8),(2.4,1.7,.8))
+  for wx in (-1.45,1.45):
+   for wy in (-.94,.94):batch.add_box('vehicle-wheel','dark-metal-panel',(x+wx,y+wy,.55),(.62,.18,.62))
+  batch.add_box('vehicle-light','light-metal-panel',(x+2.28,y,.98),(.08,1.2,.32))
  for i in range(90):
-  x=-520+(i%18)*60;y=-360+(i//18)*160;batch.add_cylinder('human','painted-concrete',(x,y,.9),.22,1.8,8)
- return {'roadSegments':10,'intersections':25,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'procedural-varied','vehicles':45,'humans':90,'plazas':2}
+  x=-520+(i%18)*60;y=-360+(i//18)*160;add_human(batch,x,y,i)
+ return {'roadSegments':10,'intersections':25,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':45,'humans':90,'plazas':2,'laneMarkingRuns':10,'midDetailPopulation':True}
 
 def main():
  v=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--output-root',required=True);a=p.parse_args(v);bpy.ops.wm.read_factory_settings(use_empty=True)
