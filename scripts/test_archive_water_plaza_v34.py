@@ -13,6 +13,10 @@ required = (
     "_occludes_camera", '"smoothOrganicObjectCount"',
     "v34-signature-lobby-glass", "v34-signature-entry-terrace",
     '"signatureProjectedLobbyCount": 2',
+    "v35-signature-vestibule-inner-glass",
+    "v35-signature-atrium-mezzanine-slab",
+    "v35-signature-atrium-rear-portal",
+    '"deepAtriumLobbyCount": 2', '"signatureLobbyDepthM": 10.8',
     "v34-interior-floor-plate", "v34-primary-depth-frame",
     "v34-signature-cafe-table", '"signatureCafeTerraceCount": 2',
     "_add_architectural_tree", "_add_irregular_canopy_lobe",
@@ -30,7 +34,9 @@ required = (
     '"integratedSkyRoomCount"', '"featureCellsRemovedBeforeRoomBuild"',
     "_add_mid_detail_human", '"nearFieldMidDetailHumanCount"',
     '"detail": "MID_DETAIL_NEAR_FIELD"',
-    "v34-civic-island-stone-edge", "v34-civic-island-layered-planting",
+    "_add_seated_human", "v35-human-seated-upper-leg",
+    '"seatedMidDetailHumanCount": 6',
+    "v34-civic-island-stone-edge", "v35-civic-island-irregular-planting",
     "v34-civic-forecourt-axis-inlay", '"inhabitedCivicIslandCount": 2',
     "v34-side-integrated-opening-infill", "v34-side-opening-jamb-return",
     "v34-side-opening-head-return", "v34-side-opening-sill-return",
@@ -57,6 +63,10 @@ required = (
     "v34-liner-integrated-glass", "v34-liner-window-jamb-return",
     "v34-liner-arcade-canopy", "v34-liner-entry-door",
     "v34-liner-covered-parent-connector", '"streamLinerBuildingCount"',
+    "v35-liner-public-room-floor", "v35-liner-public-room-side-partition",
+    "v35-liner-entry-vestibule-return", '"streamLinerDeepPublicRoomCount"',
+    "_add_archive_civic_section_rebuild", "v35-archive-section-step",
+    "v35-archive-accessible-ramp-lower", '"archiveCivicSectionCount"',
     "_consolidate_scene_objects_by_material",
     "GLOBAL_STATIC_ONE_MESH_PER_SEMANTIC_MATERIAL",
     '"runtimeGeometry"', '"materialBuckets"',
@@ -71,4 +81,5 @@ assert "v34-integrated-glass-field" not in source
 assert "hero-gateway-diagonal-brace" not in base_source
 assert "hero-gateway-bank-marker" in base_source
 assert "hero-gateway-approach-plinth" in base_source
-print("archive water plaza v34 wall-first architecture contract: PASS")
+assert 'archive-water-plaza-hero-v35.glb' in source
+print("archive water plaza v35 deep-atrium and civic-section contract: PASS")

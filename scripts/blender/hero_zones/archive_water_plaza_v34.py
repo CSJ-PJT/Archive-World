@@ -645,7 +645,11 @@ def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
     inside = -facing
     lobby_x = x + (-3.6 if style == 0 else 3.8)
     lobby_width = min(18.0, width * .42)
-    projection = 7.4
+    # A civic lobby must read as an inhabitable room from the promenade.  The
+    # former 7.4m projection was technically enclosed but collapsed visually to
+    # a glazed card.  A 10.8m deep atrium creates a foreground vestibule, a
+    # double-height hall and a rear mezzanine as three legible depth planes.
+    projection = 10.8
     outer_y = face_y + facing * projection
     room_y = face_y + facing * projection * .48
     room_h = min(8.2, podium_h - .28)
@@ -678,6 +682,62 @@ def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
                       (dx, outer_y + facing * .12, 3.82), (1.68, .28, 3.04))
         batch.add_box("v34-signature-entry-door-glass", "frontage-glass",
                       (dx, outer_y + facing * .16, 3.82), (1.38, .10, 2.74))
+    # The vestibule is independently enclosed inside the facade line.  Its
+    # second glass plane and deep side returns prevent the front curtain wall
+    # from reading as detached glazing.
+    vestibule_y = outer_y + inside * 1.55
+    batch.add_box("v35-signature-vestibule-inner-glass", "frontage-glass",
+                  (lobby_x, vestibule_y, 3.92), (5.8, .12, 3.18))
+    for side in (-1, 1):
+        batch.add_box("v35-signature-vestibule-side-return", accent,
+                      (lobby_x + side * 2.95, outer_y + inside * .78, 3.92),
+                      (.16, 1.58, 3.30))
+    # A rear mezzanine and guard establish a true double-height atrium.  The
+    # mezzanine occupies only the back third, preserving the full-height lobby
+    # at the glass and exposing the interior section in street views.
+    mezzanine_y = face_y + facing * 2.20
+    batch.add_box("v35-signature-atrium-mezzanine-slab", "ledger-granite",
+                  (lobby_x, mezzanine_y, 6.52), (lobby_width - 1.4, 4.20, .28))
+    batch.add_box("v35-signature-atrium-mezzanine-guard", "frontage-glass",
+                  (lobby_x, mezzanine_y + facing * 2.05, 7.10),
+                  (lobby_width - 2.0, .10, 1.02))
+    for column in (-1, 1):
+        batch.add_cylinder("v35-signature-atrium-structural-column", accent,
+                           (lobby_x + column * lobby_width * .34, room_y,
+                            2.30 + room_h * .50), .24, room_h, 18)
+    # Rear core portal, ceiling coffers and suspended fixtures make the depth
+    # visible even when the glass is highly reflective.
+    batch.add_box("v35-signature-atrium-rear-portal", accent,
+                  (lobby_x, face_y + inside * .03, 4.20), (6.8, .38, 3.80))
+    batch.add_box("v35-signature-atrium-rear-portal-opening", "service-charcoal",
+                  (lobby_x, face_y + facing * .18, 4.05), (5.5, .12, 3.18))
+    for coffer in range(5):
+        cy = outer_y + inside * (2.5 + coffer * 1.45)
+        batch.add_box("v35-signature-atrium-ceiling-coffer", accent,
+                      (lobby_x, cy, 2.30 + room_h - .20),
+                      (lobby_width - 1.2, .16, .20))
+        for side in (-1, 1):
+            batch.add_cylinder("v35-signature-atrium-pendant-light", "warm-light",
+                               (lobby_x + side * lobby_width * .24, cy,
+                               2.30 + room_h - 1.10), .12, .32, 14)
+    # A buildable mezzanine stair makes the two levels spatially legible behind
+    # the glass instead of relying on furniture silhouettes alone.
+    stair_x = lobby_x + (1 if style == 0 else -1) * lobby_width * .31
+    for step in range(10):
+        step_y = outer_y + inside * (3.15 + step * .48)
+        step_z = 2.52 + step * .38
+        batch.add_box("v35-signature-atrium-stair-tread", "ledger-granite",
+                      (stair_x, step_y, step_z), (2.35, .58, .22))
+    for side in (-1, 1):
+        batch.add_box("v35-signature-atrium-stair-stringer", accent,
+                      (stair_x + side * 1.16, outer_y + inside * 5.35, 4.50),
+                      (.12, 5.2, .20))
+    batch.add_box("v35-signature-atrium-directory-wall", stone,
+                  (lobby_x - (1 if style == 0 else -1) * lobby_width * .30,
+                   face_y + facing * 2.7, 4.55), (3.7, .42, 4.5))
+    batch.add_box("v35-signature-atrium-directory-light", "warm-light",
+                  (lobby_x - (1 if style == 0 else -1) * lobby_width * .30,
+                   face_y + facing * 2.94, 5.20), (2.7, .08, 2.5))
     batch.add_box("v34-signature-lobby-canopy", stone,
                   (lobby_x, outer_y + facing * 2.45, 2.30 + room_h + .42),
                   (lobby_width + 3.6, 5.1, .38))
@@ -724,6 +784,93 @@ def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
         tx = lobby_x + tree_side * (lobby_width * .5 + 3.6)
         ty = terrace_y + facing * 1.0
         add_camera_safe_tree(batch, tx, ty, 1240 + style * 7 + tree_side, .68, 2.30)
+
+
+def _add_archive_civic_section_rebuild():
+    """Add a legible upper/lower water section at the Archive hero axis.
+
+    The base zone already contains continuous technical stairs and ramps.  This
+    localized rebuild gives the principal civic axis a wider lower landing,
+    clearly bounded stair flights, a planted retaining threshold and an
+    accessible switchback.  These are spatial components rather than surface
+    decoration and are kept clear of the water and maintenance route.
+    """
+    batch = v12.HeroBatch(v12.create_materials())
+    records = []
+    for bank in (-1, 1):
+        # Broad lower room at the water datum.
+        batch.add_box("v35-archive-lower-promenade-room", "wet-stone",
+                      (-300.0, bank * 10.6, .12), (52.0, 8.4, .34))
+        batch.add_box("v35-archive-water-edge-coping", "service-charcoal",
+                      (-300.0, bank * 6.35, .38), (52.0, .55, .52))
+        # Three-dimensional paving fields and drainage lines establish a
+        # material hierarchy between civic terrace, transition and promenade.
+        for zone_index, zone_x in enumerate((-332.0, -300.0, -268.0)):
+            batch.add_box("v35-archive-upper-terrace-inlay",
+                          "dry-stone" if zone_index % 2 == 0 else "wet-stone",
+                          (zone_x, bank * 31.2, 2.315), (21.0, 8.2, .07))
+            for joint in range(4):
+                batch.add_box("v35-archive-upper-terrace-joint", "ledger-granite",
+                              (zone_x - 7.5 + joint * 5.0, bank * 31.2, 2.355),
+                              (.055, 7.8, .035))
+        batch.add_box("v35-archive-linear-drain", "service-charcoal",
+                      (-300.0, bank * 15.1, 2.34), (52.0, .24, .08))
+        # Two solid stair flights make the 2.2m vertical transition obvious in
+        # eye-level views. Each tread has a nosing and an integrated light.
+        for stair_x in (-316.0, -284.0):
+            for step in range(7):
+                y = bank * (15.5 + step * 1.30)
+                z = .30 + step * .30
+                batch.add_box("v35-archive-section-step", "dry-stone",
+                              (stair_x, y, z), (10.8, 1.42, .60))
+                batch.add_box("v35-archive-section-step-nosing", "ledger-granite",
+                              (stair_x, y - bank * .68, z + .31),
+                              (10.8, .08, .06))
+                if step in (0, 2, 4, 6):
+                    batch.add_box("v35-archive-section-step-light", "warm-light",
+                                  (stair_x, y - bank * .73, z + .25),
+                                  (6.8, .06, .09))
+            for rail_side in (-1, 1):
+                batch.add_box("v35-archive-section-stair-handrail", "archive-metal",
+                              (stair_x + rail_side * 5.2, bank * 19.4, 1.72),
+                              (.10, 10.1, .10))
+        # Accessible two-run ramp with a real intermediate landing.  Wedge
+        # geometry holds the grade; retaining cheeks show its construction.
+        ramp_x = -300.0
+        batch.add_wedge("v35-archive-accessible-ramp-lower", "promenade-paver",
+                        (ramp_x, bank * 18.0, .63), (5.0, 9.0, 1.18), "y")
+        batch.add_box("v35-archive-accessible-ramp-landing", "promenade-paver",
+                      (ramp_x, bank * 23.0, 1.22), (8.0, 3.0, .24))
+        batch.add_wedge("v35-archive-accessible-ramp-upper", "promenade-paver",
+                        (ramp_x, bank * 28.0, 1.72), (5.0, 9.0, 1.18), "y")
+        for side in (-1, 1):
+            batch.add_box("v35-archive-ramp-retaining-cheek", "archive-warm-stone",
+                          (ramp_x + side * 2.65, bank * 23.0, 1.25),
+                          (.22, 20.0, 2.20))
+            batch.add_box("v35-archive-ramp-handrail", "archive-metal",
+                          (ramp_x + side * 2.78, bank * 23.0, 2.62),
+                          (.10, 20.0, .10))
+        # Layered planting softens the retaining wall but leaves stair and lobby
+        # sightlines open.  It also creates a clear upper-level threshold.
+        for side in (-1, 1):
+            planter_x = ramp_x + side * 10.2
+            batch.add_box("v35-archive-section-planter-wall", "archive-warm-stone",
+                          (planter_x, bank * 24.3, 2.22), (8.0, 4.8, 1.05))
+            batch.add_box("v35-archive-section-planter-soil", "soil-v11",
+                          (planter_x, bank * 24.3, 2.78), (7.5, 4.3, .10))
+            for plant in range(4):
+                px = planter_x - 2.7 + plant * 1.8
+                _add_irregular_canopy_lobe(
+                    batch, "v35-archive-section-irregular-groundcover",
+                    ("foliage-deep", "foliage-mid", "foliage-light")[plant % 3],
+                    (px, bank * 24.3, 3.24 + .08 * (plant % 2)),
+                    .72 + .07 * (plant % 3), (1.25, .72, .62),
+                    2100 + plant + (10 if bank > 0 else 0), 12, 5)
+        records.append({"bank": bank, "lowerPromenadeElevation": .12,
+                        "upperCivicElevation": 2.30, "stairFlights": 2,
+                        "accessibleRamp": True, "maintenanceClear": True})
+    v12.consolidate(batch)
+    return batch.finalize(), records
 
 
 def _add_irregular_canopy_lobe(batch, role, material, center, radius,
@@ -798,8 +945,16 @@ def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
     # Four to six asymmetric volumes form one coherent crown instead of the
     # previous necklace of identical UV spheres.  Each lobe follows a real
     # branch attachment and is deterministic per species seed.
-    stride = max(2, len(tips) // (4 + family % 3))
-    selected_tips = tips[::stride][:6]
+    # Hero-camera trees use a continuous central crown plus seven branch-led
+    # lobes.  This removes the sparse polygon bouquets visible in v34 while
+    # retaining deterministic, batchable procedural geometry.
+    _add_irregular_canopy_lobe(
+        batch, "v35-species-tree-coherent-central-crown", material,
+        (trunk_top[0], trunk_top[1], trunk_top[2] + 1.05 * scale),
+        2.05 * scale, (squash[0] * 1.08, squash[1] * 1.08, squash[2]),
+        seed + 901, 20, 9)
+    stride = max(1, len(tips) // 8)
+    selected_tips = tips[::stride][:8]
     for lobe, tip in enumerate(selected_tips):
         radius = (1.34 + .14 * ((lobe + variant) % 4)) * scale
         center = (tip[0] + math.sin(lobe * 1.73 + variant) * .24 * scale,
@@ -807,7 +962,51 @@ def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
                   tip[2] + .42 * scale + .10 * (lobe % 3) * scale)
         _add_irregular_canopy_lobe(
             batch, "v34-species-tree-irregular-crown", material,
-            center, radius, squash, seed + lobe * 17)
+            center, radius, squash, seed + lobe * 17, 18, 8)
+
+
+def _add_seated_human(batch, x, y, facing, seed, seat_z, ground_z):
+    """Mid-detail seated figure whose articulated legs reach the actual grade."""
+    height = 1.66 + (seed % 5) * .025
+    body = ("archive-metal", "ledger-bronze", "service-charcoal")[seed % 3]
+    skin = "archive-warm-stone"
+    forward = (math.sin(facing), math.cos(facing))
+    right = (math.cos(facing), -math.sin(facing))
+    hip = (x, y, seat_z + .10)
+    shoulder_z = seat_z + height * .48
+    head_z = seat_z + height * .64
+    batch.add_frustum("v35-human-seated-tailored-torso", body,
+                      (x, y, (hip[2] + shoulder_z) * .5), .17, .22,
+                      shoulder_z - hip[2], 18)
+    batch.add_cylinder("v35-human-seated-neck", skin,
+                       (x, y, head_z - .13), .06, .14, 12)
+    batch.add_uv_sphere("v35-human-seated-head", skin,
+                        (x, y, head_z), .125, 20, 10, (1.0, .92, 1.08))
+    batch.add_uv_sphere("v35-human-seated-hair", "service-charcoal",
+                        (x, y - .01, head_z + .06), .112, 18, 9,
+                        (1.03, .96, .72))
+    for side in (-1, 1):
+        hip_joint = (x + right[0] * side * .105,
+                     y + right[1] * side * .105, hip[2])
+        knee = (hip_joint[0] + forward[0] * .36,
+                hip_joint[1] + forward[1] * .36, seat_z - .10)
+        foot = (knee[0] + forward[0] * .12,
+                knee[1] + forward[1] * .12, ground_z + .06)
+        batch.add_tapered_branch("v35-human-seated-upper-leg", "service-charcoal",
+                                 hip_joint, knee, .086, .068, 12)
+        batch.add_tapered_branch("v35-human-seated-lower-leg", "service-charcoal",
+                                 knee, foot, .068, .046, 12)
+        shoulder = (x + right[0] * side * .20,
+                    y + right[1] * side * .20, shoulder_z - .05)
+        hand = (x + forward[0] * .25 + right[0] * side * .13,
+                y + forward[1] * .25 + right[1] * side * .13,
+                seat_z + .20)
+        batch.add_tapered_branch("v35-human-seated-arm", body,
+                                 shoulder, hand, .062, .040, 12)
+        batch.add_uv_sphere("v35-human-seated-hand", skin, hand,
+                            .048, 12, 6, (1, .84, 1.08))
+    return {"position": [x, y], "action": "sitting", "orientation": facing,
+            "grounded": True, "detail": "MID_DETAIL_NEAR_FIELD"}
 
 
 def _add_signature_activity_layer():
@@ -831,10 +1030,31 @@ def _add_signature_activity_layer():
         (-230, -11.5, .26, "conversation", .14), (-210, -10.9, -.22, "walking", .14),
         (-306, 11.1, -.32, "walking", .14), (-288, 10.7, .25, "conversation", .14),
         (-260, 11.4, -.20, "walking", .14), (-238, 10.8, .28, "conversation", .14),
+        # Camera-composed near-bank pairs: arrival at the upper promenade and
+        # continuous walking groups along both lower banks.
+        (-344, -12.0, .25, "walking", .14), (-340, -11.2, -.28, "conversation", .14),
+        (-306, -12.0, .18, "walking", .14), (-302, -11.2, -.20, "conversation", .14),
+        (-260, -12.0, .22, "walking", .14), (-256, -11.2, -.24, "conversation", .14),
+        (-218, -12.0, .20, "walking", .14), (-214, -11.2, -.20, "conversation", .14),
+        (-331, -27.0, .12, "walking", 2.30), (-315, -26.0, -.18, "conversation", 2.30),
+        (-279, -27.2, .24, "walking", 2.30), (-263, -26.2, -.22, "conversation", 2.30),
+        (-225, -27.0, .18, "walking", 2.30), (-209, -26.2, -.20, "conversation", 2.30),
+        (-318, 11.8, -.20, "walking", .14), (-314, 11.1, .20, "conversation", .14),
+        (-272, 11.8, -.24, "walking", .14), (-268, 11.1, .24, "conversation", .14),
     )
     for index, (x, y, facing, action, z_base) in enumerate(groups):
         records.append(_add_mid_detail_human(human_batch, x, y, facing,
                                              1480 + index, action, z_base))
+    # Seated groups are tied to the two inhabited civic islands.  Their bent
+    # legs meet the plaza grade and make the benches read as programmed space.
+    seated = (
+        (-325.4, -28.5, math.pi, 3.02), (-321.8, -28.5, math.pi, 3.02),
+        (-277.8, -30.0, math.pi, 3.02), (-273.4, -30.0, math.pi, 3.02),
+        (-289.0, -43.9, 0.0, 3.05), (-285.7, -43.9, 0.0, 3.05),
+    )
+    for index, (x, y, facing, seat_z) in enumerate(seated):
+        records.append(_add_seated_human(human_batch, x, y, facing,
+                                         1680 + index, seat_z, 2.30))
     # Bicycle parking and a low planter edge clarify the public lobby program.
     for rack in range(5):
         x = -347.0 + rack * 1.25
@@ -847,10 +1067,11 @@ def _add_signature_activity_layer():
     prop_batch.add_box("v34-signature-activity-soil", "soil-v11",
                        (-286, -44.8, 3.55), (11.5, 2.1, .10))
     for shrub in range(9):
-        prop_batch.add_uv_sphere("v34-signature-activity-shrub",
-                                 ("foliage-deep", "foliage-mid", "foliage-light")[shrub % 3],
-                                 (-291 + shrub * 1.25, -44.8, 4.03 + (shrub % 2) * .10),
-                                 .58 + (shrub % 3) * .08, 18, 9, (1.15, .75, .68))
+        _add_irregular_canopy_lobe(
+            prop_batch, "v35-signature-irregular-shrub",
+            ("foliage-deep", "foliage-mid", "foliage-light")[shrub % 3],
+            (-291 + shrub * 1.25, -44.8, 4.03 + (shrub % 2) * .10),
+            .58 + (shrub % 3) * .08, (1.15, .75, .68), 2300 + shrub, 12, 5)
     # Two offset inhabited islands turn the former blank civic apron into a
     # spatially legible forecourt without blocking the lobby sightline.
     for island, (ix, iy, iw, angle) in enumerate(((-322.0, -31.5, 13.5, -.10),
@@ -862,23 +1083,60 @@ def _add_signature_activity_layer():
         for plant in range(7):
             px = ix - iw * .36 + plant * iw * .12
             py = iy + math.sin(plant * 1.7 + island) * .72
-            prop_batch.add_uv_sphere("v34-civic-island-layered-planting",
-                                     ("foliage-deep", "foliage-mid", "foliage-light")[(plant + island) % 3],
-                                     (px, py, 3.70 + .10 * (plant % 2)),
-                                     .64 + .08 * (plant % 3), 20, 10, (1.20, .82, .74))
+            _add_irregular_canopy_lobe(
+                prop_batch, "v35-civic-island-irregular-planting",
+                ("foliage-deep", "foliage-mid", "foliage-light")[(plant + island) % 3],
+                (px, py, 3.70 + .10 * (plant % 2)),
+                .64 + .08 * (plant % 3), (1.20, .82, .74),
+                2350 + island * 20 + plant, 12, 5)
         for bench in (-1, 1):
-            prop_batch.add_box("v34-civic-island-timber-seat", "timber-accent",
-                               (ix + bench * iw * .28, iy + 3.0, 2.84),
-                               (iw * .30, .72, .18), angle)
-            prop_batch.add_box("v34-civic-island-seat-support", "archive-metal",
-                               (ix + bench * iw * .28, iy + 3.0, 2.57),
-                               (iw * .24, .42, .46), angle)
+            bench_x = ix + bench * iw * .28
+            for slat in range(4):
+                prop_batch.add_box("v35-civic-island-bench-seat-slat", "timber-accent",
+                                   (bench_x, iy + 2.76 + slat * .16, 2.84),
+                                   (iw * .30, .115, .12), angle)
+            for slat in range(3):
+                prop_batch.add_box("v35-civic-island-bench-back-slat", "timber-accent",
+                                   (bench_x, iy + 3.38, 3.07 + slat * .16),
+                                   (iw * .30, .10, .11), angle)
+            for support in (-1, 1):
+                prop_batch.add_box("v35-civic-island-bench-support", "archive-metal",
+                                   (bench_x + support * iw * .105, iy + 3.0, 2.58),
+                                   (.12, .48, .44), angle)
+    # Deliberate tree rooms frame entrances and water views.  These are not a
+    # random scatter: four paired positions enclose seating and leave the
+    # central lobby axis open on both banks.
+    for bank in (-1, 1):
+        for tree_index, (tx, offset) in enumerate(((-340.0, 0.0), (-310.0, 1.4),
+                                                   (-270.0, -1.0), (-224.0, .8))):
+            ty = bank * (34.0 + offset)
+            _add_architectural_tree(prop_batch, tx, ty,
+                                    2700 + tree_index + (20 if bank > 0 else 0),
+                                    .58 + .04 * (tree_index % 2), 2.30)
+            prop_batch.add_box("v35-civic-tree-root-grate", "ledger-granite",
+                               (tx, ty, 2.38), (2.8, 2.8, .10))
+            for groundcover in range(4):
+                gx = tx - 1.0 + groundcover * .68
+                gy = ty + math.sin(groundcover * 1.8) * .58
+                _add_irregular_canopy_lobe(
+                    prop_batch, "v35-civic-tree-room-groundcover",
+                    ("foliage-deep", "foliage-mid", "foliage-light")[groundcover % 3],
+                    (gx, gy, 2.92), .40 + .05 * (groundcover % 2),
+                    (1.05, .78, .58), 2800 + tree_index * 10 + groundcover,
+                    12, 5)
     # A narrow darker inlay records the primary pedestrian axis in real
     # geometry and breaks the oversized pale paving field.
     prop_batch.add_box("v34-civic-forecourt-axis-inlay", "ledger-granite",
                        (-300.0, -30.0, 2.345), (7.0, 20.0, .055))
     prop_batch.add_box("v34-civic-forecourt-axis-core", "dry-stone",
                        (-300.0, -30.0, 2.382), (5.8, 20.0, .055))
+    # Actual fixture geometry marks the lobby-to-water hierarchy at night.
+    for bank in (-1, 1):
+        for x in (-334.0, -318.0, -282.0, -266.0):
+            prop_batch.add_cylinder("v35-civic-pedestrian-light-pole", "archive-metal",
+                                    (x, bank * 36.5, 4.10), .075, 3.55, 12)
+            prop_batch.add_cylinder("v35-civic-pedestrian-light-fixture", "warm-light",
+                                    (x, bank * 36.5, 5.90), .19, .18, 16)
     human_objects = human_batch.finalize()
     for obj in human_objects:
         obj["nearFieldMidDetailHuman"] = True
@@ -916,13 +1174,13 @@ def _add_stream_civic_rooms():
                               (px, y - facing * .55, 3.51),
                               (2.0, 2.85, .10))
                 for shrub in range(3):
-                    batch.add_uv_sphere("v34-stream-room-layered-shrub",
-                                        ("foliage-deep", "foliage-mid", "foliage-light")[(index + shrub) % 3],
-                                        (px + (shrub - 1) * .55,
-                                         y - facing * .55,
-                                         3.94 + .08 * (shrub % 2)),
-                                        .52 + .08 * shrub, 18, 9,
-                                        (1.05, .72, .66))
+                    _add_irregular_canopy_lobe(
+                        batch, "v35-stream-room-irregular-shrub",
+                        ("foliage-deep", "foliage-mid", "foliage-light")[(index + shrub) % 3],
+                        (px + (shrub - 1) * .55, y - facing * .55,
+                         3.94 + .08 * (shrub % 2)),
+                        .52 + .08 * shrub, (1.05, .72, .66),
+                        2500 + index * 20 + shrub + (8 if bank > 0 else 0), 12, 5)
             # Every other room is shaded by a slim, buildable pergola rather
             # than a floating decorative plane.
             if index % 2 == 0:
@@ -1019,12 +1277,46 @@ def _add_stream_liner_architecture():
                               (bx, face_y + inside * .28, room_z - floor_h * .5 + .25),
                               (bay_pitch - .20, .74, .28))
                 if floor == 0 and public_bay:
+                    # Five-metre-deep occupied rooms sit directly behind each
+                    # opening.  Continuous floor/ceiling and bay partitions
+                    # prove that the glazing belongs to a building envelope.
+                    room_depth = min(6.2, depth * .34)
+                    occupied_y = face_y + inside * (room_depth * .52)
+                    batch.add_box("v35-liner-public-room-floor", "ledger-granite",
+                                  (bx, occupied_y, grade + .18),
+                                  (bay_pitch - .48, room_depth, .22))
+                    batch.add_box("v35-liner-public-room-ceiling", "warm-interior",
+                                  (bx, occupied_y, grade + floor_h - .20),
+                                  (bay_pitch - .48, room_depth, .18))
+                    for edge in (-1, 1):
+                        batch.add_box("v35-liner-public-room-side-partition", stone,
+                                      (bx + edge * (bay_pitch * .5 - .24), occupied_y,
+                                       grade + floor_h * .5),
+                                      (.18, room_depth, floor_h - .42))
+                    batch.add_box("v35-liner-public-room-rear-display", "warm-interior",
+                                  (bx, face_y + inside * room_depth,
+                                   grade + floor_h * .52),
+                                  (bay_pitch - .52, .18, floor_h - .64))
                     batch.add_box("v34-liner-interior-counter", "timber-accent",
-                                  (bx, face_y + inside * (depth * .58), grade + .74),
+                                  (bx, face_y + inside * (room_depth * .72), grade + .74),
                                   (bay_pitch * .52, .72, 1.05))
                     batch.add_box("v34-liner-warm-ceiling-light", "warm-light",
-                                  (bx, face_y + inside * (depth * .42), grade + floor_h - .30),
+                                  (bx, face_y + inside * (room_depth * .50), grade + floor_h - .30),
                                   (bay_pitch * .56, 2.1, .07))
+                    if (bay + style) % 2:
+                        table_y = face_y + inside * (room_depth * .43)
+                        batch.add_cylinder("v35-liner-interior-cafe-table", "ledger-bronze",
+                                           (bx, table_y, grade + .82), .52, .10, 18)
+                        for chair in (-1, 1):
+                            batch.add_box("v35-liner-interior-chair", "timber-accent",
+                                          (bx + chair * .92, table_y,
+                                           grade + .48), (.42, .48, .68))
+                    else:
+                        for shelf in range(3):
+                            batch.add_box("v35-liner-interior-display-shelf", "timber-accent",
+                                          (bx, face_y + inside * (room_depth * .90),
+                                           grade + .62 + shelf * .72),
+                                          (bay_pitch * .52, .24, .10))
 
         arcade_depth = 3.2 + .35 * (style % 3)
         batch.add_box("v34-liner-arcade-canopy", stone,
@@ -1046,6 +1338,24 @@ def _add_stream_liner_architecture():
         batch.add_box("v34-liner-entry-door", "frontage-glass",
                       (entry_x, face_y + facing * .15, grade + 1.55),
                       (1.80, .10, 2.90))
+        # A recessed vestibule distinguishes the entrance from adjacent retail
+        # bays and gives every liner a physically readable arrival sequence.
+        vestibule_depth = 3.4 + .35 * (style % 2)
+        batch.add_box("v35-liner-entry-vestibule-floor", "ledger-granite",
+                      (entry_x, face_y + inside * vestibule_depth * .5,
+                       grade + .22), (3.4, vestibule_depth, .22))
+        batch.add_box("v35-liner-entry-vestibule-ceiling", "warm-interior",
+                      (entry_x, face_y + inside * vestibule_depth * .5,
+                       grade + floor_h - .20), (3.4, vestibule_depth, .18))
+        for side in (-1, 1):
+            batch.add_box("v35-liner-entry-vestibule-return", accent,
+                          (entry_x + side * 1.65,
+                           face_y + inside * vestibule_depth * .5,
+                           grade + floor_h * .5),
+                          (.16, vestibule_depth, floor_h - .42))
+        batch.add_box("v35-liner-entry-inner-door", "frontage-glass",
+                      (entry_x, face_y + inside * vestibule_depth,
+                       grade + 1.55), (1.80, .10, 2.90))
 
         parent_y = 78.0 if north else -78.0
         connector_length = max(8.0, abs(parent_y - rear_y))
@@ -1062,6 +1372,10 @@ def _add_stream_liner_architecture():
                           (width * .24, depth * .18, .42))
         records.append({"style": style, "floors": floors,
                         "boundedRooms": bay_count * floors,
+                        "deepPublicRooms": sum(
+                            1 for bay in range(bay_count)
+                            if (bay + style) % 3 != 0),
+                        "vestibuleDepthM": vestibule_depth,
                         "streamFacing": True, "parentPodiumConnected": True})
         v12.consolidate(batch)
         objects.extend(batch.finalize())
@@ -1102,10 +1416,20 @@ def _add_mid_detail_human(batch, x, y, facing, seed, action, z_base):
         batch.add_tapered_branch("v34-human-shoe", "service-charcoal",
                                  foot, shoe_tip, .064, .050, 12)
         shoulder = (x + right[0] * side * .22, y + right[1] * side * .22, shoulder_z - .035)
-        elbow = (shoulder[0] - forward[0] * side * stride * .60,
-                 shoulder[1] - forward[1] * side * stride * .60, z_base + height * .64)
-        hand = (elbow[0] + forward[0] * side * stride * .33,
-                elbow[1] + forward[1] * side * stride * .33, z_base + height * .49)
+        if action == "conversation":
+            elbow = (shoulder[0] + forward[0] * (.10 + .05 * side),
+                     shoulder[1] + forward[1] * (.10 + .05 * side),
+                     z_base + height * (.64 + .035 * side))
+            hand = (x + forward[0] * (.22 + .06 * side) + right[0] * side * .10,
+                    y + forward[1] * (.22 + .06 * side) + right[1] * side * .10,
+                    z_base + height * (.66 + .04 * side))
+        else:
+            elbow = (shoulder[0] - forward[0] * side * stride * .60,
+                     shoulder[1] - forward[1] * side * stride * .60,
+                     z_base + height * .64)
+            hand = (elbow[0] + forward[0] * side * stride * .33,
+                    elbow[1] + forward[1] * side * stride * .33,
+                    z_base + height * .49)
         batch.add_tapered_branch("v34-human-upper-arm", body, shoulder, elbow, .067, .052, 12)
         batch.add_tapered_branch("v34-human-lower-arm", body, elbow, hand, .052, .039, 12)
         batch.add_uv_sphere("v34-human-hand", skin, hand, .052, 14, 7, (1, .84, 1.08))
@@ -1312,12 +1636,13 @@ def main():
         activity_objects, signature_activity = _add_signature_activity_layer()
         stream_room_objects, stream_rooms = _add_stream_civic_rooms()
         liner_objects, stream_liners = _add_stream_liner_architecture()
+        section_objects, civic_sections = _add_archive_civic_section_rebuild()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
     objects = (base_objects + public_objects + activity_objects
-               + stream_room_objects + liner_objects)
+               + stream_room_objects + liner_objects + section_objects)
     precision_edges = v28.apply_precision_edges(objects)
     smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
     smooth_object_count = 0
@@ -1334,12 +1659,12 @@ def main():
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
 
-    target = output / "archive-water-plaza-hero-v34.glb"
+    target = output / "archive-water-plaza-hero-v35.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB", export_yup=True,
                               export_normals=True, export_texcoords=False,
                               export_materials="EXPORT", export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 34,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 35,
         "zone": "Archive Water Plaza", "qualityTarget": {"grade": "S", "minimumScore": 95},
         "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
@@ -1353,6 +1678,10 @@ def main():
         "boundedFrontageBayCount": sum(7 + style % 3 for style in range(6)),
         "lobbyCount": 6, "retailPublicBayCount": 42,
         "signatureProjectedLobbyCount": 2,
+        "deepAtriumLobbyCount": 2,
+        "signatureLobbyDepthM": 10.8,
+        "atriumMezzanineCount": 2,
+        "atriumVestibuleCount": 2,
         "secondaryGroundFloorGrammarCount": 2,
         "inhabitedArcadeCount": 2,
         "cornerPublicRoomCount": 2,
@@ -1379,6 +1708,7 @@ def main():
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
         "signatureActivityHumanCount": len(signature_activity),
         "nearFieldMidDetailHumanCount": len(signature_activity),
+        "seatedMidDetailHumanCount": 6,
         "lowerPromenadeMidDetailHumanCount": 12,
         "inhabitedCivicIslandCount": 2,
         "signatureBicycleRackCount": 5,
@@ -1387,12 +1717,17 @@ def main():
         "streamLinerBoundedRoomCount": sum(item["boundedRooms"] for item in stream_liners),
         "streamLinerParentPodiumConnectionCount": sum(
             1 for item in stream_liners if item["parentPodiumConnected"]),
+        "streamLinerDeepPublicRoomCount": sum(
+            item["deepPublicRooms"] for item in stream_liners),
+        "streamLinerVestibuleCount": len(stream_liners),
+        "archiveCivicSectionCount": len(civic_sections),
+        "archiveCivicSection": civic_sections,
         "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),
         "officeV5Changed": False, "directReferenceCopy": False,
         "referencePolicy": "Abstract spatial and visual-quality direction only; no identifiable design reproduced.",
     }
-    (output / "archive-water-plaza-hero-v34-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    (output / "archive-water-plaza-hero-v35-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "facadeAssemblies": len(ENVELOPE), "detachedWindows": 0}))
 
