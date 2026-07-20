@@ -339,6 +339,47 @@ def _add_style_specific_massing_details(batch, *, x, y, width, depth,
                       (lantern_w - .8, .10, .12))
 
 
+def _add_occupied_setback_terraces(batch, *, x, y, width, depth,
+                                   podium_h, transfer_z, facing,
+                                   style, stone, accent):
+    """Inhabited horizontal breaks at podium roof and tower transfer level."""
+    # Two podium roof gardens wrap the tower shoulders without overlapping the
+    # structural core.  Their walls, soil, rails and benches share one datum.
+    for side in (-1, 1):
+        wing_x = x + side * width * .36
+        batch.add_box("v34-podium-roof-terrace-slab", stone,
+                      (wing_x, y, podium_h + .20),
+                      (width * .26, depth * .58, .40))
+        batch.add_box("v34-podium-roof-terrace-guard", accent,
+                      (wing_x, y + facing * depth * .285, podium_h + .88),
+                      (width * .26, .16, 1.05))
+        batch.add_box("v34-podium-roof-terrace-planter", stone,
+                      (wing_x, y - facing * depth * .18, podium_h + .78),
+                      (width * .20, depth * .12, .92))
+        batch.add_box("v34-podium-roof-terrace-soil", "soil-v11",
+                      (wing_x, y - facing * depth * .18, podium_h + 1.27),
+                      (width * .18, depth * .10, .08))
+        for plant in range(5):
+            px = wing_x - width * .075 + plant * width * .0375
+            batch.add_uv_sphere("v34-podium-roof-terrace-planting",
+                                ("foliage-deep", "foliage-mid", "foliage-light")[(plant + style) % 3],
+                                (px, y - facing * depth * .18, podium_h + 1.70),
+                                .48 + .07 * (plant % 3), 16, 8,
+                                (1.0, .70, .58))
+    # The tower transfer is a genuine occupied terrace/mechanical datum, not a
+    # color stripe.  It creates a readable shadow line on all four sides.
+    batch.add_box("v34-tower-transfer-terrace-slab", stone,
+                  (x, y, transfer_z + .18),
+                  (width * .78, depth * .74, .46))
+    batch.add_box("v34-tower-transfer-mechanical-shadow", "service-charcoal",
+                  (x, y + facing * depth * .355, transfer_z + .88),
+                  (width * .66, .40, 1.10))
+    for side in (-1, 1):
+        batch.add_box("v34-tower-transfer-side-guard", accent,
+                      (x + side * width * .38, y, transfer_z + .92),
+                      (.16, depth * .66, 1.12))
+
+
 def _inhabited_podium(batch, spec, podium_h, stone, accent):
     x, y, width, depth, _floors, _floor_h, style = spec
     facing = -1 if y > 0 else 1
@@ -838,6 +879,11 @@ def add_wall_first_building(batch, spec):
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
                           width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
+    _add_occupied_setback_terraces(batch, x=x, y=y, width=width, depth=depth,
+                                   podium_h=podium_h,
+                                   transfer_z=podium_h + lower_h,
+                                   facing=facing, style=style,
+                                   stone=stone, accent=accent)
     # Side walls are complete per-opening envelopes.  The former five tall
     # glass ribbons still left large blank slabs in the stream-axis camera and
     # read like applied decoration.  Every side lite now sits in a bounded
@@ -1004,6 +1050,7 @@ def main():
         "facadeBodyCornerReturnCount": 24,
         "distinctRoofGrammarCount": 3,
         "sidePerOpeningEnvelope": True,
+        "occupiedSetbackTerraceCount": 18,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
