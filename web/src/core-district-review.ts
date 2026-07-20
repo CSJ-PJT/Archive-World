@@ -63,10 +63,11 @@ const cameras:CameraPreset[]=[
  // The upper civic terrace is at +2.30m; 3.95m is a true 1.65m eye height.
  {name:'hero-s-street-axis',position:[-340,3.95,-15],target:[-218,3.2,1]},
  {name:'hero-s-frontage',position:[-300,3.95,-18],target:[-325,4.2,-60]},
- // The lower promenade is +0.14m; this is a true 1.71m eye height.
+ // The upper civic terrace is +2.30m; 3.95m is a true 1.65m eye height.
  {name:'hero-s-water-plaza',position:[-330,3.95,-8],target:[-245,2.1,0]},
- // V32 relocates camera-corridor trees for an unobstructed gateway view.
- {name:'hero-s-gateway',position:[-210,3.95,22],target:[-250,3.35,0]},
+ // Opposite-bank gateway review keeps the occupied frontage and bridge
+ // approach in one unobstructed 1.65m eye-level composition.
+ {name:'hero-s-gateway',position:[-230,3.95,-28],target:[-250,3.5,0]},
 ];
 
 function material(color:number,roughness=.72,metalness=0){return new THREE.MeshStandardMaterial({color,roughness,metalness});}

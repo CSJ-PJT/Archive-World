@@ -126,6 +126,26 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
     bay_width = width / bay_count
     glass_y = face_y + inside * .34
     room_depth = 1.35
+    # Two genuinely cut-out, double-height rooms replace normal facade cells.
+    # The former feature bays were only laid over the normal window wall.  A
+    # cell mask now removes the regular infill, mullion and intermediate
+    # spandrel first; the bounded room is then built inside the resulting void.
+    # This makes the window datum part of the envelope instead of a second skin.
+    feature_defs = []
+    if floors >= 8:
+        first_floor = min(floors - 3, 3 + style % 3)
+        first_bay = min(bay_count - 3, 1 + (style * 2) % max(1, bay_count - 3))
+        feature_defs.append((first_floor, first_bay, 2, 2))
+    if floors >= 14:
+        second_floor = min(floors - 4, max(9, int(floors * .62)))
+        second_bay = max(0, bay_count - 4 - style % 2)
+        feature_defs.append((second_floor, second_bay, 2, 3))
+    feature_cells = {
+        (floor, bay)
+        for start_floor, start_bay, span_floors, span_bays in feature_defs
+        for floor in range(start_floor, min(floors, start_floor + span_floors))
+        for bay in range(start_bay, min(bay_count, start_bay + span_bays))
+    }
 
     # Close the facade at both corners.  Previous revisions visually stopped
     # the tower core behind the curtain wall and allowed the glazing grid to
@@ -156,6 +176,8 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
                           (zone_x, face_y + inside * 1.12, pz + floor_h * .53),
                           (width * .20, .12, floor_h * .62))
         for bay in range(bay_count):
+            if (floor, bay) in feature_cells:
+                continue
             px = x - width * .5 + (bay + .5) * bay_width
             opening_h = floor_h - (.62 if floor % 4 else .78)
             opening_z = base_z + floor * floor_h + floor_h * .5
@@ -184,17 +206,77 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
                               (px, face_y + inside * .31,
                                opening_z - opening_h * .5),
                               (bay_width - .18, .66, .16))
-    for column in range(bay_count + 1):
-        px = x - width * .5 + column * bay_width
-        pier_w = .28 if column not in (0, bay_count) else .48
-        batch.add_box("v34-structural-facade-pier", accent,
-                      (px, face_y + inside * .10, base_z + height * .5),
-                      (pier_w, .72, height + .24))
+    # Segment the structural grid around the cut-out rooms.  A full-height
+    # applied mullion or full-width spandrel would pass in front of the void and
+    # recreate the detached-window failure that prompted this rework.
+    for floor in range(floors):
+        opening_z = base_z + floor * floor_h + floor_h * .5
+        for column in range(bay_count + 1):
+            left_masked = column > 0 and (floor, column - 1) in feature_cells
+            right_masked = column < bay_count and (floor, column) in feature_cells
+            if left_masked and right_masked:
+                continue
+            px = x - width * .5 + column * bay_width
+            pier_w = .28 if column not in (0, bay_count) else .48
+            batch.add_box("v34-structural-facade-pier", accent,
+                          (px, face_y + inside * .10, opening_z),
+                          (pier_w, .72, floor_h + .12))
     for floor in range(floors + 1):
         pz = base_z + floor * floor_h
         band_h = .25 if floor % 4 else .42
-        batch.add_box("v34-attached-spandrel", stone if floor % 4 == 0 else accent,
-                      (x, face_y + inside * .10, pz), (width + .24, .72, band_h))
+        for bay in range(bay_count):
+            inside_feature = (
+                floor > 0 and floor < floors
+                and (floor - 1, bay) in feature_cells
+                and (floor, bay) in feature_cells
+            )
+            if inside_feature:
+                continue
+            px = x - width * .5 + (bay + .5) * bay_width
+            batch.add_box("v34-attached-spandrel", stone if floor % 4 == 0 else accent,
+                          (px, face_y + inside * .10, pz),
+                          (bay_width + .05, .72, band_h))
+
+    # Rebuild each removed area as a complete, deep occupied sky room.  Floor,
+    # ceiling, rear wall and side returns are continuous with the tower shell;
+    # the glass is recessed 1.02m and cannot exist as a floating card.
+    for feature_index, (start_floor, start_bay, span_floors, span_bays) in enumerate(feature_defs):
+        room_w = bay_width * span_bays
+        room_h = floor_h * span_floors
+        room_x = x - width * .5 + (start_bay + span_bays * .5) * bay_width
+        room_base = base_z + start_floor * floor_h
+        room_center_z = room_base + room_h * .5
+        recess = 1.18 + .16 * ((style + feature_index) % 3)
+        batch.add_box("v34-integrated-skyroom-floor", stone,
+                      (room_x, face_y + inside * recess * .52, room_base + .16),
+                      (room_w, recess + .35, .32))
+        batch.add_box("v34-integrated-skyroom-ceiling", stone,
+                      (room_x, face_y + inside * recess * .52, room_base + room_h - .16),
+                      (room_w, recess + .35, .32))
+        batch.add_box("v34-integrated-skyroom-back", "warm-interior",
+                      (room_x, face_y + inside * (recess + .18), room_center_z),
+                      (room_w - .34, .18, room_h - .36))
+        batch.add_box("v34-integrated-skyroom-glass", "frontage-glass",
+                      (room_x, face_y + inside * 1.02, room_center_z),
+                      (room_w - .46, .12, room_h - .54))
+        for edge in (-1, 1):
+            batch.add_box("v34-integrated-skyroom-side-return", stone,
+                          (room_x + edge * room_w * .5,
+                           face_y + inside * recess * .52, room_center_z),
+                          (.42, recess + .38, room_h))
+        # A shallow occupied ledge and transparent guard create an actual
+        # inhabitable threshold while preserving the window-wall attachment.
+        batch.add_box("v34-integrated-skyroom-ledge", stone,
+                      (room_x, face_y + facing * .46, room_base + .18),
+                      (room_w + .55, 1.08, .34))
+        batch.add_box("v34-integrated-skyroom-guard", "frontage-glass",
+                      (room_x, face_y + facing * .94, room_base + .82),
+                      (room_w - .28, .10, .96))
+        for mullion in range(span_bays + 1):
+            px = room_x - room_w * .5 + mullion * room_w / span_bays
+            batch.add_box("v34-integrated-skyroom-mullion", accent,
+                          (px, face_y + inside * .96, room_center_z),
+                          (.18, .28, room_h - .28))
     # Three genuinely different facade grammars prevent the six hero buildings
     # from reading as scaled copies while preserving the bounded openings.
     grammar = style % 3
@@ -270,7 +352,9 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
                       (room_w, recess, .24))
     ENVELOPE.append({"style": style, "bayCount": bay_count, "glassRecessM": .34,
                      "detachedWindows": 0, "bounded": True,
-                     "perOpeningInfill": True, "fourSidedReturns": True})
+                     "perOpeningInfill": True, "fourSidedReturns": True,
+                     "integratedSkyRoomCount": len(feature_defs),
+                     "featureCellsRemovedBeforeRoomBuild": len(feature_cells)})
 
 
 def _add_style_specific_massing_details(batch, *, x, y, width, depth,
@@ -818,6 +902,128 @@ def _add_stream_civic_rooms():
     return batch.finalize(), room_records
 
 
+def _add_stream_liner_architecture():
+    """Build six attached, occupied 2-3 storey stream frontage buildings.
+
+    Each liner is a complete floor/ceiling/rear-wall envelope with bounded
+    stream-facing rooms, side walls, a roof terrace and a covered connection to
+    its parent podium.  This closes the former dead apron with architecture,
+    not scenery boxes, while preserving the lower promenade and fire corridor.
+    """
+    materials = v12.create_materials()
+    objects, records = [], []
+    specs = (
+        (-320.0, 49.0, 31.0, 20.0, 3, 0),
+        (-252.0, 50.5, 35.0, 22.0, 2, 1),
+        (-187.0, 48.0, 29.0, 19.0, 3, 2),
+        (-321.0, -49.0, 29.0, 19.0, 2, 3),
+        (-254.0, -51.0, 36.0, 22.0, 3, 4),
+        (-188.0, -48.5, 32.0, 20.0, 2, 5),
+    )
+    for x, y, width, depth, floors, style in specs:
+        north = y > 0
+        facing = -1 if north else 1
+        inside = -facing
+        stone, accent = _material_pair(style, north)
+        batch = v12.HeroBatch(materials)
+        grade = 2.30
+        floor_h = 4.15 if floors == 2 else 3.85
+        height = floors * floor_h
+        face_y = y + facing * depth * .5
+        rear_y = y + inside * depth * .5
+        bay_count = 5 + style % 3
+        bay_pitch = width / bay_count
+
+        batch.add_box("v34-liner-floor", "ledger-granite",
+                      (x, y, grade + .14), (width, depth, .28))
+        batch.add_box("v34-liner-roof", stone,
+                      (x, y, grade + height), (width + .5, depth + .5, .40))
+        batch.add_box("v34-liner-rear-wall", "service-charcoal",
+                      (x, rear_y, grade + height * .5), (width, .36, height))
+        for side in (-1, 1):
+            batch.add_box("v34-liner-side-wall", stone,
+                          (x + side * width * .5, y, grade + height * .5),
+                          (.42, depth, height))
+        for floor in range(1, floors):
+            z = grade + floor * floor_h
+            batch.add_box("v34-liner-occupied-floor-plate", "ledger-granite",
+                          (x, y, z), (width - .48, depth - .50, .26))
+
+        # Every stream-facing bay is a bounded room.  Glass is recessed inside
+        # four structural returns and cannot detach from the building body.
+        for floor in range(floors):
+            room_z = grade + floor * floor_h + floor_h * .5
+            for bay in range(bay_count):
+                bx = x - width * .5 + (bay + .5) * bay_pitch
+                public_bay = floor == 0 or (bay + floor + style) % 3 != 0
+                batch.add_box("v34-liner-room-back", "warm-interior" if public_bay else stone,
+                              (bx, rear_y + facing * .34, room_z),
+                              (bay_pitch - .34, .20, floor_h - .38))
+                material = "frontage-glass" if public_bay else stone
+                batch.add_box("v34-liner-integrated-glass" if public_bay else "v34-liner-solid-service-infill",
+                              material, (bx, face_y + inside * .46, room_z),
+                              (bay_pitch - .42, .12 if public_bay else .22, floor_h - .66))
+                for edge in (-1, 1):
+                    batch.add_box("v34-liner-window-jamb-return", accent,
+                                  (bx + edge * (bay_pitch * .5 - .16),
+                                   face_y + inside * .28, room_z),
+                                  (.18, .74, floor_h - .42))
+                batch.add_box("v34-liner-window-head-return", accent,
+                              (bx, face_y + inside * .28, room_z + floor_h * .5 - .25),
+                              (bay_pitch - .20, .74, .22))
+                batch.add_box("v34-liner-window-sill-return", stone,
+                              (bx, face_y + inside * .28, room_z - floor_h * .5 + .25),
+                              (bay_pitch - .20, .74, .28))
+                if floor == 0 and public_bay:
+                    batch.add_box("v34-liner-interior-counter", "timber-accent",
+                                  (bx, face_y + inside * (depth * .58), grade + .74),
+                                  (bay_pitch * .52, .72, 1.05))
+                    batch.add_box("v34-liner-warm-ceiling-light", "warm-light",
+                                  (bx, face_y + inside * (depth * .42), grade + floor_h - .30),
+                                  (bay_pitch * .56, 2.1, .07))
+
+        arcade_depth = 3.2 + .35 * (style % 3)
+        batch.add_box("v34-liner-arcade-canopy", stone,
+                      (x, face_y + facing * arcade_depth * .5, grade + floor_h + .16),
+                      (width + 1.4, arcade_depth, .36))
+        batch.add_box("v34-liner-arcade-soffit", "warm-light",
+                      (x, face_y + facing * arcade_depth * .5, grade + floor_h - .06),
+                      (width + .8, arcade_depth - .35, .07))
+        for column in range(bay_count + 1):
+            cx = x - width * .5 + column * bay_pitch
+            batch.add_cylinder("v34-liner-arcade-column", accent,
+                               (cx, face_y + facing * (arcade_depth - .42),
+                                grade + floor_h * .5), .19, floor_h, 16)
+        entry_bay = (2 * style + 1) % bay_count
+        entry_x = x - width * .5 + (entry_bay + .5) * bay_pitch
+        batch.add_box("v34-liner-entry-frame", accent,
+                      (entry_x, face_y + facing * .10, grade + 1.62),
+                      (2.15, .34, 3.24))
+        batch.add_box("v34-liner-entry-door", "frontage-glass",
+                      (entry_x, face_y + facing * .15, grade + 1.55),
+                      (1.80, .10, 2.90))
+
+        parent_y = 78.0 if north else -78.0
+        connector_length = max(8.0, abs(parent_y - rear_y))
+        connector_y = (rear_y + parent_y) * .5
+        batch.add_box("v34-liner-covered-parent-connector", stone,
+                      (x, connector_y, grade + 5.15),
+                      (7.2, connector_length, .34))
+        for side in (-1, 1):
+            batch.add_box("v34-liner-roof-planter", stone,
+                          (x + side * width * .28, y, grade + height + .72),
+                          (width * .28, depth * .22, 1.05))
+            batch.add_box("v34-liner-roof-planting", "foliage-deep",
+                          (x + side * width * .28, y, grade + height + 1.42),
+                          (width * .24, depth * .18, .42))
+        records.append({"style": style, "floors": floors,
+                        "boundedRooms": bay_count * floors,
+                        "streamFacing": True, "parentPodiumConnected": True})
+        v12.consolidate(batch)
+        objects.extend(batch.finalize())
+    return objects, records
+
+
 def _add_mid_detail_human(batch, x, y, facing, seed, action, z_base):
     """Near-camera human with continuous anatomical volumes, not box limbs."""
     height = 1.66 + (seed % 7) * .025
@@ -1009,11 +1215,13 @@ def main():
         public_objects, public_geometry, public_activity = v29.add_inhabited_promenade()
         activity_objects, signature_activity = _add_signature_activity_layer()
         stream_room_objects, stream_rooms = _add_stream_civic_rooms()
+        liner_objects, stream_liners = _add_stream_liner_architecture()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
-    objects = base_objects + public_objects + activity_objects + stream_room_objects
+    objects = (base_objects + public_objects + activity_objects
+               + stream_room_objects + liner_objects)
     precision_edges = v28.apply_precision_edges(objects)
     smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
     smooth_object_count = 0
@@ -1059,6 +1267,9 @@ def main():
         "chamferedPrimaryMassCount": 12,
         "distinctFacadeGrammarCount": 3,
         "facadeBodyCornerReturnCount": 24,
+        "integratedSkyRoomCount": sum(item["integratedSkyRoomCount"] for item in ENVELOPE),
+        "featureCellsRemovedBeforeRoomBuild": sum(
+            item["featureCellsRemovedBeforeRoomBuild"] for item in ENVELOPE),
         "distinctRoofGrammarCount": 3,
         "sidePerOpeningEnvelope": True,
         "occupiedSetbackTerraceCount": 18,
@@ -1071,6 +1282,10 @@ def main():
         "inhabitedCivicIslandCount": 2,
         "signatureBicycleRackCount": 5,
         "programmedStreamRoomCount": len(stream_rooms),
+        "streamLinerBuildingCount": len(stream_liners),
+        "streamLinerBoundedRoomCount": sum(item["boundedRooms"] for item in stream_liners),
+        "streamLinerParentPodiumConnectionCount": sum(
+            1 for item in stream_liners if item["parentPodiumConnected"]),
         "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),
         "officeV5Changed": False, "directReferenceCopy": False,
