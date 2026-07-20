@@ -322,29 +322,33 @@ def build_zone():
             for seat_x in (-8.0,0.0,8.0):
                 batch.add_box("hero-stepped-timber-seat", "timber-accent",
                               (terrace_x+seat_x,side*17.8,1.72),(4.3,.68,.16))
-    # Gateway bridge, pavilion and event terrace.  The failed bridge read as a
-    # pair of oversized rectangular portals.  V27 keeps civic identity at the
-    # approaches, but the deck, pylons and diagonal members now form a credible
-    # low pedestrian bridge that preserves the stream view corridor.
+    # Gateway bridge, pavilion and event terrace.  Oversized pylons and diagonal
+    # braces previously blocked eye-level frontage and made the bridge read as
+    # an engineering prop.  The final gateway is deliberately low-profile:
+    # civic markers stay on the banks while a continuous edge beam, transparent
+    # rail rhythm and integrated handrail light preserve the stream axis.
     batch.add_box("hero-gateway-bridge-deck", "archive-warm-stone", (-250, 0, 2.65), (16, 36, .75))
     for side in (-1, 1):
         edge_x = -250 + side * 7.1
         for bank in (-1, 1):
-            pylon_y = bank * 12.0
-            batch.add_box("hero-gateway-approach-pylon", "archive-metal",
-                          (edge_x, pylon_y, 5.7), (.62, .86, 5.8))
-            batch.add_box("hero-gateway-pylon-light", "archive-cyan-light",
-                          (edge_x-side*.33, pylon_y-bank*.18, 5.65), (.08, .18, 3.9))
-            batch.add_tapered_branch("hero-gateway-diagonal-brace", "archive-metal",
-                                     (edge_x, pylon_y, 8.45),
-                                     (edge_x, bank*3.2, 3.25), .20, .12, 12)
+            marker_y = bank * 14.2
+            batch.add_box("hero-gateway-bank-marker", "archive-metal",
+                          (edge_x, marker_y, 4.70), (.54, 1.25, 3.2))
+            batch.add_box("hero-gateway-bank-marker-light", "archive-cyan-light",
+                          (edge_x - side * .29, marker_y - bank * .16, 4.68),
+                          (.06, .18, 2.2))
+            batch.add_box("hero-gateway-approach-plinth", "dry-stone",
+                          (edge_x, marker_y + bank * 1.15, 2.54),
+                          (2.0, 2.1, .38))
         batch.add_box("hero-gateway-deck-edge", "service-charcoal",
                       (edge_x, 0, 3.08), (.28, 33.0, .34))
-        for post in range(-5, 6):
-            batch.add_cylinder("hero-bridge-railing-post", "archive-metal", (edge_x, post * 2.7, 4.0), .07, 2.0, 8)
-        batch.add_box("hero-bridge-handrail", "archive-metal", (edge_x, 0, 4.95), (.15, 31, .15))
+        for post in range(-7, 8):
+            batch.add_cylinder("hero-bridge-railing-post", "archive-metal",
+                               (edge_x, post * 2.05, 3.78), .055, 1.35, 8)
+        batch.add_box("hero-bridge-handrail", "archive-metal",
+                      (edge_x, 0, 4.47), (.13, 31, .13))
         batch.add_box("hero-bridge-handrail-light", "warm-light",
-                      (edge_x-side*.09, 0, 4.80), (.06, 30.0, .08))
+                      (edge_x-side*.08, 0, 4.35), (.05, 30.0, .065))
     batch.add_box("hero-water-pavilion-floor", "dry-stone", (-300, -24, 2.45), (24, 18, .45))
     batch.add_box("hero-water-pavilion-roof", "archive-warm-stone", (-300, -24, 8.35), (25.5, 18.5, .30))
     for edge_y in (-33.1,-14.9):

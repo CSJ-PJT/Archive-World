@@ -1,6 +1,7 @@
 from pathlib import Path
 
 source = (Path(__file__).parent / "blender" / "hero_zones" / "archive_water_plaza_v34.py").read_text(encoding="utf-8")
+base_source = (Path(__file__).parent / "blender" / "hero_zones" / "archive_water_plaza_v12.py").read_text(encoding="utf-8")
 required = (
     "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
     "v34-facade-room-back", "v34-integrated-window-infill",
@@ -66,4 +67,7 @@ for token in required:
 assert "bpy.data.images.load" not in source
 assert "bpy.data.images.save" not in source
 assert "v34-integrated-glass-field" not in source
+assert "hero-gateway-diagonal-brace" not in base_source
+assert "hero-gateway-bank-marker" in base_source
+assert "hero-gateway-approach-plinth" in base_source
 print("archive water plaza v34 wall-first architecture contract: PASS")
