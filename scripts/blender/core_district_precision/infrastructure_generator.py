@@ -56,6 +56,21 @@ def build(batch):
   batch.add_box('road-asphalt','asphalt',(x,0,.055),(28,1000,.11));roads.append(('NS',x))
   for side in (-1,1):batch.add_box('raised-sidewalk','sidewalk-concrete',(x+side*21,0,.16),(13,1000,.32));batch.add_box('curb','limestone',(x+side*14.4,0,.25),(.8,1000,.5))
   for y in range(-465,466,30):batch.add_box('lane-marking-dash','light-metal-panel',(x,y,.13),(.16,13,.035))
+ # Raised parcel fields remove the unfinished dark void between streets.  Each
+ # cell gets a paved building apron plus a smaller planted courtyard, while
+ # service lanes and the public road hierarchy stay exposed.
+ parcel_count=0
+ for px in (-375,-125,125,375):
+  for py in (-315,-105,105,315):
+   material='plaza-paver' if (parcel_count+int(px))%3 else 'sidewalk-concrete'
+   batch.add_box('block-parcel-surface',material,(px,py,.11),(196,164,.22))
+   court_x=px+(22 if parcel_count%2 else -24)
+   court_y=py+(18 if parcel_count%3 else -16)
+   batch.add_box('block-courtyard-groundcover','soil',(court_x,court_y,.25),(42,26,.26))
+   batch.add_box('block-courtyard-edge','granite',(court_x,court_y,.36),(45,29,.18))
+   batch.add_box('block-courtyard-groundcover','soil',(court_x,court_y,.48),(41,25,.16))
+   for seat in (-1,1):batch.add_box('block-courtyard-bench','wood-accent',(court_x+seat*13,court_y,.70),(5.2,.8,.34))
+   parcel_count+=1
  # Crosswalks, medians, tactile paving and loading/taxi bays.
  for x in (-500,-250,0,250,500):
   for y in (-420,-210,0,210,420):
@@ -93,7 +108,7 @@ def build(batch):
   batch.add_box('vehicle-light','light-metal-panel',(x+2.28,y,.98),(.08,1.2,.32))
  for i in range(90):
   x=-520+(i%18)*60;y=-360+(i//18)*160;add_human(batch,x,y,i)
- return {'roadSegments':10,'intersections':25,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':45,'humans':90,'plazas':2,'laneMarkingRuns':10,'midDetailPopulation':True}
+ return {'roadSegments':10,'intersections':25,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':45,'humans':90,'plazas':2,'parcelFields':parcel_count,'laneMarkingRuns':10,'midDetailPopulation':True}
 
 def main():
  v=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--output-root',required=True);a=p.parse_args(v);bpy.ops.wm.read_factory_settings(use_empty=True)
