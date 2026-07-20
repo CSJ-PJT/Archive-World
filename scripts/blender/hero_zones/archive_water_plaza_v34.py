@@ -127,6 +127,17 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
     glass_y = face_y + inside * .34
     room_depth = 1.35
 
+    # Close the facade at both corners.  Previous revisions visually stopped
+    # the tower core behind the curtain wall and allowed the glazing grid to
+    # read as a freestanding screen from oblique street cameras.  These deep
+    # returns physically join the window wall to the side envelope.
+    for side in (-1, 1):
+        batch.add_box("v34-facade-to-body-corner-return", stone,
+                      (x + side * (width * .5 - .15),
+                       face_y + inside * (room_depth * .5),
+                       base_z + height * .5),
+                      (.42, room_depth + .18, height + .42))
+
     batch.add_box("v34-facade-room-back", "warm-interior",
                   (x, face_y + inside * room_depth, base_z + height * .5),
                   (width, .18, height))
@@ -151,6 +162,8 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
             blind = (bay + floor * 2 + style) % 11 == 0
             glass_material = "occupied-window-glass" if (bay + floor + style) % 4 == 0 else "blue-gray-glass"
             if blind:
+                # Blind bays are real wall panels occupying the same bounded
+                # opening datum as the glazing, never decorative cards.
                 batch.add_box("v34-integrated-blind-infill", stone,
                               (px, glass_y, opening_z),
                               (bay_width - .34, .18, opening_h))
@@ -182,13 +195,55 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
         band_h = .25 if floor % 4 else .42
         batch.add_box("v34-attached-spandrel", stone if floor % 4 == 0 else accent,
                       (x, face_y + inside * .10, pz), (width + .24, .72, band_h))
-    # Deep vertical frames create a legible primary rhythm at street and aerial
-    # distance without becoming a detached second facade.
-    for column in range(0, bay_count + 1, 3):
+    # Three genuinely different facade grammars prevent the six hero buildings
+    # from reading as scaled copies while preserving the bounded openings.
+    grammar = style % 3
+    primary_step = 2 if grammar == 0 else 4 if grammar == 1 else 3
+    for column in range(0, bay_count + 1, primary_step):
         px = x - width * .5 + column * bay_width
         batch.add_box("v34-primary-depth-frame", stone,
                       (px, face_y + facing * .19, base_z + height * .5),
-                      (.48, 1.10, height + .56))
+                      ((.62 if grammar == 0 else .42),
+                       1.22 if grammar == 2 else .94, height + .56))
+    if grammar == 0:
+        # Institutional vertical order: paired fins extend beyond the normal
+        # mullion datum and terminate in a continuous head frame.
+        for column in range(1, bay_count, 2):
+            px = x - width * .5 + column * bay_width
+            batch.add_box("v34-institutional-vertical-fin", accent,
+                          (px, face_y + facing * .64, base_z + height * .50),
+                          (.22, 1.18, height * .92))
+        batch.add_box("v34-institutional-civic-head", stone,
+                      (x, face_y + facing * .28, base_z + height * .94),
+                      (width + .55, 1.12, .72))
+    elif grammar == 1:
+        # Ledger-like horizontal order: projected floor trays form long shadow
+        # lines instead of another all-height mullion cage.
+        for floor in range(3, floors, 4):
+            pz = base_z + floor * floor_h
+            batch.add_box("v34-horizontal-terrace-band", accent,
+                          (x, face_y + facing * .52, pz),
+                          (width + .70, 1.28, .30))
+        for edge in (-1, 1):
+            batch.add_box("v34-horizontal-grammar-corner", stone,
+                          (x + edge * width * .5, face_y + facing * .18,
+                           base_z + height * .5),
+                          (.76, 1.08, height + .62))
+    else:
+        # Civic portal order: a broad central recess and two deep edge piers
+        # produce an unmistakable long-distance silhouette.
+        portal_w = min(width * .36, bay_width * 3.2)
+        batch.add_box("v34-civic-portal-back", "warm-interior",
+                      (x, face_y + inside * 1.28, base_z + height * .56),
+                      (portal_w, .18, height * .34))
+        for edge in (-1, 1):
+            batch.add_box("v34-civic-portal-megaframe", stone,
+                          (x + edge * portal_w * .5, face_y + facing * .38,
+                           base_z + height * .56),
+                          (.82, 1.44, height * .38))
+        batch.add_box("v34-civic-portal-head", stone,
+                      (x, face_y + facing * .38, base_z + height * .75),
+                      (portal_w + .82, 1.44, .64))
     # Three broad recessed rooms break the repetition without a second grid.
     for zone in range(3):
         start = (style * 2 + zone * 3) % max(1, bay_count - 2)
@@ -216,6 +271,72 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
     ENVELOPE.append({"style": style, "bayCount": bay_count, "glassRecessM": .34,
                      "detachedWindows": 0, "bounded": True,
                      "perOpeningInfill": True, "fourSidedReturns": True})
+
+
+def _add_style_specific_massing_details(batch, *, x, y, width, depth,
+                                        roof_z, facing, style, stone, accent):
+    """Give each hero building a constructionally different crown/terrace.
+
+    The pieces connect to the primary mass and serve silhouette, occupied
+    terraces and roof maintenance.  They are not triangle-count padding.
+    """
+    grammar = style % 3
+    if grammar == 0:
+        # Archive institutional crown: two enclosed service volumes and a
+        # restrained civic frame, visibly attached to the roof slab.
+        for side in (-1, 1):
+            batch.add_box("v34-archive-crown-service-volume", "service-charcoal",
+                          (x + side * width * .19, y, roof_z + 3.05),
+                          (width * .24, depth * .34, 6.1))
+            batch.add_box("v34-archive-crown-vertical-blade", accent,
+                          (x + side * width * .33, y + facing * depth * .05,
+                           roof_z + 5.1),
+                          (.54, depth * .48, 10.2))
+        batch.add_box("v34-archive-crown-bridge", stone,
+                      (x, y + facing * depth * .06, roof_z + 9.3),
+                      (width * .70, depth * .15, .72))
+    elif grammar == 1:
+        # Ledger terrace crown: three stepped, occupied roof plates with a
+        # perimeter rail and integrated planting datum.
+        for step in range(3):
+            step_w = width * (.62 - step * .10)
+            step_d = depth * (.46 - step * .07)
+            step_z = roof_z + .32 + step * 1.25
+            step_x = x + width * (.04 * step)
+            batch.add_box("v34-ledger-roof-terrace", stone,
+                          (step_x, y - facing * step * .38, step_z),
+                          (step_w, step_d, .42))
+            batch.add_box("v34-ledger-terrace-guard", accent,
+                          (step_x, y + facing * step_d * .48, step_z + .78),
+                          (step_w, .16, 1.20))
+        for planter in (-1, 1):
+            batch.add_box("v34-ledger-roof-planter", stone,
+                          (x + planter * width * .19, y, roof_z + 1.02),
+                          (width * .18, depth * .16, 1.10))
+            batch.add_box("v34-ledger-roof-planting", "foliage-deep",
+                          (x + planter * width * .19, y, roof_z + 1.72),
+                          (width * .15, depth * .13, .40))
+    else:
+        # Civic-tech lantern: a recessed occupied volume is bounded by four
+        # structural corner piers and a roof frame.
+        lantern_w, lantern_d, lantern_h = width * .34, depth * .32, 6.8
+        batch.add_box("v34-civic-roof-lantern-interior", "warm-interior",
+                      (x, y, roof_z + lantern_h * .5),
+                      (lantern_w - 1.0, lantern_d - 1.0, lantern_h - .8))
+        for sx in (-1, 1):
+            for sy in (-1, 1):
+                batch.add_box("v34-civic-lantern-corner-pier", accent,
+                              (x + sx * lantern_w * .5,
+                               y + sy * lantern_d * .5,
+                               roof_z + lantern_h * .5),
+                              (.44, .44, lantern_h))
+        batch.add_box("v34-civic-lantern-roof-frame", stone,
+                      (x, y, roof_z + lantern_h),
+                      (lantern_w + 1.2, lantern_d + 1.2, .52))
+        batch.add_box("v34-civic-lantern-light-line", "archive-cyan-light",
+                      (x, y + facing * (lantern_d * .5 + .08),
+                       roof_z + lantern_h * .72),
+                      (lantern_w - .8, .10, .12))
 
 
 def _inhabited_podium(batch, spec, podium_h, stone, accent):
@@ -641,6 +762,10 @@ def add_wall_first_building(batch, spec):
         batch.add_box("v34-roof-hvac", "service-charcoal",
                       (x - 3.4 + unit * 3.4, y - facing * depth * .10, roof_z + 5.25),
                       (2.2, 2.8, 1.4))
+    _add_style_specific_massing_details(batch, x=x, y=y, width=width,
+                                        depth=depth, roof_z=roof_z,
+                                        facing=facing, style=style,
+                                        stone=stone, accent=accent)
 
 
 def main():
@@ -708,6 +833,9 @@ def main():
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "singleFacadeGlassCardCount": 0,
         "chamferedPrimaryMassCount": 12,
+        "distinctFacadeGrammarCount": 3,
+        "facadeBodyCornerReturnCount": 24,
+        "distinctRoofGrammarCount": 3,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),

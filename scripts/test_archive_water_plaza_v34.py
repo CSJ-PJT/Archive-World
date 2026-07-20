@@ -29,6 +29,11 @@ required = (
     "v34-rear-mechanical-service-band",
     "_add_chamfered_mass", "v34-tower-chamfered-structural-core",
     "v34-upper-chamfered-structural-core", '"chamferedPrimaryMassCount": 12',
+    "v34-institutional-vertical-fin", "v34-horizontal-terrace-band",
+    "v34-civic-portal-megaframe", '"distinctFacadeGrammarCount": 3',
+    "v34-facade-to-body-corner-return", '"facadeBodyCornerReturnCount": 24',
+    "v34-archive-crown-service-volume", "v34-ledger-roof-terrace",
+    "v34-civic-roof-lantern-interior", '"distinctRoofGrammarCount": 3',
 )
 for token in required:
     assert token in source, token
