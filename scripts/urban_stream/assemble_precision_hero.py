@@ -72,6 +72,24 @@ def refine_metropolitan_instances(manifest: dict) -> dict:
         slot = int(instance["id"].rsplit("-", 1)[-1])
         block_number = int(instance["blockId"].rsplit("-", 1)[-1])
         instance["familyId"] = pool[(slot * 3 + block_number) % len(pool)]
+        # Recompose the inherited continuous scatter rows into twenty actual
+        # street-bounded blocks.  The two service-edge blocks occupy the outer
+        # stream gateway; Hero replacements retain their authored positions.
+        if block_number <= 20:
+            grid_index = block_number - 1
+            column, row = grid_index % 5, grid_index // 5
+            center_x = -480.0 + column * 240.0
+            center_z = 375.0 - row * 250.0
+        else:
+            center_x = -480.0 if block_number == 21 else 480.0
+            center_z = 0.0
+        local_positions = (
+            (-70.0, -64.0), (0.0, -64.0), (70.0, -64.0),
+            (-70.0, -8.0), (0.0, -8.0), (70.0, -8.0),
+            (-70.0, 52.0), (-24.0, 62.0), (24.0, 62.0), (70.0, 52.0),
+        )
+        offset_x, offset_z = local_positions[(slot - 1) % len(local_positions)]
+        instance["position"] = [center_x + offset_x, 0, center_z + offset_z]
         instance["rotationY"] = ((slot + block_number * 2) % 4) * math.pi * .5
         # Low civic/retail/service blocks create relief; financial towers retain
         # a stronger scale without widening every footprint in the grid.
@@ -83,7 +101,8 @@ def refine_metropolitan_instances(manifest: dict) -> dict:
         instance["frontageOrientation"] = "STREAM_OR_PRIMARY_STREET"
         refined += 1
     return {"refinedInstances": refined, "roleCount": len(FAMILY_BY_BLOCK_ROLE),
-            "quarterTurnVariation": True, "officeV5Changed": False}
+            "quarterTurnVariation": True, "streetBoundedBlockGrid": [5, 4],
+            "scatterRowsRemoved": True, "officeV5Changed": False}
 
 
 def atomic(path: Path, payload: dict):

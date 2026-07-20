@@ -48,11 +48,11 @@ def add_human(batch,x,y,index):
 def build(batch):
  # 1.2 km x 1.0 km structured network with raised curbs/sidewalks and physical markings.
  roads=[]
- for y in (-420,-210,0,210,420):
+ for y in (-500,-250,250,500):
   batch.add_box('road-asphalt','asphalt',(0,y,.05),(1200,26,.1));roads.append(('EW',y))
   for side in (-1,1):batch.add_box('raised-sidewalk','sidewalk-concrete',(0,y+side*20,.16),(1200,12,.32));batch.add_box('curb','limestone',(0,y+side*13.4,.25),(1200,.8,.5))
   for x in range(-570,571,30):batch.add_box('lane-marking-dash','light-metal-panel',(x,y,.125),(13,.16,.035))
- for x in (-500,-250,0,250,500):
+ for x in (-600,-360,-120,120,360,600):
   batch.add_box('road-asphalt','asphalt',(x,0,.055),(28,1000,.11));roads.append(('NS',x))
   for side in (-1,1):batch.add_box('raised-sidewalk','sidewalk-concrete',(x+side*21,0,.16),(13,1000,.32));batch.add_box('curb','limestone',(x+side*14.4,0,.25),(.8,1000,.5))
   for y in range(-465,466,30):batch.add_box('lane-marking-dash','light-metal-panel',(x,y,.13),(.16,13,.035))
@@ -60,10 +60,10 @@ def build(batch):
  # cell gets a paved building apron plus a smaller planted courtyard, while
  # service lanes and the public road hierarchy stay exposed.
  parcel_count=0
- for px in (-375,-125,125,375):
-  for py in (-315,-105,105,315):
+ for px in (-480,-240,0,240,480):
+  for py in (-375,-125,125,375):
    material='plaza-paver' if (parcel_count+int(px))%3 else 'sidewalk-concrete'
-   batch.add_box('block-parcel-surface',material,(px,py,.11),(196,164,.22))
+   batch.add_box('block-parcel-surface',material,(px,py,.11),(196,205,.22))
    court_x=px+(22 if parcel_count%2 else -24)
    court_y=py+(18 if parcel_count%3 else -16)
    batch.add_box('block-courtyard-groundcover','soil',(court_x,court_y,.25),(42,26,.26))
@@ -72,10 +72,10 @@ def build(batch):
    for seat in (-1,1):batch.add_box('block-courtyard-bench','wood-accent',(court_x+seat*13,court_y,.70),(5.2,.8,.34))
    parcel_count+=1
  # Crosswalks, medians, tactile paving and loading/taxi bays.
- for x in (-500,-250,0,250,500):
-  for y in (-420,-210,0,210,420):
+ for x in (-600,-360,-120,120,360,600):
+  for y in (-500,-250,250,500):
    for stripe in range(-5,6,2):batch.add_box('crosswalk','light-metal-panel',(x+stripe*1.4,y,.13),(1.1,22,.08))
- for y in (-210,210):batch.add_box('median','plaza-paver',(0,y,.3),(1120,3,0.6))
+ for y in (-250,250):batch.add_box('median','plaza-paver',(0,y,.3),(1120,3,0.6))
  for i,x in enumerate((-430,-130,170,430)):
   batch.add_box('bus-bay','asphalt',(x,-392,.09),(42,10,.18));batch.add_box('transit-shelter','light-metal-panel',(x,-375,2.2),(16,4,4.4));batch.add_box('shelter-glass','curtain-wall-glass',(x,-377,2.2),(14,.2,3.6))
  for x in (-320,80,360):batch.add_box('taxi-dropoff','granite',(x,188,.12),(55,9,.24))
@@ -108,7 +108,7 @@ def build(batch):
   batch.add_box('vehicle-light','light-metal-panel',(x+2.28,y,.98),(.08,1.2,.32))
  for i in range(90):
   x=-520+(i%18)*60;y=-360+(i//18)*160;add_human(batch,x,y,i)
- return {'roadSegments':10,'intersections':25,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':45,'humans':90,'plazas':2,'parcelFields':parcel_count,'laneMarkingRuns':10,'midDetailPopulation':True}
+ return {'roadSegments':10,'intersections':24,'busStops':4,'taxiBays':3,'stationEntrances':2,'trees':'multi-lobe-procedural-varied','vehicles':45,'humans':90,'plazas':2,'parcelFields':parcel_count,'streamRoadConflict':False,'laneMarkingRuns':10,'midDetailPopulation':True}
 
 def main():
  v=sys.argv[sys.argv.index('--')+1:];p=argparse.ArgumentParser();p.add_argument('--output-root',required=True);a=p.parse_args(v);bpy.ops.wm.read_factory_settings(use_empty=True)
