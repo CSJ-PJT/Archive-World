@@ -4,7 +4,8 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from urban_stream.assemble_precision_hero import EXPANDED_REPLACED, REPLACED, assemble
+from urban_stream.assemble_precision_hero import (EXPANDED_REPLACED, REPLACED,
+                                                  FAMILY_BY_BLOCK_ROLE, assemble)
 
 with tempfile.TemporaryDirectory() as directory:
     root=Path(directory);baseline=root/"baseline";target=root/"target"
@@ -38,6 +39,8 @@ with tempfile.TemporaryDirectory() as directory:
     assert result["heroZones"][0]["performanceUri"].endswith("v29-lod2.glb")
     assert result["heroZones"][1]["performanceUri"].endswith("v36-lod2.glb")
     assert result["metrics"]["buildingInstances"]==20
+    assert result["precision"]["metropolitanComposition"]["officeV5Changed"] is False
+    assert len(FAMILY_BY_BLOCK_ROLE)>=12
     saved=json.loads((target/"manifest/core-district-stream-precision.json").read_text(encoding="utf-8"))
     assert saved==result
 

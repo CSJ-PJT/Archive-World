@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import tempfile
 from pathlib import Path
@@ -25,6 +26,64 @@ EXPANDED_REPLACED = {
     "core-block-09-building-08", "core-block-19-building-01",
     "core-block-20-building-01",
 }
+
+FAMILY_BY_BLOCK_ROLE = {
+    "landmark-plaza": ("premium-medium-office", "institutional-archiveos-office",
+                       "civic-tech-office", "cultural-public-pavilion"),
+    "financial-podium": ("premium-medium-office", "compact-financial-office",
+                          "corner-office-tower", "podium-office", "financial-annex"),
+    "office-courtyard": ("premium-medium-office", "podium-office",
+                         "civic-tech-office", "compact-financial-office"),
+    "compact-office": ("compact-financial-office", "corner-office-tower",
+                       "financial-annex"),
+    "transit-interchange": ("transit-hall", "retail-public-podium",
+                            "civic-tech-office", "compact-financial-office"),
+    "retail-boulevard": ("retail-public-podium", "podium-office",
+                         "financial-annex", "cultural-public-pavilion"),
+    "archive-civic-tech": ("institutional-archiveos-office", "civic-tech-office",
+                           "cultural-public-pavilion", "retail-public-podium"),
+    "cultural-public": ("cultural-public-pavilion", "institutional-archiveos-office",
+                        "retail-public-podium", "financial-annex"),
+    "service-operations": ("operations-service-building", "financial-annex",
+                           "compact-financial-office"),
+    "park-edge-office": ("civic-tech-office", "cultural-public-pavilion",
+                         "premium-medium-office", "retail-public-podium"),
+    "mixed-office-retail": ("podium-office", "retail-public-podium",
+                            "corner-office-tower", "financial-annex"),
+    "green-gateway": ("cultural-public-pavilion", "civic-tech-office",
+                      "retail-public-podium", "institutional-archiveos-office"),
+}
+
+
+def refine_metropolitan_instances(manifest: dict) -> dict:
+    """Give existing blocks a role-specific skyline and frontage composition."""
+    block_types = {block["id"]: block["type"] for block in manifest.get("blocks", [])}
+    refined = 0
+    for instance in manifest.get("instances", []):
+        if instance.get("familyId") == "archive-cbd-twin-atrium-pq-v5":
+            instance["officeV5Changed"] = False
+            continue
+        if not all(key in instance for key in ("familyId", "blockId", "position")):
+            continue
+        block_type = block_types.get(instance["blockId"])
+        pool = FAMILY_BY_BLOCK_ROLE.get(block_type)
+        if not pool:
+            continue
+        slot = int(instance["id"].rsplit("-", 1)[-1])
+        block_number = int(instance["blockId"].rsplit("-", 1)[-1])
+        instance["familyId"] = pool[(slot * 3 + block_number) % len(pool)]
+        instance["rotationY"] = ((slot + block_number * 2) % 4) * math.pi * .5
+        # Low civic/retail/service blocks create relief; financial towers retain
+        # a stronger scale without widening every footprint in the grid.
+        low_role = block_type in {"cultural-public", "service-operations",
+                                  "green-gateway", "retail-boulevard"}
+        scale_base = .70 if low_role else .76
+        instance["scale"] = round(scale_base + ((slot + block_number) % 4) * .045, 3)
+        instance["precisionRole"] = block_type
+        instance["frontageOrientation"] = "STREAM_OR_PRIMARY_STREET"
+        refined += 1
+    return {"refinedInstances": refined, "roleCount": len(FAMILY_BY_BLOCK_ROLE),
+            "quarterTurnVariation": True, "officeV5Changed": False}
 
 
 def atomic(path: Path, payload: dict):
@@ -54,6 +113,7 @@ def assemble(v11: Path, v12: Path, hero_version: str = "v26",
             if instance["id"] not in EXPANDED_REPLACED
         ]
         assert before_expanded - len(manifest["instances"]) == len(EXPANDED_REPLACED)
+    composition = refine_metropolitan_instances(manifest)
     manifest["schemaVersion"] = 4
     manifest["status"] = ("GENERATED_CORE_STREAM_PRECISION_ALL_ZONES"
                           if expanded_report else "GENERATED_CORE_STREAM_PRECISION_HERO_A")
@@ -104,6 +164,7 @@ def assemble(v11: Path, v12: Path, hero_version: str = "v26",
         "nextZoneLocked": not bool(expanded_report), "requiredScore": required_score,
         "qualityTarget": report.get("qualityTarget", {"grade": "B", "minimumScore": required_score}),
         "groundPlaneStreamOpening": True, "directReferenceCopy": False,
+        "metropolitanComposition": composition,
     }
     atomic(v12 / "manifest/core-district-stream-precision.json", manifest)
     return manifest
