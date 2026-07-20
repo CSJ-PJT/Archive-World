@@ -19,6 +19,7 @@ const selectedNames = new Set((process.env.ARCHIVE_CAPTURE_VIEWS ?? '').split(',
 const views = selectedNames.size ? allViews.filter(([name]) => selectedNames.has(name)) : allViews;
 const times = (process.env.ARCHIVE_CAPTURE_TIMES ?? 'day,dusk,night').split(',');
 const pickPoints = (process.env.ARCHIVE_PICK_POINTS ?? '').split(';').filter(Boolean).map(value => value.split(',').map(Number)).filter(value => value.length === 2 && value.every(Number.isFinite));
+const performanceSeconds = Number(process.env.ARCHIVE_PERFORMANCE_SECONDS ?? 0);
 
 const sleep = ms => new Promise(resolvePromise => setTimeout(resolvePromise, ms));
 async function json(url, attempts = 80) {
@@ -79,11 +80,12 @@ try {
       const url = `${baseUrl}&camera=${camera}&time=${time}&rev=metropolitan-precision-v41`;
       const started = Date.now();
       await call('Page.navigate', {url});
-      let title = '';
-      for (let attempt = 0; attempt < 120; attempt += 1) {
-        await sleep(250);
-        const value = await call('Runtime.evaluate', {expression: 'document.title', returnByValue: true});
-        title = value.result?.value ?? '';
+      let title = '', previousTitle = '';
+      for (let attempt = 0; attempt < 360; attempt += 1) {
+        await sleep(500);
+        const states = await fetch(`http://127.0.0.1:${port}/json/list`).then(response => response.json());
+        title = states.find(item => item.id === target.id)?.title ?? '';
+        if (title !== previousTitle) { process.stderr.write(`[capture] ${name}/${time}: ${title || 'UNTITLED'}\n`); previousTitle = title; }
         if (title.startsWith('CORE3D|')) break;
       }
       if (!title.startsWith('CORE3D|')) throw new Error(`Viewer not ready: ${name}/${time} (${title})`);
@@ -92,12 +94,22 @@ try {
         const value = await call('Runtime.evaluate', {expression: `window.__archiveReviewPick?.(${x},${y})`, returnByValue: true});
         picks.push({x, y, hits: value.result?.value ?? []});
       }
+      const performanceSamples = [];
+      if (performanceSeconds > 0) {
+        await sleep(8000);
+        for (let second = 0; second < performanceSeconds; second += 1) {
+          const value = await call('Runtime.evaluate', {expression: `document.querySelector('#core-perf')?.dataset.metrics ?? ''`, returnByValue: true});
+          const raw = value.result?.value ?? '';
+          if (raw) performanceSamples.push({second, ...JSON.parse(raw)});
+          await sleep(1000);
+        }
+      }
       const image = await call('Page.captureScreenshot', {format: 'png', captureBeyondViewport: false});
       const filename = `${name}-${time}.png`;
       const bytes = Buffer.from(image.data, 'base64');
       if (bytes.length < 10000 || bytes.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') throw new Error(`Invalid capture: ${filename}`);
       await writeFile(join(output, filename), bytes);
-      report.push({name, camera, time, filename: basename(filename), bytes: bytes.length, title, durationMs: Date.now() - started, actualWebGL: true, picks});
+      report.push({name, camera, time, filename: basename(filename), bytes: bytes.length, title, durationMs: Date.now() - started, actualWebGL: true, picks, performanceSamples});
     }
   }
   await writeFile(join(output, 'capture-report.json'), JSON.stringify({status: 'PASS', count: report.length, resolution: '1920x1080', report}, null, 2));

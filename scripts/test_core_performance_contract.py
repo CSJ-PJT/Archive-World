@@ -8,5 +8,8 @@ assert "UNKNOWN_NOT_MEASURED" in SOURCE
 assert "HARDWARE_CHROME_ACTUAL_WEBGL" in SOURCE
 assert '[switch]$Hardware' in SOURCE
 assert re.search(r'onePercentLow=.*lowFps',SOURCE)
+assert "ReadyTimeoutSeconds" in SOURCE
+assert "Chrome viewer ready timeout" in SOURCE
+assert "Where-Object type -eq 'page'" in SOURCE
 assert 'averageFps' in SOURCE and 'drawCalls' in SOURCE and 'triangles' in SOURCE
 print('core performance capture contract: PASS')

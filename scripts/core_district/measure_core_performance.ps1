@@ -2,6 +2,7 @@ param(
   [string]$Url = 'http://127.0.0.1:4176/?mode=core3d',
   [string]$Output = 'C:\ArchiveData\World\Generated\v9\core-district-visual-performance-rework\performance',
   [int]$DurationSeconds = 30,
+  [int]$ReadyTimeoutSeconds = 120,
   [int]$Port = 9339,
   [switch]$Hardware
 )
@@ -17,13 +18,22 @@ foreach($mode in @('day','night')){
   if(!$Hardware){$args=@('--headless=new')+$args}
   $process=Start-Process -FilePath $chrome -ArgumentList $args -WindowStyle Hidden -PassThru
   try{
-    $deadline=(Get-Date).AddSeconds(15);$page=$null
-    do{Start-Sleep -Milliseconds 500;try{$page=(Invoke-RestMethod "http://127.0.0.1:$Port/json")[0]}catch{}}until($page -or (Get-Date)-gt $deadline)
+    $deadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds);$page=$null
+    do{Start-Sleep -Milliseconds 500;try{$page=Invoke-RestMethod "http://127.0.0.1:$Port/json"|Where-Object type -eq 'page'|Select-Object -First 1}catch{}}until($page -or (Get-Date)-gt $deadline)
     if(!$page){throw "Chrome CDP startup timeout: $mode"}
+    # Heavy actual-GLB scenes may expose CDP before geometry, shaders and LODs
+    # are ready.  Measurement starts only after the viewer publishes a valid
+    # CORE3D title, never during the loading screen.
+    do{
+      Start-Sleep -Milliseconds 500
+      $page=Invoke-RestMethod "http://127.0.0.1:$Port/json"|Where-Object type -eq 'page'|Select-Object -First 1
+      $ready=$page.title -match '^CORE3D\|([0-9.]+)\|([0-9.]+)\|([0-9]+)\|([0-9]+)$'
+    }until($ready -or (Get-Date)-gt $deadline)
+    if(!$ready){throw "Chrome viewer ready timeout: $mode"}
     $samples=@();$until=(Get-Date).AddSeconds($DurationSeconds)
     while((Get-Date)-lt $until){
       Start-Sleep -Seconds 1
-      $page=(Invoke-RestMethod "http://127.0.0.1:$Port/json")[0]
+      $page=Invoke-RestMethod "http://127.0.0.1:$Port/json"|Where-Object type -eq 'page'|Select-Object -First 1
       if($page.title -match '^CORE3D\|([0-9.]+)\|([0-9.]+)\|([0-9]+)\|([0-9]+)$'){
         $samples += [pscustomobject]@{fps=[double]$Matches[1];lowFps=[double]$Matches[2];drawCalls=[int]$Matches[3];triangles=[int64]$Matches[4];at=(Get-Date).ToString('o')}
       }
