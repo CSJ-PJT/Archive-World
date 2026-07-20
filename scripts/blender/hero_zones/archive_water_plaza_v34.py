@@ -228,13 +228,13 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
             if left_masked and right_masked:
                 continue
             px = x - width * .5 + column * bay_width
-            pier_w = .28 if column not in (0, bay_count) else .48
+            pier_w = .17 if column not in (0, bay_count) else .36
             batch.add_box("v34-structural-facade-pier", accent,
                           (px, face_y + inside * .10, opening_z),
-                          (pier_w, .72, floor_h + .12))
+                          (pier_w, .58, floor_h + .08))
     for floor in range(floors + 1):
         pz = base_z + floor * floor_h
-        band_h = .25 if floor % 4 else .42
+        band_h = .18 if floor % 4 else .32
         for bay in range(bay_count):
             inside_feature = (
                 floor > 0 and floor < floors
@@ -246,7 +246,7 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
             px = x - width * .5 + (bay + .5) * bay_width
             batch.add_box("v34-attached-spandrel", stone if floor % 4 == 0 else accent,
                           (px, face_y + inside * .10, pz),
-                          (bay_width + .05, .72, band_h))
+                          (bay_width + .04, .58, band_h))
 
     # Rebuild each removed area as a complete, deep occupied sky room.  Floor,
     # ceiling, rear wall and side returns are continuous with the tower shell;
