@@ -59,7 +59,7 @@ const cameras:CameraPreset[]=[
  {name:'hero-north-lobby',position:[-345,4.1,-22],target:[-300,3.4,58]},
  {name:'hero-south-frontage',position:[-345,4.1,22],target:[-300,3.4,-58]},
  {name:'hero-civic-terrace',position:[-330,4.6,10],target:[-300,4.0,24]},
- {name:'hero-archive-aerial',position:[-250,160,180],target:[-250,18,0]},
+ {name:'hero-archive-aerial',position:[-80,130,110],target:[-250,18,0]},
  // The upper civic terrace is at +2.30m; 3.95m is a true 1.65m eye height.
  {name:'hero-s-street-axis',position:[-340,3.95,-15],target:[-218,3.2,1]},
  {name:'hero-s-frontage',position:[-300,3.95,-18],target:[-325,4.2,-60]},
