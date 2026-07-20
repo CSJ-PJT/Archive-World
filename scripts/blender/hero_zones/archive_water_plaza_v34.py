@@ -414,9 +414,12 @@ def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
 
 def _add_signature_activity_layer():
     """Camera-composed civic activity anchored to real frontage and furniture."""
-    batch = v12.HeroBatch(v12.create_materials())
+    human_batch = v12.HeroBatch(v12.create_materials())
+    prop_batch = v12.HeroBatch(v12.create_materials())
     records = []
     groups = (
+        (-312, -30.5, .18, "walking"), (-294, -32.0, -.30, "conversation"),
+        (-281, -29.5, .32, "walking"),
         (-334, -43.5, .30, "walking"), (-329, -44.5, .20, "conversation"),
         (-326, -42.7, -.25, "conversation"), (-318, -45.5, .35, "walking"),
         (-313, -43.8, -.15, "conversation"), (-309, -45.1, .25, "conversation"),
@@ -424,26 +427,108 @@ def _add_signature_activity_layer():
         (-257, -43.8, .25, "conversation"), (-252, -46.0, .05, "walking"),
     )
     for index, (x, y, facing, action) in enumerate(groups):
-        records.append(ORIGINAL_ADD_HUMAN(batch, x, y, facing, 1480 + index,
-                                          action, z_base=2.30))
+        records.append(_add_mid_detail_human(human_batch, x, y, facing,
+                                             1480 + index, action, 2.30))
     # Bicycle parking and a low planter edge clarify the public lobby program.
     for rack in range(5):
         x = -347.0 + rack * 1.25
-        batch.add_cylinder("v34-signature-bicycle-wheel", "service-charcoal",
-                           (x, -43.0, 2.72), .42, .08, 20)
-        batch.add_cylinder("v34-signature-bicycle-rack", "archive-metal",
-                           (x, -43.0, 2.92), .055, 1.24, 10)
-    batch.add_box("v34-signature-activity-planter", "archive-warm-stone",
-                  (-286, -44.8, 2.92), (12.0, 2.6, 1.18))
-    batch.add_box("v34-signature-activity-soil", "soil-v11",
-                  (-286, -44.8, 3.55), (11.5, 2.1, .10))
+        prop_batch.add_cylinder("v34-signature-bicycle-wheel", "service-charcoal",
+                                (x, -43.0, 2.72), .42, .08, 20)
+        prop_batch.add_cylinder("v34-signature-bicycle-rack", "archive-metal",
+                                (x, -43.0, 2.92), .055, 1.24, 10)
+    prop_batch.add_box("v34-signature-activity-planter", "archive-warm-stone",
+                       (-286, -44.8, 2.92), (12.0, 2.6, 1.18))
+    prop_batch.add_box("v34-signature-activity-soil", "soil-v11",
+                       (-286, -44.8, 3.55), (11.5, 2.1, .10))
     for shrub in range(9):
-        batch.add_uv_sphere("v34-signature-activity-shrub",
-                            ("foliage-deep", "foliage-mid", "foliage-light")[shrub % 3],
-                            (-291 + shrub * 1.25, -44.8, 4.03 + (shrub % 2) * .10),
-                            .58 + (shrub % 3) * .08, 18, 9, (1.15, .75, .68))
-    v12.consolidate(batch)
-    return batch.finalize(), records
+        prop_batch.add_uv_sphere("v34-signature-activity-shrub",
+                                 ("foliage-deep", "foliage-mid", "foliage-light")[shrub % 3],
+                                 (-291 + shrub * 1.25, -44.8, 4.03 + (shrub % 2) * .10),
+                                 .58 + (shrub % 3) * .08, 18, 9, (1.15, .75, .68))
+    # Two offset inhabited islands turn the former blank civic apron into a
+    # spatially legible forecourt without blocking the lobby sightline.
+    for island, (ix, iy, iw, angle) in enumerate(((-322.0, -31.5, 13.5, -.10),
+                                                   (-274.0, -33.0, 15.0, .12))):
+        prop_batch.add_box("v34-civic-island-stone-edge", "archive-warm-stone",
+                           (ix, iy, 2.72), (iw, 4.8, .82), angle)
+        prop_batch.add_box("v34-civic-island-soil", "soil-v11",
+                           (ix, iy, 3.18), (iw - .75, 4.05, .12), angle)
+        for plant in range(7):
+            px = ix - iw * .36 + plant * iw * .12
+            py = iy + math.sin(plant * 1.7 + island) * .72
+            prop_batch.add_uv_sphere("v34-civic-island-layered-planting",
+                                     ("foliage-deep", "foliage-mid", "foliage-light")[(plant + island) % 3],
+                                     (px, py, 3.70 + .10 * (plant % 2)),
+                                     .64 + .08 * (plant % 3), 20, 10, (1.20, .82, .74))
+        for bench in (-1, 1):
+            prop_batch.add_box("v34-civic-island-timber-seat", "timber-accent",
+                               (ix + bench * iw * .28, iy + 3.0, 2.84),
+                               (iw * .30, .72, .18), angle)
+            prop_batch.add_box("v34-civic-island-seat-support", "archive-metal",
+                               (ix + bench * iw * .28, iy + 3.0, 2.57),
+                               (iw * .24, .42, .46), angle)
+    # A narrow darker inlay records the primary pedestrian axis in real
+    # geometry and breaks the oversized pale paving field.
+    prop_batch.add_box("v34-civic-forecourt-axis-inlay", "ledger-granite",
+                       (-300.0, -30.0, 2.345), (7.0, 20.0, .055))
+    prop_batch.add_box("v34-civic-forecourt-axis-core", "dry-stone",
+                       (-300.0, -30.0, 2.382), (5.8, 20.0, .055))
+    human_objects = human_batch.finalize()
+    for obj in human_objects:
+        obj["nearFieldMidDetailHuman"] = True
+        for polygon in obj.data.polygons:
+            polygon.use_smooth = True
+    v12.consolidate(prop_batch)
+    return human_objects + prop_batch.finalize(), records
+
+
+def _add_mid_detail_human(batch, x, y, facing, seed, action, z_base):
+    """Near-camera human with continuous anatomical volumes, not box limbs."""
+    height = 1.66 + (seed % 7) * .025
+    body = ("archive-metal", "ledger-bronze", "service-charcoal")[seed % 3]
+    skin = "archive-warm-stone"
+    forward = (math.sin(facing), math.cos(facing))
+    right = (math.cos(facing), -math.sin(facing))
+    hip_z, chest_z, shoulder_z = z_base + height * .48, z_base + height * .68, z_base + height * .80
+    head_z = z_base + height * .94
+    batch.add_frustum("v34-human-tailored-torso", body,
+                      (x, y, (hip_z + shoulder_z) * .5), .155, .225,
+                      shoulder_z - hip_z, 18)
+    batch.add_frustum("v34-human-jacket-lower", body,
+                      (x, y, (hip_z + chest_z) * .5), .19, .17,
+                      chest_z - hip_z, 18)
+    batch.add_cylinder("v34-human-neck", skin, (x, y, head_z - .14), .061, .15, 14)
+    batch.add_uv_sphere("v34-human-head", skin, (x, y, head_z), .126, 24, 12, (1, .92, 1.08))
+    batch.add_uv_sphere("v34-human-hair", "service-charcoal",
+                        (x, y - .012, head_z + .065), .113, 22, 10, (1.03, .96, .72))
+    stride = .19 if action == "walking" else .035
+    for side in (-1, 1):
+        hip = (x + right[0] * side * .095, y + right[1] * side * .095, hip_z)
+        knee = (hip[0] + forward[0] * side * stride * .42,
+                hip[1] + forward[1] * side * stride * .42, z_base + height * .27)
+        foot = (x + right[0] * side * .10 + forward[0] * side * stride,
+                y + right[1] * side * .10 + forward[1] * side * stride, z_base + .08)
+        batch.add_tapered_branch("v34-human-upper-leg", "service-charcoal",
+                                 hip, knee, .086, .070, 12)
+        batch.add_tapered_branch("v34-human-lower-leg", "service-charcoal",
+                                 knee, foot, .070, .048, 12)
+        shoe_tip = (foot[0] + forward[0] * .16, foot[1] + forward[1] * .16, z_base + .06)
+        batch.add_tapered_branch("v34-human-shoe", "service-charcoal",
+                                 foot, shoe_tip, .064, .050, 12)
+        shoulder = (x + right[0] * side * .22, y + right[1] * side * .22, shoulder_z - .035)
+        elbow = (shoulder[0] - forward[0] * side * stride * .60,
+                 shoulder[1] - forward[1] * side * stride * .60, z_base + height * .64)
+        hand = (elbow[0] + forward[0] * side * stride * .33,
+                elbow[1] + forward[1] * side * stride * .33, z_base + height * .49)
+        batch.add_tapered_branch("v34-human-upper-arm", body, shoulder, elbow, .067, .052, 12)
+        batch.add_tapered_branch("v34-human-lower-arm", body, elbow, hand, .052, .039, 12)
+        batch.add_uv_sphere("v34-human-hand", skin, hand, .052, 14, 7, (1, .84, 1.08))
+    if seed % 4 == 0:
+        bag_x, bag_y = x + right[0] * .28, y + right[1] * .28
+        batch.add_frustum("v34-human-shoulder-bag", "timber-accent",
+                          (bag_x, bag_y, z_base + height * .49), .13, .17, .35, 14)
+    return {"position": [x, y], "action": action, "orientation": facing,
+            "grounded": True, "detail": "MID_DETAIL_NEAR_FIELD"}
 
 
 def add_wall_first_building(batch, spec):
@@ -575,6 +660,8 @@ def main():
         "baseValidation": base_validation, "consolidation": consolidation,
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
         "signatureActivityHumanCount": len(signature_activity),
+        "nearFieldMidDetailHumanCount": len(signature_activity),
+        "inhabitedCivicIslandCount": 2,
         "signatureBicycleRackCount": 5,
         "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),

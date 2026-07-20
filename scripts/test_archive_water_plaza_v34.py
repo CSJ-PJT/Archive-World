@@ -20,6 +20,10 @@ required = (
     "v34-window-jamb-return", "v34-window-head-return",
     "v34-window-sill-return", '"singleFacadeGlassCardCount": 0',
     '"perOpeningInfill": True',
+    "_add_mid_detail_human", '"nearFieldMidDetailHumanCount"',
+    '"detail": "MID_DETAIL_NEAR_FIELD"',
+    "v34-civic-island-stone-edge", "v34-civic-island-layered-planting",
+    "v34-civic-forecourt-axis-inlay", '"inhabitedCivicIslandCount": 2',
 )
 for token in required:
     assert token in source, token
