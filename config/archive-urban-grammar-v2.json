@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "archive-urban-grammar-v2",
+  "version": 2,
+  "status": "DESIGN_CONTRACT_NOT_CANONICAL",
+  "referencePolicy": {
+    "abstractPrinciplesOnly": true,
+    "directReproductionAllowed": false,
+    "forbidden": [
+      "identifiable-building",
+      "identifiable-bridge",
+      "identifiable-waterway",
+      "identifiable-plaza",
+      "identifiable-lighting-layout",
+      "identifiable-landmark",
+      "identifiable-urban-plan"
+    ],
+    "transformationChain": [
+      "reference-evidence",
+      "urban-principle",
+      "archive-grammar",
+      "archive-native-geometry",
+      "archive-scene-evidence"
+    ]
+  },
+  "sceneGates": {
+    "streetCamera": {
+      "eyeHeightM": [1.6, 1.75],
+      "focalLengthMm": [28, 35],
+      "maxBlankPavementRatio": 0.15,
+      "maxForegroundObstructionRatio": 0.12,
+      "minDepthLayers": 4,
+      "requiresActiveFrontage": true,
+      "requiresVisibleEntrance": true,
+      "requiresHumanScale": true,
+      "requiresMaterialDepth": true
+    },
+    "performance": {
+      "targetDrawCalls": 350,
+      "hardMaxDrawCalls": 399,
+      "targetAverageFps": 30,
+      "targetOnePercentLowFps": 20,
+      "targetCriticalCameraFps": 24
+    }
+  },
+  "building": {
+    "layers": ["inhabited-base", "urban-body", "sky-termination"],
+    "groundFloorClearHeightM": [4.5, 6.5],
+    "occupiedInteriorDepthM": [6.0, 12.0],
+    "windowRecessM": [0.25, 0.9],
+    "maxUnchangedFacadeFloors": 8,
+    "detachedWindowCount": 0,
+    "requiresWallReturns": true,
+    "requiresRoomBackShadow": true,
+    "requiresIntegratedRoofEquipment": true
+  },
+  "frontage": {
+    "bayWidthM": [4.0, 9.0],
+    "interiorDepthM": [6.0, 12.0],
+    "targets": {
+      "archive-water-plaza": 0.8,
+      "ledger-stream-terrace": 0.75,
+      "transit-stream-junction": 0.75,
+      "mixed-stream-corridor": 0.65,
+      "general-core-boulevard": 0.6
+    },
+    "requiredInteriorLayers": [
+      "floor",
+      "ceiling",
+      "rear-wall",
+      "column-grid",
+      "door",
+      "glazing-frame",
+      "furniture-silhouette",
+      "night-state"
+    ]
+  },
+  "block": {
+    "frontageLengthM": [70, 120],
+    "longBlockSubdivisionIntervalM": [45, 70],
+    "openSpaceRatio": [0.18, 0.32],
+    "towerSetbackM": [6, 15],
+    "heroTowerClearGapM": [22, 45],
+    "minViewCorridorM": 30,
+    "maxAdjacentIdenticalFamily": 1,
+    "maxConsecutiveIdenticalRoofline": 2,
+    "roles": ["primary-mass", "secondary-mass", "low-rise-edge", "public-void", "rear-service"],
+    "minRoleCount": 4
+  },
+  "stream": {
+    "waterWidthM": [8, 16],
+    "upperToLowerLevelDifferenceM": [1.8, 4.5],
+    "heroPromenadeClearWidthM": [5, 8],
+    "greenServicePromenadeClearWidthM": [3.5, 6],
+    "maxBarrierFreeAccessIntervalM": 80,
+    "maxGeneralAccessIntervalM": 60,
+    "maxIdenticalEdgeRunM": 50,
+    "crossingIntervalM": [80, 150],
+    "requiredContinuities": ["water", "pedestrian", "accessible", "maintenance", "fire-service"]
+  },
+  "skyline": {
+    "tiers": [
+      {"id": 1, "percentile": [95, 100], "role": "main-peak"},
+      {"id": 2, "percentile": [78, 94], "role": "secondary-peak"},
+      {"id": 3, "percentile": [55, 77], "role": "high-rise-urban-wall"},
+      {"id": 4, "percentile": [25, 54], "role": "mid-rise-fabric"},
+      {"id": 5, "percentile": [0, 24], "role": "civic-relief"}
+    ],
+    "requiresMidRiseTroughBetweenPeaks": true,
+    "forbidScaleOnlyFamilyVariants": true
+  },
+  "night": {
+    "groundFrontageLitRatio": [0.65, 0.85],
+    "towerWindowOccupancyRatio": [0.18, 0.35],
+    "lobbyColorTemperatureK": [2700, 3300],
+    "pedestrianColorTemperatureK": [3000, 3800],
+    "identityAccentColorTemperatureK": [4000, 5000],
+    "allWindowsEmissiveAllowed": false,
+    "waterSurfaceEmissiveAllowed": false
+  },
+  "landscape": {
+    "maxAdjacentIdenticalVariant": 2,
+    "minNearTreeCrownLobes": 3,
+    "requiresTrunkTaper": true,
+    "requiresAsymmetry": true,
+    "entryObstructionAllowed": false,
+    "bridgeApproachObstructionAllowed": false,
+    "serviceFireIntrusionAllowed": false
+  },
+  "protection": {
+    "canonicalMutationAllowed": false,
+    "v3LayoutMutationAllowed": false,
+    "runtimeMutationAllowed": false,
+    "mainMergeAllowed": false,
+    "officeV5MutationAllowed": false
+  }
+}
