@@ -27,6 +27,8 @@ required = (
     "v34-side-integrated-window-ribbon", "v34-side-ribbon-jamb",
     "v34-side-structural-floor-band", "v34-rear-integrated-service-window",
     "v34-rear-mechanical-service-band",
+    "_add_chamfered_mass", "v34-tower-chamfered-structural-core",
+    "v34-upper-chamfered-structural-core", '"chamferedPrimaryMassCount": 12',
 )
 for token in required:
     assert token in source, token

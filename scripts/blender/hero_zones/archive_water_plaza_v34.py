@@ -94,6 +94,29 @@ def _material_pair(style: int, north: bool):
     return ("ledger-limestone", "ledger-bronze")
 
 
+def _add_chamfered_mass(batch, role, material, center, dimensions, chamfer):
+    """Eight-sided architectural mass with real corner cuts and closed caps."""
+    cx, cy, cz = center
+    width, depth, height = dimensions
+    cut = min(chamfer, width * .18, depth * .18)
+    plan = (
+        (-width * .5 + cut, -depth * .5), (width * .5 - cut, -depth * .5),
+        (width * .5, -depth * .5 + cut), (width * .5, depth * .5 - cut),
+        (width * .5 - cut, depth * .5), (-width * .5 + cut, depth * .5),
+        (-width * .5, depth * .5 - cut), (-width * .5, -depth * .5 + cut),
+    )
+    vertices = [(cx + px, cy + py, cz - height * .5) for px, py in plan]
+    vertices += [(cx + px, cy + py, cz + height * .5) for px, py in plan]
+    faces = []
+    for index in range(8):
+        nxt = (index + 1) % 8
+        faces.extend(((index, nxt, 8 + nxt), (index, 8 + nxt, 8 + index)))
+    for index in range(1, 7):
+        faces.append((0, index + 1, index))
+        faces.append((8, 8 + index, 8 + index + 1))
+    batch._append(role, material, vertices, faces)
+
+
 def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
                           floors, floor_h, style, stone, accent):
     """One facade assembly: room boundary -> recessed glass -> structural grid."""
@@ -548,9 +571,9 @@ def add_wall_first_building(batch, spec):
     lower_h = lower_floors * floor_h
     lower_face = lower_y + facing * lower_d * .5
     # The structural core sits behind the glazing datum and supplies side/rear mass.
-    batch.add_box("v34-tower-structural-core", stone,
-                  (lower_x, lower_y - facing * 1.36, podium_h + lower_h * .5),
-                  (lower_w, lower_d - 2.72, lower_h))
+    _add_chamfered_mass(batch, "v34-tower-chamfered-structural-core", stone,
+                        (lower_x, lower_y - facing * 1.36, podium_h + lower_h * .5),
+                        (lower_w, lower_d - 2.72, lower_h), 1.45 + .22 * (style % 3))
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
                           width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
@@ -598,17 +621,19 @@ def add_wall_first_building(batch, spec):
         upper_x = lower_x + (1 if style % 2 else -1) * lower_w * .10
         upper_y = lower_y - facing * 1.6
         upper_face = upper_y + facing * upper_d * .5
-        batch.add_box("v34-upper-structural-core", stone,
-                      (upper_x, upper_y - facing * 1.30, podium_h + lower_h + upper_h * .5),
-                      (upper_w, upper_d - 2.60, upper_h))
+        _add_chamfered_mass(batch, "v34-upper-chamfered-structural-core", stone,
+                            (upper_x, upper_y - facing * 1.30,
+                             podium_h + lower_h + upper_h * .5),
+                            (upper_w, upper_d - 2.60, upper_h),
+                            1.15 + .18 * ((style + 1) % 3))
         _bounded_curtain_wall(batch, x=upper_x, face_y=upper_face, facing=facing,
                               width=upper_w, base_z=podium_h + lower_h,
                               floors=upper_floors, floor_h=floor_h,
                               style=style + 7, stone=stone, accent=accent)
     roof_z = podium_h + floors * floor_h
-    batch.add_box("v34-integrated-machine-room", "service-charcoal",
-                  (x - width * .10, y, roof_z + 2.4),
-                  (width * .27, depth * .28, 4.8))
+    _add_chamfered_mass(batch, "v34-integrated-chamfered-machine-room", "service-charcoal",
+                        (x - width * .10, y, roof_z + 2.4),
+                        (width * .27, depth * .28, 4.8), .70)
     batch.add_box("v34-roof-screen", accent,
                   (x + width * .10, y + facing * depth * .10, roof_z + 3.25),
                   (width * .42, .35, 4.9))
@@ -682,6 +707,7 @@ def main():
         "nearFieldTreeSilhouetteCount": 3,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
         "singleFacadeGlassCardCount": 0,
+        "chamferedPrimaryMassCount": 12,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
