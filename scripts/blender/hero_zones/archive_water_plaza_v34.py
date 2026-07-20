@@ -1694,6 +1694,101 @@ def add_wall_first_building(batch, spec):
                                         stone=stone, accent=accent)
 
 
+def _add_metropolitan_precision_layer():
+    """Add place-specific occupied rooms and activity to the Archive hero zone.
+
+    This layer is deliberately concentrated in the photographic foreground.
+    It does not scatter props: every cluster is tied to a lobby, bridge landing,
+    cafe terrace or promenade room.
+    """
+    batch = v12.HeroBatch(v12.create_materials())
+    records, activity = [], []
+    # Two different bank-side rooms close the gap between the civic podium and
+    # the lower promenade.  Their floor/ceiling/rear-wall depth is visible.
+    rooms = (
+        (-304.0, -31.5, 1, 22.0, 7.2, "archive-warm-stone", "archive-metal", "arrival-lounge"),
+        (-214.0, 31.5, -1, 25.0, 8.0, "ledger-limestone", "ledger-bronze", "water-cafe"),
+    )
+    for x, y, facing, width, depth, stone, accent, role in rooms:
+        inside = -facing
+        front_y = y + facing * depth * .5
+        batch.add_box(f"v36-{role}-floor", "ledger-granite", (x, y, 2.48), (width, depth, .24))
+        batch.add_box(f"v36-{role}-ceiling", "warm-interior", (x, y, 7.72), (width, depth, .22))
+        batch.add_box(f"v36-{role}-rear-wall", stone, (x, front_y + inside * (depth - .22), 5.1), (width, .22, 5.0))
+        for bay in range(5):
+            bx = x - width * .5 + (bay + .5) * width / 5
+            batch.add_box(f"v36-{role}-integrated-glass", "frontage-glass", (bx, front_y + inside * .34, 5.15), (width / 5 - .32, .14, 4.55))
+            for edge in (-1, 1):
+                batch.add_box(f"v36-{role}-jamb-return", accent, (bx + edge * (width / 10 - .14), front_y + inside * .45, 5.15), (.15, .90, 4.85))
+            batch.add_box(f"v36-{role}-head-return", accent, (bx, front_y + inside * .45, 7.46), (width / 5 - .28, .90, .18))
+            batch.add_box(f"v36-{role}-sill-return", stone, (bx, front_y + inside * .45, 2.82), (width / 5 - .28, .90, .24))
+            batch.add_cylinder(f"v36-{role}-table", "timber-accent", (bx, y, 3.10), .74, .16, 18)
+            batch.add_cylinder(f"v36-{role}-pendant", "warm-light", (bx, y, 7.44), .18, .18, 16)
+        batch.add_box(f"v36-{role}-deep-canopy", accent, (x, front_y + facing * 2.2, 7.62), (width * .76, 4.8, .34))
+        records.append({"role": role, "depthM": depth, "boundedBays": 5, "occupied": True})
+
+    # Programmed bridge landings: seating, planting and lighting form distinct
+    # rooms without obstructing the continuous accessible route.
+    for landing_index, landing_x in enumerate((-286.0, -244.0, -202.0)):
+        for bank in (-1, 1):
+            y = bank * 19.8
+            batch.add_box("v36-bridge-landing-inlay", "dry-stone", (landing_x, y, .32), (15.0, 7.0, .16))
+            batch.add_box("v36-bridge-landing-seat", "timber-accent", (landing_x - 3.1, y + bank * 1.7, .72), (4.2, .78, .18))
+            batch.add_box("v36-bridge-landing-planter", "archive-warm-stone", (landing_x + 4.0, y + bank * 1.6, .74), (3.2, 1.8, 1.0))
+            batch.add_uv_sphere("v36-bridge-landing-planting", "foliage-mid", (landing_x + 4.0, y + bank * 1.6, 1.52), 1.05, 14, 8, (1.4, .8, .7))
+            batch.add_cylinder("v36-bridge-landing-light-pole", "archive-metal", (landing_x, y - bank * 2.2, 2.25), .075, 4.2, 12)
+            batch.add_cylinder("v36-bridge-landing-light", "warm-light", (landing_x, y - bank * 2.2, 4.42), .17, .18, 14)
+            for person_index in range(4):
+                activity.append(_add_mid_detail_human(batch, landing_x - 2.7 + person_index * 1.8, y - bank * .8, .12 * bank, 7600 + landing_index * 20 + person_index + (10 if bank > 0 else 0), "conversation" if person_index < 2 else "walking", .14))
+
+    # Near-field tree rooms frame entrances and maintain open sightlines.
+    for index, (x, y) in enumerate(((-322,-27),(-310,27),(-278,-28),(-266,28),(-226,-28),(-214,27),(-184,-27),(-174,27))):
+        _add_architectural_tree(batch, x, y, 8100 + index, .72 + .05 * (index % 3), .14)
+        batch.add_box("v36-tree-room-grate", "ledger-granite", (x, y, .20), (3.0, 3.0, .10))
+
+    # Archive gateway bridge: a civic-scale crossing with structural portal,
+    # inhabited landings and a clearly readable lower-promenade connection.
+    gateway_x = -250.0
+    batch.add_box("v37-archive-gateway-deck", "ledger-granite", (gateway_x, 0, 2.78), (11.5, 38.0, .58))
+    batch.add_box("v37-archive-gateway-walking-surface", "dry-stone", (gateway_x, 0, 3.10), (10.6, 37.2, .12))
+    for bank in (-1, 1):
+        for side in (-1, 1):
+            batch.add_box("v37-archive-gateway-portal-column", "archive-metal", (gateway_x + side * 4.8, bank * 13.2, 6.45), (.44, .56, 6.7))
+        batch.add_box("v37-archive-gateway-portal-beam", "archive-metal", (gateway_x, bank * 13.2, 9.62), (10.2, .56, .42))
+        batch.add_box("v37-archive-gateway-light-line", "archive-cyan-light", (gateway_x, bank * 13.0, 9.35), (8.6, .10, .10))
+        batch.add_box("v37-archive-gateway-landing", "dry-stone", (gateway_x, bank * 22.4, 2.58), (20.0, 8.4, .22))
+        batch.add_box("v37-archive-gateway-landing-seat", "timber-accent", (gateway_x - 5.2, bank * 22.4, 3.05), (5.4, 1.0, .18))
+        for index in range(5):
+            activity.append(_add_mid_detail_human(batch, gateway_x - 3.6 + index * 1.8, bank * (18.5 + .45 * (index % 2)), .12 * bank, 8400 + index + (20 if bank > 0 else 0), "walking" if index % 2 else "conversation", 3.10))
+
+    # Cafe terraces read as programmed public rooms rather than loose props.
+    for terrace_index, (tx, ty, facing) in enumerate(((-302.0, -23.5, 1), (-214.0, 23.5, -1))):
+        batch.add_box("v37-cafe-terrace-paving", "dry-stone", (tx, ty, 2.52), (24.0, 10.0, .18))
+        batch.add_box("v37-cafe-terrace-pergola-beam", "timber-accent", (tx, ty, 6.62), (23.0, .32, .34))
+        for col in (-10.8, -5.4, 0, 5.4, 10.8):
+            batch.add_cylinder("v37-cafe-terrace-pergola-column", "archive-metal", (tx + col, ty, 4.56), .13, 3.9, 14)
+        for table_index in range(4):
+            table_x = tx - 7.5 + table_index * 5.0
+            table_y = ty + facing * 2.0
+            batch.add_cylinder("v37-cafe-table", "timber-accent", (table_x, table_y, 3.25), .72, .16, 18)
+            batch.add_cylinder("v37-cafe-table-leg", "archive-metal", (table_x, table_y, 2.88), .09, .72, 12)
+            for chair_side in (-1, 1):
+                batch.add_box("v37-cafe-chair-seat", "timber-accent", (table_x, table_y + chair_side * 1.05, 3.05), (.72, .72, .14))
+                batch.add_box("v37-cafe-chair-back", "timber-accent", (table_x, table_y + chair_side * 1.32, 3.55), (.72, .12, .92))
+            activity.append(_add_mid_detail_human(batch, table_x + .65, table_y, .18 * facing, 8500 + terrace_index * 20 + table_index, "conversation", 2.62))
+
+    # Irregular planted pockets soften the retaining edge without becoming a
+    # continuous decorative strip or blocking accessibility.
+    for pocket_index, px in enumerate((-330.0, -294.0, -270.0, -230.0, -206.0, -178.0)):
+        bank = -1 if pocket_index % 2 else 1
+        py = bank * 15.8
+        batch.add_box("v37-water-edge-planting-pocket", "wet-stone", (px, py, .34), (8.0, 2.8, .48))
+        for plant_index in range(3):
+            batch.add_uv_sphere("v37-water-edge-irregular-planting", "foliage-light" if plant_index % 2 else "foliage-mid", (px - 2.3 + plant_index * 2.3, py, 1.02 + .08 * plant_index), .72, 14, 8, (1.2, .65, .8 + .15 * plant_index))
+
+    return batch.finalize(), {"occupiedRooms": records, "activityCount": len(activity), "bridgeLandingRooms": 6, "nearFieldTrees": 8, "archiveGatewayBridge": 1, "cafeTerraces": 2, "cafeTables": 8, "plantedWaterEdgePockets": 6}
+
+
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
     parser = argparse.ArgumentParser()
@@ -1717,12 +1812,14 @@ def main():
         stream_room_objects, stream_rooms = _add_stream_civic_rooms()
         liner_objects, stream_liners = _add_stream_liner_architecture()
         section_objects, civic_sections = _add_archive_civic_section_rebuild()
+        metropolitan_objects, metropolitan_precision = _add_metropolitan_precision_layer()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
     objects = (base_objects + public_objects + activity_objects
-               + stream_room_objects + liner_objects + section_objects)
+               + stream_room_objects + liner_objects + section_objects
+               + metropolitan_objects)
     precision_edges = v28.apply_precision_edges(objects)
     smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
     smooth_object_count = 0
@@ -1739,12 +1836,12 @@ def main():
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
 
-    target = output / "archive-water-plaza-hero-v35.glb"
+    target = output / "archive-water-plaza-hero-v37.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB", export_yup=True,
                               export_normals=True, export_texcoords=False,
                               export_materials="EXPORT", export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 35,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 37,
         "zone": "Archive Water Plaza", "qualityTarget": {"grade": "S", "minimumScore": 95},
         "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
@@ -1804,12 +1901,13 @@ def main():
         "streamLinerVestibuleCount": len(stream_liners),
         "archiveCivicSectionCount": len(civic_sections),
         "archiveCivicSection": civic_sections,
+        "metropolitanPrecision": metropolitan_precision,
         "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),
         "officeV5Changed": False, "directReferenceCopy": False,
         "referencePolicy": "Abstract spatial and visual-quality direction only; no identifiable design reproduced.",
     }
-    (output / "archive-water-plaza-hero-v35-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    (output / "archive-water-plaza-hero-v37-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "facadeAssemblies": len(ENVELOPE), "detachedWindows": 0}))
 

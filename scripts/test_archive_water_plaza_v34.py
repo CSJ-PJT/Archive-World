@@ -85,5 +85,12 @@ assert "v34-integrated-glass-field" not in source
 assert "hero-gateway-diagonal-brace" not in base_source
 assert "hero-gateway-bank-marker" in base_source
 assert "hero-gateway-approach-plinth" in base_source
-assert 'archive-water-plaza-hero-v35.glb' in source
-print("archive water plaza v35 deep-atrium and civic-section contract: PASS")
+for token in (
+    "_add_metropolitan_precision_layer", "v37-archive-gateway-deck",
+    "v37-cafe-terrace-paving", "v37-water-edge-planting-pocket",
+    '"archiveGatewayBridge": 1', '"cafeTerraces": 2',
+    '"plantedWaterEdgePockets": 6',
+):
+    assert token in source, token
+assert 'archive-water-plaza-hero-v37.glb' in source
+print("archive water plaza v37 metropolitan precision contract: PASS")
