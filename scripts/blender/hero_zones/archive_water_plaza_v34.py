@@ -89,9 +89,20 @@ def add_camera_safe_human(batch, x, y, facing, seed, action, z_base=0.0):
 
 
 def _material_pair(style: int, north: bool):
+    # Six coordinated palettes reinforce the six architectural grammars.  The
+    # variation follows massing and frontage roles; it is not a random colour
+    # pass used to disguise identical geometry.
     if north:
-        return ("archive-warm-stone", "archive-metal")
-    return ("ledger-limestone", "ledger-bronze")
+        return (
+            ("archive-warm-stone", "archive-metal"),
+            ("ledger-limestone", "archive-metal"),
+            ("dry-stone", "archive-metal"),
+        )[style % 3]
+    return (
+        ("ledger-limestone", "ledger-bronze"),
+        ("dry-stone", "ledger-bronze"),
+        ("archive-warm-stone", "ledger-bronze"),
+    )[style % 3]
 
 
 def _add_chamfered_mass(batch, role, material, center, dimensions, chamfer):
@@ -1360,6 +1371,7 @@ def main():
         "featureCellsRemovedBeforeRoomBuild": sum(
             item["featureCellsRemovedBeforeRoomBuild"] for item in ENVELOPE),
         "distinctRoofGrammarCount": 3,
+        "coordinatedBuildingPaletteCount": 6,
         "sidePerOpeningEnvelope": True,
         "occupiedSetbackTerraceCount": 18,
         "envelope": ENVELOPE, "validation": validation,

@@ -44,6 +44,7 @@ required = (
     "v34-facade-to-body-corner-return", '"facadeBodyCornerReturnCount": 24',
     "v34-archive-crown-service-volume", "v34-ledger-roof-terrace",
     "v34-civic-roof-lantern-interior", '"distinctRoofGrammarCount": 3',
+    '"coordinatedBuildingPaletteCount": 6',
     "_secondary_ground_floor_grammar", "v34-deep-public-arcade-roof",
     "v34-corner-public-room-glass", '"secondaryGroundFloorGrammarCount": 2',
     '"inhabitedArcadeCount": 2', '"cornerPublicRoomCount": 2',
