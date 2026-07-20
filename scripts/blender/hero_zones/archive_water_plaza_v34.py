@@ -426,6 +426,80 @@ def _inhabited_podium(batch, spec, podium_h, stone, accent):
                   (facade_width - .7, .28, .62))
     if style in (0, 3):
         _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent)
+    else:
+        _secondary_ground_floor_grammar(batch, spec, podium_h, face_y,
+                                        stone, accent)
+
+
+def _secondary_ground_floor_grammar(batch, spec, podium_h, face_y,
+                                    stone, accent):
+    """Distinct inhabited bases for the four non-signature buildings."""
+    x, _y, width, _depth, _floors, _floor_h, style = spec
+    facing = -1 if spec[1] > 0 else 1
+    inside = -facing
+    if style % 3 == 1:
+        # A deep covered public arcade with actual occupied rooms behind it.
+        arcade_w = width * .72
+        arcade_y = face_y + facing * 3.4
+        batch.add_box("v34-deep-public-arcade-roof", stone,
+                      (x, arcade_y, podium_h - .18),
+                      (arcade_w, 6.8, .42))
+        batch.add_box("v34-deep-public-arcade-soffit", "timber-accent",
+                      (x, arcade_y, podium_h - .43),
+                      (arcade_w - .50, 6.3, .10))
+        for column in range(5):
+            cx = x - arcade_w * .5 + column * arcade_w / 4
+            batch.add_cylinder("v34-arcade-tapered-column", accent,
+                               (cx, face_y + facing * 6.1, podium_h * .5),
+                               .28, podium_h, 18)
+        for bay in (-1, 0, 1):
+            bx = x + bay * arcade_w * .25
+            batch.add_box("v34-arcade-occupied-room-floor", "ledger-granite",
+                          (bx, face_y + inside * 2.7, 2.45),
+                          (arcade_w * .22, 4.8, .24))
+            batch.add_box("v34-arcade-occupied-room-back", "warm-interior",
+                          (bx, face_y + inside * 5.0, 4.55),
+                          (arcade_w * .22, .16, 4.2))
+            batch.add_box("v34-arcade-cafe-counter", "timber-accent",
+                          (bx, face_y + inside * 3.6, 3.05),
+                          (arcade_w * .15, .72, 1.08))
+    else:
+        # A civic terrace base with a real corner pavilion and stepped public
+        # threshold; unlike the arcade it opens laterally to the stream.
+        terrace_x = x + (-1 if style % 2 else 1) * width * .17
+        terrace_y = face_y + facing * 5.2
+        for step in range(3):
+            batch.add_box("v34-civic-frontage-terrace-step", "dry-stone",
+                          (terrace_x, terrace_y + facing * step * 1.05,
+                           2.42 + step * .18),
+                          (width * (.58 - step * .05), 3.2, .36))
+        pavilion_w = width * .28
+        pavilion_y = face_y + facing * 3.4
+        batch.add_box("v34-corner-public-room-floor", "ledger-granite",
+                      (terrace_x, pavilion_y, 2.68),
+                      (pavilion_w, 6.6, .26))
+        batch.add_box("v34-corner-public-room-ceiling", "warm-interior",
+                      (terrace_x, pavilion_y, podium_h - .28),
+                      (pavilion_w, 6.6, .28))
+        batch.add_box("v34-corner-public-room-back", "warm-interior",
+                      (terrace_x, face_y + inside * .12, podium_h * .55),
+                      (pavilion_w, .18, podium_h - .82))
+        batch.add_box("v34-corner-public-room-glass", "frontage-glass",
+                      (terrace_x, face_y + facing * 6.72, podium_h * .55),
+                      (pavilion_w - .40, .12, podium_h - 1.02))
+        for mullion in range(5):
+            mx = terrace_x - pavilion_w * .5 + mullion * pavilion_w / 4
+            batch.add_box("v34-corner-public-room-mullion", accent,
+                          (mx, face_y + facing * 6.78, podium_h * .55),
+                          (.16, .30, podium_h - .82))
+        batch.add_box("v34-corner-public-room-canopy", stone,
+                      (terrace_x, face_y + facing * 7.8, podium_h + .16),
+                      (pavilion_w + 3.2, 3.0, .38))
+        for seat in (-1, 1):
+            batch.add_box("v34-civic-terrace-seat", "timber-accent",
+                          (terrace_x + seat * pavilion_w * .32,
+                           terrace_y + facing * 4.4, 2.82),
+                          (pavilion_w * .23, .70, .18))
 
 
 def _signature_civic_lobby(batch, spec, podium_h, face_y, stone, accent):
@@ -626,6 +700,64 @@ def _add_signature_activity_layer():
     return human_objects + prop_batch.finalize(), records
 
 
+def _add_stream_civic_rooms():
+    """Six programmed overlooks replace residual blank promenade stretches."""
+    batch = v12.HeroBatch(v12.create_materials())
+    room_records = []
+    for bank in (-1, 1):
+        for index, x in enumerate((-318.0, -272.0, -214.0)):
+            y = bank * (18.3 + (index % 2) * 1.1)
+            facing = -bank
+            width = 12.5 + index * 1.4
+            # Real raised threshold and retaining lip at the stream side.
+            batch.add_box("v34-stream-room-platform", "dry-stone",
+                          (x, y, 2.40), (width, 6.8, .26))
+            batch.add_box("v34-stream-room-water-edge-seat", "timber-accent",
+                          (x, y + facing * 2.65, 2.78),
+                          (width * .72, .72, .18))
+            batch.add_box("v34-stream-room-seat-plinth", "archive-metal",
+                          (x, y + facing * 2.65, 2.56),
+                          (width * .64, .42, .42))
+            # Paired planting frames the room while preserving the water view.
+            for side in (-1, 1):
+                px = x + side * width * .43
+                batch.add_box("v34-stream-room-planter", "archive-warm-stone",
+                              (px, y - facing * .55, 2.92),
+                              (2.35, 3.2, 1.12))
+                batch.add_box("v34-stream-room-planter-soil", "soil-v11",
+                              (px, y - facing * .55, 3.51),
+                              (2.0, 2.85, .10))
+                for shrub in range(3):
+                    batch.add_uv_sphere("v34-stream-room-layered-shrub",
+                                        ("foliage-deep", "foliage-mid", "foliage-light")[(index + shrub) % 3],
+                                        (px + (shrub - 1) * .55,
+                                         y - facing * .55,
+                                         3.94 + .08 * (shrub % 2)),
+                                        .52 + .08 * shrub, 18, 9,
+                                        (1.05, .72, .66))
+            # Every other room is shaded by a slim, buildable pergola rather
+            # than a floating decorative plane.
+            if index % 2 == 0:
+                canopy_y = y - facing * .72
+                for side in (-1, 1):
+                    batch.add_cylinder("v34-stream-room-pergola-column", "archive-metal",
+                                       (x + side * width * .34, canopy_y, 4.86),
+                                       .13, 4.9, 14)
+                batch.add_box("v34-stream-room-pergola-beam", "archive-metal",
+                              (x, canopy_y, 7.32), (width * .80, .26, .28))
+                for slat in range(7):
+                    sx = x - width * .35 + slat * width * .70 / 6
+                    batch.add_box("v34-stream-room-pergola-slat", "timber-accent",
+                                  (sx, canopy_y, 7.42), (.18, 4.6, .18))
+            batch.add_box("v34-stream-room-step-light", "warm-light",
+                          (x, y + facing * 3.04, 2.62),
+                          (width * .64, .08, .10))
+            room_records.append({"bank": bank, "position": [x, y],
+                                 "program": "shaded-overlook" if index % 2 == 0 else "open-seating"})
+    v12.consolidate(batch)
+    return batch.finalize(), room_records
+
+
 def _add_mid_detail_human(batch, x, y, facing, seed, action, z_base):
     """Near-camera human with continuous anatomical volumes, not box limbs."""
     height = 1.66 + (seed % 7) * .025
@@ -698,23 +830,46 @@ def add_wall_first_building(batch, spec):
     _bounded_curtain_wall(batch, x=lower_x, face_y=lower_face, facing=facing,
                           width=lower_w, base_z=podium_h, floors=lower_floors,
                           floor_h=floor_h, style=style, stone=stone, accent=accent)
-    # Side walls use a materially bounded vertical rhythm.  Recessed infill
-    # panels intersect the core datum and receive actual jambs/bands, avoiding
-    # both blank party walls and decorative cards hovering beside the tower.
+    # Side walls are complete per-opening envelopes.  The former five tall
+    # glass ribbons still left large blank slabs in the stream-axis camera and
+    # read like applied decoration.  Every side lite now sits in a bounded
+    # floor-by-floor opening recessed into the primary mass.
     for side in (-1, 1):
         side_x = lower_x + side * lower_w * .5
-        for ribbon in range(5):
-            sy = lower_y - lower_d * .34 + ribbon * lower_d * .17
-            ribbon_depth = lower_d * .105
-            batch.add_box("v34-side-integrated-window-ribbon", "blue-gray-glass",
-                          (side_x - side * .13, sy, podium_h + lower_h * .50),
-                          (.14, ribbon_depth, lower_h * .80))
-            for return_side in (-1, 1):
-                batch.add_box("v34-side-ribbon-jamb", accent,
-                              (side_x - side * .28,
-                               sy + return_side * ribbon_depth * .5,
-                               podium_h + lower_h * .50),
-                              (.56, .18, lower_h * .82))
+        side_bays = max(4, round(lower_d / 5.8))
+        side_pitch = lower_d * .78 / side_bays
+        for floor in range(lower_floors):
+            opening_z = podium_h + floor * floor_h + floor_h * .5
+            opening_h = floor_h - (.70 if floor % 4 else .86)
+            for bay in range(side_bays):
+                sy = lower_y - lower_d * .39 + (bay + .5) * side_pitch
+                service = (bay + floor + style) % 9 == 0
+                material = stone if service else (
+                    "occupied-window-glass" if (bay + floor + style) % 4 == 0
+                    else "blue-gray-glass")
+                batch.add_box("v34-side-integrated-opening-infill", material,
+                              (side_x - side * .34, sy, opening_z),
+                              (.14, side_pitch - .32, opening_h))
+                for edge in (-1, 1):
+                    batch.add_box("v34-side-opening-jamb-return", accent,
+                                  (side_x - side * .18,
+                                   sy + edge * (side_pitch * .5 - .13),
+                                   opening_z),
+                                  (.68, .16, opening_h + .12))
+                batch.add_box("v34-side-opening-head-return", accent,
+                              (side_x - side * .18, sy,
+                               opening_z + opening_h * .5),
+                              (.68, side_pitch - .18, .16))
+                batch.add_box("v34-side-opening-sill-return", accent,
+                              (side_x - side * .18, sy,
+                               opening_z - opening_h * .5),
+                              (.68, side_pitch - .18, .16))
+        for bay in range(side_bays + 1):
+            sy = lower_y - lower_d * .39 + bay * side_pitch
+            batch.add_box("v34-side-structural-pier", stone,
+                          (side_x - side * .08, sy,
+                           podium_h + lower_h * .5),
+                          (.42, .30, lower_h + .34))
         for band_floor in range(0, lower_floors + 1, 4):
             band_z = podium_h + band_floor * floor_h
             batch.add_box("v34-side-structural-floor-band", stone,
@@ -788,11 +943,12 @@ def main():
         base_objects, base_geometry, base_validation, consolidation, trees, base_activity = v12.build_zone()
         public_objects, public_geometry, public_activity = v29.add_inhabited_promenade()
         activity_objects, signature_activity = _add_signature_activity_layer()
+        stream_room_objects, stream_rooms = _add_stream_civic_rooms()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
-    objects = base_objects + public_objects + activity_objects
+    objects = base_objects + public_objects + activity_objects + stream_room_objects
     precision_edges = v28.apply_precision_edges(objects)
     smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
     smooth_object_count = 0
@@ -824,6 +980,9 @@ def main():
         "boundedFrontageBayCount": sum(7 + style % 3 for style in range(6)),
         "lobbyCount": 6, "retailPublicBayCount": 42,
         "signatureProjectedLobbyCount": 2,
+        "secondaryGroundFloorGrammarCount": 2,
+        "inhabitedArcadeCount": 2,
+        "cornerPublicRoomCount": 2,
         "interiorFloorPlateCount": sum(item[4] for item in [
             (-326, 78, 44, 34, 22), (-260, 82, 50, 38, 28), (-190, 75, 38, 32, 18),
             (-326, -78, 48, 36, 25), (-258, -82, 42, 34, 20), (-188, -76, 54, 40, 16),
@@ -836,6 +995,7 @@ def main():
         "distinctFacadeGrammarCount": 3,
         "facadeBodyCornerReturnCount": 24,
         "distinctRoofGrammarCount": 3,
+        "sidePerOpeningEnvelope": True,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
@@ -843,6 +1003,7 @@ def main():
         "nearFieldMidDetailHumanCount": len(signature_activity),
         "inhabitedCivicIslandCount": 2,
         "signatureBicycleRackCount": 5,
+        "programmedStreamRoomCount": len(stream_rooms),
         "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),
         "officeV5Changed": False, "directReferenceCopy": False,
