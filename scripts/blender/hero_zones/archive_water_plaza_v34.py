@@ -636,17 +636,25 @@ def _add_signature_activity_layer():
     prop_batch = v12.HeroBatch(v12.create_materials())
     records = []
     groups = (
-        (-312, -30.5, .18, "walking"), (-294, -32.0, -.30, "conversation"),
-        (-281, -29.5, .32, "walking"),
-        (-334, -43.5, .30, "walking"), (-329, -44.5, .20, "conversation"),
-        (-326, -42.7, -.25, "conversation"), (-318, -45.5, .35, "walking"),
-        (-313, -43.8, -.15, "conversation"), (-309, -45.1, .25, "conversation"),
-        (-267, -43.5, .15, "walking"), (-262, -45.0, -.20, "conversation"),
-        (-257, -43.8, .25, "conversation"), (-252, -46.0, .05, "walking"),
+        (-312, -30.5, .18, "walking", 2.30), (-294, -32.0, -.30, "conversation", 2.30),
+        (-281, -29.5, .32, "walking", 2.30),
+        (-334, -43.5, .30, "walking", 2.30), (-329, -44.5, .20, "conversation", 2.30),
+        (-326, -42.7, -.25, "conversation", 2.30), (-318, -45.5, .35, "walking", 2.30),
+        (-313, -43.8, -.15, "conversation", 2.30), (-309, -45.1, .25, "conversation", 2.30),
+        (-267, -43.5, .15, "walking", 2.30), (-262, -45.0, -.20, "conversation", 2.30),
+        (-257, -43.8, .25, "conversation", 2.30), (-252, -46.0, .05, "walking", 2.30),
+        # Lower-promenade activity is placed against the actual +0.14m datum.
+        # These clusters establish near/mid/far human scale in the stream view.
+        (-318, -11.4, .42, "walking", .14), (-309, -10.8, -.22, "conversation", .14),
+        (-298, -11.7, .18, "walking", .14), (-283, -10.9, -.35, "conversation", .14),
+        (-268, -11.6, .28, "walking", .14), (-250, -10.8, -.18, "walking", .14),
+        (-230, -11.5, .26, "conversation", .14), (-210, -10.9, -.22, "walking", .14),
+        (-306, 11.1, -.32, "walking", .14), (-288, 10.7, .25, "conversation", .14),
+        (-260, 11.4, -.20, "walking", .14), (-238, 10.8, .28, "conversation", .14),
     )
-    for index, (x, y, facing, action) in enumerate(groups):
+    for index, (x, y, facing, action, z_base) in enumerate(groups):
         records.append(_add_mid_detail_human(human_batch, x, y, facing,
-                                             1480 + index, action, 2.30))
+                                             1480 + index, action, z_base))
     # Bicycle parking and a low planter edge clarify the public lobby program.
     for rack in range(5):
         x = -347.0 + rack * 1.25
@@ -1001,6 +1009,7 @@ def main():
         "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
         "signatureActivityHumanCount": len(signature_activity),
         "nearFieldMidDetailHumanCount": len(signature_activity),
+        "lowerPromenadeMidDetailHumanCount": 12,
         "inhabitedCivicIslandCount": 2,
         "signatureBicycleRackCount": 5,
         "programmedStreamRoomCount": len(stream_rooms),

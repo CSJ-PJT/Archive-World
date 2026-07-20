@@ -42,6 +42,7 @@ required = (
     '"sidePerOpeningEnvelope": True',
     "_add_stream_civic_rooms", "v34-stream-room-water-edge-seat",
     "v34-stream-room-pergola-slat", '"programmedStreamRoomCount": len(stream_rooms)',
+    '"lowerPromenadeMidDetailHumanCount": 12',
 )
 for token in required:
     assert token in source, token
