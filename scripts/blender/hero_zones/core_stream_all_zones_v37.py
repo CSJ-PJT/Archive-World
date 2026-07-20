@@ -189,6 +189,89 @@ def _build_metropolitan_node_precision(batch):
             "activityPlacement": "PROGRAMMED_BY_NODE"}
 
 
+def _build_metropolitan_street_rooms(batch):
+    """Replace leftover voids with connected, purpose-built urban rooms.
+
+    These are not scattered props.  Each room joins a stream frontage to an
+    upper street or service edge, carries a distinct program and preserves a
+    six-metre clear pedestrian spine.
+    """
+    records, people = [], []
+    rooms = (
+        (-96.0, "archive-arrival", "archive-warm-stone", "archive-metal"),
+        (-18.0, "civic-forecourt", "dry-stone", "archive-metal"),
+        (138.0, "ledger-lunch", "ledger-limestone", "ledger-bronze"),
+        (214.0, "transit-transfer", "promenade-paver", "archive-metal"),
+        (326.0, "east-gateway", "dry-stone", "archive-metal"),
+    )
+    for room_index, (cx, role, paving, accent) in enumerate(rooms):
+        for bank in (-1, 1):
+            cy = bank * 59.0
+            # A framed forecourt replaces the undifferentiated ground strip.
+            batch.add_box("v39-urban-room-paving", paving,
+                          (cx, cy, 2.38), (58.0, 27.0, .22))
+            batch.add_box("v39-urban-room-drain", "service-charcoal",
+                          (cx, cy - bank * 12.0, 2.51), (54.0, .18, .09))
+            # An inhabited covered walk makes the frontage/stream connection
+            # architectural rather than a row of detached street furniture.
+            arcade_y = cy + bank * 7.0
+            batch.add_box("v39-urban-room-arcade-roof", accent,
+                          (cx, arcade_y, 7.35), (51.0, 7.2, .36))
+            batch.add_box("v39-urban-room-arcade-soffit", "warm-light",
+                          (cx, arcade_y, 7.12), (47.0, 6.2, .08))
+            for column in range(7):
+                column_x = cx - 22.5 + column * 7.5
+                batch.add_cylinder("v39-urban-room-arcade-column", accent,
+                                   (column_x, arcade_y, 4.76), .17, 4.55, 16)
+            # Two planted seating courts establish shade and human-scale rooms
+            # while the central six metres remain unobstructed.
+            for side in (-1, 1):
+                court_x = cx + side * 17.0
+                batch.add_box("v39-urban-room-planter", "ledger-granite",
+                              (court_x, cy - bank * 2.8, 2.92), (9.0, 4.6, 1.02))
+                batch.add_box("v39-urban-room-soil", "soil-v11",
+                              (court_x, cy - bank * 2.8, 3.46), (8.3, 3.9, .16))
+                hero._add_architectural_tree(batch, court_x, cy - bank * 2.8,
+                                             10100 + room_index * 20 + side + (10 if bank > 0 else 0),
+                                             .68 + .04 * (room_index % 3), 3.52)
+                for seat in (-1, 1):
+                    batch.add_box("v39-urban-room-bench", "timber-accent",
+                                  (court_x + seat * 3.3, cy - bank * 5.4, 2.92),
+                                  (2.8, .72, .18))
+            # Programmed arrivals, lunch groups and transit waiting follow the
+            # room role instead of an even scatter pattern.
+            for person in range(10):
+                lane = -1 if person < 5 else 1
+                px = cx - 12.0 + (person % 5) * 6.0
+                py = cy + bank * (lane * 2.2)
+                pose = ("waiting" if "transit" in role else
+                        "conversation" if person % 3 else "walking")
+                people.append(hero._add_mid_detail_human(
+                    batch, px, py, .10 * lane,
+                    10300 + room_index * 40 + person + (20 if bank > 0 else 0),
+                    pose, 2.46))
+            # Service/arrival vehicles stay at the outer curb and never cross
+            # the promenade.  Wheel and glazing geometry keep them legible.
+            vehicle_y = cy + bank * 17.0
+            for vehicle in (-1, 1):
+                vx = cx + vehicle * 12.0
+                batch.add_box("v39-programmed-vehicle-body", "service-charcoal",
+                              (vx, vehicle_y, 3.36), (4.8, 1.9, 1.12))
+                batch.add_box("v39-programmed-vehicle-cabin", "frontage-glass",
+                              (vx + vehicle * .2, vehicle_y, 4.05), (2.5, 1.72, .72))
+                for wheel_x in (-1.45, 1.45):
+                    for wheel_y in (-.92, .92):
+                        batch.add_box("v39-programmed-vehicle-wheel", "service-charcoal",
+                                      (vx + wheel_x, vehicle_y + wheel_y, 2.96),
+                                      (.62, .18, .62))
+            records.append({"role": role, "bank": bank,
+                            "coveredWalk": True, "clearSpineM": 6.0,
+                            "programmedHumans": 10, "vehicles": 2})
+    return {"urbanRoomCount": len(records), "rooms": records,
+            "activityHumans": len(people), "vehicleCount": len(records) * 2,
+            "blankGroundReplaced": True, "scatterPlacement": False}
+
+
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
     parser = argparse.ArgumentParser()
@@ -214,7 +297,9 @@ def main():
     occupied_frontages = _build_mixed_corridor_frontages(batch)
     promenade_life = _build_promenance_life(batch)
     metropolitan_precision = _build_metropolitan_node_precision(batch)
-    life["humanCount"] += metropolitan_precision["activityHumans"]
+    street_rooms = _build_metropolitan_street_rooms(batch)
+    life["humanCount"] += (metropolitan_precision["activityHumans"]
+                           + street_rooms["activityHumans"])
     source_objects = batch.finalize()
     runtime_objects, consolidation = hero._consolidate_scene_objects_by_material(source_objects)
     validation = hero.v12.validate_geometry(runtime_objects)
@@ -224,13 +309,13 @@ def main():
     assert detached_windows == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
-    target = output / "core-stream-ledger-transit-v38.glb"
+    target = output / "core-stream-ledger-transit-v39.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB",
                               export_yup=True, export_normals=True,
                               export_texcoords=False, export_materials="EXPORT",
                               export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 38,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 39,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,
@@ -241,6 +326,7 @@ def main():
         "corridor": corridor, "ledger": ledger, "transit": transit,
         "life": life, "promenadeLife": promenade_life,
         "metropolitanPrecision": metropolitan_precision,
+        "metropolitanStreetRooms": street_rooms,
         "occupiedCorridorFrontages": occupied_frontages,
         "imageDatablocks": len(bpy.data.images),
         "detachedWindowCount": detached_windows,
@@ -248,7 +334,7 @@ def main():
         "canonical": False, "v3Applied": False, "directReferenceCopy": False,
         "qualityTarget": {"grade": "S", "minimumScore": 95},
     }
-    (output / "core-stream-ledger-transit-v38-report.json").write_text(
+    (output / "core-stream-ledger-transit-v39-report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "buildings": len(buildings),

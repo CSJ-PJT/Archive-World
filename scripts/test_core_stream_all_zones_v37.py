@@ -12,7 +12,10 @@ required = (
     "_build_metropolitan_node_precision", "v38-ledger-formal-terrace",
     "v38-transit-transfer-plaza", "v38-node-bridge-portal-column",
     '"activityPlacement": "PROGRAMMED_BY_NODE"',
-    "core-stream-ledger-transit-v38.glb", '"officeV5Changed": False',
+    "_build_metropolitan_street_rooms", "v39-urban-room-paving",
+    "v39-urban-room-arcade-roof", "v39-programmed-vehicle-body",
+    '"scatterPlacement": False',
+    "core-stream-ledger-transit-v39.glb", '"officeV5Changed": False',
     '"detachedWindowCount": detached_windows',
 )
 missing = [token for token in required if token not in text]
@@ -20,4 +23,4 @@ assert not missing, missing
 for forbidden in ("bpy.data.images.load", "bpy.data.images.save", "Image Texture",
                   "architecture_factory_v3"):
     assert forbidden not in text, forbidden
-print("core stream all-zone v38 metropolitan node contract: PASS")
+print("core stream all-zone v39 metropolitan street-room contract: PASS")
