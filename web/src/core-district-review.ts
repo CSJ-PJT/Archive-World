@@ -64,7 +64,7 @@ const cameras:CameraPreset[]=[
  {name:'hero-s-street-axis',position:[-340,3.95,-15],target:[-218,3.2,1]},
  {name:'hero-s-frontage',position:[-300,3.95,-18],target:[-325,4.2,-60]},
  // The lower promenade is +0.14m; this is a true 1.71m eye height.
- {name:'hero-s-water-plaza',position:[-340,1.85,10],target:[-230,1.1,0]},
+ {name:'hero-s-water-plaza',position:[-330,3.95,-8],target:[-245,2.1,0]},
  // V32 relocates camera-corridor trees for an unobstructed gateway view.
  {name:'hero-s-gateway',position:[-210,3.95,22],target:[-250,3.35,0]},
 ];
