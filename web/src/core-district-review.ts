@@ -62,7 +62,7 @@ const cameras:CameraPreset[]=[
  {name:'hero-archive-aerial',position:[-250,160,180],target:[-250,18,0]},
  // The upper civic terrace is at +2.30m; 3.95m is a true 1.65m eye height.
  {name:'hero-s-street-axis',position:[-340,3.95,-15],target:[-218,3.2,1]},
- {name:'hero-s-frontage',position:[-292,1.85,9],target:[-325,4.2,-60]},
+ {name:'hero-s-frontage',position:[-300,3.95,-18],target:[-325,4.2,-60]},
  // The lower promenade is +0.14m; this is a true 1.71m eye height.
  {name:'hero-s-water-plaza',position:[-340,1.85,10],target:[-230,1.1,0]},
  // V32 relocates camera-corridor trees for an unobstructed gateway view.

@@ -37,13 +37,13 @@ ORIGINAL_NATURAL_TREE = v30.add_natural_tree
 
 
 def _near_camera(x, y, radius):
-    camera_origins = ((-340, -15), (-292, 9), (-340, 10), (-210, 22))
+    camera_origins = ((-340, -15), (-300, -18), (-340, 10), (-210, 22))
     return any(math.hypot(x - cx, y - cy) < radius for cx, cy in camera_origins)
 
 
 def _occludes_camera(x, y, length=30.0, width=4.0):
     rays = (
-        ((-340, -15), (-218, 1)), ((-292, 9), (-325, -60)),
+        ((-340, -15), (-218, 1)), ((-300, -18), (-325, -60)),
         ((-340, 10), (-230, 0)), ((-210, 22), (-250, 0)),
     )
     for (cx, cy), (tx, ty) in rays:
@@ -107,8 +107,8 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
     batch.add_box("v34-facade-room-back", "warm-interior",
                   (x, face_y + inside * room_depth, base_z + height * .5),
                   (width, .18, height))
-    batch.add_box("v34-integrated-glass-field", "blue-gray-glass",
-                  (x, glass_y, base_z + height * .5), (width - .22, .12, height - .20))
+    # Never hang one facade-sized glass card in front of a tower mass.  Each
+    # lite below is a discrete infill inside a four-sided structural opening.
     # Floor plates and occupation backs sit behind the glass.  They provide a
     # real spatial cavity, so the facade reads as a building envelope rather
     # than a glass card attached to a solid box.
@@ -121,6 +121,33 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
             batch.add_box("v34-occupied-room-back", "warm-interior",
                           (zone_x, face_y + inside * 1.12, pz + floor_h * .53),
                           (width * .20, .12, floor_h * .62))
+        for bay in range(bay_count):
+            px = x - width * .5 + (bay + .5) * bay_width
+            opening_h = floor_h - (.62 if floor % 4 else .78)
+            opening_z = base_z + floor * floor_h + floor_h * .5
+            blind = (bay + floor * 2 + style) % 11 == 0
+            glass_material = "occupied-window-glass" if (bay + floor + style) % 4 == 0 else "blue-gray-glass"
+            if blind:
+                batch.add_box("v34-integrated-blind-infill", stone,
+                              (px, glass_y, opening_z),
+                              (bay_width - .34, .18, opening_h))
+            else:
+                batch.add_box("v34-integrated-window-infill", glass_material,
+                              (px, glass_y, opening_z),
+                              (bay_width - .34, .12, opening_h))
+                for side in (-1, 1):
+                    batch.add_box("v34-window-jamb-return", accent,
+                                  (px + side * (bay_width * .5 - .14),
+                                   face_y + inside * .31, opening_z),
+                                  (.16, .66, opening_h + .14))
+                batch.add_box("v34-window-head-return", accent,
+                              (px, face_y + inside * .31,
+                               opening_z + opening_h * .5),
+                              (bay_width - .18, .66, .16))
+                batch.add_box("v34-window-sill-return", accent,
+                              (px, face_y + inside * .31,
+                               opening_z - opening_h * .5),
+                              (bay_width - .18, .66, .16))
     for column in range(bay_count + 1):
         px = x - width * .5 + column * bay_width
         pier_w = .28 if column not in (0, bay_count) else .48
@@ -164,7 +191,8 @@ def _bounded_curtain_wall(batch, *, x, face_y, facing, width, base_z,
                       (room_x, face_y + inside * (recess * .5), room_z - room_h * .5),
                       (room_w, recess, .24))
     ENVELOPE.append({"style": style, "bayCount": bay_count, "glassRecessM": .34,
-                     "detachedWindows": 0, "bounded": True})
+                     "detachedWindows": 0, "bounded": True,
+                     "perOpeningInfill": True, "fourSidedReturns": True})
 
 
 def _inhabited_podium(batch, spec, podium_h, stone, accent):
@@ -384,6 +412,40 @@ def _add_architectural_tree(batch, x, y, seed, scale=1.0, z_base=0.0):
                                     1.18 * scale, 22, 11, (1.28, .90, .72))
 
 
+def _add_signature_activity_layer():
+    """Camera-composed civic activity anchored to real frontage and furniture."""
+    batch = v12.HeroBatch(v12.create_materials())
+    records = []
+    groups = (
+        (-334, -43.5, .30, "walking"), (-329, -44.5, .20, "conversation"),
+        (-326, -42.7, -.25, "conversation"), (-318, -45.5, .35, "walking"),
+        (-313, -43.8, -.15, "conversation"), (-309, -45.1, .25, "conversation"),
+        (-267, -43.5, .15, "walking"), (-262, -45.0, -.20, "conversation"),
+        (-257, -43.8, .25, "conversation"), (-252, -46.0, .05, "walking"),
+    )
+    for index, (x, y, facing, action) in enumerate(groups):
+        records.append(ORIGINAL_ADD_HUMAN(batch, x, y, facing, 1480 + index,
+                                          action, z_base=2.30))
+    # Bicycle parking and a low planter edge clarify the public lobby program.
+    for rack in range(5):
+        x = -347.0 + rack * 1.25
+        batch.add_cylinder("v34-signature-bicycle-wheel", "service-charcoal",
+                           (x, -43.0, 2.72), .42, .08, 20)
+        batch.add_cylinder("v34-signature-bicycle-rack", "archive-metal",
+                           (x, -43.0, 2.92), .055, 1.24, 10)
+    batch.add_box("v34-signature-activity-planter", "archive-warm-stone",
+                  (-286, -44.8, 2.92), (12.0, 2.6, 1.18))
+    batch.add_box("v34-signature-activity-soil", "soil-v11",
+                  (-286, -44.8, 3.55), (11.5, 2.1, .10))
+    for shrub in range(9):
+        batch.add_uv_sphere("v34-signature-activity-shrub",
+                            ("foliage-deep", "foliage-mid", "foliage-light")[shrub % 3],
+                            (-291 + shrub * 1.25, -44.8, 4.03 + (shrub % 2) * .10),
+                            .58 + (shrub % 3) * .08, 18, 9, (1.15, .75, .68))
+    v12.consolidate(batch)
+    return batch.finalize(), records
+
+
 def add_wall_first_building(batch, spec):
     x, y, width, depth, floors, floor_h, style = spec
     north = y > 0
@@ -464,11 +526,12 @@ def main():
     try:
         base_objects, base_geometry, base_validation, consolidation, trees, base_activity = v12.build_zone()
         public_objects, public_geometry, public_activity = v29.add_inhabited_promenade()
+        activity_objects, signature_activity = _add_signature_activity_layer()
     finally:
         v12.add_building, v12.add_tree, v12.add_human = original_building, original_tree, original_human
         v12.HeroBatch.add_uv_sphere = original_sphere
 
-    objects = base_objects + public_objects
+    objects = base_objects + public_objects + activity_objects
     precision_edges = v28.apply_precision_edges(objects)
     smooth_tokens = ("tree", "foliage", "shrub", "human-head", "human-hair")
     smooth_object_count = 0
@@ -491,7 +554,7 @@ def main():
     report = {
         "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 34,
         "zone": "Archive Water Plaza", "qualityTarget": {"grade": "S", "minimumScore": 95},
-        "implementationPath": "WALL_FIRST_BOUNDED_CURTAIN_WALL_AND_INHABITED_PODIUM",
+        "implementationPath": "WALL_FIRST_PER_OPENING_INFILL_AND_INHABITED_PODIUM",
         "failedBaselines": ["v32-chaotic-facade", "v33-flat-frontage"],
         "glb": str(target), "bytes": target.stat().st_size,
         "geometry": {"triangles": triangles, "meshObjects": len(objects),
@@ -507,9 +570,12 @@ def main():
         "signatureCafeTerraceCount": 2,
         "nearFieldTreeSilhouetteCount": 3,
         "detachedWindowCount": 0, "stackedDecorativeGridCount": 0,
+        "singleFacadeGlassCardCount": 0,
         "envelope": ENVELOPE, "validation": validation,
         "baseValidation": base_validation, "consolidation": consolidation,
-        "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity),
+        "treeCount": len(trees), "humanCount": len(base_activity) + len(public_activity) + len(signature_activity),
+        "signatureActivityHumanCount": len(signature_activity),
+        "signatureBicycleRackCount": 5,
         "smoothOrganicObjectCount": smooth_object_count,
         "precisionEdgeObjectCount": len(precision_edges), "imageDatablocks": len(bpy.data.images),
         "officeV5Changed": False, "directReferenceCopy": False,
