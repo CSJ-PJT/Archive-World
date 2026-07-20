@@ -171,14 +171,14 @@ def _build_ledger_terrace(batch):
                               (.46, .54, .68))
     # Low-profile formal bridge with inhabited landing and rail lights.
     batch.add_box("v36-ledger-bridge-deck", "ledger-limestone",
-                  (60.0, 0.0, 2.62), (18.0, 36.0, .68))
+                  (60.0, 0.0, 2.62), (10.0, 36.0, .58))
     for edge in (-1, 1):
         batch.add_box("v36-ledger-bridge-edge", "ledger-bronze",
-                      (60.0 + edge * 8.75, 0.0, 3.12), (.22, 35.0, .44))
+                      (60.0 + edge * 4.75, 0.0, 3.07), (.22, 35.0, .38))
         batch.add_box("v36-ledger-bridge-handrail", "ledger-bronze",
-                      (60.0 + edge * 8.75, 0.0, 4.10), (.10, 34.0, .10))
+                      (60.0 + edge * 4.75, 0.0, 4.02), (.10, 34.0, .10))
         batch.add_box("v36-ledger-bridge-rail-light", "warm-light",
-                      (60.0 + edge * 8.68, 0.0, 3.98), (.055, 32.0, .07))
+                      (60.0 + edge * 4.68, 0.0, 3.90), (.055, 32.0, .07))
     return {"node": "ledger-stream-terrace", "deepFrontages": records,
             "bridgeCount": 1, "activeFrontage": .78}
 
@@ -212,15 +212,15 @@ def _build_transit_junction(batch):
                       (entry_x, -37.0, 8.70), (20.0, 5.8, .08))
     # Wide covered connector across the stream, with separate walking lanes.
     batch.add_box("v36-transit-bridge-deck", "dry-stone",
-                  (260.0, 0.0, 2.68), (26.0, 38.0, .78))
+                  (260.0, 0.0, 2.68), (18.0, 38.0, .68))
     batch.add_box("v36-transit-bridge-canopy", "archive-metal",
-                  (260.0, 0.0, 7.20), (22.0, 31.0, .34))
+                  (260.0, 0.0, 7.20), (14.0, 31.0, .34))
     for side in (-1, 1):
         for y in (-13.0, -4.3, 4.3, 13.0):
             batch.add_cylinder("v36-transit-bridge-column", "archive-metal",
-                               (260.0 + side * 10.2, y, 4.90), .18, 4.5, 14)
+                               (260.0 + side * 6.2, y, 4.90), .18, 4.5, 14)
         batch.add_box("v36-transit-bridge-handrail", "archive-metal",
-                      (260.0 + side * 12.4, 0.0, 4.05), (.10, 36.0, .10))
+                      (260.0 + side * 8.4, 0.0, 4.05), (.10, 36.0, .10))
     return {"node": "transit-stream-junction", "deepFrontages": records,
             "stationEntrances": 2, "coveredBridge": True,
             "activeFrontage": .79}

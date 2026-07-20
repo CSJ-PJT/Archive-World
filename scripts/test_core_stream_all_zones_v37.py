@@ -16,12 +16,19 @@ required = (
     "v39-urban-room-arcade-roof", "v39-programmed-vehicle-body",
     "v40-street-room-glass", "v40-street-room-interior-light",
     '"scatterPlacement": False',
-    "core-stream-ledger-transit-v40.glb", '"officeV5Changed": False',
+    "core-stream-ledger-transit-v45.glb", '"officeV5Changed": False',
+    "_build_attached_identity_frames", "v41-attached-metropolitan-vertical-frame",
+    "v41-attached-ground-portal-pier", "attachedIdentityFrames",
+    "_build_cinematic_activity_nodes", "Broad parasols were repeatedly caught",
+    "cinematicActivityNodes", '"scatterPlacement": False',
+    '"duplicateBridgeDecks": 0', "portal layer now adds no deck",
     '"detachedWindowCount": detached_windows',
+    "_build_stream_edge_activity_rooms", "v45-stream-room-inset-paving",
+    "v45-stream-room-planter", "streamEdgeActivityRooms",
 )
 missing = [token for token in required if token not in text]
 assert not missing, missing
 for forbidden in ("bpy.data.images.load", "bpy.data.images.save", "Image Texture",
                   "architecture_factory_v3"):
     assert forbidden not in text, forbidden
-print("core stream all-zone v40 occupied street-room contract: PASS")
+print("core stream all-zone v45 inhabited stream-edge contract: PASS")

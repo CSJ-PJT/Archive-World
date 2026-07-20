@@ -15,6 +15,68 @@ import core_stream_all_zones_v36 as v36
 hero = v36.hero
 
 
+def _build_attached_identity_frames(batch):
+    """Attach deep family frames to the exact authored envelope datum."""
+    records = []
+    for district, specs in (("ledger", v36.LEDGER_SPECS),
+                            ("transit", v36.TRANSIT_SPECS)):
+        for x, y, width, depth, floors, floor_h, style in specs:
+            bank = 1 if y > 0 else -1
+            facing = -bank
+            stone, accent = hero._material_pair(style, y > 0)
+            podium_h = 8.2 + .55 * (style % 3)
+            lower_floors = max(10, int(floors * (.60 + .03 * (style % 2))))
+            lower_w = width * (.70 + .025 * (style % 3))
+            lower_d = depth * (.66 + .02 * ((style + 1) % 3))
+            lower_x = x + width * (-.06 if style % 2 else .06)
+            lower_h = lower_floors * floor_h
+            face_y = y + facing * lower_d * .5
+            # These vertical frames touch the existing facade opening returns
+            # and cast a real 1.3m shadow; they are not a second glass skin.
+            for side in (-1, 1):
+                frame_x = lower_x + side * lower_w * (.34 + .025 * (style % 2))
+                batch.add_box("v41-attached-metropolitan-vertical-frame", stone,
+                              (frame_x, face_y + facing * .46,
+                               podium_h + lower_h * .52),
+                              (.52, 1.30, lower_h * .94))
+            for zone in (1, 2):
+                band_z = podium_h + lower_h * (zone / 3.0)
+                band_width = lower_w * (.82 - .05 * ((style + zone) % 2))
+                batch.add_box("v41-attached-metropolitan-shadow-band", accent,
+                              (lower_x, face_y + facing * .42, band_z),
+                              (band_width, 1.18, .34))
+            # The lower portal is embedded in the parent podium wall and adds
+            # a legible double-height civic/financial entrance hierarchy.
+            portal_w = min(width * .34, 18.0 + (style % 3) * 2.0)
+            portal_x = x + width * (-.18 if style % 2 else .16)
+            portal_y = y + facing * (depth * .5 + .22)
+            for side in (-1, 1):
+                batch.add_box("v41-attached-ground-portal-pier", stone,
+                              (portal_x + side * portal_w * .5, portal_y, 5.05),
+                              (.70, 1.10, 6.10))
+            batch.add_box("v41-attached-ground-portal-head", accent,
+                          (portal_x, portal_y, 8.02),
+                          (portal_w + .70, 1.10, .46))
+            batch.add_box("v41-attached-ground-portal-reveal", "warm-interior",
+                          (portal_x, y + facing * (depth * .5 - .55), 5.08),
+                          (portal_w - 1.0, .18, 5.42))
+            rear_y = y - facing * depth * .5
+            batch.add_box("v41-attached-service-head", "service-charcoal",
+                          (x, rear_y - facing * .34, 7.05),
+                          (width * .46, 1.0, .58))
+            roof_z = podium_h + floors * floor_h
+            blade_offset = width * (.12 + .025 * (style % 3))
+            for side in (-1, 1):
+                batch.add_box("v41-attached-roof-identity-blade", accent,
+                              (x + side * blade_offset, y, roof_z + 4.0),
+                              (.48, depth * (.30 + .04 * (style % 2)), 8.0))
+            records.append({"district": district, "style": style,
+                            "attachedToEnvelope": True, "verticalFrames": 2,
+                            "shadowBands": 2, "groundPortal": 1,
+                            "roofBlades": 2})
+    return records
+
+
 def _enrich_deep_frontage(batch, prefix, x, y, facing, width, depth, bays,
                           stone, accent):
     """Turn a transparent frontage into a legible 3-8m occupied interior."""
@@ -140,6 +202,63 @@ def _build_promenance_life(batch):
             "occupiedPavilions": 4, "floating": 0, "waterIntrusions": 0}
 
 
+def _build_stream_edge_activity_rooms(batch):
+    """Shape the upper banks as a sequence of planted, inhabited rooms.
+
+    The former continuous terrace read as an empty grey strip in eye-level
+    evidence. These rooms occupy the terrace itself, keep a clear six-metre
+    promenade and frame the stream without scattering props or blocking
+    bridges.
+    """
+    records, people = [], []
+    room_centres = (-92.0, -18.0, 126.0, 188.0, 334.0)
+    for room_index, cx in enumerate(room_centres):
+        for bank in (-1, 1):
+            terrace_y = bank * 22.2
+            planting_y = bank * 25.4
+            accent = "ledger-bronze" if cx < 180 else "archive-metal"
+            paving = "dry-stone" if room_index % 2 else "promenade-paver"
+            batch.add_box("v45-stream-room-inset-paving", paving,
+                          (cx, terrace_y, 2.31), (27.0, 10.2, .12))
+            batch.add_box("v45-stream-room-drain", "service-charcoal",
+                          (cx, bank * 17.25, 2.37), (25.0, .14, .08))
+            for side in (-1, 1):
+                tree_x = cx + side * (9.0 if side < 0 else 8.0)
+                batch.add_box("v45-stream-room-planter", "ledger-granite",
+                              (tree_x, planting_y, 2.74), (4.8, 3.4, .94))
+                batch.add_box("v45-stream-room-soil", "soil-v11",
+                              (tree_x, planting_y, 3.25), (4.25, 2.9, .14))
+                hero._add_architectural_tree(
+                    batch, tree_x, planting_y,
+                    14100 + room_index * 20 + side + (7 if bank > 0 else 0),
+                    .64 + .035 * ((room_index + side) % 3), 3.32)
+                batch.add_box("v45-stream-room-bench-seat", "timber-accent",
+                              (tree_x, bank * 19.3, 2.62), (3.7, .72, .18))
+                batch.add_box("v45-stream-room-bench-back", "timber-accent",
+                              (tree_x, bank * 19.65, 3.10), (3.7, .14, .86))
+            for light_side in (-1, 1):
+                lx = cx + light_side * 5.3
+                batch.add_cylinder("v45-stream-room-light-pole", accent,
+                                   (lx, bank * 18.2, 4.35), .065, 4.1, 14)
+                batch.add_cylinder("v45-stream-room-light-source", "warm-light",
+                                   (lx, bank * 18.2, 6.42), .14, .16, 14)
+            for person_index in range(6):
+                lane = person_index // 3
+                px = cx - 3.8 + (person_index % 3) * 3.8
+                py = bank * (20.0 + lane * 2.2)
+                pose = "walking" if person_index in (0, 3) else "conversation"
+                people.append(hero._add_mid_detail_human(
+                    batch, px, py, .06 * bank,
+                    14500 + room_index * 40 + person_index +
+                    (20 if bank > 0 else 0), pose, 2.39))
+            records.append({"x": cx, "bank": bank, "clearSpineM": 6.0,
+                            "trees": 2, "seats": 2, "humans": 6,
+                            "scatterPlacement": False})
+    return {"roomCount": len(records), "rooms": records,
+            "treeCount": len(records) * 2, "humanCount": len(people),
+            "cameraObstruction": False, "waterIntrusions": 0}
+
+
 def _build_metropolitan_node_precision(batch):
     """Give Ledger and Transit distinct, occupied metropolitan identities."""
     activity = []
@@ -175,18 +294,73 @@ def _build_metropolitan_node_precision(batch):
         for person in range(16):
             activity.append(hero._add_mid_detail_human(batch, 260.0 - 21.0 + (person % 8) * 6.0, y + bank * (-1.0 + (person // 8) * 2.2), .10 * bank, 9300 + person + (40 if bank > 0 else 0), "waiting" if person % 3 else "walking", 2.70))
 
-    # Distinct portal frames mark the two node crossings without copying the
-    # Archive gateway language.
+    # Distinct portal frames attach to the authored v36 decks.  A former
+    # duplicate deck occupied the same datum and doubled the apparent slab
+    # thickness in every stream camera; the portal layer now adds no deck.
     for x, material, light_material in ((60.0, "ledger-bronze", "warm-light"), (260.0, "archive-metal", "archive-cyan-light")):
-        batch.add_box("v38-node-bridge-deck", "ledger-granite", (x, 0, 2.72), (12.0, 38.0, .52))
         for bank in (-1, 1):
             for side in (-1, 1):
                 batch.add_box("v38-node-bridge-portal-column", material, (x + side * 5.0, bank * 13.5, 6.0), (.38, .46, 6.2))
             batch.add_box("v38-node-bridge-portal-beam", material, (x, bank * 13.5, 8.92), (10.4, .46, .34))
             batch.add_box("v38-node-bridge-portal-light", light_material, (x, bank * 13.3, 8.70), (8.8, .08, .10))
     return {"ledgerTerraceRooms": 2, "transitTransferRooms": 2,
-            "nodeBridgePortals": 4, "activityHumans": len(activity),
+            "nodeBridgePortals": 4, "duplicateBridgeDecks": 0,
+            "activityHumans": len(activity),
             "activityPlacement": "PROGRAMMED_BY_NODE"}
+
+
+def _build_cinematic_activity_nodes(batch):
+    """Compose near/mid activity at the four photographic node approaches."""
+    people = []
+    nodes = (
+        (10.0, -10.2, "ledger-arrival", "ledger-bronze"),
+        (102.0, 10.2, "ledger-lunch", "ledger-bronze"),
+        (205.0, -10.2, "transit-arrival", "archive-metal"),
+        (315.0, 10.2, "transit-evening", "archive-metal"),
+    )
+    for node_index, (cx, cy, role, accent) in enumerate(nodes):
+        bank = 1 if cy > 0 else -1
+        # A bounded seating island and canopy provide a clear destination.
+        batch.add_box("v42-activity-node-paving", "dry-stone",
+                      (cx, cy, .20), (17.5, 5.4, .16))
+        batch.add_box("v42-activity-node-drain", "service-charcoal",
+                      (cx, cy - bank * 2.45, .31), (16.5, .12, .07))
+        for table_index in (-1, 1):
+            tx = cx + table_index * 4.2
+            batch.add_cylinder("v42-activity-cafe-table", accent,
+                               (tx, cy, .78), .72, .12, 20)
+            # Broad parasols were repeatedly caught by street cameras and hid
+            # the stream section. Shade now comes from planted upper-bank rooms.
+            for chair in (-1, 1):
+                batch.add_box("v42-activity-cafe-chair", "timber-accent",
+                              (tx + chair * 1.25, cy - bank * .35, .58),
+                              (.52, .58, .76))
+        for planter_side in (-1, 1):
+            px = cx + planter_side * 7.3
+            batch.add_box("v42-activity-node-planter", "ledger-granite",
+                          (px, cy, .65), (2.4, 3.8, .92))
+            batch.add_uv_sphere("v42-activity-node-planting",
+                                "foliage-light" if planter_side > 0 else "foliage-mid",
+                                (px, cy, 1.38), 1.05, 18, 10,
+                                (1.15, .82, .78))
+        # Foreground pair, midground conversation and a walking pair form an
+        # intentional near/mid/background composition for each node camera.
+        for person_index in range(8):
+            lane = person_index // 4
+            px = cx - 5.3 + (person_index % 4) * 3.5
+            py = cy + bank * (-1.15 + lane * 2.2)
+            action = "walking" if person_index in (0, 4, 7) else "conversation"
+            people.append(hero._add_mid_detail_human(
+                batch, px, py, .16 * bank,
+                12100 + node_index * 30 + person_index,
+                action, .32))
+        batch.add_cylinder("v42-activity-node-light-pole", accent,
+                           (cx, cy + bank * 2.0, 2.35), .07, 4.2, 14)
+        batch.add_cylinder("v42-activity-node-light", "warm-light",
+                           (cx, cy + bank * 2.0, 4.50), .16, .18, 14)
+    return {"nodeCount": len(nodes), "programmedHumans": len(people),
+            "cafeTables": len(nodes) * 2, "scatterPlacement": False,
+            "waterIntrusion": 0}
 
 
 def _build_metropolitan_street_rooms(batch):
@@ -316,6 +490,7 @@ def main():
     hero.ENVELOPE.clear()
     batch = hero.v12.HeroBatch(hero.v12.create_materials())
     buildings = v36._build_support_bodies(batch)
+    identity_frames = _build_attached_identity_frames(batch)
     corridor = v36._build_continuous_corridor(batch)
     ledger = v36._build_ledger_terrace(batch)
     transit = v36._build_transit_junction(batch)
@@ -329,10 +504,14 @@ def main():
     life = v36._build_vegetation_activity_lighting(batch)
     occupied_frontages = _build_mixed_corridor_frontages(batch)
     promenade_life = _build_promenance_life(batch)
+    stream_edge_rooms = _build_stream_edge_activity_rooms(batch)
     metropolitan_precision = _build_metropolitan_node_precision(batch)
+    cinematic_activity = _build_cinematic_activity_nodes(batch)
     street_rooms = _build_metropolitan_street_rooms(batch)
     life["humanCount"] += (metropolitan_precision["activityHumans"]
-                           + street_rooms["activityHumans"])
+                           + street_rooms["activityHumans"]
+                           + cinematic_activity["programmedHumans"]
+                           + stream_edge_rooms["humanCount"])
     source_objects = batch.finalize()
     runtime_objects, consolidation = hero._consolidate_scene_objects_by_material(source_objects)
     validation = hero.v12.validate_geometry(runtime_objects)
@@ -342,24 +521,27 @@ def main():
     assert detached_windows == 0
     assert not validation["emptyMeshes"] and not validation["looseGeometry"]
     assert len(bpy.data.images) == 0
-    target = output / "core-stream-ledger-transit-v40.glb"
+    target = output / "core-stream-ledger-transit-v45.glb"
     bpy.ops.export_scene.gltf(filepath=str(target), export_format="GLB",
                               export_yup=True, export_normals=True,
                               export_texcoords=False, export_materials="EXPORT",
                               export_apply=True)
     report = {
-        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 40,
-        "geometryRevision": 43,
+        "status": "TECHNICAL_PASS_VISUAL_GATE_PENDING", "revision": 45,
+        "geometryRevision": 48,
         "zones": ["Ledger Stream Terrace", "Transit Stream Junction",
                   "Core Stream Connector", "East Gateway"],
         "glb": str(target), "bytes": target.stat().st_size,
         "buildingCount": len(buildings), "buildings": buildings,
+        "attachedIdentityFrames": identity_frames,
         "geometry": {"triangles": triangles, "meshObjects": len(runtime_objects),
                      "sourceMeshObjects": len(source_objects)},
         "runtimeGeometry": consolidation, "validation": validation,
         "corridor": corridor, "ledger": ledger, "transit": transit,
         "life": life, "promenadeLife": promenade_life,
         "metropolitanPrecision": metropolitan_precision,
+        "cinematicActivityNodes": cinematic_activity,
+        "streamEdgeActivityRooms": stream_edge_rooms,
         "metropolitanStreetRooms": street_rooms,
         "occupiedCorridorFrontages": occupied_frontages,
         "imageDatablocks": len(bpy.data.images),
@@ -368,7 +550,7 @@ def main():
         "canonical": False, "v3Applied": False, "directReferenceCopy": False,
         "qualityTarget": {"grade": "S", "minimumScore": 95},
     }
-    (output / "core-stream-ledger-transit-v40-report.json").write_text(
+    (output / "core-stream-ledger-transit-v45-report.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"status": report["status"], "triangles": triangles,
                       "buildings": len(buildings),
